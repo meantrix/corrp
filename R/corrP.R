@@ -37,7 +37,7 @@
 #'    than p.value, by default the correlation between variables will be zero.
 #'
 #'    \item If any errors occur during operations by default the correlation will be zero.
-#'
+#'    }
 #'
 #'   For a comprehensive implementation, use `polycor::hetcor`
 #'
@@ -52,17 +52,19 @@
 #' @keywords GNU AGPLv3 (http://choosealicense.com/licenses/agpl-3.0/)
 #'
 #' @examples
-#' iris_cor <- corrP(iris)
-#' corrplot::corrplot(iris_cor)
-#' corrgram::corrgram(iris_cor)
+#' HairEyeColor_cor <- corrP(HairEyeColor)
+#' corrplot::corrplot(HairEyeColor_cor)
+#' corrgram::corrgram(HairEyeColor_cor)
 #'
-corrP = function(df,parallel=TRUE,n.cores=1,p.value=0.05,verbose=TRUE){
+corrP = function(df,parallel=TRUE,n.cores=1,p.value=0.05){
 
   stopifnot(inherits(df, "data.frame"))
   stopifnot(sapply(df, class) %in% c("integer"
                                      , "numeric"
                                      , "factor"
                                      , "character"))
+  stopifnot(inherits(p.value, "numeric"))
+
   ##############################################################################
   #auxiliar functions
   lmP=function(y,x,p.value=0.05){
@@ -76,11 +78,11 @@ corrP = function(df,parallel=TRUE,n.cores=1,p.value=0.05,verbose=TRUE){
     if(pv<p.value) {
       r<-sqrt(sum.res[["r.squared"]])
       cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
-                "p-value: ",pv))
+                "p-value: ",pv,"\n"))
     } else {
       r<-0
       cat(paste("there is no correlation at the confidence level  p-value<",p.value,"\n",
-                "p-value: ",pv))
+                "p-value: ",pv,"\n"))
     }
 
     return(r)
@@ -93,11 +95,11 @@ corrP = function(df,parallel=TRUE,n.cores=1,p.value=0.05,verbose=TRUE){
     if(pv<p.value) {
       r<-lsr::cramersV(y,x, simulate.p.value=simulate.p.value)
       cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
-                "p-value: ",pv))
+                "p-value: ",pv,"\n"))
     } else {
       r<-0
       cat(paste("there is no correlation at the confidence level  p-value<",p.value,"\n",
-                "p-value: ",pv))
+                "p-value: ",pv,"\n"))
     }
 
     return(r)
@@ -112,11 +114,11 @@ corrP = function(df,parallel=TRUE,n.cores=1,p.value=0.05,verbose=TRUE){
     if(pv<p.value) {
       r<-res[["estimate"]]
       cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
-                "p-value: ",pv))
+                "p-value: ",pv,"\n"))
     } else {
       r<-0
       cat(paste("there is no correlation at the confidence level  p-value<",p.value,"\n",
-                "p-value: ",pv))
+                "p-value: ",pv,"\n"))
     }
 
     return(r)
