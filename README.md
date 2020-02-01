@@ -5,7 +5,7 @@ The character column is considered as categorical variable. This Package is base
 
 # Details
 
-@details The correlation is computed as follows: \itemize{
+The correlation is computed as follows:
 
 * integer/numeric pair: pearson correlation using `cor` function. The valuelies between -1 and 1.
 
