@@ -90,7 +90,7 @@ corrP = function(df,parallel=TRUE,n.cores=1,p.value=0.05){
   }
 
   cramersVP=function(y,x,p.value,simulate.p.value = TRUE){
-    pv<-chisq.test(y,x,simulate.p.value=simulate.p.value)$p.value
+    pv<-stats::chisq.test(y,x,simulate.p.value=simulate.p.value)$p.value
 
     if(pv<p.value) {
       r<-lsr::cramersV(y,x, simulate.p.value=simulate.p.value)
