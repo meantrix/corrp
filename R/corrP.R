@@ -67,13 +67,13 @@ corrP = function(df,parallel=TRUE,n.cores=1,p.value=0.05){
 
   ##############################################################################
   #auxiliar functions
-  lmP=function(y,x,p.value=0.05){
+  lmP=function(y,x,p.value){
 
     sum.res<-summary(
           stats::lm(y ~ as.factor(x))
           )
     pv<- stats::pf (sum.res$fstatistic[1],sum.res$fstatistic[2],
-                    sum.res$fstatistic[3],,lower.tail=F)
+                    sum.res$fstatistic[3],lower.tail=F)
 
     if(pv<p.value) {
       r<-sqrt(sum.res[["r.squared"]])
@@ -206,6 +206,7 @@ cor_fun <- Vectorize(cor_fun, vectorize.args=c("pos_1", "pos_2"))
   }
   rownames(corrmat) <- colnames(df)
   colnames(corrmat) <- colnames(df)
-
+  #attribute class
+  attr(corrmat, 'class') <- c('corrP','matrix')
   return(corrmat)
 }

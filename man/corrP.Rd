@@ -4,7 +4,7 @@
 \alias{corrP}
 \title{corrP}
 \usage{
-corrP(df, parallel = TRUE, n.cores = 1, p.value = 0.05, verbose = TRUE)
+corrP(df, parallel = TRUE, n.cores = 1, p.value = 0.05)
 }
 \arguments{
 \item{df}{input data frame}
@@ -24,7 +24,28 @@ with parallel backend.
   categorical variable. This Package is based on Srikanth KS (talegari) cor2 function.
 }
 \details{
+The correlation is computed as follows: \itemize{
 
+  \item integer/numeric pair: pearson correlation using `cor` function. The
+  valuelies between -1 and 1.
+
+  \item integer/numeric - factor/categorical pair: correlation coefficient or
+  squared root of R^2 coefficient of linear regression of integer/numeric
+  variable over factor/categorical variable using `lm` function. The value
+  lies between 0 and 1.
+
+  \item factor/categorical pair: cramersV value is
+  computed based on chisq test using `lsr::cramersV` function. The value lies
+  between 0 and 1.
+
+   \item All statistical tests are controlled by the confidence internal of
+   p.value param. If the statistical tests do not obtain a significance lower
+   than p.value, by default the correlation between variables will be zero.
+
+   \item If any errors occur during operations by default the correlation will be zero.
+   }
+
+  For a comprehensive implementation, use `polycor::hetcor`
 }
 \examples{
 HairEyeColor_cor <- corrP(HairEyeColor)
