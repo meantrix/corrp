@@ -27,9 +27,9 @@ with parallel backend.
 
 }
 \examples{
-iris_cor <- corrP(iris)
-corrplot::corrplot(iris_cor)
-corrgram::corrgram(iris_cor)
+HairEyeColor_cor <- corrP(HairEyeColor)
+corrplot::corrplot(HairEyeColor_cor)
+corrgram::corrgram(HairEyeColor_cor)
 
 }
 \author{
