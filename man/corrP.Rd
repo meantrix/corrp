@@ -48,9 +48,9 @@ The correlation is computed as follows: \itemize{
   For a comprehensive implementation, use `polycor::hetcor`
 }
 \examples{
-HairEyeColor_cor <- corrP(HairEyeColor)
-corrplot::corrplot(HairEyeColor_cor)
-corrgram::corrgram(HairEyeColor_cor)
+air_cor <- corrP(airquality)
+corrplot::corrplot(air_cor)
+corrgram::corrgram(air_cor)
 
 }
 \author{
