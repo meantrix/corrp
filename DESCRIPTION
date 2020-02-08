@@ -8,7 +8,7 @@ Description: Compute correlations of columns of large dataframes of mixed types
   (classes: integer, numeric, factor and character) with parallel backend.
   This Package is based on Srikanth KS (talegari) cor2 function.
 Depends: R (>= 3.5.2)
-Imports: lsr, foreach, parallel, doParallel, stats
+Imports: lsr, foreach, parallel, doParallel, stats, caret
 License: GNU AGPLv3 (http://choosealicense.com/licenses/agpl-3.0/)
 Encoding: UTF-8
 LazyData: true

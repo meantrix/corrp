@@ -52,10 +52,11 @@
 #' @keywords GNU AGPLv3 (http://choosealicense.com/licenses/agpl-3.0/)
 #'
 #' @examples
-#' HairEyeColor_cor <- corrP(HairEyeColor)
-#' corrplot::corrplot(HairEyeColor_cor)
-#' corrgram::corrgram(HairEyeColor_cor)
+#' air_cor <- corrP(airquality)
+#' corrplot::corrplot(air_cor)
+#' corrgram::corrgram(air_cor)
 #'
+#' @export
 corrP = function(df,parallel=TRUE,n.cores=1,p.value=0.05){
 
   stopifnot(inherits(df, "data.frame"))
