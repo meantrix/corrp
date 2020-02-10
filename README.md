@@ -1,4 +1,10 @@
-# corrP 0.1.1 v
+# corrP
+
+<!-- badges: start -->
+
+[![version](https://img.shields.io/badge/version-0.1.1-green.svg)](https://semver.org)
+<!-- badges: end -->
+
 Compute correlations of columns of a large dataframe of mixed types with parallel backend. 
 The dataframe is allowed to have columns of these four classes: integer, numeric, factor and character. 
 The character column is considered as categorical variable. This Package is based on Srikanth KS (talegari) cor2 function.

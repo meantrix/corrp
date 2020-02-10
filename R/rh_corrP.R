@@ -1,8 +1,8 @@
 ###############################################################################
 #
-# corrP
+# rh_corrP
 # -- #remove highly correlated variables from a data.frame using the matrix
-#corrP correlation matrix..
+#corrP correlation matrix.
 #
 ###############################################################################
 #
