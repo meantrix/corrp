@@ -196,10 +196,12 @@ cor_fun <- Vectorize(cor_fun, vectorize.args=c("pos_1", "pos_2"))
 
     doParallel::registerDoParallel(min(parallel::detectCores(),n.cores))
     corrmat<-cor_par(df,p.value=p.value)
+    #force stop
     env <- foreach:::.foreachGlobals
     rm(list=ls(name=env), pos=env)
+    doParallel::stopImplicitCluster()
 
-  } else {
+    } else {
   # sequential corr matrix
   corrmat <- outer(1:NCOL(df)
                    , 1:NCOL(df)
