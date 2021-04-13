@@ -13,10 +13,6 @@ rh_corrP(df, corrmat, cutoff = 0.75)
 
 \item{cutoff}{A numeric value for the pair-wise absolute correlation cutoff.
 The default values is 0.75.}
-
-\item{verbose}{Activate verbose mode.}
-
-\item{...}{Additional arguments (TODO).}
 }
 \description{
 remove highly correlated variables from a data.frame using the

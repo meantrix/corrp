@@ -5,7 +5,7 @@
 [![version](https://img.shields.io/badge/version-0.1.1-green.svg)](https://semver.org)
 <!-- badges: end -->
 
-The [CorrP package](https://github.com/meantrix/corrP) under development by Meantrix team and based on Srikanth KS (talegari) cor2 function can provide to R users a way to calculate correlation matrix among large data.frames, tibbles or data.tables through a parallel backend.
+The [corrp package](https://github.com/meantrix/corrP) under development by Meantrix team and original based on Srikanth KS (talegari) cor2 function can provide to R users a way to calculate correlation matrix among large data.frames, tibbles or data.tables through a parallel backend.
 
 # Details
 
@@ -35,7 +35,7 @@ corrgram::corrgram(air_cor)
 
 
 
-Another package function  **rh_corrP** can remove highly correlated variables from data.frames using the CorrP matrix.
+Another package function  **rh_corrp** can remove highly correlated variables from data.frames using the CorrP matrix.
 
 <code>
 
@@ -52,7 +52,7 @@ setdiff(colnames(airquality),(colnames( airqualityH )))
 
 
 
-The [CoorP package](https://github.com/meantrix/corrP) is still very new, but it is already capable of providing some interesting features. In the next versions we will be including some types of plots to be made with  corrP  correlation matrix .
+The [CoorP package](https://github.com/meantrix/corrP) is still very new, but it is already capable of providing some interesting features. In the next versions we will be including some types of plots to be made with  corrp  correlation matrix .
 
 
 

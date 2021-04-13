@@ -1,22 +1,10 @@
-###############################################################################
-#
-# corrP
-# -- Compute correlations of columns of a dataframe of mixed types in parallel.
-#This Package is based on Srikanth KS (talegari) cor2 function.
-#
-###############################################################################
-#
-# author  : IDS siciliani (igor-siciliani)
-# license : GNU AGPLv3 (http://choosealicense.com/licenses/agpl-3.0/)
-# Based on Srikanth KS (talegari) cor2 function
-###############################################################################
-#' @title corrp
+#' @title corrp compute correlations types analysis in parallel backend.
 #'
 #' @description Compute correlations of columns of a large dataframe of mixed types
 #' with parallel backend.
 #'   The dataframe is allowed to have columns of these four classes: integer,
 #'   numeric, factor and character. The character column is considered as
-#'   categorical variable. This Package is based on Srikanth KS (talegari) cor2 function.
+#'   categorical variable. This Package is original based on Srikanth KS (talegari) cor2 function.
 #'
 #' @details The correlation is computed as follows: \itemize{
 #'
@@ -41,54 +29,69 @@
 #'
 #'   For a comprehensive implementation, use `polycor::hetcor`
 #'
-#' @param df input data frame
+#' @param df input data frame.
 #' @param parallel if is TRUE run the operations in parallel backend.
 #' @param n.cores The number of cores to use for parallel execution.
 #' @param p.value  p-value probability of obtaining the observed results of a test,
 #' assuming that the null hypothesis is correct. By default p.value=0.05.
+#' @param verbose Activate verbose mode.
+#' @param ... Additional arguments (TODO).
 #'
 #' @author IDS siciliani (igor-siciliani)
 #'
 #' @keywords GNU AGPLv3 (http://choosealicense.com/licenses/agpl-3.0/)
 #'
+#' @references
+#' KS Srikanth,sidekicks,cor2, 2020.
+#' URL \url{https://github.com/talegari/sidekicks/}.
+#'
 #' @examples
 #' \dontrun{
-
 #' air_cor = corrp(airquality)
 #' corrplot::corrplot(air_cor)
 #' corrgram::corrgram(air_cor)
 #'}
+#'
 #' @export
-corrp = function(df, parallel = TRUE, n.cores = 1,p.value = 0.05, verbose = c(TRUE,FALSE), ...){
+corrp <-
+  function(df, ...) {
 
-  verbose = match.arg(verbose)
+    UseMethod("corrp",df)
 
-  stopifnot(inherits(df, "data.frame"))
-  stopifnot(sapply(df, class) %in% c("integer"
+}
+
+
+#'@rdname corrp
+corrp.data.frame = function(df, parallel = TRUE, n.cores = 1, p.value = 0.05, verbose = TRUE, ...){
+
+  stopifnot( inherits(verbose,'logical'), length(verbose) == 1 )
+  stopifnot( inherits(df, "data.frame") )
+  stopifnot( sapply(df, class) %in% c("integer"
                                      , "numeric"
                                      , "factor"
                                      , "character"))
-  stopifnot(inherits(p.value, "numeric"))
+  stopifnot( inherits(p.value, "numeric"), length(p.value) == 1 )
 
 
-cor_fun = Vectorize(cor_fun, vectorize.args=c("pos_1", "pos_2"))
+cor_fun = Vectorize( cor_fun, vectorize.args = c("pos_1", "pos_2") )
 
 
  # parallel corr matrix
-  if(isTRUE(parallel)){
+  if( isTRUE(parallel) ){
 
-    doParallel::registerDoParallel(min(parallel::detectCores(),n.cores))
-    corrmat=cor_par(df,p.value=p.value,verbose = verbose, ...)
+    doParallel::registerDoParallel( min(parallel::detectCores(),n.cores) )
+    corrmat=cor_par( df,p.value=p.value,verbose = verbose, ... )
     #force stop
     env = foreach:::.foreachGlobals
-    rm(list=ls(name=env), pos=env)
+    rm( list = ls(name = env), pos = env )
     doParallel::stopImplicitCluster()
 
     } else {
   # sequential corr matrix
-  corrmat = outer(1:NCOL(df)
+  corrmat = outer( 1:NCOL(df)
                    , 1:NCOL(df)
-                   , function(x, y){cor_fun(df = df, x,y, p.value = p.value, verbose = verbose, ...)})
+                   , function(x, y){cor_fun( df = df, x,y, p.value = p.value, verbose = verbose, ... )}
+            )
   }
   rownames(corrmat) = colnames(df)
   colnames(corrmat) = colnames(df)

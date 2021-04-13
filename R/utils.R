@@ -1,5 +1,6 @@
 #auxiliar functions
 
+#p-value to linear regression
 lmp = function(y,x,p.value, verbose = TRUE , ...){
 
   sum.res = summary(
@@ -31,6 +32,7 @@ lmp = function(y,x,p.value, verbose = TRUE , ...){
 
 }
 
+#p-value to CramersV
 cramersvp = function(y,x,p.value,simulate.p.value = TRUE,verbose = TRUE, ...){
   pv = stats::chisq.test(y,x,simulate.p.value=simulate.p.value)$p.value
 
@@ -50,7 +52,7 @@ cramersvp = function(y,x,p.value,simulate.p.value = TRUE,verbose = TRUE, ...){
 
 }
 
-corperp = function(y,x,p.value,use,verbose = TRUE, ...){
+corperp = function(y, x, p.value, use, verbose = TRUE, ...){
 
   res = stats::cor.test(y,x,use,method="pearson",alternative = "two.sided")
   pv = res[["p.value"]]
@@ -66,6 +68,7 @@ corperp = function(y,x,p.value,use,verbose = TRUE, ...){
   } else {
 
     r = NA
+
     if(verbose){
       cat(paste("there is no correlation at the confidence level  p-value < ",p.value,"\n",
               "p-value: ",pv,"\n"))

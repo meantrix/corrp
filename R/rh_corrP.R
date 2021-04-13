@@ -19,8 +19,6 @@
 #' @param corrmat correlation matrix from corrP function
 #' @param cutoff A numeric value for the pair-wise absolute correlation cutoff.
 #' The default values is 0.75.
-#' @param verbose Activate verbose mode.
-#' @param ... Additional arguments (TODO).
 #'
 #' @author IDS siciliani (igor-siciliani)
 #'
