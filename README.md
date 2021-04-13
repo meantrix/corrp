@@ -1,4 +1,4 @@
-# corrP
+# corrp
 
 <!-- badges: start -->
 

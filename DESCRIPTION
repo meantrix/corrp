@@ -1,6 +1,6 @@
-Package: corrP
+Package: corrp
 Type: Package
-Title: CorrP (Compute correlations in parallel)
+Title: Corrp (Compute correlations in parallel)
 Version: 0.1.1
 Author: Igor D.S. Siciliani
 Maintainer: Igor D.S. Siciliani <igorschoeller@gmail.com>

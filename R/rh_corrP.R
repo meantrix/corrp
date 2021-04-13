@@ -12,7 +12,7 @@
 #' @title rh_corrP
 #'
 #' @description remove highly correlated variables from a data.frame using the
-#' corrP correlation matrix and the caret package function `caret::findCorrelation` .
+#' corrp correlation matrix and the caret package function `caret::findCorrelation` .
 #'
 #'
 #' @param df input data frame
@@ -26,22 +26,23 @@
 #' @keywords GNU AGPLv3 (http://choosealicense.com/licenses/agpl-3.0/)
 #'
 #' @examples
-#' air_cor <- corrP(airquality)
-#' airqualityH<- rh_corrP(df=airquality,corrmat=air_cor,cutoff=0.75)
-#'
+#' \dontrun{
+#' air_cor = corrP(airquality)
+#' airqualityH = rh_corrP(df=airquality,corrmat=air_cor,cutoff=0.75)
+#'}
 #' @export
-rh_corrP <-function(df,corrmat,cutoff=0.75){
+rh_corrP =function(df,corrmat,cutoff=0.75){
   stopifnot(inherits(corrmat,c("corrP","matrix")))
   stopifnot(inherits(df,"data.frame"))
 
   #the index of the  highly correlated columns (>cutoff)
-  rh.idx <- caret::findCorrelation(corrmat, cutoff = cutoff)
+  rh.idx = caret::findCorrelation(corrmat, cutoff = cutoff)
 
   #the name of the highly correlated columns (>cutoff)
-  cols.rem <- colnames(corrmat)[rh.idx]
+  cols.rem = colnames(corrmat)[rh.idx]
 
   #subset original df to remove highly correlated columns (>cutoff)
-  df<-df[!names(df) %in% cols.rem]
+  df=df[!names(df) %in% cols.rem]
 
   return(df)
 }
