@@ -59,7 +59,9 @@
 #' corrgram::corrgram(air_cor)
 #'}
 #' @export
-corrp = function(df,parallel=TRUE,n.cores=1,p.value=0.05){
+corrp = function(df, parallel = TRUE, n.cores = 1,p.value = 0.05, verbose = c(TRUE,FALSE), ...){
+
+  verbose = match.arg(verbose)
 
   stopifnot(inherits(df, "data.frame"))
   stopifnot(sapply(df, class) %in% c("integer"
@@ -76,7 +78,7 @@ cor_fun = Vectorize(cor_fun, vectorize.args=c("pos_1", "pos_2"))
   if(isTRUE(parallel)){
 
     doParallel::registerDoParallel(min(parallel::detectCores(),n.cores))
-    corrmat=cor_par(df,p.value=p.value)
+    corrmat=cor_par(df,p.value=p.value,verbose = verbose, ...)
     #force stop
     env = foreach:::.foreachGlobals
     rm(list=ls(name=env), pos=env)
@@ -86,7 +88,7 @@ cor_fun = Vectorize(cor_fun, vectorize.args=c("pos_1", "pos_2"))
   # sequential corr matrix
   corrmat = outer(1:NCOL(df)
                    , 1:NCOL(df)
-                   , function(x, y){cor_fun(df=df,x,y,p.value=p.value)})
+                   , function(x, y){cor_fun(df = df, x,y, p.value = p.value, verbose = verbose, ...)})
   }
   rownames(corrmat) = colnames(df)
   colnames(corrmat) = colnames(df)
