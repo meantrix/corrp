@@ -1,6 +1,6 @@
 #auxiliar functions
 
-#p-value to linear regression
+#linear regression Calculations
 lmp = function(y,x,p.value, verbose = TRUE , ...){
 
   sum.res = summary(
@@ -32,26 +32,63 @@ lmp = function(y,x,p.value, verbose = TRUE , ...){
 
 }
 
-#p-value to CramersV
-cramersvp = function(y,x,p.value,simulate.p.value = TRUE,verbose = TRUE, ...){
+#CramersV Calculations
+cramersvp = function(y,x,p.value,simulate.p.value,verbose = TRUE, ...){
   pv = stats::chisq.test(y,x,simulate.p.value=simulate.p.value)$p.value
 
   if(pv<p.value) {
-    r=lsr::cramersV(y,x, simulate.p.value=simulate.p.value)
-    cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
+
+    r = lsr::cramersV(y,x, simulate.p.value=simulate.p.value)
+
+    if(verbose){
+      cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
               "p-value: ",pv,"\n"))
+    }
+
   } else {
 
-    if(verbose)
     r = NA
-    cat(paste("there is no correlation at the confidence level  p-value < ",p.value,"\n",
+
+    if(verbose){
+      cat(paste("there is no correlation at the confidence level  p-value < ",p.value,"\n",
               "p-value: ",pv,"\n"))
+    }
+
   }
 
   return(r)
 
 }
 
+# Distance Correlation Calculations
+
+dcorp = function(y,x,p.value,simulate.p.value,verbose = TRUE, ...){
+
+  dc = energy::dcorT.test(y,x)
+  pv = dc$p.value
+  r = as.numeric(dc$estimate)
+
+  if(pv < p.value) {
+
+    if(verbose){
+      cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
+              "p-value: ",pv,"\n"))
+    }
+
+  } else {
+
+    r = NA
+    if(verbose){
+      cat(paste("there is no correlation at the confidence level  p-value < ",p.value,"\n",
+              "p-value: ",pv,"\n"))
+    }
+
+  }
+
+  return(r)
+
+}
+# Pearson Calculations
 corperp = function(y, x, p.value, use, verbose = TRUE, ...){
 
   res = stats::cor.test(y,x,use,method="pearson",alternative = "two.sided")
@@ -80,6 +117,10 @@ corperp = function(y, x, p.value, use, verbose = TRUE, ...){
 
 }
 
+
+
+
+
 #parallel corr matrix
 cor_par = function (df,p.value,verbose = TRUE, ...) {
   `%dopar%` = foreach::`%dopar%`
@@ -104,7 +145,7 @@ cor_fun = function(df, pos_1, pos_2, p.value, ...){
                      , df[[pos_2]]
                      , p.value = p.value
                      , use = "pairwise.complete.obs"
-                     , verbose = verbose,...)
+                     , verbose = verbose, ...)
     )
   }
 

@@ -22,9 +22,9 @@
 #'
 #'    \item All statistical tests are controlled by the confidence internal of
 #'    p.value param. If the statistical tests do not obtain a significance lower
-#'    than p.value, by default the correlation between variables will be zero.
+#'    than p.value, by default the correlation between variables will be `NA`.
 #'
-#'    \item If any errors occur during operations by default the correlation will be zero.
+#'    \item If any errors occur during operations by default the correlation will be `NA`.
 #'    }
 #'
 #'   For a comprehensive implementation, use `polycor::hetcor`
@@ -90,7 +90,7 @@ cor_fun = Vectorize( cor_fun, vectorize.args = c("pos_1", "pos_2") )
   # sequential corr matrix
   corrmat = outer( 1:NCOL(df)
                    , 1:NCOL(df)
-                   , function(x, y){cor_fun( df = df, x,y, p.value = p.value, verbose = verbose, ... )}
+                   , function(x, y){cor_fun( df = df, x, y, p.value = p.value, verbose = verbose, ... )}
             )
   }
   rownames(corrmat) = colnames(df)
