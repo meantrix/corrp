@@ -118,13 +118,9 @@ corperp = function(y, x, p.value, use, verbose = TRUE, ...){
 }
 
 
-
-
-
 #parallel corr matrix
 cor_par = function (df,p.value,verbose = TRUE, ...) {
-  `%dopar%` = foreach::`%dopar%`
-  `%:%` = foreach::`%:%`
+
   dim=NCOL(df)
   corp = foreach::foreach(i=1:dim,.export='cor_fun') %:%
     foreach::foreach (j=1:dim) %dopar% {
