@@ -118,6 +118,20 @@ corperp = function(y, x, p.value, use, verbose = TRUE, ...){
 }
 
 
+#MIC calculations
+
+micorp = function(y, x, p.value, verbose = TRUE, ...) {
+
+
+
+
+}
+
+
+#' @title
+
+
+
 #parallel corr matrix
 cor_par = function (df,p.value,verbose = TRUE, ...) {
 

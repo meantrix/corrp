@@ -1,3 +1,13 @@
+alternative = 'greater'
+x = iris[[1]]
+y = iris[[2]]
+paired=FALSE
+all.perms=TRUE
+num.sim=20000
+plot=FALSE
+stat=minerva::mine
+
+
 perm.test <-
   function(x, y=NULL, alternative=c("two.sided", "less", "greater"), mu=0,
            paired=FALSE, all.perms=TRUE, num.sim=20000, plot=FALSE, stat=mean, ...) {
@@ -36,7 +46,7 @@ perm.test <-
     #           y = rnorm(13, 1 ) ;  list(y) ;  perm.test( x, y )
     if ( !is.numeric(x) )  stop("'x' must be numeric.")
     if ( !is.numeric(y) & !is.null(y) )  stop("'y' must be numeric or NULL.")
-    alternative <- abbreviation(alternative, c("two.sided", "less", "greater"))
+    alternative <- jmuOutlier::abbreviation(alternative, c("two.sided", "less", "greater"))
     if ( !(alternative %in% c("two.sided", "less", "greater")) )
       stop("'alternative' must be 'two.sided', 'less', or 'greater'.")
     if ( !is.numeric(mu) )  stop("'mu' must be numeric.")
@@ -46,6 +56,8 @@ perm.test <-
     num.sim = floor(num.sim);  if ( num.sim < 1 )  stop("'num.sim' must be at least 1.")
     if ( !is.logical(plot) )  stop("'plot' must be logical.")
     if ( !is.function(stat) )  stop("'stat' must be a function.")
+    browser()
+
     if (!is.null(y) & !paired)   {  # Perform unpaired two-sample permutation test.
       l1 <- min(length(x), length(y));   x <- x-mu
       l2 <- max(length(x), length(y));    l3 <- l1+l2
