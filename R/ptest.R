@@ -1,7 +1,7 @@
 #'@title simple pertumation test
 #'@description Execute one-sample simple permutation test on two numeric vector.
 #'Its keep one vector constant and ‘shuffle’ the other by resampling.
-#'This approximates the null hypothesis — that there is no dependency between the variables.
+#'This approximates the null hypothesis — that there is no dependency/difference between the variables.
 #'@param x A numeric vector.
 #'@param y A numeric vector.
 #'@param num.s number of samples with replacement created with y numeric vector.
