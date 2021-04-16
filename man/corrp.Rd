@@ -14,3 +14,11 @@ corrP(df, ...)
 \description{
 same function as \code{corrp}.
 }
+\examples{
+\dontrun{
+air_cor = corrp(airquality)
+corrplot::corrplot(air_cor)
+corrgram::corrgram(air_cor)
+}
+
+}

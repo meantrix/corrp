@@ -2,12 +2,13 @@
 % Please edit documentation in R/ptest.R
 \name{ptest}
 \alias{ptest}
-\title{simple pertumation test}
+\title{Correlation permutation test}
 \usage{
 ptest(
   x,
   y,
   FUN,
+  r = F,
   alternative = c("two.sided", "less", "greater"),
   num.s = 1000,
   ...
@@ -18,13 +19,26 @@ ptest(
 
 \item{y}{A numeric vector.}
 
+\item{r}{logical. If its TRUE transform x, y numeric vectors with samples ranks.}
+
 \item{alternative}{a character string specifying the alternative hypothesis,
 must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.}
 
 \item{num.s}{number of samples with replacement created with y numeric vector.}
 }
 \description{
-Execute one-sample simple permutation test on two numeric vector.
+Execute one-sample permutation test on two numeric vector.
 Its keep one vector constant and ‘shuffle’ the other by resampling.
-This approximates the null hypothesis — that there is no dependency between the variables.
+This approximates the null hypothesis — that there is no dependency/difference between the variables.
+}
+\examples{
+\dontrun{
+x = iris[[1]]; y = iris[[2]]
+
+ptest(x,y,FUN = mean ,alternative = 't')
+
+ptest(x,y,FUN = function(x,y) cor(x,y) ,alternative = 't')
+
+
+}
 }

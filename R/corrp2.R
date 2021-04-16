@@ -1,4 +1,4 @@
-#' @inherit corrp title params return seealso example
+#' @inherit corrp title params return seealso examples
 #' @description same function as \code{corrp}.
 #' @export
 corrP <-
