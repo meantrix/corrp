@@ -1,7 +1,7 @@
 #auxiliar functions
 
 #linear regression Calculations
-lmp = function(y,x,p.value, verbose = TRUE , ...){
+lmp = function(y, x, p.value, type, verbose = TRUE , ...){
 
   sum.res = summary(
     stats::lm(y ~ as.factor(x))
@@ -9,7 +9,10 @@ lmp = function(y,x,p.value, verbose = TRUE , ...){
   pv = stats::pf (sum.res$fstatistic[1],sum.res$fstatistic[2],
                   sum.res$fstatistic[3],lower.tail=F)
 
-  if(pv < p.value) {
+  comp = comparepv(pv,p.value,type)
+
+
+  if(comp$comp) {
     r = sqrt(sum.res[["r.squared"]])
 
 
@@ -22,8 +25,8 @@ lmp = function(y,x,p.value, verbose = TRUE , ...){
     r = NA
 
     if(verbose){
-      cat(paste("there is no correlation at the confidence level  p-value < ",p.value,"\n",
-              "p-value: ",pv,"\n"))
+      cat(paste("there is no correlation at the confidence level  p-value. \n"
+                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
     }
 
   }
@@ -33,10 +36,12 @@ lmp = function(y,x,p.value, verbose = TRUE , ...){
 }
 
 #CramersV Calculations
-cramersvp = function(y,x,p.value,simulate.p.value,verbose = TRUE, ...){
+cramersvp = function(y, x, p.value, type, simulate.p.value, verbose = TRUE, ...){
   pv = stats::chisq.test(y,x,simulate.p.value=simulate.p.value)$p.value
 
-  if(pv<p.value) {
+  comp = comparepv(pv,p.value,type)
+
+  if(comp$comp) {
 
     r = lsr::cramersV(y,x, simulate.p.value=simulate.p.value)
 
@@ -50,8 +55,8 @@ cramersvp = function(y,x,p.value,simulate.p.value,verbose = TRUE, ...){
     r = NA
 
     if(verbose){
-      cat(paste("there is no correlation at the confidence level  p-value < ",p.value,"\n",
-              "p-value: ",pv,"\n"))
+      cat(paste("there is no correlation at the confidence level  p-value. \n"
+                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
     }
 
   }
@@ -61,14 +66,14 @@ cramersvp = function(y,x,p.value,simulate.p.value,verbose = TRUE, ...){
 }
 
 # Distance Correlation Calculations
-
-dcorp = function(y,x,p.value,simulate.p.value,verbose = TRUE, ...){
+dcorp = function(y, x, p.value, type, verbose = TRUE, ...){
 
   dc = energy::dcorT.test(y,x)
   pv = dc$p.value
   r = as.numeric(dc$estimate)
+  comp = comparepv(pv,p.value,type)
 
-  if(pv < p.value) {
+  if(comp$comp) {
 
     if(verbose){
       cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
@@ -79,8 +84,8 @@ dcorp = function(y,x,p.value,simulate.p.value,verbose = TRUE, ...){
 
     r = NA
     if(verbose){
-      cat(paste("there is no correlation at the confidence level  p-value < ",p.value,"\n",
-              "p-value: ",pv,"\n"))
+      cat(paste("there is no correlation at the confidence level  p-value. \n"
+                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
     }
 
   }
@@ -89,12 +94,13 @@ dcorp = function(y,x,p.value,simulate.p.value,verbose = TRUE, ...){
 
 }
 # Pearson Calculations
-corperp = function(y, x, p.value, use, verbose = TRUE, ...){
+corperp = function(y, x, p.value, type, use, verbose = TRUE, alternative, ...){
 
-  res = stats::cor.test(y,x,use,method="pearson",alternative = "two.sided")
+  res = stats::cor.test(y,x,use,method="pearson",alternative = alternative)
   pv = res[["p.value"]]
+  comp = comparepv(pv,p.value,type)
 
-  if(pv < p.value) {
+  if(comp$comp) {
     r = res[["estimate"]]
 
     if(verbose){
@@ -107,8 +113,8 @@ corperp = function(y, x, p.value, use, verbose = TRUE, ...){
     r = NA
 
     if(verbose){
-      cat(paste("there is no correlation at the confidence level  p-value < ",p.value,"\n",
-              "p-value: ",pv,"\n"))
+      cat(paste("there is no correlation at the confidence level  p-value. \n"
+                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
     }
 
   }
@@ -119,21 +125,38 @@ corperp = function(y, x, p.value, use, verbose = TRUE, ...){
 
 
 #MIC calculations
+micorp = function(y, x, p.value, verbose = TRUE, alternative, ...) {
 
-micorp = function(y, x, p.value, verbose = TRUE, ...) {
+  pv = ptest(x,y,FUN = function(x,y) minerva::mine(x,y)$MIC, alternative = alternative )
+  comp = comparepv(pv,p.value,type)
 
+  if(comp$comp) {
+    r = minerva::mine(x,y)$MIC
+    if(verbose){
+      cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
+                "p-value: ",pv,"\n"))
+    }
+
+  } else {
+
+    r = NA
+
+    if(verbose){
+      cat(paste("there is no correlation at the confidence level  p-value. \n"
+                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
+    }
+
+  }
+
+  return(r)
 
 
 
 }
 
 
-#' @title
-
-
-
 #parallel corr matrix
-cor_par = function (df,p.value,verbose = TRUE, ...) {
+cor_par = function (df, p.value, verbose = TRUE, ...) {
 
   dim=NCOL(df)
   corp = foreach::foreach(i=1:dim,.export='cor_fun') %:%
@@ -143,7 +166,6 @@ cor_par = function (df,p.value,verbose = TRUE, ...) {
   matrix(unlist(corp), ncol=ncol(df))
 }
 
-##############################################################################
 
 cor_fun = function(df, pos_1, pos_2, p.value, ...){
 
@@ -197,5 +219,30 @@ cor_fun = function(df, pos_1, pos_2, p.value, ...){
   return(r)
 
 }
+
+
+#compare p-value alternatives
+comparepv = function(x,pv,type = c('l','g')){
+
+  type = match.arg(type)
+
+  if(type == 'g') {
+
+    str = '<'
+    comp = pv > x
+
+    return(list(comp,str))
+
+  } else {
+
+    str = '>'
+    comp = pv < x
+
+    return(list('comp' = comp, 'str' = str))
+
+  }
+
+}
+
 
 

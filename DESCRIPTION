@@ -11,7 +11,7 @@ Description: Compute correlations type analysis (Pearson correlation, R^2
   variables(classes: integer, numeric, factor and character)
   in parallel backend.
 Depends: R (>= 3.5.2)
-Imports: lsr, foreach, parallel, doParallel, stats, caret
+Imports: lsr, foreach, parallel, doParallel, stats, caret, minerva, energy, checkmate
 License: GNU AGPLv3 (http://choosealicense.com/licenses/agpl-3.0/)
 Encoding: UTF-8
 LazyData: true
