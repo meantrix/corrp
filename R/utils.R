@@ -1,7 +1,7 @@
 #auxiliar functions
 
 #linear regression Calculations
-lmp = function(y, x, p.value, type, verbose = TRUE , ...){
+lmp = function(y, x, p.value, type, ...){
 
   sum.res = summary(
     stats::lm(y ~ as.factor(x))
@@ -66,7 +66,7 @@ cramersvp = function(y, x, p.value, type, simulate.p.value, verbose = TRUE, ...)
 }
 
 # Distance Correlation Calculations
-dcorp = function(y, x, p.value, type, verbose = TRUE, ...){
+dcorp = function(y, x, p.value, type, ...){
 
   dc = energy::dcorT.test(y,x)
   pv = dc$p.value
@@ -94,7 +94,7 @@ dcorp = function(y, x, p.value, type, verbose = TRUE, ...){
 
 }
 # Pearson Calculations
-corperp = function(y, x, p.value, type, use, verbose = TRUE, alternative, ...){
+corperp = function(y, x, p.value, type, use, alternative, ...){
 
   res = stats::cor.test(y,x,use,method="pearson",alternative = alternative)
   pv = res[["p.value"]]
@@ -125,13 +125,13 @@ corperp = function(y, x, p.value, type, use, verbose = TRUE, alternative, ...){
 
 
 #MIC calculations
-micorp = function(y, x, p.value, verbose = TRUE, alternative, ...) {
+micorp = function(y, x, p.value, type, alternative, ...) {
 
-  pv = ptest(x,y,FUN = function(x,y) minerva::mine(x,y)$MIC, alternative = alternative )
+  pv = ptest(x,y,FUN = function(y,x) minerva::mine(y,x)$MIC, alternative = alternative )
   comp = comparepv(pv,p.value,type)
 
   if(comp$comp) {
-    r = minerva::mine(x,y)$MIC
+    r = minerva::mine(y,x)$MIC
     if(verbose){
       cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
                 "p-value: ",pv,"\n"))

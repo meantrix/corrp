@@ -36,7 +36,7 @@ ptest = function(x ,y,
   largs = length(fargs)
   if( largs > 2 ) stop( 'FUN maximum number of mandatory arguments is 2.' )
 
-
+  alternative = match.arg(alternative)
   alternative = substr(alternative,1,1)
   checkmate::assert_character(alternative,len = 1, pattern = "t|l|g")
   checkmate::assert_logical(r,len = 1)
