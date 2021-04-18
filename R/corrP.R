@@ -78,7 +78,7 @@ corrp.data.frame = function(df,
                             alternative = c("two.sided", "less", "greater"),
                             cor.n = c("pearson","MIC","Dcor","pps"),
                             cor.nc = c("lm","pps"),
-                            cor.cc = c("cramersV","pps")
+                            cor.cc = c("cramersV","uncoef","pps"),
                             ...){
 
   alternative = match.arg(alternative)
@@ -115,7 +115,7 @@ cor_fun = Vectorize( cor_fun, vectorize.args = c("pos_1", "pos_2") )
   # sequential corr matrix
   corrmat = outer(   1:NCOL(df)
                    , 1:NCOL(df)
-                   , function(x, y){cor_fun( df = df, x, y, p.value = p.value, ... )}
+                   , function(x, y){cor_fun( df = df, x, y,  ... )}
             )
   }
   rownames(corrmat) = colnames(df)

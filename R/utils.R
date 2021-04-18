@@ -31,19 +31,19 @@ lmp = function(y, x, p.value, type, ...){
 
   }
 
-  return(r)
+  return( list(value = r , p.value = pv) )
 
 }
 
 #CramersV Calculations
-cramersvp = function(y, x, p.value, type, simulate.p.value, verbose = TRUE, ...){
+cramersvp = function(y, x, p.value, type, simulate.p.value=TRUE, ...){
   pv = stats::chisq.test(y,x,simulate.p.value=simulate.p.value)$p.value
 
   comp = comparepv(pv,p.value,type)
 
   if(comp$comp) {
 
-    r = lsr::cramersV(y,x, simulate.p.value=simulate.p.value)
+    r = lsr::cramersV(y,x, simulate.p.value = simulate.p.value, ...)
 
     if(verbose){
       cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
@@ -61,14 +61,14 @@ cramersvp = function(y, x, p.value, type, simulate.p.value, verbose = TRUE, ...)
 
   }
 
-  return(r)
+  return( list(value = r , p.value = pv) )
 
 }
 
 # Distance Correlation Calculations
 dcorp = function(y, x, p.value, type, ...){
 
-  dc = energy::dcorT.test(y,x)
+  dc = energy::dcorT.test(y,x, ...)
   pv = dc$p.value
   r = as.numeric(dc$estimate)
   comp = comparepv(pv,p.value,type)
@@ -90,13 +90,13 @@ dcorp = function(y, x, p.value, type, ...){
 
   }
 
-  return(r)
+  return( list(value = r , p.value = pv) )
 
 }
 # Pearson Calculations
-corperp = function(y, x, p.value, type, use, alternative, ...){
+corperp = function(y, x, p.value, type, ...){
 
-  res = stats::cor.test(y,x,use,method="pearson",alternative = alternative)
+  res = stats::cor.test(y,x,use,method="pearson", ...)
   pv = res[["p.value"]]
   comp = comparepv(pv,p.value,type)
 
@@ -119,19 +119,19 @@ corperp = function(y, x, p.value, type, use, alternative, ...){
 
   }
 
-  return(r)
+  return( list(value = r , p.value = pv) )
 
 }
 
 
 #MIC calculations
-micorp = function(y, x, p.value, type, alternative, ...) {
+micorp = function(y, x, p.value, type, ...) {
 
-  pv = ptest(x,y,FUN = function(y,x) minerva::mine(y,x)$MIC, alternative = alternative )
+  pv = ptest(y,x,FUN = function(y,x, ...) minerva::mine(y,x, ...)$MIC, ... )
   comp = comparepv(pv,p.value,type)
 
   if(comp$comp) {
-    r = minerva::mine(y,x)$MIC
+    r = minerva::mine(y,x, ...)$MIC
     if(verbose){
       cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
                 "p-value: ",pv,"\n"))
@@ -155,8 +155,43 @@ micorp = function(y, x, p.value, type, alternative, ...) {
 }
 
 
+#Uncertainty coefficient Calculations
+uncorp = function(y, x, p.value, type, ...) {
+
+  pv = ptest(y,x,FUN = DescTools::UncertCoef(y,x,...), ... )
+  comp = comparepv(pv,p.value,type)
+
+  if(comp$comp) {
+    r = DescTools::UncertCoef(y,x,...)
+    if(verbose){
+      cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
+                "p-value: ",pv,"\n"))
+    }
+
+  } else {
+
+    r = NA
+
+    if(verbose){
+      cat(paste("there is no correlation at the confidence level  p-value. \n"
+                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
+    }
+
+  }
+
+  return( list(value = r , p.value = pv) )
+
+
+
+}
+
+
+
+
+
+
 #parallel corr matrix
-cor_par = function (df, p.value, verbose = TRUE, ...) {
+cor_par = function (df, p.value, type, ...) {
 
   dim=NCOL(df)
   corp = foreach::foreach(i=1:dim,.export='cor_fun') %:%
@@ -167,24 +202,44 @@ cor_par = function (df, p.value, verbose = TRUE, ...) {
 }
 
 
-cor_fun = function(df, pos_1, pos_2, p.value, ...){
+cor_fun = function(df, pos_1, pos_2, p.value, type, ...){
 
   # both are numeric
 
   if(class(df[[pos_1]]) %in% c("integer", "numeric") &&
      class(df[[pos_2]]) %in% c("integer", "numeric")){
-    r = try(corperp(df[[pos_1]]
-                     , df[[pos_2]]
-                     , p.value = p.value
-                     , use = "pairwise.complete.obs"
-                     , verbose = verbose, ...)
+
+    switch (cor.n,
+            "pearson" = {computeCorN = corperp
+            },
+            "MIC" = { computeCorN = micorp
+
+            },
+            "Dcor" = { computeCorN = dcorp
+
+            },
+            "pps" = { computeCorN = ppsr::score
+
+            }
     )
+
+
+    r = try(ComputeCorN(df[[pos_1]]
+                     , df[[pos_2]]
+                     , p.value
+                     , type
+                     , ...)
+    )
+
   }
 
   # one is numeric and other is a factor/character
 
   if(class(df[[pos_1]]) %in% c("integer", "numeric") &&
      class(df[[pos_2]]) %in% c("factor", "character")){
+
+
+
     r = try(
       lmp(df[[pos_1]],df[[pos_2]],p.value = p.value, verbose = verbose , ...)
     )
