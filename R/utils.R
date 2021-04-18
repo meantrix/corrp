@@ -1,7 +1,7 @@
 #auxiliar functions
 
 #linear regression Calculations
-lmp = function(y, x, p.value, type, ...){
+corlm = function(y, x, p.value, type, ...){
 
   sum.res = summary(
     stats::lm(y ~ as.factor(x))
@@ -10,23 +10,25 @@ lmp = function(y, x, p.value, type, ...){
                   sum.res$fstatistic[3],lower.tail=F)
 
   comp = comparepv(pv,p.value,type)
+  msg = NULL
 
 
   if(comp$comp) {
     r = sqrt(sum.res[["r.squared"]])
 
-
     if(verbose){
-      cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
-              "p-value: ",pv,"\n"))
+      msg = paste(names(y),"vs.",names(x),". \n",
+            "alternative hypothesis: true correlation is not equal to 0","\n",
+            "p-value: ",pv,"\n")
     }
 
   } else {
     r = NA
 
     if(verbose){
-      cat(paste("there is no correlation at the confidence level  p-value. \n"
-                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
+      msg = paste(names(y),"vs.",names(x),". \n",
+            "there is no correlation at the confidence level  p-value. \n",
+            "p-value:",p.value, comp$str ,"estimated p-value:",pv)
     }
 
   }
@@ -37,17 +39,20 @@ lmp = function(y, x, p.value, type, ...){
 
 #CramersV Calculations
 cramersvp = function(y, x, p.value, type, simulate.p.value=TRUE, ...){
-  pv = stats::chisq.test(y,x,simulate.p.value=simulate.p.value)$p.value
 
+  pv = stats::chisq.test(y,x,simulate.p.value=simulate.p.value)$p.value
   comp = comparepv(pv,p.value,type)
+  msg = NULL
+
 
   if(comp$comp) {
 
     r = lsr::cramersV(y,x, simulate.p.value = simulate.p.value, ...)
 
     if(verbose){
-      cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
-              "p-value: ",pv,"\n"))
+      msg = paste(names(y),"vs.",names(x),". \n",
+      "alternative hypothesis: true Cramer's V measure of association is not equal to 0","\n",
+      "p-value: ",pv,"\n")
     }
 
   } else {
@@ -55,13 +60,14 @@ cramersvp = function(y, x, p.value, type, simulate.p.value=TRUE, ...){
     r = NA
 
     if(verbose){
-      cat(paste("there is no correlation at the confidence level  p-value. \n"
-                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
+      msg = paste(names(y),"vs.",names(x),". \n",
+            "there is no correlation at the confidence level  p-value. \n",
+            "p-value:",p.value, comp$str ,"estimated p-value:",pv)
     }
 
   }
 
-  return( list(value = r , p.value = pv) )
+  return( list(value = r , p.value = pv, msg = msg) )
 
 }
 
@@ -72,25 +78,29 @@ dcorp = function(y, x, p.value, type, ...){
   pv = dc$p.value
   r = as.numeric(dc$estimate)
   comp = comparepv(pv,p.value,type)
+  msg = NULL
+
 
   if(comp$comp) {
 
     if(verbose){
-      cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
-              "p-value: ",pv,"\n"))
+      msg = paste(names(y),"vs.",names(x),". \n",
+        "alternative hypothesis: true distance correlation is not equal to 0","\n",
+        "p-value: ",pv,"\n")
     }
 
   } else {
 
     r = NA
     if(verbose){
-      cat(paste("there is no correlation at the confidence level  p-value. \n"
-                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
+      msg = paste(names(y),"vs.",names(x),". \n",
+            "there is no correlation at the confidence level  p-value. \n",
+            "p-value:",p.value, comp$str ,"estimated p-value:",pv)
     }
 
   }
 
-  return( list(value = r , p.value = pv) )
+  return( list(value = r , p.value = pv, msg = msg) )
 
 }
 # Pearson Calculations
@@ -99,13 +109,16 @@ corperp = function(y, x, p.value, type, ...){
   res = stats::cor.test(y,x,use,method="pearson", ...)
   pv = res[["p.value"]]
   comp = comparepv(pv,p.value,type)
+  msg = NULL
+
 
   if(comp$comp) {
     r = res[["estimate"]]
 
     if(verbose){
-      cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
-              "p-value: ",pv,"\n"))
+      msg = paste(names(y),"vs.",names(x),". \n",
+            "alternative hypothesis: true Pearson correlation is not equal to 0","\n",
+            "p-value: ",pv,"\n")
     }
 
   } else {
@@ -113,13 +126,14 @@ corperp = function(y, x, p.value, type, ...){
     r = NA
 
     if(verbose){
-      cat(paste("there is no correlation at the confidence level  p-value. \n"
-                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
+      msg = paste(names(y),"vs.",names(x),". \n",
+            "there is no correlation at the confidence level  p-value. \n",
+            "p-value:",p.value, comp$str ,"estimated p-value:",pv)
     }
 
   }
 
-  return( list(value = r , p.value = pv) )
+  return( list(value = r , p.value = pv, msg = msg) )
 
 }
 
@@ -129,12 +143,17 @@ micorp = function(y, x, p.value, type, ...) {
 
   pv = ptest(y,x,FUN = function(y,x, ...) minerva::mine(y,x, ...)$MIC, ... )
   comp = comparepv(pv,p.value,type)
+  msg = NULL
+
 
   if(comp$comp) {
+
     r = minerva::mine(y,x, ...)$MIC
+
     if(verbose){
-      cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
-                "p-value: ",pv,"\n"))
+      msg = paste(names(y),"vs.",names(x),". \n",
+            "alternative hypothesis: true Maximal Information Coefficient is not equal to 0","\n",
+            "p-value: ",pv,"\n")
     }
 
   } else {
@@ -142,13 +161,14 @@ micorp = function(y, x, p.value, type, ...) {
     r = NA
 
     if(verbose){
-      cat(paste("there is no correlation at the confidence level  p-value. \n"
-                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
+      msg = paste(names(y),"vs.",names(x),". \n",
+            "there is no correlation at the confidence level  p-value. \n",
+            "p-value:",p.value, comp$str ,"estimated p-value:",pv)
     }
 
   }
 
-  return(r)
+  return( list(value = r , p.value = pv, msg = msg) )
 
 
 
@@ -160,12 +180,21 @@ uncorp = function(y, x, p.value, type, ...) {
 
   pv = ptest(y,x,FUN = DescTools::UncertCoef(y,x,...), ... )
   comp = comparepv(pv,p.value,type)
+  msg = NULL
+
 
   if(comp$comp) {
+
     r = DescTools::UncertCoef(y,x,...)
+
+
     if(verbose){
-      cat(paste("alternative hypothesis: true correlation is not equal to 0","\n",
-                "p-value: ",pv,"\n"))
+      msg = paste(names(y),"vs.",names(x),". \n",
+                  "alternative hypothesis: true Uncertainty coefficient is not equal to 0","\n",
+                  "p-value: ",pv,"\n")
+
+      cat(msg)
+
     }
 
   } else {
@@ -173,20 +202,31 @@ uncorp = function(y, x, p.value, type, ...) {
     r = NA
 
     if(verbose){
-      cat(paste("there is no correlation at the confidence level  p-value. \n"
-                ,"p-value:",p.value, comp$str ,"estimated p-value:",pv))
+      msg = paste(names(y),"vs.",names(x),". \n",
+            "there is no correlation at the confidence level  p-value. \n",
+            "p-value:",p.value, comp$str ,"estimated p-value:",pv)
+
+      cat(msg)
+
+
     }
 
   }
 
-  return( list(value = r , p.value = pv) )
+  return( list(value = r , p.value = pv, msg = msg) )
 
 
 
 }
 
+#TODO
+corpps = function(y, x, ...) {
 
 
+  ppsr::score(y,x)
+
+
+}
 
 
 
@@ -196,7 +236,7 @@ cor_par = function (df, p.value, type, ...) {
   dim=NCOL(df)
   corp = foreach::foreach(i=1:dim,.export='cor_fun') %:%
     foreach::foreach (j=1:dim) %dopar% {
-      corp = cor_fun(df = df,pos_1 = i,pos_2 = j, p.value=p.value, verbose = verbose,...)
+      corp = cor_fun(df = df,pos_1 = i,pos_2 = j, p.value=p.value,...)
     }
   matrix(unlist(corp), ncol=ncol(df))
 }
@@ -218,14 +258,14 @@ cor_fun = function(df, pos_1, pos_2, p.value, type, ...){
             "Dcor" = { computeCorN = dcorp
 
             },
-            "pps" = { computeCorN = ppsr::score
+            "corpps" = {computeCorN = corpps
 
             }
     )
 
 
-    r = try(ComputeCorN(df[[pos_1]]
-                     , df[[pos_2]]
+    r = try(ComputeCorN(df[pos_1]
+                     , df[pos_2]
                      , p.value
                      , type
                      , ...)
@@ -238,37 +278,55 @@ cor_fun = function(df, pos_1, pos_2, p.value, type, ...){
   if(class(df[[pos_1]]) %in% c("integer", "numeric") &&
      class(df[[pos_2]]) %in% c("factor", "character")){
 
+    switch (cor.n,
+            "lm" = {computeCorN = corlm
+            },
+            "pps" = { computeCorN = corpps
 
-
-    r = try(
-      lmp(df[[pos_1]],df[[pos_2]],p.value = p.value, verbose = verbose , ...)
+            }
     )
-  }
 
-  if(class(df[[pos_2]]) %in% c("integer", "numeric") &&
-     class(df[[pos_1]]) %in% c("factor", "character")){
-    r = try(
-      lmp(df[[pos_2]],df[[pos_1]],p.value = p.value, verbose = verbose , ...)
+
+    r = try(ComputeCorN(df[pos_1]
+                        , df[pos_2]
+                        , p.value
+                        , type
+                        , ...)
     )
+
   }
 
   # both are factor/character
 
   if(class(df[[pos_1]]) %in% c("factor", "character") &&
      class(df[[pos_2]]) %in% c("factor", "character")){
-    r = try(
-      cramersvp(df[[pos_1]], df[[pos_2]],p.value = p.value,
-                       simulate.p.value = TRUE,
-                       verbose = verbose, ...)
-      )
 
+    switch (cor.n,
+            "cramersV" = {computeCorN =  cramersvp
+            },
+            "uncoef" = { computeCorN = uncorp
+            },
+            "corpps" = { computeCorN = corpps
+
+            }
+    )
+
+
+    r = try(ComputeCorN(df[pos_1]
+                        , df[pos_2]
+                        , p.value
+                        , type
+                        , ...)
+    )
 
   }
 
   if((class(r) %in% "try-error")){
+
     warnings(cat("ERROR: some operations produces Nas values.","\n",
                  pos_1, " FUN " ,pos_2,"\n"))
-    r = NA
+
+    r = list(value = NA , p.value = NA, msg = NULL)
   }
 
   return(r)
