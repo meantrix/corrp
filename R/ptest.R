@@ -41,6 +41,8 @@ ptest = function(x ,y,
   checkmate::assert_character(alternative,len = 1, pattern = "t|l|g")
   checkmate::assert_logical(r,len = 1)
   checkmate::assert_number(num.s)
+  if( is.data.frame(x) ) x = x[[1]]
+  if( is.data.frame(y) ) y = y[[1]]
   stopifnot(is.numeric(x),is.numeric(y))
   stopifnot(length(x) == length(y))
 

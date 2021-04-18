@@ -105,7 +105,7 @@ cor_fun = Vectorize( cor_fun, vectorize.args = c("pos_1", "pos_2") )
   if( isTRUE(parallel) ){
 
     doParallel::registerDoParallel( min(parallel::detectCores(),n.cores) )
-    corrmat=cor_par( df,p.value=p.value, ... )
+    corrmat=cor_par(df, p.value = p.value, ... )
     #force stop
     env = foreach:::.foreachGlobals
     rm( list = ls(name = env), pos = env )
