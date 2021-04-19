@@ -74,14 +74,15 @@ corrp.data.frame = function(df,
                             n.cores = 1,
                             p.value = 0.05,
                             verbose = TRUE,
-                            p.test.n.sum = 1000,
+                            ptest.n.sum = 1000,
                             ptest.r = F,
                             comp = c("greater","less"),
                             alternative = c("two.sided", "less", "greater"),
-                            cor.n = c("pearson","mic","dcor","pps"),
+                            cor.nn = c("pearson","mic","dcor","pps"),
                             cor.nc = c("lm","pps"),
                             cor.cc = c("cramersV","uncoef","pps"),
                             lm.args = list(),
+                            pearson.args = list(),
                             dcor.args = list(),
                             mic.args = list(),
                             pps.args = list(),
@@ -90,7 +91,7 @@ corrp.data.frame = function(df,
                             ...){
 
   alternative = match.arg(alternative)
-  cor.n = match.arg(cor.n)
+  cor.nn = match.arg(cor.nn)
   cor.nc = match.arg(cor.nc)
   cor.cc = match.arg(cor.cc)
   comp = match.arg(comp)
@@ -102,6 +103,15 @@ corrp.data.frame = function(df,
   checkmate::assert_logical(parallel,len = 1)
   checkmate::assertNumber(p.value,upper = 1, lower = 0)
   checkmate::assertNumber(n.cores)
+  checkmate::assert_list(lm.args)
+  checkmate::assert_list(pearson.args)
+  checkmate::assert_list(dcor.args)
+  checkmate::assert_list(mic.args)
+  checkmate::assert_list(pps.args)
+  checkmate::assert_list(cramersV.args)
+  checkmate::assert_list(uncoef.args)
+
+
 
   stopifnot( sapply(df, class) %in% c("integer"
                                      , "numeric"
@@ -117,10 +127,46 @@ corrp.data.frame = function(df,
 
     doParallel::registerDoParallel( min(parallel::detectCores(),n.cores) )
     dim=NCOL(df)
-    corp = foreach::foreach(i=1:dim,.export = c(ls(parent.env())) , .packages = c('corrP') ) %:%
+    corp = foreach::foreach(i=1:dim,.export = c('cor_fun') ,
+                            .packages = c('corrP') ) %:%
       foreach::foreach (j=1:dim) %dopar% {
-        corp = cor_fun(df = df,pos_1 = i,pos_2 = j, p.value=p.value,...)
+        corp = cor_fun(df = df,pos_1 = i,pos_2 = j,
+                       p.value=p.value,
+                       alternative = alternative,
+                       cor.nn = cor.nn,
+                       cor.nc = cor.nc,
+                       cor.cc = cor.cc,
+                       ptest.n.sum = ptest.n.sum,
+                       ptest.r = ptest.r,
+                       cramersV.args = cramersV.args,
+                       dcor.args = dcor.args,
+                       pps.args = pps.args,
+                       mic.args = mic.args,
+                       uncoef.args = uncoef.args
+
+                       )
       }
+
+
+    for(i in 1:dim){
+      for(j in 1:dim){
+        corp = cor_fun(df = df,pos_1 = i,pos_2 = j,
+                       p.value=p.value,
+                       alternative = alternative,
+                       cor.nn = cor.nn,
+                       cor.nc = cor.nc,
+                       cor.cc = cor.cc,
+                       ptest.n.sum = ptest.n.sum,
+                       ptest.r = ptest.r,
+                       cramersV.args = cramersV.args,
+                       dcor.args = dcor.args,
+                       pps.args = pps.args,
+                       mic.args = mic.args,
+                       uncoef.args = uncoef.args
+
+        )
+      }
+    }
     matrix(unlist(corp), ncol=ncol(df))
 
     #force stop
