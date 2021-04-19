@@ -1,7 +1,7 @@
 #auxiliar functions
 
 #linear regression Calculations
-corlm = function(y, x, p.value, type, verbose, lm.args =list()){
+corlm = function(y, x, p.value, comp, verbose, lm.args =list()){
 
   nx = ny = ""
   if( is.data.frame(x) )  nx = names(x) ; x = x[[1]]
@@ -16,7 +16,7 @@ corlm = function(y, x, p.value, type, verbose, lm.args =list()){
   pv = stats::pf (sum.res$fstatistic[1],sum.res$fstatistic[2],
                   sum.res$fstatistic[3],lower.tail=F)
 
-  comp = comparepv(pv,p.value,type)
+  comp = comparepv(pv,p.value,comp)
   msg = NULL
 
 
@@ -45,7 +45,7 @@ corlm = function(y, x, p.value, type, verbose, lm.args =list()){
 }
 
 #CramersV Calculations
-cramersvp = function(y, x, p.value, type, verbose, cramersV.args = list()){
+cramersvp = function(y, x, p.value, comp, verbose, cramersV.args = list()){
 
   nx = ny = ""
   if( is.data.frame(x) )  nx = names(x) ; x = x[[1]]
@@ -54,7 +54,7 @@ cramersvp = function(y, x, p.value, type, verbose, cramersV.args = list()){
   args = c(list(y),list(x),args)
 
   pv = stats::chisq.test(y,x,simulate.p.value=TRUE)$p.value
-  comp = comparepv(pv,p.value,type)
+  comp = comparepv(pv,p.value,comp)
   msg = NULL
 
 
@@ -85,14 +85,14 @@ cramersvp = function(y, x, p.value, type, verbose, cramersV.args = list()){
 }
 
 # Distance Correlation Calculations
-dcorp = function(y, x, p.value, type, verbose, dcor.args = list()){
+dcorp = function(y, x, p.value, comp, verbose, dcor.args = list()){
 
   args = c(list(y),list(x),dcor.args)
 
   dc = do.call(energy::dcorT.test , args)
   pv = dc$p.value
   r = as.numeric(dc$estimate)
-  comp = comparepv(pv,p.value,type)
+  comp = comparepv(pv,p.value,comp)
   msg = NULL
 
 
@@ -119,7 +119,7 @@ dcorp = function(y, x, p.value, type, verbose, dcor.args = list()){
 
 }
 # Pearson Calculations
-corperp = function(y, x, p.value, type, verbose,pearson.args = list() ){
+corperp = function(y, x, p.value, comp, verbose,pearson.args = list() ){
 
   nx = ny = ""
   if( is.data.frame(x) )  nx = names(x) ; x = x[[1]]
@@ -131,7 +131,7 @@ corperp = function(y, x, p.value, type, verbose,pearson.args = list() ){
 
   res = do.call(stats::cor.test,args = args)
   pv = res[["p.value"]]
-  comp = comparepv(pv,p.value,type)
+  comp = comparepv(pv,p.value,comp)
   msg = NULL
 
 
@@ -162,7 +162,7 @@ corperp = function(y, x, p.value, type, verbose,pearson.args = list() ){
 
 
 #MIC calculations
-micorp = function(y, x, p.value, type, verbose, mic.args = list()) {
+micorp = function(y, x, p.value, comp, verbose, mic.args = list()) {
 
   nx = ny = ""
   if( is.data.frame(x) )  nx = names(x) ; x = x[[1]]
@@ -175,7 +175,7 @@ micorp = function(y, x, p.value, type, verbose, mic.args = list()) {
   do.call(function(...) {z = minerva::mine(...); return(z$MIC) } , args )
   })
   #ptest(y,x,FUN = function(y,x) {minerva::mine(y,x)$MIC} )
-  comp = comparepv(pv,p.value,type)
+  comp = comparepv(pv,p.value,comp)
   msg = NULL
 
 
@@ -209,7 +209,7 @@ micorp = function(y, x, p.value, type, verbose, mic.args = list()) {
 
 
 #Uncertainty coefficient Calculations
-uncorp = function(y, x, p.value, type, verbose, uncoef.args = list()) {
+uncorp = function(y, x, p.value, comp, verbose, uncoef.args = list()) {
 
   nx = ny = ""
 
@@ -223,7 +223,7 @@ uncorp = function(y, x, p.value, type, verbose, uncoef.args = list()) {
     do.call(DescTools::UncertCoef , args )
   })
   #pv = ptest(y,x,FUN = function(y,x) DescTools::UncertCoef(y,x) )
-  comp = comparepv(pv,p.value,type)
+  comp = comparepv(pv,p.value,comp)
   msg = NULL
 
 
@@ -275,10 +275,13 @@ corpps = function(y, x, ...) {
 
 
 #parallel corr matrix
-cor_par = function (df, p.value, type, verbose, ...) {
-
+cor_par = function (...) {
+  LoadVars()
+  browser()
   dim=NCOL(df)
-  corp = foreach::foreach(i=1:dim,.export='cor_fun') %:%
+  corp = foreach::foreach(i=1:dim,.export=c('cor_fun',"comp", "verbose","cor.n",
+  "cor.nc" , "cor.cc", "lm.args","dcor.args","mic.args","pps.args",
+  "cramersV.args","uncoef.args","verbose","p.test.n.sum","ptest.r") ) %:%
     foreach::foreach (j=1:dim) %dopar% {
       corp = cor_fun(df = df,pos_1 = i,pos_2 = j, p.value=p.value,...)
     }
@@ -286,10 +289,10 @@ cor_par = function (df, p.value, type, verbose, ...) {
 }
 
 
-cor_fun = function(df, pos_1, pos_2, p.value, type, verbose, ...){
+cor_fun = function(df, pos_1,pos_2,...){
 
   # both are numeric
-
+  browser()
   if(class(df[[pos_1]]) %in% c("integer", "numeric") &&
      class(df[[pos_2]]) %in% c("integer", "numeric")){
 
@@ -311,7 +314,7 @@ cor_fun = function(df, pos_1, pos_2, p.value, type, verbose, ...){
     r = try(ComputeCorN(df[pos_1]
                      , df[pos_2]
                      , p.value
-                     , type
+                     , comp
                      , verbose
                      , ...)
     )
@@ -335,7 +338,7 @@ cor_fun = function(df, pos_1, pos_2, p.value, type, verbose, ...){
     r = try(ComputeCorN(df[pos_1]
                         , df[pos_2]
                         , p.value
-                        , type
+                        , comp
                         , verbose
                         , ...)
     )
@@ -361,7 +364,7 @@ cor_fun = function(df, pos_1, pos_2, p.value, type, verbose, ...){
     r = try(ComputeCorN(df[pos_1]
                         , df[pos_2]
                         , p.value
-                        , type
+                        , comp
                         , verbose
                         , ...)
     )
@@ -382,11 +385,11 @@ cor_fun = function(df, pos_1, pos_2, p.value, type, verbose, ...){
 
 
 #compare p-value alternatives
-comparepv = function(x,pv,type = c('l','g')){
+comparepv = function(x,pv,comp = c('l','g')){
 
-  type = match.arg(type)
+  comp = match.arg(comp)
 
-  if(type == 'g') {
+  if(comp == 'g') {
 
     str = '<'
     comp = pv > x
@@ -402,5 +405,13 @@ comparepv = function(x,pv,type = c('l','g')){
 
 }
 
+#Load All Parent Variables to Child Function
 
+LoadVars <- function(){
+  variables <- ls(envir = parent.frame(2))
+
+  for (var in variables) {
+    assign(var, get(var, envir = parent.frame(2)),envir = parent.frame(1))
+  }
+}
 

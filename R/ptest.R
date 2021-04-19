@@ -12,7 +12,6 @@
 #' \dontrun{
 #' x = iris[[1]]; y = iris[[2]]
 #'
-#' ptest(x,y,FUN = mean ,alternative = 't')
 #'
 #' ptest(x,y,FUN = function(x,y) cor(x,y) ,alternative = 't')
 #'

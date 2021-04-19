@@ -74,14 +74,25 @@ corrp.data.frame = function(df,
                             n.cores = 1,
                             p.value = 0.05,
                             verbose = TRUE,
+                            p.test.n.sum = 1000,
+                            ptest.r = F,
                             comp = c("greater","less"),
                             alternative = c("two.sided", "less", "greater"),
-                            cor.n = c("pearson","MIC","Dcor","pps"),
+                            cor.n = c("pearson","mic","dcor","pps"),
                             cor.nc = c("lm","pps"),
                             cor.cc = c("cramersV","uncoef","pps"),
+                            lm.args = list(),
+                            dcor.args = list(),
+                            mic.args = list(),
+                            pps.args = list(),
+                            cramersV.args = list(),
+                            uncoef.args = list(),
                             ...){
 
   alternative = match.arg(alternative)
+  cor.n = match.arg(cor.n)
+  cor.nc = match.arg(cor.nc)
+  cor.cc = match.arg(cor.cc)
   comp = match.arg(comp)
   comp = substr(comp,1,1)
   checkmate::assert_character(comp,len = 1, pattern = "l|g")
@@ -98,14 +109,20 @@ corrp.data.frame = function(df,
                                      , "character"))
 
 
-cor_fun = Vectorize( cor_fun, vectorize.args = c("pos_1", "pos_2") )
+#cor_fun = Vectorize( cor_fun, vectorize.args = c("pos_1", "pos_2") )
 
-
+  browser()
  # parallel corr matrix
   if( isTRUE(parallel) ){
 
     doParallel::registerDoParallel( min(parallel::detectCores(),n.cores) )
-    corrmat=cor_par(df, p.value = p.value, ... )
+    dim=NCOL(df)
+    corp = foreach::foreach(i=1:dim,.export = c(ls(parent.env())) , .packages = c('corrP') ) %:%
+      foreach::foreach (j=1:dim) %dopar% {
+        corp = cor_fun(df = df,pos_1 = i,pos_2 = j, p.value=p.value,...)
+      }
+    matrix(unlist(corp), ncol=ncol(df))
+
     #force stop
     env = foreach:::.foreachGlobals
     rm( list = ls(name = env), pos = env )
