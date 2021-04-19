@@ -121,7 +121,6 @@ corrp.data.frame = function(df,
 
 #cor_fun = Vectorize( cor_fun, vectorize.args = c("pos_1", "pos_2") )
 
-  browser()
  # parallel corr matrix
   if( isTRUE(parallel) ){
 
@@ -131,13 +130,17 @@ corrp.data.frame = function(df,
                             .packages = c('corrP') ) %:%
       foreach::foreach (j=1:dim) %dopar% {
         corp = cor_fun(df = df,pos_1 = i,pos_2 = j,
-                       p.value=p.value,
+                       p.value = p.value,
+                       verbose = verbose,
                        alternative = alternative,
+                       comp = comp,
                        cor.nn = cor.nn,
                        cor.nc = cor.nc,
                        cor.cc = cor.cc,
                        ptest.n.sum = ptest.n.sum,
                        ptest.r = ptest.r,
+                       lm.args = lm.args,
+                       pearson.args = pearson.args,
                        cramersV.args = cramersV.args,
                        dcor.args = dcor.args,
                        pps.args = pps.args,
@@ -147,26 +150,6 @@ corrp.data.frame = function(df,
                        )
       }
 
-
-    for(i in 1:dim){
-      for(j in 1:dim){
-        corp = cor_fun(df = df,pos_1 = i,pos_2 = j,
-                       p.value=p.value,
-                       alternative = alternative,
-                       cor.nn = cor.nn,
-                       cor.nc = cor.nc,
-                       cor.cc = cor.cc,
-                       ptest.n.sum = ptest.n.sum,
-                       ptest.r = ptest.r,
-                       cramersV.args = cramersV.args,
-                       dcor.args = dcor.args,
-                       pps.args = pps.args,
-                       mic.args = mic.args,
-                       uncoef.args = uncoef.args
-
-        )
-      }
-    }
     matrix(unlist(corp), ncol=ncol(df))
 
     #force stop
