@@ -1,7 +1,7 @@
 #auxiliar functions
 
 #linear regression Calculations
-corlm = function(y, x, p.value, comp, verbose, lm.args =list()){
+corlm = function(y, x, p.value, comp, verbose, lm.args =list(), ...){
 
   nx = ny = ""
   if( is.data.frame(x) )  nx = names(x) ; x = x[[1]]
@@ -45,7 +45,7 @@ corlm = function(y, x, p.value, comp, verbose, lm.args =list()){
 }
 
 #CramersV Calculations
-cramersvp = function(y, x, p.value, comp, verbose, cramersV.args = list()){
+cramersvp = function(y, x, p.value, comp, verbose, cramersV.args = list(), ...){
 
   nx = ny = ""
   if( is.data.frame(x) )  nx = names(x) ; x = x[[1]]
@@ -85,7 +85,7 @@ cramersvp = function(y, x, p.value, comp, verbose, cramersV.args = list()){
 }
 
 # Distance Correlation Calculations
-dcorp = function(y, x, p.value, comp, verbose, dcor.args = list()){
+dcorp = function(y, x, p.value, comp, verbose, dcor.args = list(), ...){
 
   args = c(list(y),list(x),dcor.args)
 
@@ -119,7 +119,7 @@ dcorp = function(y, x, p.value, comp, verbose, dcor.args = list()){
 
 }
 # Pearson Calculations
-corperp = function(y, x, p.value, comp, verbose,pearson.args = list() ){
+corperp = function(y, x, p.value, comp, verbose,pearson.args = list(), ...){
 
   nx = ny = ""
   if( is.data.frame(x) )  nx = names(x) ; x = x[[1]]
@@ -127,7 +127,7 @@ corperp = function(y, x, p.value, comp, verbose,pearson.args = list() ){
 
   pearson.args$alternative = alternative #from global
   pearson.args$method = "pearson"
-  args = c(list(y),list(x),person.args)
+  args = c(list(y),list(x),pearson.args)
 
   res = do.call(stats::cor.test,args = args)
   pv = res[["p.value"]]
@@ -162,7 +162,7 @@ corperp = function(y, x, p.value, comp, verbose,pearson.args = list() ){
 
 
 #MIC calculations
-micorp = function(y, x, p.value, comp, verbose, mic.args = list()) {
+micorp = function(y, x, p.value, comp, verbose, mic.args = list(), ...) {
 
   nx = ny = ""
   if( is.data.frame(x) )  nx = names(x) ; x = x[[1]]
@@ -209,7 +209,7 @@ micorp = function(y, x, p.value, comp, verbose, mic.args = list()) {
 
 
 #Uncertainty coefficient Calculations
-uncorp = function(y, x, p.value, comp, verbose, uncoef.args = list()) {
+uncorp = function(y, x, p.value, comp, verbose, uncoef.args = list(), ...) {
 
   nx = ny = ""
 
@@ -289,14 +289,31 @@ cor_par = function (...) {
 }
 
 
-cor_fun = function(df, pos_1,pos_2,...){
+cor_fun = function(df,
+                   pos_1,
+                   pos_2,
+                   p.value=p.value,
+                   alternative,
+                   cor.nn,
+                   cor.nc,
+                   cor.cc,
+                   ptest.n.sum,
+                   ptest.r,
+                   cramersV.args,
+                   dcor.args,
+                   pps.args,
+                   mic.args,
+                   uncoef.args){
+
+  y = df[pos_1]
+  x = df[pos_2]
 
   # both are numeric
   browser()
-  if(class(df[[pos_1]]) %in% c("integer", "numeric") &&
-     class(df[[pos_2]]) %in% c("integer", "numeric")){
+  if( class(df[[pos_1]]) %in% c("integer", "numeric") &&
+      class(df[[pos_2]]) %in% c("integer", "numeric") ){
 
-    switch (cor.n,
+    switch (cor.nn,
             "pearson" = {computeCorN = corperp
             },
             "MIC" = { computeCorN = micorp
@@ -311,12 +328,8 @@ cor_fun = function(df, pos_1,pos_2,...){
     )
 
 
-    r = try(ComputeCorN(df[pos_1]
-                     , df[pos_2]
-                     , p.value
-                     , comp
-                     , verbose
-                     , ...)
+    r = try(
+      eval(body(computeCorN), list(), enclos=environment())
     )
 
   }
@@ -326,7 +339,7 @@ cor_fun = function(df, pos_1,pos_2,...){
   if(class(df[[pos_1]]) %in% c("integer", "numeric") &&
      class(df[[pos_2]]) %in% c("factor", "character")){
 
-    switch (cor.n,
+    switch (cor.nc,
             "lm" = {computeCorN = corlm
             },
             "pps" = { computeCorN = corpps
@@ -335,13 +348,10 @@ cor_fun = function(df, pos_1,pos_2,...){
     )
 
 
-    r = try(ComputeCorN(df[pos_1]
-                        , df[pos_2]
-                        , p.value
-                        , comp
-                        , verbose
-                        , ...)
+    r = try(
+      eval(body(computeCorN), list(), enclos=environment())
     )
+
 
   }
 
@@ -350,7 +360,7 @@ cor_fun = function(df, pos_1,pos_2,...){
   if(class(df[[pos_1]]) %in% c("factor", "character") &&
      class(df[[pos_2]]) %in% c("factor", "character")){
 
-    switch (cor.n,
+    switch (cor.cc,
             "cramersV" = {computeCorN =  cramersvp
             },
             "uncoef" = { computeCorN = uncorp
@@ -361,13 +371,10 @@ cor_fun = function(df, pos_1,pos_2,...){
     )
 
 
-    r = try(ComputeCorN(df[pos_1]
-                        , df[pos_2]
-                        , p.value
-                        , comp
-                        , verbose
-                        , ...)
+    r = try(
+      eval(body(computeCorN), list(), enclos=environment())
     )
+
 
   }
 
