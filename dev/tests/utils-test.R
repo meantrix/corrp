@@ -13,19 +13,23 @@ ptest.r = ptest.r = F
 lm.args =lm.args=pearson.args=cramersV.args=dcor.args=pps.args=mic.args=uncoef.args = list()
 
 
-pos_1=1
+pos_1=5
 pos_2=1
 type = 'g'
 pv = 0.3
 
 #ISOLATE
+nx = names(df[pos_2])
+ny = names(df[pos_1])
+y = df[[pos_1]]
+x = df[[pos_2]]
 
-corlm(df[pos_1],df[pos_2], p.value = p.value,comp = 'g',verbose = F)
-cramersvp(df[pos_1],df[pos_2], p.value = p.value,comp = 'g',verbose = F)
-corperp(df[pos_1],df[pos_2], p.value = p.value,comp = 'g',verbose = F)
-dcorp(df[pos_1],df[pos_2], p.value = p.value,comp = 'g',verbose = F)
-uncorp(df[pos_1],df[pos_2], p.value = p.value,comp = 'g',verbose = F)
-micorp(df[pos_1],df[pos_2], p.value = p.value,comp = 'g',verbose = F)
+corlm(y,x, p.value = p.value,comp = 'g',verbose = F)
+cramersvp(y,x, p.value = p.value,comp = 'g',verbose = F)
+corperp(y,x, p.value = p.value,comp = 'g',verbose = F)
+dcorp(y,x, p.value = p.value,comp = 'g',verbose = F)
+uncorp(y,x, p.value = p.value,comp = 'g',verbose = F)
+micorp(y,x, p.value = p.value,comp = 'g',verbose = F)
 
 #Looping
 dim = NCOL(df)
@@ -50,7 +54,7 @@ for(i in 1:dim){
                    mic.args = mic.args,
                    uncoef.args = uncoef.args
 
-    )$value
+    )$infer.value
   }
 }
 
