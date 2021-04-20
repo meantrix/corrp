@@ -54,3 +54,31 @@ for(i in 1:dim){
   }
 }
 
+
+#Parallel
+
+doParallel::registerDoParallel( min(parallel::detectCores(),n.cores) )
+dim=NCOL(df)
+corp = foreach::foreach(i=1:dim,.export = c('cor_fun') ,
+                        .packages = c('corrP') ) %:%
+  foreach::foreach (j=1:dim) %dopar% {
+    corp = cor_fun(df = df,pos_1 = i,pos_2 = j,
+                   p.value = p.value,
+                   verbose = verbose,
+                   alternative = alternative,
+                   comp = comp,
+                   cor.nn = cor.nn,
+                   cor.nc = cor.nc,
+                   cor.cc = cor.cc,
+                   ptest.n.sum = ptest.n.sum,
+                   ptest.r = ptest.r,
+                   lm.args = lm.args,
+                   pearson.args = pearson.args,
+                   cramersV.args = cramersV.args,
+                   dcor.args = dcor.args,
+                   pps.args = pps.args,
+                   mic.args = mic.args,
+                   uncoef.args = uncoef.args
+
+    )
+  }

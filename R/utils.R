@@ -310,16 +310,44 @@ cor_fun = function(df,
   ny = names(y)
 
   # both are numeric
-  if( cly %in% c("integer", "numeric") &&
-      clx %in% c("integer", "numeric") ){
+
+  cond.nn = ( cly %in% c("integer", "numeric") && clx %in% c("integer", "numeric") )
+  cond.nc = ( cly %in% c("integer", "numeric") && clx %in% c("factor", "character") )
+  cond.cc = ( cly %in% c("factor", "character") && clx %in% c("factor", "character") )
+
+  cond.all = all( !cond.nn,!cond.nc,!cond.cc )
+
+  if(cond.all){
+
+    z = x
+    nz =nx
+    clz = clx
+
+    x = y
+    nx = ny
+    clx = cly
+    y = z
+    ny = nz
+    cly = clz
+
+    cond.nn = ( cly %in% c("integer", "numeric") && clx %in% c("integer", "numeric") )
+    cond.nc = ( cly %in% c("integer", "numeric") && clx %in% c("factor", "character") )
+    cond.cc = ( cly %in% c("factor", "character") && clx %in% c("factor", "character") )
+
+
+
+  }
+
+
+  if( cond.nn ){
 
     switch (cor.nn,
             "pearson" = {computeCorN = corperp
             },
-            "MIC" = { computeCorN = micorp
+            "mic" = { computeCorN = micorp
 
             },
-            "Dcor" = { computeCorN = dcorp
+            "dcor" = { computeCorN = dcorp
 
             },
             "corpps" = {computeCorN = corpps
@@ -336,8 +364,7 @@ cor_fun = function(df,
 
   # one is numeric and other is a factor/character
 
-  if( cly %in% c("integer", "numeric") &&
-      clx %in% c("factor", "character") ){
+  if( cond.nc ){
 
     switch (cor.nc,
             "lm" = {computeCorN = corlm
@@ -357,8 +384,7 @@ cor_fun = function(df,
 
   # both are factor/character
 
-  if( cly %in% c("factor", "character") &&
-      clx %in% c("factor", "character") ){
+  if( cond.cc ){
 
     switch (cor.cc,
             "cramersV" = {computeCorN =  cramersvp
