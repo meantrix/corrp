@@ -5,7 +5,9 @@
 #'   numeric, factor and character. The character column is considered as
 #'   categorical variable. This method is original based on Srikanth KS (talegari) cor2 function.
 #'
+#' @name cor_fun
 #'
+#' @aliases cor_fun
 #' @param df input data frame.
 #' @param p.value \[\code{logical(1)}\]\cr
 #' P-value probability of obtaining the observed results of a test,
@@ -33,15 +35,7 @@
 #'}
 #'
 #' @export
-cor_fun <-
-  function(df, ...) {
-
-    UseMethod("cor_fun",df)
-
-  }
-
-#'@rdname cor_fun
-cor_fun.data.frame = function(df,
+cor_fun =  function(df,
                     nx,
                     ny,
                     p.value,
@@ -69,13 +63,12 @@ cor_fun.data.frame = function(df,
   cor.cc = match.arg(cor.cc)
   comp = match.arg(comp)
   comp = substr(comp,1,1)
+  checkmate::assertDataFrame(df)
   checkmate::assert_character(comp,len = 1, pattern = "l|g")
   alternative = substr(alternative,1,1)
   checkmate::assert_character(alternative,len = 1, pattern = "t|l|g")
   checkmate::assert_logical(verbose,len = 1)
-  checkmate::assert_logical(parallel,len = 1)
   checkmate::assertNumber(p.value,upper = 1, lower = 0)
-  checkmate::assertNumber(n.cores)
   checkmate::assert_list(lm.args)
   checkmate::assert_list(pearson.args)
   checkmate::assert_list(dcor.args)
@@ -190,6 +183,9 @@ cor_fun.data.frame = function(df,
     r =  list( infer= NA , infer.value = NA , stat = NA, stat.value = NA ,
                isig = 'No', msg = r , var1 = ny, var2 = nx )
   }
+
+
+
 
   return(r)
 

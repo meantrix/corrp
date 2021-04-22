@@ -163,7 +163,7 @@
 
   res = do.call(stats::cor.test,args = args)
   pv = res[["p.value"]]
-  r = res[["estimate"]]
+  r = as.numeric(res[["estimate"]])
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
   msg = NULL
 

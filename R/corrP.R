@@ -2,34 +2,30 @@
 #'
 #' @description Compute correlations type analysis on mixed classes columns of larges dataframes
 #' with parallel backend.
-#'   The dataframe is allowed to have columns of these four classes: integer,
-#'   numeric, factor and character. The character column is considered as
-#'   categorical variable. This method is original based on Srikanth KS (talegari) cor2 function.
+#' The dataframe is allowed to have columns of these four classes: integer,
+#' numeric, factor and character. The character column is considered as
+#' categorical variable. This method is original based on Srikanth KS (talegari) cor2 function.
 #'
-#' @details The correlation is computed as follows:
+#' @name corrp
 #'
-#' \itemize{
+#' @section Details (Types):
 #'
-#'   \item integer/numeric pair: pearson correlation using `cor` function. The
+#' - \code{integer/numeric pair} Pearson correlation using `cor` function. The
 #'   value lies between -1 and 1.
-#'
-#'   \item integer/numeric - factor/categorical pair: correlation coefficient or
+#' - \code{integer/numeric - factor/categorical pair} correlation coefficient or
 #'   squared root of R^2 coefficient of linear regression of integer/numeric
-#'   variable over factor/categorical variable using `lm` function. The value
+#'   variable over factor/categorical variable using \code{\link[stats]{lm}} function. The value
 #'   lies between 0 and 1.
-#'
-#'   \item factor/categorical pair: cramersV value is
-#'   computed based on chisq test and using `lsr::cramersV` function. The value lies
+#' - \code{factor/categorical pair} Cramer's V value is
+#'   computed based on chisq test and using \code{\link[lsrcramersV]{lm}} function. The value lies
 #'   between 0 and 1.
 #'
-#'    \item All statistical tests are controlled by the confidence internal of
-#'    p.value param. If the statistical tests do not obtain a significance lower/upper
-#'    than p.value, by default the correlation between variables will be `NA`.
-#'
-#'    \item If any errors occur during operations by default the correlation will be `NA`.
-#'    }
-#'
-#'   For a comprehensive implementation, use `polycor::hetcor`
+#' @section Details (Statistics):
+#' - All statistical tests are controlled by the confidence internal of
+#'   p.value param. If the statistical tests do not obtain a significance lower/upper
+#'   than p.value, by default the correlation between variables will be `NA`.
+#' - If any errors occur during operations by default the correlation will be `NA`.
+#' For a comprehensive implementation, use `polycor::hetcor`
 #'
 #' @param df input data frame.
 #' @param parallel \[\code{logical(1)}\]\cr If its TRUE run the operations in parallel backend.
@@ -51,6 +47,8 @@
 #' @references
 #' KS Srikanth,sidekicks,cor2, 2020.
 #' URL \url{https://github.com/talegari/sidekicks/}.
+#' Paul van der Laken, ppsr,2021.
+#' URL \url{https://github.com/paulvanderlaken/ppsr}.
 #'
 #' @examples
 #' \dontrun{
@@ -68,7 +66,9 @@ corrp <-
 }
 
 
-#'@rdname corrp
+#' @rdname corrp
+#' @name corrp.data.frame
+#' @export
 corrp.data.frame = function(df,
                             parallel = TRUE,
                             n.cores = 1,
@@ -123,50 +123,69 @@ corrp.data.frame = function(df,
 
  # parallel corr matrix
   if( isTRUE(parallel) ){
+    cnames = colnames(df)
+    index.matrix = expand.grid("i" = seq(1,NCOL(df)), "j" = seq(1,NCOL(df)), stringsAsFactors = FALSE)
+    cluster = parallel::makeCluster(n.cores)
+    parallel::clusterExport(cl, varlist = as.list(ls("package:corrP") ) )
+    corr = parallel::clusterApply(cluster, seq_len(NROW(res.grid)),
+                                    function(k,...){
+                                      ny = cnames[index.grid[["i"]][k]]
+                                      nx = cnames[index.grid[["j"]][k]]
+                                      cor_fun(df,
+                                              ny = ny,
+                                              nx = nx,
+                                              p.value = p.value,
+                                              verbose = verbose,
+                                              alternative = alternative,
+                                              comp = comp,
+                                              cor.nn = cor.nn,
+                                              cor.nc = cor.nc,
+                                              cor.cc = cor.cc,
+                                              ptest.n.sum = ptest.n.sum,
+                                              ptest.r = ptest.r,
+                                              lm.args = lm.args,
+                                              pearson.args = pearson.args,
+                                              cramersV.args = cramersV.args,
+                                              dcor.args = dcor.args,
+                                              pps.args = pps.args,
+                                              mic.args = mic.args,
+                                              uncoef.args = uncoef.args)
+                                    }
+    )
 
-    doParallel::registerDoParallel( min(parallel::detectCores(),n.cores) )
-    dim=NCOL(df)
-    corp = foreach::foreach(i=1:dim,.export = c('cor_fun') ,
-                            .packages = c('corrP') ) %:%
-      foreach::foreach (j=1:dim) %dopar% {
-        corp = cor_fun(df = df,pos_1 = i,pos_2 = j,
-                       p.value = p.value,
-                       verbose = verbose,
-                       alternative = alternative,
-                       comp = comp,
-                       cor.nn = cor.nn,
-                       cor.nc = cor.nc,
-                       cor.cc = cor.cc,
-                       ptest.n.sum = ptest.n.sum,
-                       ptest.r = ptest.r,
-                       lm.args = lm.args,
-                       pearson.args = pearson.args,
-                       cramersV.args = cramersV.args,
-                       dcor.args = dcor.args,
-                       pps.args = pps.args,
-                       mic.args = mic.args,
-                       uncoef.args = uncoef.args
-
-                       )
-      }
-
-    matrix(unlist(corp), ncol=ncol(df))
-
-    #force stop
-    env = foreach:::.foreachGlobals
-    rm( list = ls(name = env), pos = env )
-    doParallel::stopImplicitCluster()
+    parallel::stopCluster(cluster)
 
     } else {
-  # sequential corr matrix
-  corrmat = outer(   1:NCOL(df)
-                   , 1:NCOL(df)
-                   , function(x, y){cor_fun( df = df, x, y,  ... )}
-            )
-  }
-  rownames(corrmat) = colnames(df)
-  colnames(corrmat) = colnames(df)
-  #attribute class
-  attr(corrmat, 'class') = c('corrp','matrix')
-  return(corrmat)
+      # sequential corr
+      corr = lapply(seq_len(nrow(res.grid)),
+                    function(k,...){
+                      ny = cnames[index.grid[["i"]][k]]
+                      nx = cnames[index.grid[["j"]][k]]
+                      cor_fun(df,
+                              ny = ny,
+                              nx = nx,
+                              p.value = p.value,
+                              verbose = verbose,
+                              alternative = alternative,
+                              comp = comp,
+                              cor.nn = cor.nn,
+                              cor.nc = cor.nc,
+                              cor.cc = cor.cc,
+                              ptest.n.sum = ptest.n.sum,
+                              ptest.r = ptest.r,
+                              lm.args = lm.args,
+                              pearson.args = pearson.args,
+                              cramersV.args = cramersV.args,
+                              dcor.args = dcor.args,
+                              pps.args = pps.args,
+                              mic.args = mic.args,
+                              uncoef.args = uncoef.args)
+                    }
+      )
+
+    }
+
+  corr$index = index.matrix
+
+  return(structure(corr,class = c('list','corrP.list')))
 }
