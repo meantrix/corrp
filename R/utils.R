@@ -1,5 +1,5 @@
 #Load All Parent Variables to Child Function
-load_vars <- function(){
+.load_vars <- function(){
   variables <- ls(envir = parent.frame(2))
 
   for (var in variables) {
@@ -7,7 +7,7 @@ load_vars <- function(){
   }
 }
 
-list_corrP = function(){
+.list_corrP = function(){
   ls("package::corrP")
 }
 

@@ -2,6 +2,7 @@
 
 export("%:%")
 export("%dopar%")
+export(cor_fun)
 export(corrP)
 export(corrp)
 export(ptest)
