@@ -27,12 +27,12 @@ ny = names(df[pos_1])
 y = df[[pos_1]]
 x = df[[pos_2]]
 
-corlm(y,x, p.value = p.value,comp = 'g',verbose = F)
-cramersvp(y,x, p.value = p.value,comp = 'g',verbose = F)
-corperp(y,x, p.value = p.value,comp = 'g',verbose = F)
-dcorp(y,x, p.value = p.value,comp = 'g',verbose = F)
-uncorp(y,x, p.value = p.value,comp = 'g',verbose = F)
-micorp(y,x, p.value = p.value,comp = 'g',verbose = F)
+.corlm(y,x, p.value = p.value,comp = 'g',verbose = F)
+.cramersvp(y,x, p.value = p.value,comp = 'g',verbose = F)
+.corperp(y,x, p.value = p.value,comp = 'g',verbose = F)
+.dcorp(y,x, p.value = p.value,comp = 'g',verbose = F)
+.uncorp(y,x, p.value = p.value,comp = 'g',verbose = F)
+.micorp(y,x, p.value = p.value,comp = 'g',verbose = F)
 
 #Looping
 dim = NCOL(df)
@@ -64,19 +64,19 @@ for(i in 1:dim){
 
 #Parallel
 
-nc = seq(NCOL(df))
-res.grid = expand.grid(i = nc, j = nc, stringsAsFactors = FALSE)
-temp_score = function(i) {
-  cor_fun(df, pos_1 = param_grid[["i"]][k], pos_2 = param_grid[["j"]][k], ...)
+cnames = colnames(df)
+res.grid = expand.grid("y" = cnames, "x" = cnames, stringsAsFactors = FALSE)
+temp_score = function(k) {
+  cor_fun(df, ny = param_grid[["y"]][k], nx = param_grid[["x"]][k])
 }
 
 cl = parallel::makeCluster(n.cores)
-parallel::clusterExport(cl, varlist = as.list(.list_corrP ) )
+parallel::clusterExport(cl, varlist = as.list(ls("package:corrP") ) )
 scores = parallel::clusterApply(cl, seq_len(NROW(res.grid)),
-                                function(k, ...){
-                                cor_fun(df,
-                                        pos_1 = res.grid[["i"]][k],
-                                        pos_2 = res.grid[["j"]][k],
+                                function(k,...){
+                                        cor_fun(df,
+                                        ny = res.grid[["y"]][k],
+                                        nx = res.grid[["x"]][k],
                                         p.value = p.value,
                                         verbose = verbose,
                                         alternative = alternative,

@@ -2,12 +2,9 @@
 % Please edit documentation in R/cor_fun.R
 \name{cor_fun}
 \alias{cor_fun}
-\alias{cor_fun.data.frame}
 \title{Compute Correlation type analysis with Statistical Significance.}
 \usage{
-cor_fun(df, ...)
-
-\method{cor_fun}{data.frame}(
+cor_fun(
   df,
   nx,
   ny,
@@ -33,8 +30,6 @@ cor_fun(df, ...)
 \arguments{
 \item{df}{input data frame.}
 
-\item{...}{Additional arguments (TODO).}
-
 \item{p.value}{\[\code{logical(1)}\]\cr
 P-value probability of obtaining the observed results of a test,
 assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).}
@@ -46,6 +41,8 @@ or less than those estimated in tests and correlations.}
 
 \item{alternative}{\[\code{character(1)}\]\cr a character string specifying the alternative hypothesis for
 the correlation inference. It must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.}
+
+\item{...}{Additional arguments (TODO).}
 }
 \description{
 Compute one correlation type analysis on two mixed classes columns of a given dataframe.
