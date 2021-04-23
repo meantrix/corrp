@@ -8,23 +8,23 @@ ptest(
   x,
   y,
   FUN,
-  r = F,
+  rk = F,
   alternative = c("two.sided", "less", "greater"),
   num.s = 1000,
   ...
 )
 }
 \arguments{
-\item{x}{A numeric vector.}
+\item{x}{\[\code{numeric(1)}\]\cr a numeric vector.}
 
-\item{y}{A numeric vector.}
+\item{y}{\[\code{numeric(1)}\]\cr a numeric vector.}
 
-\item{r}{logical. If its TRUE transform x, y numeric vectors with samples ranks.}
+\item{rk}{\[\code{logical(1)}\]\cr if its TRUE transform x, y numeric vectors with samples ranks.}
 
-\item{alternative}{a character string specifying the alternative hypothesis,
+\item{alternative}{\[\code{character(1)}\]\cr a character string specifying the alternative hypothesis,
 must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.}
 
-\item{num.s}{number of samples with replacement created with y numeric vector.}
+\item{num.s}{\[\code{numeric(1)}\]\cr number of samples with replacement created with y numeric vector.}
 }
 \description{
 Execute one-sample permutation test on two numeric vector.
@@ -33,11 +33,9 @@ This approximates the null hypothesis — that there is no dependency/difference
 }
 \examples{
 \dontrun{
+
 x = iris[[1]]; y = iris[[2]]
-
-
 ptest(x,y,FUN = function(x,y) cor(x,y) ,alternative = 't')
-
 
 }
 }

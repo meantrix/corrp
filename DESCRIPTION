@@ -1,7 +1,7 @@
-Package: corrP
+Package: corrp
 Type: Package
-Title: CorrP (Compute correlations type analysis in parallel)
-Version: 0.1.1
+Title: corrp (Compute correlations type analysis in parallel)
+Version: 0.2.0
 Author: Igor D.S. Siciliani
 Maintainer: Igor D.S. Siciliani <igor@meantrix.com>
 Description: Compute correlations type analysis (Pearson correlation, R^2 
@@ -10,8 +10,18 @@ Description: Compute correlations type analysis (Pearson correlation, R^2
   and Predictive Power Score) of large dataframes with mixed types 
   variables(classes: integer, numeric, factor and character)
   in parallel backend.
-Depends: R (>= 3.5.2)
-Imports: lsr, foreach, parallel, doParallel, stats, caret, minerva, energy, checkmate,ppsr
+Depends: 
+    R (>= 3.5.2)
+Imports: 
+    lsr (>= 0.5),
+    parallel,
+    stats,
+    caret,
+    minerva (>= 1.5.8),
+    energy (>= 1.7-8),
+    checkmate,
+    ppsr (>= 0.0.2)
+Suggests: corrplot
 License: GNU AGPLv3 (http://choosealicense.com/licenses/agpl-3.0/)
 Encoding: UTF-8
 LazyData: true
