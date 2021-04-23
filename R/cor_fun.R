@@ -181,7 +181,7 @@ cor_fun =  function(df,
     }
 
     r =  list( infer= NA , infer.value = NA , stat = NA, stat.value = NA ,
-               isig = 'No', msg = r , var1 = ny, var2 = nx )
+               isig = FALSE, msg = r , var1 = ny, var2 = nx )
   }
 
 

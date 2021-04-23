@@ -25,7 +25,7 @@
 
   if(compare$comp) {
 
-    isig = "Yes"
+    isig = TRUE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -37,7 +37,7 @@
 
   } else {
 
-    isig = "No"
+    isig = FALSE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -74,7 +74,7 @@
 
   if(compare$comp) {
 
-    isig = "Yes"
+    isig = TRUE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -86,7 +86,7 @@
 
   } else {
 
-    isig = "No"
+    isig = FALSE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -120,7 +120,7 @@
 
   if(compare$comp) {
 
-    isig = "Yes"
+    isig = TRUE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -132,7 +132,7 @@
 
   } else {
 
-    isig = "No"
+    isig = FALSE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -170,7 +170,7 @@
 
   if(compare$comp) {
 
-    isig = "Yes"
+    isig = TRUE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -182,7 +182,7 @@
 
   } else {
 
-    isig = "No"
+    isig = FALSE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -222,7 +222,7 @@
 
   if(compare$comp) {
 
-    isig = "Yes"
+    isig = TRUE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -234,7 +234,7 @@
 
   } else {
 
-    isig = "No"
+    isig = FALSE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -278,7 +278,7 @@
 
   if(compare$comp) {
 
-    isig = "Yes"
+    isig = TRUE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -290,7 +290,7 @@
 
   } else {
 
-    isig = "No"
+    isig = FALSE
 
     if(verbose){
       msg = paste(ny,"vs.",nx,".",
@@ -317,22 +317,6 @@ corpps = function(y, x, ...) {
 
 
 }
-
-
-
-#parallel corr matrix
-.cor_par = function (...) {
-  LoadVars()
-  dim=NCOL(df)
-  corp = foreach::foreach(i=1:dim,.export=c('cor_fun',"comp", "verbose","cor.n",
-  "cor.nc" , "cor.cc", "lm.args","dcor.args","mic.args","pps.args",
-  "cramersV.args","uncoef.args","verbose","p.test.n.sum","ptest.r") ) %:%
-    foreach::foreach (j=1:dim) %dopar% {
-      corp = cor_fun(df = df,pos_1 = i,pos_2 = j, p.value=p.value,...)
-    }
-  matrix(unlist(corp), ncol=ncol(df))
-}
-
 
 
 #compare p-value alternatives
