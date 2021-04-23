@@ -1,7 +1,7 @@
 #auxiliar functions
 
 #linear regression Calculations
-.corlm = function(y, x, p.value, comp, verbose, lm.args =list(), ...){
+.corlm = function(x, y, nx, ny, p.value, comp, verbose, lm.args =list(), ...){
 
   if( is.data.frame(x) ) x = x[[1]]
   if( is.data.frame(y) ) y = y[[1]]
@@ -51,12 +51,12 @@
 
 
   return( list( infer= infer , infer.value = r , stat = stat, stat.value = pv ,
-                isig = isig, msg = msg , var1 = ny, var2 = nx ) )
+                isig = isig, msg = msg , varx = nx, vary = ny ) )
 
 }
 
 #CramersV Calculations
-.cramersvp = function(y, x, p.value, comp, verbose, cramersV.args = list(), ...){
+.cramersvp = function(x, y, nx, ny, p.value, comp, verbose, cramersV.args = list(), ...){
 
   if( is.data.frame(x) )  x = x[[1]]
   if( is.data.frame(y) )  y = y[[1]]
@@ -64,9 +64,9 @@
   infer = "Cramer's V"
   stat = "P-value"
 
-  args = c(list(y),list(x),cramersV.args)
+  args = c(list(x),list(y),cramersV.args)
 
-  pv = stats::chisq.test(y,x,simulate.p.value=TRUE)$p.value
+  pv = stats::chisq.test(x,y,simulate.p.value=TRUE)$p.value
   r = do.call(lsr::cramersV,args)
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
   msg = NULL
@@ -99,17 +99,17 @@
   }
 
   return( list( infer= infer , infer.value = r , stat = stat, stat.value = pv ,
-                isig = isig, msg = msg , var1 = ny, var2 = nx ) )
+                isig = isig, msg = msg , varx = nx, vary = ny ) )
 
 }
 
 # Distance Correlation Calculations
-.dcorp = function(y, x, p.value, comp, verbose, dcor.args = list(), ...){
+.dcorp = function(x, y, nx, ny, p.value, comp, verbose, dcor.args = list(), ...){
 
   infer = "Distance Correlation"
   stat = "P-value"
 
-  args = c(list(y),list(x),dcor.args)
+  args = c(list(x),list(y),dcor.args)
 
   dc = do.call(energy::dcorT.test , args)
   pv = dc$p.value
@@ -145,11 +145,11 @@
   }
 
   return( list( infer= infer , infer.value = r , stat = stat, stat.value = pv ,
-                isig = isig, msg = msg , var1 = ny, var2 = nx ) )
+                isig = isig, msg = msg , varx = nx, vary = ny ) )
 
 }
 # Pearson Calculations
-.corperp = function(y, x, p.value, comp, verbose,pearson.args = list(), ...){
+.corperp = function(x, y, nx, ny, p.value, comp, verbose,pearson.args = list(), ...){
 
   if( is.data.frame(x) ) x = x[[1]]
   if( is.data.frame(y) ) y = y[[1]]
@@ -159,7 +159,7 @@
 
   pearson.args$alternative = alternative #from global
   pearson.args$method = "pearson"
-  args = c(list(y),list(x),pearson.args)
+  args = c(list(x),list(y),pearson.args)
 
   res = do.call(stats::cor.test,args = args)
   pv = res[["p.value"]]
@@ -195,13 +195,13 @@
   }
 
   return( list( infer= infer , infer.value = r , stat = stat, stat.value = pv ,
-                isig = isig, msg = msg , var1 = ny, var2 = nx ) )
+                isig = isig, msg = msg , varx = nx, vary = ny ) )
 
 }
 
 
 #MIC calculations
-.micorp = function(y, x, p.value, comp, verbose, mic.args = list(), ...) {
+.micorp = function(x, y, nx, ny, p.value, comp, verbose, mic.args = list(), ...) {
 
   if( is.data.frame(x) ) x = x[[1]]
   if( is.data.frame(y) ) y = y[[1]]
@@ -209,10 +209,10 @@
   infer = "Maximal Information Coefficient"
   stat = "P-value"
 
-  args = c(list(y),list(x),mic.args)
+  args = c(list(x),list(y),mic.args)
 
-  pv = ptest(y,x,FUN = function(y,x){
-  args = c(list(y),list(x),mic.args)
+  pv = ptest(x,y,FUN = function(y,x){
+  args = c(list(x),list(y),mic.args)
   do.call(function(...) {z = minerva::mine(...); return(z$MIC) } , args )
   },rk = rk, num.s = num.s,alternative = alternative)
   #ptest(y,x,FUN = function(y,x) {minerva::mine(y,x)$MIC} )
@@ -247,7 +247,7 @@
   }
 
   return( list( infer= infer , infer.value = r , stat = stat, stat.value = pv ,
-                isig = isig, msg = msg , var1 = ny, var2 = nx ) )
+                isig = isig, msg = msg , varx = nx, vary = ny ) )
 
 
 
@@ -255,15 +255,15 @@
 
 
 #Uncertainty coefficient Calculations
-.uncorp = function(y, x, p.value, comp, verbose, uncoef.args = list(), ...) {
+.uncorp = function(x, y, nx, ny, p.value, comp, verbose, uncoef.args = list(), ...) {
 
   if( is.data.frame(x) )  x = x[[1]]
   if( is.data.frame(y) )  y = y[[1]]
 
-  args = c(list(y),list(x),uncoef.args)
+  args = c(list(x),list(y),uncoef.args)
 
   pv = ptest(y,x,FUN = function(y,x){
-    args = c(list(y),list(x),uncoef.args)
+    args = c(list(x),list(y),uncoef.args)
     do.call(DescTools::UncertCoef , args )
   },rk = rk, num.s = num.s, alternative = alternative)
   #pv = ptest(y,x,FUN = function(y,x) DescTools::UncertCoef(y,x) )
@@ -303,14 +303,14 @@
   }
 
   return( list( infer= infer , infer.value = r , stat = stat, stat.value = pv ,
-                isig = isig, msg = msg , var1 = ny, var2 = nx ) )
+                isig = isig, msg = msg , varx = nx, vary = ny ) )
 
 
 
 }
 
 #Predictive Power Score Calculations
-.corpps = function(x, y, verbose, pps.args = list(), ...) {
+.corpps = function(x, y, nx, ny, verbose, pps.args = list(), ...) {
 
 
   args = c(list(data.frame(x,y)),list(nx),list(ny),pps.args)
@@ -318,7 +318,7 @@
   r =do.call(ppsr::score , args )
 
   msg = NULL
-  infer = r$result_type
+  infer = "Predictive Power Score"
   infer.value = r$pps
   stat = r$metric
   stat.value = r$model_score
@@ -332,8 +332,8 @@
     message(msg)
   }
 
-  return( list( infer= infer , infer.value = infer.value , stat = stat, stat.value = stat.value ,
-                isig = isig, msg = msg , var1 = ny, var2 = nx ) )
+  return( list( infer = infer , infer.value = infer.value , stat = stat, stat.value = stat.value ,
+                isig = isig, msg = msg , varx = nx, vary = ny ) )
 
 
 }

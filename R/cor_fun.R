@@ -197,7 +197,7 @@ corr_fun =  function(df,
     switch (cor.nc,
             "lm" = {computeCorN = .corlm
             },
-            "pps" = { computeCorN = corpps
+            "pps" = { computeCorN = .corpps
 
             }
     )
@@ -239,7 +239,7 @@ corr_fun =  function(df,
     }
 
     r =  list( infer= NA , infer.value = NA , stat = NA, stat.value = NA ,
-               isig = FALSE, msg = r , var1 = ny, var2 = nx )
+               isig = FALSE, msg = r , varx = nx, vary = ny )
   }
 
 

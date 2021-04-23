@@ -37,7 +37,7 @@ ptest = function(x ,y,
   alternative = match.arg(alternative)
   alternative = substr(alternative,1,1)
   checkmate::assert_character(alternative,len = 1, pattern = "t|l|g")
-  checkmate::assert_logical(r,len = 1)
+  checkmate::assert_logical(rk,len = 1)
   checkmate::assert_number(num.s)
   if( is.data.frame(x) ) x = x[[1]]
   if( is.data.frame(y) ) y = y[[1]]

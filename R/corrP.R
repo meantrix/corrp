@@ -147,10 +147,10 @@ corrp  = function(df,
                                      , "character"))
 
 
+ cnames = colnames(df)
+ index.grid = expand.grid("i" = seq(1,NCOL(df)), "j" = seq(1,NCOL(df)), stringsAsFactors = FALSE)
  # parallel corr matrix
   if( isTRUE(parallel) ){
-    cnames = colnames(df)
-    index.grid = expand.grid("i" = seq(1,NCOL(df)), "j" = seq(1,NCOL(df)), stringsAsFactors = FALSE)
     cluster = parallel::makeCluster(n.cores)
     parallel::clusterExport(cluster, varlist = as.list(ls("package:corrp") ) )
     corr = parallel::clusterApply(cluster, seq_len(NROW(index.grid)),
@@ -197,8 +197,8 @@ corrp  = function(df,
                               cor.nn = cor.nn,
                               cor.nc = cor.nc,
                               cor.cc = cor.cc,
-                              ptest.n.sum = ptest.n.sum,
-                              ptest.r = ptest.r,
+                              n.sum = n.sum,
+                              rk = rk,
                               lm.args = lm.args,
                               pearson.args = pearson.args,
                               cramersV.args = cramersV.args,

@@ -56,8 +56,8 @@ corr_matrix.clist = function(c,col=c('infer.value','stat.value','isig'), isig = 
   stopifnot( all( unique(c$index$i) == unique(c$index$j) ) )
   col = match.arg(col)
 
-  df =  cbind( as.data.frame(c$index) ,c$data[,c('var1','var2','isig','infer.value','stat.value')] )
-  mnames =  unique(df[c('i','var1')])[,2]
+  df =  cbind( as.data.frame(c$index) ,c$data[,c('vary','varx','isig','infer.value','stat.value')] )
+  mnames =  unique(df[c('i','vary')])[,2]
   len = length(mnames)
 
   if(isig){

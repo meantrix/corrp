@@ -8,7 +8,7 @@ corr_fun(
   df,
   nx,
   ny,
-  p.value,
+  p.value = 0.05,
   verbose = TRUE,
   n.sum = 1000,
   rk = F,

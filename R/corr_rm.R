@@ -76,15 +76,15 @@ corr_rm.matrix = function(df,corr,cutoff=0.75,...) {
 
 }
 
-.rem_corr = function(df,corr,cutoff=0.75){
+.corr_rm = function(df,corr,cutoff=0.75){
 
   checkmate::assertDataFrame(df)
 
   #the index of the  highly correlated columns (>cutoff)
-  rh.idx = caret::findCorrelation(corrmat, cutoff = cutoff)
+  rh.idx = caret::findCorrelation(corr, cutoff = cutoff)
 
   #the name of the highly correlated columns (>cutoff)
-  cols.rem = colnames(corrmat)[rh.idx]
+  cols.rem = colnames(corr)[rh.idx]
 
   #subset original df to remove highly correlated columns (>cutoff)
   df=df[!names(df) %in% cols.rem]
