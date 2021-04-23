@@ -7,92 +7,24 @@ p.value = 0.05
 verbose = TRUE
 comp = 'g'
 alternative = 'g'
-cor.nn = "dcor"
-cor.nc = "lm"
-cor.cc = "cramersV"
+cor.nn = "pps"
+cor.nc = "pps"
+cor.cc = "pps"
 parallel = TRUE
 ptest.n.sum = 500
 ptest.r = ptest.r = F
 lm.args =lm.args=pearson.args=cramersV.args=dcor.args=pps.args=mic.args=uncoef.args = list()
 
 
-pos_1=5
-pos_2=1
-type = 'g'
-pv = 0.3
+#test pps unit
+for(i in 1:NCOL(df)){
+ for(j in 1:NCOL(df)){
+    p = corr_fun(df,ny = colnames(df)[i],nx =colnames(df)[i] ,cor.nn = cor.nn,cor.nc = cor.nc,cor.cc = cor.cc)
+    p2 = ppsr::score(df,y = colnames(df)[i],x =colnames(df)[i])
+}}
 
-#ISOLATE
-nx = names(df[pos_2])
-ny = names(df[pos_1])
-y = df[[pos_1]]
-x = df[[pos_2]]
+p1 = corrp(df, cor.nn = cor.nn,cor.nc = cor.nc,cor.cc = cor.cc)
+p1 = corr_matrix(p,cor.nn = cor.nn,cor.nc = cor.nc,cor.cc = cor.cc)
 
-.corlm(y,x, p.value = p.value,comp = 'g',verbose = F)
-.cramersvp(y,x, p.value = p.value,comp = 'g',verbose = F)
-.corperp(y,x, p.value = p.value,comp = 'g',verbose = F)
-.dcorp(y,x, p.value = p.value,comp = 'g',verbose = F)
-.uncorp(y,x, p.value = p.value,comp = 'g',verbose = F)
-.micorp(y,x, p.value = p.value,comp = 'g',verbose = F)
-
-#Looping
-dim = NCOL(df)
-corp = matrix(data = NA,nrow = dim,ncol = dim)
-for(i in 1:dim){
-  for(j in 1:dim){
-    corp[i,j] = .cor_fun(df = df,pos_1 = i,pos_2 = j,
-                   p.value=p.value,
-                   verbose = verbose,
-                   alternative = alternative,
-                   comp = comp,
-                   cor.nn = cor.nn,
-                   cor.nc = cor.nc,
-                   cor.cc = cor.cc,
-                   ptest.n.sum = ptest.n.sum,
-                   ptest.r = ptest.r,
-                   lm.args = lm.args,
-                   pearson.args = pearson.args,
-                   cramersV.args = cramersV.args,
-                   dcor.args = dcor.args,
-                   pps.args = pps.args,
-                   mic.args = mic.args,
-                   uncoef.args = uncoef.args
-
-    )$infer.value
-  }
-}
-
-
-#Parallel
-
-cnames = colnames(df)
-res.grid = expand.grid("y" = cnames, "x" = cnames, stringsAsFactors = FALSE)
-temp_score = function(k) {
-  cor_fun(df, ny = param_grid[["y"]][k], nx = param_grid[["x"]][k])
-}
-
-cl = parallel::makeCluster(n.cores)
-parallel::clusterExport(cl, varlist = as.list(ls("package:corrP") ) )
-scores = parallel::clusterApply(cl, seq_len(NROW(res.grid)),
-                                function(k,...){
-                                        cor_fun(df,
-                                        ny = res.grid[["y"]][k],
-                                        nx = res.grid[["x"]][k],
-                                        p.value = p.value,
-                                        verbose = verbose,
-                                        alternative = alternative,
-                                        comp = comp,
-                                        cor.nn = cor.nn,
-                                        cor.nc = cor.nc,
-                                        cor.cc = cor.cc,
-                                        ptest.n.sum = ptest.n.sum,
-                                        ptest.r = ptest.r,
-                                        lm.args = lm.args,
-                                        pearson.args = pearson.args,
-                                        cramersV.args = cramersV.args,
-                                        dcor.args = dcor.args,
-                                        pps.args = pps.args,
-                                        mic.args = mic.args,
-                                        uncoef.args = uncoef.args)
-                                }
-                            )
+pps.test = corrp(df,cor.nn = cor.nn,cor.nc = cor.nc,cor.cc = cor.cc)
 

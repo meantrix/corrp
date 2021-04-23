@@ -214,7 +214,7 @@
   pv = ptest(y,x,FUN = function(y,x){
   args = c(list(y),list(x),mic.args)
   do.call(function(...) {z = minerva::mine(...); return(z$MIC) } , args )
-  })
+  },rk = rk, num.s = num.s,alternative = alternative)
   #ptest(y,x,FUN = function(y,x) {minerva::mine(y,x)$MIC} )
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
   msg = NULL
@@ -265,7 +265,7 @@
   pv = ptest(y,x,FUN = function(y,x){
     args = c(list(y),list(x),uncoef.args)
     do.call(DescTools::UncertCoef , args )
-  })
+  },rk = rk, num.s = num.s, alternative = alternative)
   #pv = ptest(y,x,FUN = function(y,x) DescTools::UncertCoef(y,x) )
 
   infer = "Uncertainty coefficient"
@@ -309,11 +309,31 @@
 
 }
 
-#TODO
-corpps = function(y, x, ...) {
+#Predictive Power Score Calculations
+.corpps = function(x, y, verbose, pps.args = list(), ...) {
 
 
-  ppsr::score(y,x)
+  args = c(list(data.frame(x,y)),list(nx),list(ny),pps.args)
+
+  r =do.call(ppsr::score , args )
+
+  msg = NULL
+  infer = r$result_type
+  infer.value = r$pps
+  stat = r$metric
+  stat.value = r$model_score
+  isig = TRUE
+
+  if(verbose){
+    msg = paste("Target: ",ny,"vs. Predicted: ",nx, ".",
+                "Anothers Outputs(baseline_score,cv_folds,algorithm,model_type):",
+                r$baseline_score, ";",r$cv_folds,";",r$algorithm,";",r$model_type)
+
+    message(msg)
+  }
+
+  return( list( infer= infer , infer.value = infer.value , stat = stat, stat.value = stat.value ,
+                isig = isig, msg = msg , var1 = ny, var2 = nx ) )
 
 
 }

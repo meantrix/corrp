@@ -35,6 +35,7 @@
 #' - All statistical tests are controlled by the confidence internal of
 #'   p.value param. If the statistical tests do not obtain a significance grater/less
 #'   than p.value, by default the value of variable `isig` will be `FALSE`.\cr
+#' - There is no statistical significance test for the pps algorithm. By default isig = TRUE.\cr
 #' - If any errors occur during operations by default the correlation will be `NA`.
 #'
 #' @param df \[\code{data.frame(1)}\]\cr input data frame.
@@ -95,7 +96,7 @@
 corr_fun =  function(df,
                     nx,
                     ny,
-                    p.value,
+                    p.value = 0.05,
                     verbose = TRUE,
                     n.sum = 1000,
                     rk = F,
@@ -143,7 +144,6 @@ corr_fun =  function(df,
   cly = class(y[[1]])
   clx = class(x[[1]])
 
-
   cond.nn = ( cly %in% c("integer", "numeric") && clx %in% c("integer", "numeric") )
   cond.nc = ( cly %in% c("integer", "numeric") && clx %in% c("factor", "character") )
   cond.cn = ( cly %in% c("factor", "character") && clx %in% c("integer", "numeric") )
@@ -178,9 +178,10 @@ corr_fun =  function(df,
             "dcor" = { computeCorN = .dcorp
 
             },
-            "corpps" = {computeCorN = .corpps
+            "pps" = {computeCorN = .corpps
 
-            }
+            },
+            stop('')
     )
 
 
@@ -217,7 +218,7 @@ corr_fun =  function(df,
             },
             "uncoef" = { computeCorN = .uncorp
             },
-            "corpps" = { computeCorN = .corpps
+            "pps" = { computeCorN = .corpps
 
             }
     )
