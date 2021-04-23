@@ -6,7 +6,7 @@
 <!-- badges: end -->
 
 Compute correlations type analysis (Pearson correlation, R^2 coefficient of linear regression,
-Cramer's V measure of association,Covariance, Distance Correlation,The Maximal Information Coefficient and Predictive Power Score) of large dataframes with mixed types variables(classes: integer, numeric, factor and character) in parallel backend.
+Cramer's V measure of association,Covariance, Distance Correlation,The Maximal Information Coefficient, Uncertainty coefficient Predictive Power Score) of large dataframes with mixed types variables(classes: integer, numeric, factor and character) in parallel backend.
 
 # Details
 

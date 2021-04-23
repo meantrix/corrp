@@ -2,8 +2,8 @@ Package: corrp
 Type: Package
 Title: corrp (Compute correlations type analysis in parallel)
 Version: 0.2.0
-Author: Igor D.S. Siciliani
-Maintainer: Igor D.S. Siciliani <igor@meantrix.com>
+Author: Igor D.S. Siciliani <igor@meantrix.com>
+Maintainer: Meantrix <dev@meantrix.com>
 Description: Compute correlations type analysis (Pearson correlation, R^2 
   coefficient of linear regression, Cramer's V measure of association, 
   Covariance, Distance Correlation,The Maximal Information Coefficient
@@ -11,7 +11,7 @@ Description: Compute correlations type analysis (Pearson correlation, R^2
   variables(classes: integer, numeric, factor and character)
   in parallel backend.
 Depends: 
-    R (>= 3.5.2)
+    R (>= 3.5.0)
 Imports: 
     lsr (>= 0.5),
     parallel,
@@ -20,9 +20,10 @@ Imports:
     minerva (>= 1.5.8),
     energy (>= 1.7-8),
     checkmate,
-    ppsr (>= 0.0.2)
+    ppsr (>= 0.0.2),
+    DescTools(>= 0.99.40)
 Suggests: corrplot
-License: GNU AGPLv3 (http://choosealicense.com/licenses/agpl-3.0/)
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.1.0

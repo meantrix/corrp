@@ -12,7 +12,7 @@
 #' @param col \[\code{character(1)}\]\cr choose the column to be used in the correlation matrix
 #' @param isig \[\code{logical(1)}\]\cr values that are not statistically significant will
 #'be represented by NA or FALSE in the correlation matrix.#' @param ... others parameters.
-#'
+#' @param ... Additional arguments (TODO).
 #' @author IDS siciliani (igor-siciliani)
 #'
 #' @keywords highly correlated, cmatrix , clist

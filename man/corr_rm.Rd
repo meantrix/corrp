@@ -38,6 +38,8 @@ corr_rm(df, corr, ...)
 \item{corr}{\[\code{clist(1)}\ | \code{cmatrix(1)}\]\cr correlation list  output from \code{\link{corrp}} or
 correlation matrix output from \code{\link{corr_matrix}}.}
 
+\item{...}{Additional arguments (TODO).}
+
 \item{col}{\[\code{character(1)}\]\cr choose the column to be used in the correlation matrix}
 
 \item{isig}{\[\code{logical(1)}\]\cr values that are not statistically significant will
