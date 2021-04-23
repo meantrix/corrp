@@ -2,12 +2,9 @@
 % Please edit documentation in R/corrp.R
 \name{corrp}
 \alias{corrp}
-\alias{corrp.data.frame}
 \title{corrp compute correlations types analysis in parallel backend.}
 \usage{
-corrp(df, ...)
-
-\method{corrp}{data.frame}(
+corrp(
   df,
   parallel = TRUE,
   n.cores = 1,
@@ -33,8 +30,6 @@ corrp(df, ...)
 \arguments{
 \item{df}{input data frame.}
 
-\item{...}{Additional arguments (TODO).}
-
 \item{parallel}{\[\code{logical(1)}\]\cr If its TRUE run the operations in parallel backend.}
 
 \item{n.cores}{\[\code{numeric(1)}\]\cr The number of cores to use for parallel execution.}
@@ -50,6 +45,8 @@ or less than those estimated in tests and correlations.}
 
 \item{alternative}{\[\code{character(1)}\]\cr a character string specifying the alternative hypothesis for
 the correlation inference. It must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.}
+
+\item{...}{Additional arguments (TODO).}
 }
 \description{
 Compute correlations type analysis on mixed classes columns of larges dataframes
@@ -76,9 +73,8 @@ categorical variable. This method is original based on Srikanth KS (talegari) co
 
 - All statistical tests are controlled by the confidence internal of
   p.value param. If the statistical tests do not obtain a significance lower/upper
-  than p.value, by default the correlation between variables will be `NA`.
+  than p.value, by default the value of variable `isig` will be "No".
 - If any errors occur during operations by default the correlation will be `NA`.
-For a comprehensive implementation, use `polycor::hetcor`
 }
 
 \examples{
