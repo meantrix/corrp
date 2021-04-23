@@ -79,9 +79,11 @@ categorical variable. This method is original based on Srikanth KS (talegari) co
 
 \examples{
 \dontrun{
+
 air_cor = corrp(airquality)
-corrplot::corrplot(air_cor)
-corrgram::corrgram(air_cor)
+air_m = corr_matrix(air_cor,isig = F)
+corrplot::corrplot(air_m)
+
 }
 
 }

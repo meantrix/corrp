@@ -23,9 +23,8 @@
 #' @section Details (Statistics):
 #' - All statistical tests are controlled by the confidence internal of
 #'   p.value param. If the statistical tests do not obtain a significance lower/upper
-#'   than p.value, by default the correlation between variables will be `NA`.
+#'   than p.value, by default the value of variable `isig` will be "No".
 #' - If any errors occur during operations by default the correlation will be `NA`.
-#' For a comprehensive implementation, use `polycor::hetcor`
 #'
 #' @param df input data frame.
 #' @param parallel \[\code{logical(1)}\]\cr If its TRUE run the operations in parallel backend.
@@ -52,43 +51,34 @@
 #'
 #' @examples
 #' \dontrun{
+#'
 #' air_cor = corrp(airquality)
-#' corrplot::corrplot(air_cor)
-#' corrgram::corrgram(air_cor)
+#' air_m = corr_matrix(air_cor,isig = F)
+#' corrplot::corrplot(air_m)
+#'
 #'}
 #'
 #' @export
-corrp <-
-  function(df, ...) {
-
-    UseMethod("corrp",df)
-
-}
-
-
-#' @rdname corrp
-#' @name corrp.data.frame
-#' @export
-corrp.data.frame = function(df,
-                            parallel = TRUE,
-                            n.cores = 1,
-                            p.value = 0.05,
-                            verbose = TRUE,
-                            ptest.n.sum = 1000,
-                            ptest.r = F,
-                            comp = c("greater","less"),
-                            alternative = c("two.sided", "less", "greater"),
-                            cor.nn = c("pearson","mic","dcor","pps"),
-                            cor.nc = c("lm","pps"),
-                            cor.cc = c("cramersV","uncoef","pps"),
-                            lm.args = list(),
-                            pearson.args = list(),
-                            dcor.args = list(),
-                            mic.args = list(),
-                            pps.args = list(),
-                            cramersV.args = list(),
-                            uncoef.args = list(),
-                            ...){
+corrp  = function(df,
+                  parallel = TRUE,
+                  n.cores = 1,
+                  p.value = 0.05,
+                  verbose = TRUE,
+                  ptest.n.sum = 1000,
+                  ptest.r = F,
+                  comp = c("greater","less"),
+                  alternative = c("two.sided", "less", "greater"),
+                  cor.nn = c("pearson","mic","dcor","pps"),
+                  cor.nc = c("lm","pps"),
+                  cor.cc = c("cramersV","uncoef","pps"),
+                  lm.args = list(),
+                  pearson.args = list(),
+                  dcor.args = list(),
+                  mic.args = list(),
+                  pps.args = list(),
+                  cramersV.args = list(),
+                  uncoef.args = list(),
+  ...){
 
   alternative = match.arg(alternative)
   cor.nn = match.arg(cor.nn)
@@ -96,6 +86,7 @@ corrp.data.frame = function(df,
   cor.cc = match.arg(cor.cc)
   comp = match.arg(comp)
   comp = substr(comp,1,1)
+  checkmate::assertDataFrame(df)
   checkmate::assert_character(comp,len = 1, pattern = "l|g")
   alternative = substr(alternative,1,1)
   checkmate::assert_character(alternative,len = 1, pattern = "t|l|g")
@@ -124,10 +115,10 @@ corrp.data.frame = function(df,
  # parallel corr matrix
   if( isTRUE(parallel) ){
     cnames = colnames(df)
-    index.matrix = expand.grid("i" = seq(1,NCOL(df)), "j" = seq(1,NCOL(df)), stringsAsFactors = FALSE)
+    index.grid = expand.grid("i" = seq(1,NCOL(df)), "j" = seq(1,NCOL(df)), stringsAsFactors = FALSE)
     cluster = parallel::makeCluster(n.cores)
-    parallel::clusterExport(cl, varlist = as.list(ls("package:corrP") ) )
-    corr = parallel::clusterApply(cluster, seq_len(NROW(res.grid)),
+    parallel::clusterExport(cluster, varlist = as.list(ls("package:corrP") ) )
+    corr = parallel::clusterApply(cluster, seq_len(NROW(index.grid)),
                                     function(k,...){
                                       ny = cnames[index.grid[["i"]][k]]
                                       nx = cnames[index.grid[["j"]][k]]
@@ -157,7 +148,7 @@ corrp.data.frame = function(df,
 
     } else {
       # sequential corr
-      corr = lapply(seq_len(nrow(res.grid)),
+      corr = lapply(seq_len(NROW(index.grid)),
                     function(k,...){
                       ny = cnames[index.grid[["i"]][k]]
                       nx = cnames[index.grid[["j"]][k]]
@@ -185,7 +176,9 @@ corrp.data.frame = function(df,
 
     }
 
-  corr$index = index.matrix
+  corr = do.call(rbind.data.frame, corr)
+  corrp.list = list(data = corr , index = index.grid)
 
-  return(structure(corr,class = c('list','corrP.list')))
+
+  return( structure(corrp.list,class = c('clist','list') ) )
 }
