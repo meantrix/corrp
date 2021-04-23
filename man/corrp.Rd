@@ -10,7 +10,7 @@ corrp(
   n.cores = 1,
   p.value = 0.05,
   verbose = TRUE,
-  n.sum = 1000,
+  num.s = 1000,
   rk = F,
   comp = c("greater", "less"),
   alternative = c("two.sided", "less", "greater"),
@@ -39,6 +39,9 @@ P-value probability of obtaining the observed results of a test,
 assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).}
 
 \item{verbose}{\[\code{logical(1)}\]\cr Activate verbose mode.}
+
+\item{num.s}{\[\code{numeric(1)}\]\cr Used in permutation test. The number of samples with
+replacement created with y numeric vector.}
 
 \item{rk}{\[\code{logical(1)}\]\cr Used in permutation test.
 if its TRUE transform x, y numeric vectors with samples ranks.}
@@ -79,9 +82,6 @@ The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 \item{uncoef.args}{\[\code{list(1)}\]\cr additional parameters for the specific method.}
 
 \item{...}{Additional arguments (TODO).}
-
-\item{num.s}{\[\code{numeric(1)}\]\cr Used in permutation test. The number of samples with
-replacement created with y numeric vector.}
 }
 \description{
 Compute correlations type analysis on mixed classes columns of larges dataframes
@@ -108,7 +108,7 @@ categorical variable. This method is original based on Srikanth KS (talegari) co
 - \code{integer/numeric - factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
   value lies between 0 and 1.\cr\cr
 - \code{factor/categorical pair} Cramer's V value is
-  computed based on chisq test and using \code{\link[lsrcramersV]{lm}} function. The value lies
+  computed based on chisq test and using \code{\link[lsr]{cramersV}} function. The value lies
   between 0 and 1.\cr
 - \code{factor/categorical pair} Uncertainty coefficient using \code{\link[DescTools]{UncertCoef}} function. The
   value lies between 0 and 1.\cr

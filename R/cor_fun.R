@@ -24,7 +24,7 @@
 #' - \code{integer/numeric - factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
 #'   value lies between 0 and 1.\cr\cr
 #' - \code{factor/categorical pair} Cramer's V value is
-#'   computed based on chisq test and using \code{\link[lsrcramersV]{lm}} function. The value lies
+#'   computed based on chisq test and using \code{\link[lsr]{cramersV}} function. The value lies
 #'   between 0 and 1.\cr
 #' - \code{factor/categorical pair} Uncertainty coefficient using \code{\link[DescTools]{UncertCoef}} function. The
 #'   value lies between 0 and 1.\cr
@@ -39,8 +39,8 @@
 #' - If any errors occur during operations by default the correlation will be `NA`.
 #'
 #' @param df \[\code{data.frame(1)}\]\cr input data frame.
-#' @param parallel \[\code{logical(1)}\]\cr If its TRUE run the operations in parallel backend.
-#' @param n.cores \[\code{numeric(1)}\]\cr The number of cores to use for parallel execution.
+#' @param nx \[\code{character(1)}\]\cr column name of  dependent/predictor variable.
+#' @param ny \[\code{character(1)}\]\cr column name of  independent/target variable.
 #' @param p.value \[\code{logical(1)}\]\cr
 #' P-value probability of obtaining the observed results of a test,
 #' assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).
@@ -98,7 +98,7 @@ corr_fun =  function(df,
                     ny,
                     p.value = 0.05,
                     verbose = TRUE,
-                    n.sum = 1000,
+                    num.s = 1000,
                     rk = F,
                     comp = c("greater","less"),
                     alternative = c("two.sided", "less", "greater"),

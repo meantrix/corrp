@@ -38,7 +38,10 @@ corr_rm(df, corr, ...)
 \item{corr}{\[\code{clist(1)}\ | \code{cmatrix(1)}\]\cr correlation list  output from \code{\link{corrp}} or
 correlation matrix output from \code{\link{corr_matrix}}.}
 
-\item{...}{others parameters.}
+\item{col}{\[\code{character(1)}\]\cr choose the column to be used in the correlation matrix}
+
+\item{isig}{\[\code{logical(1)}\]\cr values that are not statistically significant will
+be represented by NA or FALSE in the correlation matrix.#' @param ... others parameters.}
 
 \item{cutoff}{\[\code{numeric(1)}\]\cr A numeric value for the pair-wise absolute correlation cutoff.
 The default values is 0.75.}

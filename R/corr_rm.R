@@ -9,7 +9,9 @@
 #' correlation matrix output from \code{\link{corr_matrix}}.
 #' @param cutoff \[\code{numeric(1)}\]\cr A numeric value for the pair-wise absolute correlation cutoff.
 #' The default values is 0.75.
-#' @param ... others parameters.
+#' @param col \[\code{character(1)}\]\cr choose the column to be used in the correlation matrix
+#' @param isig \[\code{logical(1)}\]\cr values that are not statistically significant will
+#'be represented by NA or FALSE in the correlation matrix.#' @param ... others parameters.
 #'
 #' @author IDS siciliani (igor-siciliani)
 #'

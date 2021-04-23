@@ -25,7 +25,7 @@
 #' - \code{integer/numeric - factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
 #'   value lies between 0 and 1.\cr\cr
 #' - \code{factor/categorical pair} Cramer's V value is
-#'   computed based on chisq test and using \code{\link[lsrcramersV]{lm}} function. The value lies
+#'   computed based on chisq test and using \code{\link[lsr]{cramersV}} function. The value lies
 #'   between 0 and 1.\cr
 #' - \code{factor/categorical pair} Uncertainty coefficient using \code{\link[DescTools]{UncertCoef}} function. The
 #'   value lies between 0 and 1.\cr
@@ -101,7 +101,7 @@ corrp  = function(df,
                   n.cores = 1,
                   p.value = 0.05,
                   verbose = TRUE,
-                  n.sum = 1000,
+                  num.s = 1000,
                   rk = F,
                   comp = c("greater","less"),
                   alternative = c("two.sided", "less", "greater"),
@@ -167,7 +167,7 @@ corrp  = function(df,
                                               cor.nn = cor.nn,
                                               cor.nc = cor.nc,
                                               cor.cc = cor.cc,
-                                              n.sum = n.sum,
+                                              num.s = num.s,
                                               rk = rk,
                                               lm.args = lm.args,
                                               pearson.args = pearson.args,
@@ -197,7 +197,7 @@ corrp  = function(df,
                               cor.nn = cor.nn,
                               cor.nc = cor.nc,
                               cor.cc = cor.cc,
-                              n.sum = n.sum,
+                              num.s = num.s,
                               rk = rk,
                               lm.args = lm.args,
                               pearson.args = pearson.args,

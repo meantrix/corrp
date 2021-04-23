@@ -1,6 +1,6 @@
 library(testthat)
-library(corrP)
+library(corrp)
 
-test_check("corrP")
+test_check("corrp")
 
 

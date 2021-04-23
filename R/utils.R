@@ -149,7 +149,7 @@
 
 }
 # Pearson Calculations
-.corperp = function(x, y, nx, ny, p.value, comp, verbose,pearson.args = list(), ...){
+.corperp = function(x, y, nx, ny, p.value, comp, verbose, alternative, pearson.args = list(), ...){
 
   if( is.data.frame(x) ) x = x[[1]]
   if( is.data.frame(y) ) y = y[[1]]
@@ -201,7 +201,7 @@
 
 
 #MIC calculations
-.micorp = function(x, y, nx, ny, p.value, comp, verbose, mic.args = list(), ...) {
+.micorp = function(x, y, nx, ny, p.value, comp, verbose, alternative, num.s, rk, mic.args = list(), ...) {
 
   if( is.data.frame(x) ) x = x[[1]]
   if( is.data.frame(y) ) y = y[[1]]
@@ -255,7 +255,7 @@
 
 
 #Uncertainty coefficient Calculations
-.uncorp = function(x, y, nx, ny, p.value, comp, verbose, uncoef.args = list(), ...) {
+.uncorp = function(x, y, nx, ny, p.value, comp, verbose, alternative, num.s, rk, uncoef.args = list(), ...) {
 
   if( is.data.frame(x) )  x = x[[1]]
   if( is.data.frame(y) )  y = y[[1]]
