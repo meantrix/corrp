@@ -10,8 +10,8 @@ corrp(
   n.cores = 1,
   p.value = 0.05,
   verbose = TRUE,
-  ptest.n.sum = 1000,
-  ptest.r = F,
+  n.sum = 1000,
+  rk = F,
   comp = c("greater", "less"),
   alternative = c("two.sided", "less", "greater"),
   cor.nn = c("pearson", "mic", "dcor", "pps"),
@@ -28,7 +28,7 @@ corrp(
 )
 }
 \arguments{
-\item{df}{input data frame.}
+\item{df}{\[\code{data.frame(1)}\]\cr input data frame.}
 
 \item{parallel}{\[\code{logical(1)}\]\cr If its TRUE run the operations in parallel backend.}
 
@@ -40,13 +40,48 @@ assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff va
 
 \item{verbose}{\[\code{logical(1)}\]\cr Activate verbose mode.}
 
+\item{rk}{\[\code{logical(1)}\]\cr Used in permutation test.
+if its TRUE transform x, y numeric vectors with samples ranks.}
+
 \item{comp}{\[\code{character(1)}\]\cr The param \code{p.value} must be greater
 or less than those estimated in tests and correlations.}
 
 \item{alternative}{\[\code{character(1)}\]\cr a character string specifying the alternative hypothesis for
-the correlation inference. It must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.}
+the correlation inference. It must be one of "two.sided" (default), "greater" or "less".
+You can specify just the initial letter.}
+
+\item{cor.nn}{\[\code{character(1)}\]\cr
+Choose correlation type to be used in integer/numeric pair inference.
+The options are `pearson: Pearson Correlation`,`mic: Maximal Information Coefficient`,
+`dcor: Distance Correlation`,`pps: Predictive Power Score`.Default is `Pearson Correlation`.}
+
+\item{cor.nc}{\[\code{character(1)}\]\cr
+Choose correlation type to be used in integer/numeric - factor/categorical pair inference.
+The option are `lm: Linear Model`,`pps: Predictive Power Score`. Default is `Linear Model`.}
+
+\item{cor.cc}{\[\code{character(1)}\]\cr
+Choose correlation type to be used in factor/categorical pair inference.
+The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
+`pps: Predictive Power Score`. Default is ` Cramer's V`.}
+
+\item{lm.args}{\[\code{list(1)}\]\cr additional parameters for the specific method.}
+
+\item{pearson.args}{\[\code{list(1)}\]\cr additional parameters for the specific method.}
+
+\item{dcor.args}{\[\code{list(1)}\]\cr additional parameters for the specific method.}
+
+\item{mic.args}{\[\code{list(1)}\]\cr additional parameters for the specific method.}
+
+\item{pps.args}{\[\code{list(1)}\]\cr additional parameters for the specific method.}
+
+\item{cramersV.args}{\[\code{list(1)}\]\cr additional parameters for the specific method.}
+
+\item{uncoef.args}{\[\code{list(1)}\]\cr additional parameters for the specific method.}
 
 \item{...}{Additional arguments (TODO).}
+
+\item{num.s}{\[\code{numeric(1)}\]\cr Used in permutation test. The number of samples with
+replacement created with y numeric vector.}
 }
 \description{
 Compute correlations type analysis on mixed classes columns of larges dataframes
@@ -58,22 +93,34 @@ categorical variable. This method is original based on Srikanth KS (talegari) co
 \section{Details (Types)}{
 
 
-- \code{integer/numeric pair} Pearson correlation using `cor` function. The
-  value lies between -1 and 1.
+- \code{integer/numeric pair} Pearson Correlation using \code{\link[stats]{cor}} function. The
+  value lies between -1 and 1.\cr
+- \code{integer/numeric pair} Distance Correlation using \code{\link[energy]{dcorT.test}} function. The
+  value lies between 0 and 1.\cr
+- \code{integer/numeric pair} Maximal Information Coefficient using \code{\link[minerva]{mine}} function. The
+  value lies between 0 and 1.\cr
+- \code{integer/numeric pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
+  value lies between 0 and 1.\cr\cr
 - \code{integer/numeric - factor/categorical pair} correlation coefficient or
   squared root of R^2 coefficient of linear regression of integer/numeric
   variable over factor/categorical variable using \code{\link[stats]{lm}} function. The value
-  lies between 0 and 1.
+  lies between 0 and 1.\cr
+- \code{integer/numeric - factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
+  value lies between 0 and 1.\cr\cr
 - \code{factor/categorical pair} Cramer's V value is
   computed based on chisq test and using \code{\link[lsrcramersV]{lm}} function. The value lies
-  between 0 and 1.
+  between 0 and 1.\cr
+- \code{factor/categorical pair} Uncertainty coefficient using \code{\link[DescTools]{UncertCoef}} function. The
+  value lies between 0 and 1.\cr
+- \code{factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
+  value lies between 0 and 1.\cr\cr
 }
 
 \section{Details (Statistics)}{
 
 - All statistical tests are controlled by the confidence internal of
-  p.value param. If the statistical tests do not obtain a significance lower/upper
-  than p.value, by default the value of variable `isig` will be "No".
+  p.value param. If the statistical tests do not obtain a significance grater/less
+  than p.value, by default the value of variable `isig` will be `FALSE`.\cr
 - If any errors occur during operations by default the correlation will be `NA`.
 }
 
@@ -89,13 +136,24 @@ corrplot::corrplot(air_m)
 }
 \references{
 KS Srikanth,sidekicks,cor2, 2020.
-URL \url{https://github.com/talegari/sidekicks/}.
+URL \url{https://github.com/talegari/sidekicks/}.\cr
 Paul van der Laken, ppsr,2021.
 URL \url{https://github.com/paulvanderlaken/ppsr}.
 }
 \author{
 IDS siciliani (igor-siciliani)
 }
-\keyword{(http://choosealicense.com/licenses/agpl-3.0/)}
-\keyword{AGPLv3}
-\keyword{GNU}
+\keyword{,}
+\keyword{V}
+\keyword{biserial,}
+\keyword{correlation,}
+\keyword{cramer's}
+\keyword{distance}
+\keyword{linear}
+\keyword{mic}
+\keyword{model,}
+\keyword{pearson,}
+\keyword{point}
+\keyword{power}
+\keyword{predictive}
+\keyword{score,}

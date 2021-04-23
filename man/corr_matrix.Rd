@@ -19,7 +19,7 @@ corr_matrix(c, ...)
 
 \item{col}{\[\code{character(1)}\]\cr choose the column to be used in the correlation matrix}
 
-\item{isig}{\[\code{logical(1)}\]\cr Values that are not statistically significant will
+\item{isig}{\[\code{logical(1)}\]\cr values that are not statistically significant will
 be represented by NA or FALSE in the correlation matrix.}
 }
 \description{
@@ -36,3 +36,9 @@ corrplot::corrplot(air_m)
 }
 
 }
+\author{
+IDS siciliani (igor-siciliani)
+}
+\keyword{correlation}
+\keyword{corrp}
+\keyword{matrix,}
