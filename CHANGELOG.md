@@ -4,11 +4,13 @@
 
 - Change package name `corrP` to `corrp` ;
 - Changelog file created ;
-- Fixed some bugs in function's documentations;
-- Added verbose param to corrp function ; 
+- License file GLP3 created;
 - Added new correlations types analysis: pps ; dcor ; mic ; uncoef;
-- corrp function output has a new class `clist` with index matrix and data values.
+- corrp function output has a new class `clist` with index matrix and data values;
+- corr_fun: New function to calculate correlation type inferences to pair of variables;
 - corr_matrix: new function to create correlation matrix ;
-- corr_rm: Remove highly correlated variables from a data.frame 
+- corr_rm: newfunction to remove highly correlated variables from a data.frame;
+- Fixed some bugs in function's documentations;
+- Added verbose param to corrp and cor_fun functions ; 
 - Added testthat;
-- Passed in all checks;
+- Checks ok;
