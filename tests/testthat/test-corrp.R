@@ -84,7 +84,7 @@ test_that("Tests on corrp and cor_fun functions", {
   #Inferences test 2: cor_fun
 
   #sample numerical correlations to test
-  data.num = data.pearson[sample(1:NROW(data.pearson),5),]
+  data.num = data.pearson[sample(1:NROW(data.pearson),3),]
 
   #Numerical
   #MIC
