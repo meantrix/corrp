@@ -17,12 +17,14 @@
 #'
 #' @author Igor D.S. Siciliani
 #'
-#' @keywords highly correlated ,cmatrix ,clist
+#' @keywords highly correlated , cmatrix , clist
 #'
 #' @examples
 #' \dontrun{
+#'
 #' air_cor = corrp(airquality)
-#' airqualityH = corr_rm(df=airquality,corr=air_cor,cutoff=0.75,col = 'infer.value',isig = F)
+#' corr_rm(df=airquality,c=air_cor,cutoff=0.75,col = 'infer.value',isig = F)
+#'
 #'}
 #' @export
 corr_rm = function(df, c,...) {

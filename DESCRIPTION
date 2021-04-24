@@ -2,13 +2,13 @@ Package: corrp
 Type: Package
 Title: corrp (Compute correlations type analysis in parallel)
 Version: 0.2.0
-Author: Igor D.S. Siciliani <igor@meantrix.com>
+Author: Igor Dornelles Schoeller Siciliani <igor@meantrix.com>
 Maintainer: Meantrix <dev@meantrix.com>
-Description: Compute correlations type analysis (Pearson correlation, R^2 
+Description: Compute multiple types of correlations analysis (Pearson correlation, R^2 
   coefficient of linear regression, Cramer's V measure of association, 
-  Covariance, Distance Correlation,The Maximal Information Coefficient
-  and Predictive Power Score) of large dataframes with mixed types 
-  variables(classes: integer, numeric, factor and character)
+  Distance Correlation,The Maximal Information Coefficient,
+  Uncertainty coefficient and Predictive Power Score) in large dataframes
+  with mixed columns classes(integer, numeric, factor and character)
   in parallel backend.
 Depends: 
     R (>= 3.5.0)

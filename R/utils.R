@@ -217,8 +217,8 @@
   },rk = rk, num.s = num.s,alternative = alternative)
   #ptest(y,x,FUN = function(y,x) {minerva::mine(y,x)$MIC} )
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
-  msg = NULL
   r = do.call(function(...) {z = minerva::mine(...); return(z$MIC) } , args )
+  msg = NULL
 
   if(compare$comp) {
 
@@ -271,10 +271,8 @@
   infer = "Uncertainty coefficient"
   stat = "P-value"
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
-  msg = NULL
   r =do.call(DescTools::UncertCoef , args )
-
-
+  msg = NULL
 
   if(compare$comp) {
 

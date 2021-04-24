@@ -1,17 +1,17 @@
 #' @title Create Correlation Matrix from corrp inferences
 #'
-#' @description Through the results obtained with corrp function
+#' @description Through the results obtained from corrp function
 #' create a correlation matrix.
 #'
 #' @param c \[\code{corrp.list(1)}\]\cr output from the \code{\link{corrp}} function.
 #' @param col \[\code{character(1)}\]\cr choose the column to be used in the correlation matrix
 #' @param isig \[\code{logical(1)}\]\cr values that are not statistically significant will
 #'be represented by NA or FALSE in the correlation matrix.
-#' @param ... others parameters.
+#' @param ... Additional arguments (TODO).
 #'
-#' @author IDS siciliani (igor-siciliani)
+#' @author Igor D.S. Siciliani
 #'
-#' @keywords correlation matrix, corrp
+#' @keywords correlation matrix , corrp
 #'
 #'
 #' @examples

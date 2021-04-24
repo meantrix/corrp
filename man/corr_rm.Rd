@@ -8,11 +8,11 @@
 \alias{corr_rm.matrix}
 \title{corr_rm filter data.frame by correlation values.}
 \usage{
-corr_rm(df, corr, ...)
+corr_rm(df, c, ...)
 
 \method{corr_rm}{clist}(
   df,
-  corr,
+  c,
   col = c("infer.value", "stat.value"),
   isig = TRUE,
   cutoff = 0.75,
@@ -21,21 +21,21 @@ corr_rm(df, corr, ...)
 
 \method{corr_rm}{list}(
   df,
-  corr,
+  c,
   col = c("infer.value", "stat.value"),
   isig = TRUE,
   cutoff = 0.75,
   ...
 )
 
-\method{corr_rm}{cmatrix}(df, corr, cutoff = 0.75, ...)
+\method{corr_rm}{cmatrix}(df, c, cutoff = 0.75, ...)
 
-\method{corr_rm}{matrix}(df, corr, cutoff = 0.75, ...)
+\method{corr_rm}{matrix}(df, c, cutoff = 0.75, ...)
 }
 \arguments{
 \item{df}{\[\code{data.frame(1)}\]\cr input data frame}
 
-\item{corr}{\[\code{clist(1)}\ | \code{cmatrix(1)}\]\cr correlation list  output from \code{\link{corrp}} or
+\item{c}{\[\code{clist(1)}\ | \code{cmatrix(1)}\]\cr correlation list  output from \code{\link{corrp}} or
 correlation matrix output from \code{\link{corr_matrix}}.}
 
 \item{...}{Additional arguments (TODO).}
@@ -43,7 +43,7 @@ correlation matrix output from \code{\link{corr_matrix}}.}
 \item{col}{\[\code{character(1)}\]\cr choose the column to be used in the correlation matrix}
 
 \item{isig}{\[\code{logical(1)}\]\cr values that are not statistically significant will
-be represented by NA or FALSE in the correlation matrix.#' @param ... others parameters.}
+be represented by NA or FALSE in the correlation matrix.#'}
 
 \item{cutoff}{\[\code{numeric(1)}\]\cr A numeric value for the pair-wise absolute correlation cutoff.
 The default values is 0.75.}
@@ -54,15 +54,17 @@ corrp functions outputs and the caret package function \code{\link[caret]{findCo
 }
 \examples{
 \dontrun{
+
 air_cor = corrp(airquality)
-airqualityH = corr_rm(df=airquality,corr=air_cor,cutoff=0.75,col = 'infer.value',isig = F)
+corr_rm(df=airquality,c=air_cor,cutoff=0.75,col = 'infer.value',isig = F)
+
 }
 }
 \author{
-IDS siciliani (igor-siciliani)
+Igor D.S. Siciliani
 }
 \keyword{,}
 \keyword{clist}
 \keyword{cmatrix}
-\keyword{correlated,}
+\keyword{correlated}
 \keyword{highly}

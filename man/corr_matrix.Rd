@@ -15,7 +15,7 @@ corr_matrix(c, ...)
 \arguments{
 \item{c}{\[\code{corrp.list(1)}\]\cr output from the \code{\link{corrp}} function.}
 
-\item{...}{others parameters.}
+\item{...}{Additional arguments (TODO).}
 
 \item{col}{\[\code{character(1)}\]\cr choose the column to be used in the correlation matrix}
 
@@ -23,7 +23,7 @@ corr_matrix(c, ...)
 be represented by NA or FALSE in the correlation matrix.}
 }
 \description{
-Through the results obtained with corrp function
+Through the results obtained from corrp function
 create a correlation matrix.
 }
 \examples{
@@ -37,8 +37,9 @@ corrplot::corrplot(air_m)
 
 }
 \author{
-IDS siciliani (igor-siciliani)
+Igor D.S. Siciliani
 }
+\keyword{,}
 \keyword{correlation}
 \keyword{corrp}
-\keyword{matrix,}
+\keyword{matrix}
