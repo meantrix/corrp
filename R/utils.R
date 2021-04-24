@@ -262,10 +262,10 @@
 
   args = c(list(x),list(y),uncoef.args)
 
-  pv = ptest(y,x,FUN = function(y,x){
+  pv = ptest(y,x,FUN = function(x,y){
     args = c(list(x),list(y),uncoef.args)
     do.call(DescTools::UncertCoef , args )
-  },rk = rk, num.s = num.s, alternative = alternative)
+  },rk = TRUE, num.s = num.s, alternative = alternative)
   #pv = ptest(y,x,FUN = function(y,x) DescTools::UncertCoef(y,x) )
 
   infer = "Uncertainty coefficient"

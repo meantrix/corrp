@@ -180,8 +180,7 @@ corr_fun =  function(df,
             },
             "pps" = {computeCorN = .corpps
 
-            },
-            stop('')
+            }
     )
 
 
@@ -198,7 +197,6 @@ corr_fun =  function(df,
             "lm" = {computeCorN = .corlm
             },
             "pps" = { computeCorN = .corpps
-
             }
     )
 
@@ -219,7 +217,6 @@ corr_fun =  function(df,
             "uncoef" = { computeCorN = .uncorp
             },
             "pps" = { computeCorN = .corpps
-
             }
     )
 

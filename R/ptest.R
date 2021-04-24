@@ -42,7 +42,7 @@ ptest = function(x ,y,
   checkmate::assert_number(num.s)
   if( is.data.frame(x) ) x = x[[1]]
   if( is.data.frame(y) ) y = y[[1]]
-  stopifnot(is.numeric(x),is.numeric(y))
+  if(!rk) stopifnot(is.numeric(x),is.numeric(y))
   stopifnot(length(x) == length(y))
 
 
