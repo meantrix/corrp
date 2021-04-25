@@ -20,7 +20,7 @@
 
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
   r = sqrt(sum.res[["r.squared"]])
-  msg = NULL
+  msg = ""
 
 
   if(compare$comp) {
@@ -69,7 +69,7 @@
   pv = stats::chisq.test(x,y,simulate.p.value=TRUE)$p.value
   r = do.call(lsr::cramersV,args)
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
-  msg = NULL
+  msg = ""
 
 
   if(compare$comp) {
@@ -115,7 +115,7 @@
   pv = dc$p.value
   r = as.numeric(dc$estimate)
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
-  msg = NULL
+  msg = ""
 
 
   if(compare$comp) {
@@ -165,7 +165,7 @@
   pv = res[["p.value"]]
   r = as.numeric(res[["estimate"]])
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
-  msg = NULL
+  msg = ""
 
 
   if(compare$comp) {
@@ -218,7 +218,7 @@
   #ptest(y,x,FUN = function(y,x) {minerva::mine(y,x)$MIC} )
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
   r = do.call(function(...) {z = minerva::mine(...); return(z$MIC) } , args )
-  msg = NULL
+  msg = ""
 
   if(compare$comp) {
 
@@ -272,7 +272,7 @@
   stat = "P-value"
   compare = .comparepv(x = pv,pv = p.value,comp = comp)
   r =do.call(DescTools::UncertCoef , args )
-  msg = NULL
+  msg = ""
 
   if(compare$comp) {
 
@@ -315,7 +315,7 @@
 
   r =do.call(ppsr::score , args )
 
-  msg = NULL
+  msg = ""
   infer = "Predictive Power Score"
   infer.value = r$pps
   stat = r$metric

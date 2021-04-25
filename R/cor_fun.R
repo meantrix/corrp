@@ -1,9 +1,9 @@
 #' @title Compute Correlation type analysis with Statistical Significance.
 #'
-#' @description Compute one correlation type analysis on two mixed classes columns of a given dataframe.
+#' @description Compute one correlation analysis on two mixed classes columns of a given dataframe.
 #'   The dataframe is allowed to have columns of these four classes: integer,
 #'   numeric, factor and character. The character column is considered as
-#'   categorical variable. This method is original based on Srikanth KS (talegari) cor2 function.
+#'   categorical variable.
 #'
 #' @name corr_fun
 #'
@@ -74,22 +74,24 @@
 #' @param cramersV.args \[\code{list(1)}\]\cr additional parameters for the specific method.
 #' @param ... Additional arguments (TODO).
 #'
-#' @author IDS siciliani (igor-siciliani)
+#' @author Igor D.S. Siciliani
 #'
-#' @keywords correlation, power predictive score, linear model, distance correlation,
-#' mic , point biserial, pearson, cramer's V
+#' @keywords correlation , power predictive score , linear model , distance correlation ,
+#' mic , point biserial , pearson , cramer's V
 #'
 #' @references
 #' KS Srikanth,sidekicks,cor2, 2020.
 #' URL \url{https://github.com/talegari/sidekicks/}.
+#'
+#'
 #' Paul van der Laken, ppsr,2021.
 #' URL \url{https://github.com/paulvanderlaken/ppsr}.
 #'
 #' @examples
 #' \dontrun{
-#' air_cor = corrp(airquality)
-#' corrplot::corrplot(air_cor)
-#' corrgram::corrgram(air_cor)
+#'
+#' corr_fun(iris,nx = "Sepal.Length",ny = "Sepal.Width",cor.nn = "dcor")
+#'
 #'}
 #'
 #' @export
@@ -149,21 +151,21 @@ corr_fun =  function(df,
   cond.cn = ( cly %in% c("factor", "character") && clx %in% c("integer", "numeric") )
   cond.cc = ( cly %in% c("factor", "character") && clx %in% c("factor", "character") )
 
-  if( cond.cn  && cor.nc == 'lm' ){
+  if( cond.cn ){
 
-    z = x
-    clz = clx
+    if(cor.nc == 'lm'){
+      z = x
+      clz = clx
 
-    x = y
-    clx = cly
-    y = z
-    cly = clz
-
-    # warning("For the Linear Regression Model the independent variable needs to be the numeric one.","\n",
-    #        "In this ",ny," inference by " ,nx, " the order was change.")
+      x = y
+      clx = cly
+      y = z
+      cly = clz
+    }
 
     cond.nc = cond.cn
-
+    # warning("For the Linear Regression Model the independent variable needs to be the numeric one.","\n",
+    #        "In this ",ny," inference by " ,nx, " the order was change.")
   }
 
   # both are numeric/integer
@@ -230,13 +232,16 @@ corr_fun =  function(df,
 
   if((class(r) %in% "try-error")){
 
+    msg = ""
+
     if(verbose){
       warnings(cat("ERROR: some operations produces Nas values.","\n",
                    ny, " FUN " ,nx,"\n"))
+      msg = r[[1]]
     }
 
     r =  list( infer= NA , infer.value = NA , stat = NA, stat.value = NA ,
-               isig = FALSE, msg = r , varx = nx, vary = ny )
+               isig = FALSE, msg = msg , varx = nx, vary = ny )
   }
 
 

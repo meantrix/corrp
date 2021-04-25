@@ -1,10 +1,10 @@
 #' @title corrp compute correlations types analysis in parallel backend.
 #'
-#' @description Compute correlations type analysis on mixed classes columns of larges dataframes
+#' @description Compute correlations analysis on mixed classes columns of larges dataframes
 #' with parallel backend.
 #' The dataframe is allowed to have columns of these four classes: integer,
 #' numeric, factor and character. The character column is considered as
-#' categorical variable. This method is original based on Srikanth KS (talegari) cor2 function.
+#' categorical variable.
 #'
 #' @name corrp
 #'
@@ -75,14 +75,16 @@
 #' @param cramersV.args \[\code{list(1)}\]\cr additional parameters for the specific method.
 #' @param ... Additional arguments (TODO).
 #'
-#' @author IDS siciliani (igor-siciliani)
+#' @author Igor D.S. Siciliani
 #'
-#' @keywords correlation, power predictive score, linear model, distance correlation,
-#' mic , point biserial, pearson, cramer's V
+#' @keywords correlation , power predictive score , linear model , distance correlation ,
+#' mic , point biserial , pearson , cramer's V
 #'
 #' @references
 #' KS Srikanth,sidekicks,cor2, 2020.
-#' URL \url{https://github.com/talegari/sidekicks/}.\cr
+#' URL \url{https://github.com/talegari/sidekicks/}.
+#'
+#'
 #' Paul van der Laken, ppsr,2021.
 #' URL \url{https://github.com/paulvanderlaken/ppsr}.
 #'
@@ -139,6 +141,7 @@ corrp  = function(df,
   checkmate::assert_list(cramersV.args)
   checkmate::assert_list(uncoef.args)
 
+  on.exit( if(parallel) parallel::stopCluster(cluster) )
 
 
   stopifnot( sapply(df, class) %in% c("integer"
@@ -150,7 +153,7 @@ corrp  = function(df,
  cnames = colnames(df)
  index.grid = expand.grid("i" = seq(1,NCOL(df)), "j" = seq(1,NCOL(df)), stringsAsFactors = FALSE)
  # parallel corr matrix
-  if( isTRUE(parallel) ){
+  if( parallel ){
     cluster = parallel::makeCluster(n.cores)
     parallel::clusterExport(cluster, varlist = as.list(ls("package:corrp") ) )
     corr = parallel::clusterApply(cluster, seq_len(NROW(index.grid)),
@@ -178,8 +181,6 @@ corrp  = function(df,
                                               uncoef.args = uncoef.args)
                                     }
     )
-
-    parallel::stopCluster(cluster)
 
     } else {
       # sequential corr

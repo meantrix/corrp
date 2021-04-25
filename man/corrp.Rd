@@ -84,11 +84,11 @@ The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 \item{...}{Additional arguments (TODO).}
 }
 \description{
-Compute correlations type analysis on mixed classes columns of larges dataframes
+Compute correlations analysis on mixed classes columns of larges dataframes
 with parallel backend.
 The dataframe is allowed to have columns of these four classes: integer,
 numeric, factor and character. The character column is considered as
-categorical variable. This method is original based on Srikanth KS (talegari) cor2 function.
+categorical variable.
 }
 \section{Details (Types)}{
 
@@ -137,24 +137,26 @@ corrplot::corrplot(air_m)
 }
 \references{
 KS Srikanth,sidekicks,cor2, 2020.
-URL \url{https://github.com/talegari/sidekicks/}.\cr
+URL \url{https://github.com/talegari/sidekicks/}.
+
+
 Paul van der Laken, ppsr,2021.
 URL \url{https://github.com/paulvanderlaken/ppsr}.
 }
 \author{
-IDS siciliani (igor-siciliani)
+Igor D.S. Siciliani
 }
 \keyword{,}
 \keyword{V}
-\keyword{biserial,}
-\keyword{correlation,}
+\keyword{biserial}
+\keyword{correlation}
 \keyword{cramer's}
 \keyword{distance}
 \keyword{linear}
 \keyword{mic}
-\keyword{model,}
-\keyword{pearson,}
+\keyword{model}
+\keyword{pearson}
 \keyword{point}
 \keyword{power}
 \keyword{predictive}
-\keyword{score,}
+\keyword{score}
