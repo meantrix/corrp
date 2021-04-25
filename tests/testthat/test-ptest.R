@@ -11,9 +11,9 @@ test_that("ptest works", {
  y2 = cor.test(x,y,alternative = 'g')$p.value
  y3 = cor.test(x,y,alternative = 'l')$p.value
 
- testthat::expect_equal(x1,y1,tolerance = 0.1)
- testthat::expect_equal(x2,y2,tolerance = 0.1)
- testthat::expect_equal(x2,y2,tolerance = 0.1)
+ expect_equal(x1,y1,tolerance = 0.1)
+ expect_equal(x2,y2,tolerance = 0.1)
+ expect_equal(x2,y2,tolerance = 0.1)
 
 
 })

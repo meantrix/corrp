@@ -22,7 +22,7 @@ Imports:
     checkmate,
     ppsr (>= 0.0.2),
     DescTools(>= 0.99.40)
-Suggests: corrplot
+Suggests: corrplot, testthat
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
