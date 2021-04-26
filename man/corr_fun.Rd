@@ -112,7 +112,7 @@ Compute one correlation analysis on two mixed classes columns of a given datafra
 - \code{factor/categorical pair} Uncertainty coefficient using \code{\link[DescTools]{UncertCoef}} function. The
   value lies between 0 and 1.\cr
 - \code{factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
-  value lies between 0 and 1.\cr\cr
+  value lies between 0 and 1.\cr
 }
 
 \section{Details (Statistics)}{

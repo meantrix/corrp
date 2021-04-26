@@ -4,14 +4,14 @@
 #' corrp functions outputs and the caret package function \code{\link[caret]{findCorrelation}}.
 #'
 #'
-#' @param df \[\code{data.frame(1)}\]\cr input data frame
+#' @param df \[\code{data.frame(1)}\]\cr input data frame.
 #' @param c \[\code{clist(1)}\ | \code{cmatrix(1)}\]\cr correlation list  output from \code{\link{corrp}} or
 #' correlation matrix output from \code{\link{corr_matrix}}.
 #' @param cutoff \[\code{numeric(1)}\]\cr A numeric value for the pair-wise absolute correlation cutoff.
 #' The default values is 0.75.
 #' @param col \[\code{character(1)}\]\cr choose the column to be used in the correlation matrix
 #' @param isig \[\code{logical(1)}\]\cr values that are not statistically significant will
-#'be represented by NA or FALSE in the correlation matrix.#'
+#'be represented by NA or FALSE in the correlation matrix.
 #' @param ... Additional arguments (TODO).
 #'
 #'

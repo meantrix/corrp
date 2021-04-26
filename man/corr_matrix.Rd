@@ -17,7 +17,7 @@ corr_matrix(c, ...)
 
 \item{...}{Additional arguments (TODO).}
 
-\item{col}{\[\code{character(1)}\]\cr choose the column to be used in the correlation matrix}
+\item{col}{\[\code{character(1)}\]\cr choose the column to be used in the correlation matrix.}
 
 \item{isig}{\[\code{logical(1)}\]\cr values that are not statistically significant will
 be represented by NA or FALSE in the correlation matrix.}

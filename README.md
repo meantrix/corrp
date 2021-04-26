@@ -1,4 +1,4 @@
-# corrp <a href='http://meantrix.com'><img src='man/figures/logo.png' align="right" height="139" /></a>
+# corrp  <a href='http://meantrix.com'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -46,16 +46,11 @@ Before you begin, ensure you have met the following requirement(s):
 
 - You have `R >= 3.5.0` installed.
 
-Install the latest version released on CRAN:
-
-```r
-install.packages("corrp")
-```
 
 Or install the development version from GitHub:
 
 ```r
-if (!require("remotes")) install.packages("remotes")
+library('remotes')
 remotes::install_github("meantrix/corrp@main")
 ```
 
@@ -94,12 +89,6 @@ corr_matrix(results,col = 'infer.value',isig = TRUE)
 # [1] "cmatrix" "matrix" 
 ```
 
-For more information and examples, please take a look at the vignettes:
-
-[Usage with leaflet](https://meantrix.github.io/leaflet.multiopacity/articles/usage-leaflet.html)  
-
-[Usage with leafletProxy](https://meantrix.github.io/leaflet.multiopacity/articles/usage-leafletProxy.html)
-
 ### Contributing to corrp
 
 To contribute to `corrp`, follow these steps:
@@ -118,7 +107,7 @@ If you have detected a bug (or want to ask for a new feature), please file an is
 
 ### License
 
-This project uses the following license: [MIT License](<https://github.com/meantrix/leaflet.multiopacity/blob/master/LICENSE>).
+This project uses the following license: [GLP3 License](<https://github.com/meantrix/corrp/blob/master/LICENSE.md>).
 
 
 
