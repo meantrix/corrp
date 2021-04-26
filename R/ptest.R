@@ -2,12 +2,12 @@
 #'@description Execute one-sample permutation test on two numeric vector.
 #'Its keep one vector constant and ‘shuffle’ the other by resampling.
 #'This approximates the null hypothesis — that there is no dependency/difference between the variables.
-#'@param x \[\code{numeric(1)}\]\cr a numeric vector.
-#'@param y \[\code{numeric(1)}\]\cr a numeric vector.
-#'@param FUN \[\code{function(1)}\]\cr the function to be applied
-#'@param num.s \[\code{numeric(1)}\]\cr number of samples with replacement created with y numeric vector.
-#'@param rk \[\code{logical(1)}\]\cr if its TRUE transform x, y numeric vectors with samples ranks.
-#'@param alternative \[\code{character(1)}\]\cr a character string specifying the alternative hypothesis,
+#'@param x [\code{numeric(1)}]\cr a numeric vector.
+#'@param y [\code{numeric(1)}]\cr a numeric vector.
+#'@param FUN [\code{function(1)}]\cr the function to be applied
+#'@param num.s [\code{numeric(1)}]\cr number of samples with replacement created with y numeric vector.
+#'@param rk [\code{logical(1)}]\cr if its TRUE transform x, y numeric vectors with samples ranks.
+#'@param alternative [\code{character(1)}]\cr a character string specifying the alternative hypothesis,
 #'must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.
 #' @param ... Additional arguments (TODO).
 #' @examples
