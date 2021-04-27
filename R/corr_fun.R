@@ -33,14 +33,14 @@
 #'
 #' @section Details (Statistics):
 #' - All statistical tests are controlled by the confidence internal of
-#'   p.value param. If the statistical tests do not obtain a significance grater/less
+#'   p.value param. If the statistical tests do not obtain a significance greater/less
 #'   than p.value, by default the value of variable `isig` will be `FALSE`.\cr
 #' - There is no statistical significance test for the pps algorithm. By default isig = TRUE.\cr
 #' - If any errors occur during operations by default the correlation will be `NA`.
 #'
 #' @param df [\code{data.frame(1)}]\cr input data frame.
-#' @param nx [\code{character(1)}]\cr column name of  dependent/predictor variable.
-#' @param ny [\code{character(1)}]\cr column name of  independent/target variable.
+#' @param nx [\code{character(1)}]\cr column name of independent/predictor variable.
+#' @param ny [\code{character(1)}]\cr column name of dependent/target variable.
 #' @param p.value [\code{logical(1)}]\cr
 #' P-value probability of obtaining the observed results of a test,
 #' assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).

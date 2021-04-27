@@ -30,9 +30,9 @@ corr_fun(
 \arguments{
 \item{df}{[\code{data.frame(1)}]\cr input data frame.}
 
-\item{nx}{[\code{character(1)}]\cr column name of  dependent/predictor variable.}
+\item{nx}{[\code{character(1)}]\cr column name of independent/predictor variable.}
 
-\item{ny}{[\code{character(1)}]\cr column name of  independent/target variable.}
+\item{ny}{[\code{character(1)}]\cr column name of dependent/target variable.}
 
 \item{p.value}{[\code{logical(1)}]\cr
 P-value probability of obtaining the observed results of a test,
@@ -118,7 +118,7 @@ Compute one correlation analysis on two mixed classes columns of a given datafra
 \section{Details (Statistics)}{
 
 - All statistical tests are controlled by the confidence internal of
-  p.value param. If the statistical tests do not obtain a significance grater/less
+  p.value param. If the statistical tests do not obtain a significance greater/less
   than p.value, by default the value of variable `isig` will be `FALSE`.\cr
 - There is no statistical significance test for the pps algorithm. By default isig = TRUE.\cr
 - If any errors occur during operations by default the correlation will be `NA`.

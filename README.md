@@ -44,10 +44,10 @@ If any errors occur during operations by default the correlation will be `NA`.
 
 Before you begin, ensure you have met the following requirement(s):
 
-- You have `R >= 3.5.0` installed.
+- You have `R >= 3.6.2` installed.
 
 
-Or install the development version from GitHub:
+Install the development version from GitHub:
 
 ```r
 library('remotes')
