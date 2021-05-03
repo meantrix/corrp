@@ -1,14 +1,29 @@
-Package: corrP
+Package: corrp
 Type: Package
-Title: CorrP (Compute correlations in parallel)
-Version: 0.1.1
-Author: Igor D.S. Siciliani
-Maintainer: Igor D.S. Siciliani <igorschoeller@gmail.com>
-Description: Compute correlations of large dataframes with mixed types
-variables(classes: integer, numeric, factor and character) in parallel backend.
-Depends: R (>= 3.5.2)
-Imports: lsr, foreach, parallel, doParallel, stats, caret
-License: GNU AGPLv3 (http://choosealicense.com/licenses/agpl-3.0/)
+Title: corrp (Compute correlations type analysis in parallel)
+Version: 0.2.0
+Author: Igor Dornelles Schoeller Siciliani <igor@meantrix.com>
+Maintainer: Meantrix <dev@meantrix.com>
+Description: Compute multiple types of correlations analysis (Pearson correlation, R^2 
+  coefficient of linear regression, Cramer's V measure of association, 
+  Distance Correlation,The Maximal Information Coefficient,
+  Uncertainty coefficient and Predictive Power Score) in large dataframes
+  with mixed columns classes(integer, numeric, factor and character)
+  in parallel backend.
+Depends: 
+    R (>= 3.6.0)
+Imports: 
+    lsr (>= 0.5),
+    parallel (>= 3.6.2),
+    stats (>= 3.6.2),
+    caret (>= 6.0-85),
+    minerva (>= 1.5.8),
+    energy (>= 1.7-8),
+    checkmate (>= 2.0.0),
+    ppsr (>= 0.0.2),
+    DescTools(>= 0.99.40)
+Suggests: testthat
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.0.2
+RoxygenNote: 7.1.1
