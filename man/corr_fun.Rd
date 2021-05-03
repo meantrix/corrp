@@ -83,8 +83,16 @@ The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 
 \item{...}{Additional arguments (TODO).}
 }
+\value{
+list with all statistical results.\cr
+- All statistical tests are controlled by the confidence internal of
+  p.value param. If the statistical tests do not obtain a significance greater/less
+  than p.value the value of variable `isig` will be `FALSE`.\cr
+- There is no statistical significance test for the pps algorithm. By default `isig` is TRUE.\cr
+- If any errors occur during operations by default the association measure(`infer.value`) will be `NA`.
+}
 \description{
-Compute one correlation analysis on two mixed classes columns of a given dataframe.
+Compute correlation type analysis on two mixed classes columns of a given dataframe.
   The dataframe is allowed to have columns of these four classes: integer,
   numeric, factor and character. The character column is considered as
   categorical variable.
@@ -113,15 +121,6 @@ Compute one correlation analysis on two mixed classes columns of a given datafra
   value lies between 0 and 1.\cr
 - \code{factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
   value lies between 0 and 1.\cr
-}
-
-\section{Details (Statistics)}{
-
-- All statistical tests are controlled by the confidence internal of
-  p.value param. If the statistical tests do not obtain a significance greater/less
-  than p.value, by default the value of variable `isig` will be `FALSE`.\cr
-- There is no statistical significance test for the pps algorithm. By default isig = TRUE.\cr
-- If any errors occur during operations by default the correlation will be `NA`.
 }
 
 \examples{

@@ -83,8 +83,18 @@ The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 
 \item{...}{Additional arguments (TODO).}
 }
+\value{
+list with two tables: data and index.\cr
+- The `$data` table contains all the statistical results;\cr
+- The `$index` table contains the pairs of indices used in each inference of the data table.
+- All statistical tests are controlled by the confidence internal of
+  p.value param. If the statistical tests do not obtain a significance greater/less
+  than p.value the value of variable `isig` will be `FALSE`.\cr
+- There is no statistical significance test for the pps algorithm. By default `isig` is TRUE.\cr
+- If any errors occur during operations the association measure(`infer.value`) will be `NA`.
+}
 \description{
-Compute correlations analysis on mixed classes columns of larges dataframes
+Compute correlations type analysis on mixed classes columns of larges dataframes
 with parallel backend.
 The dataframe is allowed to have columns of these four classes: integer,
 numeric, factor and character. The character column is considered as
@@ -114,15 +124,6 @@ categorical variable.
   value lies between 0 and 1.\cr
 - \code{factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
   value lies between 0 and 1.\cr
-}
-
-\section{Details (Statistics)}{
-
-- All statistical tests are controlled by the confidence internal of
-  p.value param. If the statistical tests do not obtain a significance greater/less
-  than p.value, by default the value of variable `isig` will be `FALSE`.\cr
-- There is no statistical significance test for the pps algorithm. By default isig = TRUE.\cr
-- If any errors occur during operations by default the correlation will be `NA`.
 }
 
 \examples{
