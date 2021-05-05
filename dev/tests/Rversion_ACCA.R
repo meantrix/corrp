@@ -1,4 +1,4 @@
-# exploration function
+# exploration function ACCA
 
 corr = corrp(mtcars)
 m = corr_matrix(corr)
@@ -35,7 +35,7 @@ nm = colnames(m)
 spl =  rand.cluster(m,k)
 
 res = list()
-
+stop.now = 0
 for(j in 1:niter) {
 
 #maxsingle element
@@ -72,6 +72,10 @@ spl = sin.clu
 res[[j]] = spl
 
 if( j > 1 && identical(res[[j]], res[[j-1]] ) ) {
+  stop.now = stop.now + 1
+}
+
+if(stop.now >1 ) {
   break
 }
 
