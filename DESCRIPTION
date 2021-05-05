@@ -11,7 +11,8 @@ Description: Compute multiple types of correlations analysis (Pearson correlatio
   with mixed columns classes(integer, numeric, factor and character)
   in parallel backend.
 Depends: 
-    R (>= 3.6.0)
+    R (>= 3.6.0),
+    Rcpp (>= 1.0.4.6) 
 Imports: 
     lsr (>= 0.5),
     parallel (>= 3.6.2),
@@ -26,4 +27,5 @@ Suggests: testthat
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
+LinkingTo: Rcpp,  RcppArmadillo
 RoxygenNote: 7.1.1
