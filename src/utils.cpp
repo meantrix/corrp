@@ -23,11 +23,11 @@ Rcpp::List crand_cluster(Rcpp::NumericMatrix m,int k) {
   int ncol = m.ncol() ;
   int quo = (int)ncol / k ;
   int div = quo + (int)ncol % k ;
-  Rcpp::List clu(k);
+  Rcpp::List clu(k) ;
   for(int l = 0 ; l < k; l++){
         if(v.length() > div) {
-          Rcpp::StringVector sv = csample_char(v,quo,false);
-          Rcpp::StringVector v_sv_diff = setdiff(v,sv);
+          Rcpp::StringVector sv = csample_char(v,quo,false) ;
+          Rcpp::StringVector v_sv_diff = setdiff(v,sv) ;
           v = v_sv_diff ;
           clu(l) = sv ;
         } else {
@@ -57,7 +57,54 @@ std::vector<int> which_in(IntegerVector x, IntegerVector y) {
   return out;
 }
 
+template <int RTYPE> inline Matrix<RTYPE>
+Subset2D(const Matrix<RTYPE>& x, Rcpp::StringVector crows, Rcpp::StringVector ccols) {
+  R_xlen_t i = 0, j = 0, rr = crows.length(), rc = ccols.length(), pos;
+  Matrix<RTYPE> res(rr, rc);
 
+  Rcpp::StringVector xrows = rownames(x) ;
+  Rcpp::StringVector xcols = colnames(x) ;
+  IntegerVector rows = match(crows, xrows) ;
+  IntegerVector cols = match(ccols, xcols) ;
+
+  for (; j < rc; j++) {
+    // NB: match returns 1-based indices
+    pos = cols[j] - 1;
+    for (i = 0; i < rr; i++) {
+      res(i, j) = x(rows[i] - 1, pos);
+    }
+  }
+
+  rownames(res) = crows;
+  colnames(res) = ccols;
+
+  return res;
+}
+
+// [[Rcpp::export]]
+//subset NumericMatrix by row and column names
+//based on https://stackoverflow.com/questions/41987871/subset-numericmatrix-by-row-and-column-names-in-rcpp
+NumericMatrix subset2d(NumericMatrix x, CharacterVector rows, CharacterVector cols) {
+  return Subset2D(x, rows, cols);
+}
+
+
+
+
+// [[Rcpp::export]]
+//
+Rcpp::List csingle_cluster(int k , Rcpp::NumericMatrix m, Rcpp::List spl){
+  Rcpp::List clu(k);
+  for (int i = 0; i < k; ++i) {
+    NumericMatrix my = subset2d(m,spl(i),spl(i)) ;
+    NumericVector myy = as<NumericVector>(my);
+    Rcpp::StringVector coln = colnames(my) ;
+    int idx = which_max(myy);
+    clu(i) = coln(idx);
+  }
+  return clu ;
+
+}
 
 
 
