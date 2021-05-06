@@ -6,6 +6,7 @@ using namespace Rcpp;
 
 
 // [[Rcpp::export]]
+//Takes a sample of the specified size from the elements of x using either with or without replacement.
 CharacterVector csample_char( CharacterVector x,
                               int size,
                               bool replace,
@@ -15,36 +16,30 @@ CharacterVector csample_char( CharacterVector x,
 }
 
 
-
-
 // [[Rcpp::export]]
-Rcpp::List randcluster(Rcpp::NumericMatrix m,int k) {
+// Group cmatrix into k uniform random cluster
+Rcpp::List crand_cluster(Rcpp::NumericMatrix m,int k) {
   Rcpp::StringVector v = colnames(m) ;
   int ncol = m.ncol() ;
-  int div = (int)ncol / k + (int)ncol % k ;
+  int quo = (int)ncol / k ;
+  int div = quo + (int)ncol % k ;
   Rcpp::List clu(k);
   for(int l = 0 ; l < k; l++){
         if(v.length() > div) {
-          Rcpp::StringVector sv = csample_char(v,k,false);
+          Rcpp::StringVector sv = csample_char(v,quo,false);
           Rcpp::StringVector v_sv_diff = setdiff(v,sv);
-          for(int j = 0 ; j < v.length(); j++) {
-            for(int i = 0 ; i < v_sv_diff.length(); i++) {
-              if( v[j] == v_sv_diff[i]) {
-                v.erase(j);
-              }
-            }
-          }
-          clu(l) = v_sv_diff;
-       } else {
-          clu(l) = v;
+          v = v_sv_diff ;
+          clu(l) = sv ;
+        } else {
+          clu(l) = v ;
        }
   }
-return clu;
+return clu ;
 }
 
 
-
 // [[Rcpp::export]]
+// %in% operator
 std::vector<int> which_in(IntegerVector x, IntegerVector y) {
   std::vector<int> y_sort(y.size());
   std::partial_sort_copy (y.begin(), y.end(), y_sort.begin(), y_sort.end());
