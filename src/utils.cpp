@@ -58,12 +58,12 @@ std::vector<int> which_in(IntegerVector x, IntegerVector y) {
 }
 
 template <int RTYPE> inline Matrix<RTYPE>
-Subset2D(const Matrix<RTYPE>& x, Rcpp::StringVector crows, Rcpp::StringVector ccols) {
+Subset2D(const Matrix<RTYPE>& x, CharacterVector crows, CharacterVector ccols) {
   R_xlen_t i = 0, j = 0, rr = crows.length(), rc = ccols.length(), pos;
   Matrix<RTYPE> res(rr, rc);
 
-  Rcpp::StringVector xrows = rownames(x) ;
-  Rcpp::StringVector xcols = colnames(x) ;
+  CharacterVector xrows = rownames(x) ;
+  CharacterVector xcols = colnames(x) ;
   IntegerVector rows = match(crows, xrows) ;
   IntegerVector cols = match(ccols, xcols) ;
 
@@ -97,10 +97,11 @@ Rcpp::List csingle_cluster(int k , Rcpp::NumericMatrix m, Rcpp::List spl){
   Rcpp::List clu(k);
   for (int i = 0; i < k; ++i) {
     NumericMatrix my = subset2d(m,spl(i),spl(i)) ;
-    NumericVector myy = as<NumericVector>(my);
-    Rcpp::StringVector coln = colnames(my) ;
-    int idx = which_max(myy);
-    clu(i) = coln(idx);
+    NumericVector myy = Rcpp::rowSums(my,true) ;
+    //NumericVector myy = as<NumericVector>(my);
+    CharacterVector coln = colnames(my) ;
+    int idx = which_max(myy) ;
+    clu(i) = as<CharacterVector>(coln(idx)) ;
   }
   return clu ;
 
