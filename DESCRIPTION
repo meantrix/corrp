@@ -12,11 +12,12 @@ Description: Compute multiple types of correlations analysis (Pearson correlatio
   in parallel backend.
 Depends: 
     R (>= 3.6.0),
-    Rcpp (>= 1.0.4.6) 
+    Rcpp (>= 1.0.4.6),
+    RcppArmadillo
 Imports: 
     lsr (>= 0.5),
-    parallel (>= 3.6.2),
-    stats (>= 3.6.2),
+    parallel,
+    stats,
     caret (>= 6.0-85),
     minerva (>= 1.5.8),
     energy (>= 1.7-8),
