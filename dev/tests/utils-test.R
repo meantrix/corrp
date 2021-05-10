@@ -46,7 +46,13 @@ x4 <- sample(1:30, 100, replace = TRUE)
 y4 <- sample(0:1, 100, replace = TRUE)
 
 
-
+#ACCA testes C++ functions
+nm = colnames(m)
+x = corrp::corrp(airquality)
+m = corrp::corr_matrix(x)
+spl = crand_acca(m,2)
+m1 = subset2d(m,spl[[1]],spl[[1]])
+single = csingle_acca(m,2,spl)
 
 
 

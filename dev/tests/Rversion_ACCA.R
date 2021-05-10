@@ -1,5 +1,5 @@
 # exploration function ACCA
-
+library(corrp)
 corr = corrp(mtcars)
 m = corr_matrix(corr)
 
@@ -56,14 +56,19 @@ for(j in 1:niter) {
   nm2 = nm[! nm %in% sin.clu.v]
 
   #add other remainer elements
-  for(i in nm2){
+  for(i in seq_along(nm2)){
 
-  my  = m[ sin.clu.v, i ]
-  singel = names( which.max(my) )
+            my  = m[ sin.clu.v, nm2[1:i] ]
 
-  if(is.null(singel)){singel = sin.clu.v[1]}
+            if( is.vector(my) ){
+              singel = names( which.max(my) )
+            } else {
+              singel =  which.max(rowMeans(my,na.rm = T))
+            }
 
-  sin.clu[[singel]] = c(sin.clu[[singel]],i)
+            if(is.null(singel)){singel = sin.clu.v[1]}
+
+            sin.clu[[singel]] = c(sin.clu[[singel]],nm2[i])
 
   }
 
