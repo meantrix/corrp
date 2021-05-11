@@ -7,7 +7,7 @@
 using namespace Rcpp;
 
 // csample_char
-CharacterVector csample_char(CharacterVector x, int size, bool replace, NumericVector prob);
+//Takes a sample of the specified size from the elements of x using either with or without replacement. CharacterVector csample_char(CharacterVector x, int size, bool replace, NumericVector prob);
 RcppExport SEXP _corrp_csample_char(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP, SEXP probSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -20,20 +20,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// randcluster
-NumericVector randcluster(NumericMatrix m, int k);
-RcppExport SEXP _corrp_randcluster(SEXP mSEXP, SEXP kSEXP) {
+// crand_cluster
+// Group cmatrix into k uniform random cluster Rcpp::List crand_cluster(Rcpp::NumericMatrix m, int k);
+RcppExport SEXP _corrp_crand_cluster(SEXP mSEXP, SEXP kSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type m(mSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type m(mSEXP);
     Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    rcpp_result_gen = Rcpp::wrap(randcluster(m, k));
+    rcpp_result_gen = Rcpp::wrap(crand_cluster(m, k));
     return rcpp_result_gen;
 END_RCPP
 }
 // which_in
-std::vector<int> which_in(IntegerVector x, IntegerVector y);
+// %in% operator std::vector<int> which_in(IntegerVector x, IntegerVector y);
 RcppExport SEXP _corrp_which_in(SEXP xSEXP, SEXP ySEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
@@ -44,11 +44,39 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// subset2d
+//subset NumericMatrix by row and column names //based on https: NumericMatrix subset2d(NumericMatrix x, CharacterVector rows, CharacterVector cols);
+RcppExport SEXP _corrp_subset2d(SEXP xSEXP, SEXP rowsSEXP, SEXP colsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type rows(rowsSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type cols(colsSEXP);
+    rcpp_result_gen = Rcpp::wrap(subset2d(x, rows, cols));
+    return rcpp_result_gen;
+END_RCPP
+}
+// csingle_cluster
+//max variable per cluster Rcpp::List csingle_cluster(int k, Rcpp::NumericMatrix m, Rcpp::List spl);
+RcppExport SEXP _corrp_csingle_cluster(SEXP kSEXP, SEXP mSEXP, SEXP splSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type k(kSEXP);
+    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type m(mSEXP);
+    Rcpp::traits::input_parameter< Rcpp::List >::type spl(splSEXP);
+    rcpp_result_gen = Rcpp::wrap(csingle_cluster(k, m, spl));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_corrp_csample_char", (DL_FUNC) &_corrp_csample_char, 4},
-    {"_corrp_randcluster", (DL_FUNC) &_corrp_randcluster, 2},
+    {"_corrp_crand_cluster", (DL_FUNC) &_corrp_crand_cluster, 2},
     {"_corrp_which_in", (DL_FUNC) &_corrp_which_in, 2},
+    {"_corrp_subset2d", (DL_FUNC) &_corrp_subset2d, 3},
+    {"_corrp_csingle_cluster", (DL_FUNC) &_corrp_csingle_cluster, 3},
     {NULL, NULL, 0}
 };
 

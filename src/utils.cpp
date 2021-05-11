@@ -128,13 +128,15 @@ Rcpp::List csingle_acca(Rcpp::NumericMatrix m, int k , Rcpp::List spl){
 
 
 // [[Rcpp::export]]
-//Run ACCA iteration until for max_rep successive iteration no changes among clusters are found.
-List acca_iter(NumericMatrix m , int k , Rcpp::List spl,
+//ACCA main function iterates until for max_rep successive iteration no changes among clusters are found.
+List acca_main(NumericMatrix m , int k ,
                      int max_rep = NA_INTEGER,int maxiter = 100){
 
   if (Rcpp::internal::Rcpp_IsNA(max_rep)) {
     max_rep = 2 ;
   }
+
+  Rcpp::List spl = crand_acca(m,k) ;
 
   Rcpp::List res;
   int stp = 0;
@@ -152,11 +154,11 @@ List acca_iter(NumericMatrix m , int k , Rcpp::List spl,
     Rcpp::IntegerVector mothers = match(nm, nm2) ;
 
 
-    for(int j = 0; j < nm2.length(); j++){
-
-      for(int l = 0; l < k; l++){
+    for(int j = 0; j < nm2.size(); j++){
+      for(int l = 0; l < clu.length(); l++){
           CharacterVector clu_nm = clu(l) ;
-          NumericMatrix my = subset2d(m,clu_nm,clu_nm) ;
+          CharacterVector nm22 = as<CharacterVector>(nm2(j)) ;
+          NumericMatrix my = subset2d(m,clu_nm,nm22) ;
           double val  = as<double>(colMeans(my,true)) ;
           v(l) = val ;
       }
@@ -167,7 +169,7 @@ List acca_iter(NumericMatrix m , int k , Rcpp::List spl,
     }
     res.push_back(clu) ;
 
-    if( i > 0 && compare_list_cha(res[i],res[i-1]) ) {
+    if( i > 0 && compare_list_cha( res(i),res(i-1) ) ) {
         stp = stp +1 ;
     }
 
@@ -178,5 +180,6 @@ List acca_iter(NumericMatrix m , int k , Rcpp::List spl,
   }
 return(res) ;
 }
+
 
 
