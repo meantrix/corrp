@@ -16,9 +16,30 @@ CharacterVector csample_char( CharacterVector x,
 }
 
 
+//Comapre Two CharacterVectors
+bool compareCha( CharacterVector x, CharacterVector y){
+  Rcpp::LogicalVector r(x.size());
+  for( int i=0; i<x.size(); i++){
+    r[i] = (x[i] == y[i]);
+  }
+  return(all(r));
+}
+
+//Comapre Two Lists with only CharacterVectors
+bool compareListCha( Rcpp::List x, Rcpp::List y){
+  Rcpp::LogicalVector r(x.length());
+  for( int i=0; i<x.length(); i++){
+    r[i] = (compareCha(x(i),y(i)));
+  }
+  return(all(r));
+}
+
+
+
+
 // [[Rcpp::export]]
-// Group cmatrix into k uniform random cluster
-Rcpp::List crand_cluster(Rcpp::NumericMatrix m,int k) {
+// Group cmatrix into k uniform random clusters
+Rcpp::List crand_acca(Rcpp::NumericMatrix m,int k) {
   Rcpp::StringVector v = colnames(m) ;
   int ncol = m.ncol() ;
   int quo = (int)ncol / k ;
@@ -58,7 +79,7 @@ std::vector<int> which_in(IntegerVector x, IntegerVector y) {
 }
 
 template <int RTYPE> inline Matrix<RTYPE>
-Subset2D(const Matrix<RTYPE>& x, CharacterVector crows, CharacterVector ccols) {
+subset_matrix(const Matrix<RTYPE>& x, CharacterVector crows, CharacterVector ccols) {
   R_xlen_t i = 0, j = 0, rr = crows.length(), rc = ccols.length(), pos;
   Matrix<RTYPE> res(rr, rc);
 
@@ -85,20 +106,17 @@ Subset2D(const Matrix<RTYPE>& x, CharacterVector crows, CharacterVector ccols) {
 //subset NumericMatrix by row and column names
 //based on https://stackoverflow.com/questions/41987871/subset-numericmatrix-by-row-and-column-names-in-rcpp
 NumericMatrix subset2d(NumericMatrix x, CharacterVector rows, CharacterVector cols) {
-  return Subset2D(x, rows, cols);
+  return subset_matrix(x, rows, cols);
 }
 
 
-
-
 // [[Rcpp::export]]
-//
-Rcpp::List csingle_cluster(int k , Rcpp::NumericMatrix m, Rcpp::List spl){
+//get variable with maximmun mean correlation per cluster
+Rcpp::List csingle_acca(Rcpp::NumericMatrix m, int k , Rcpp::List spl){
   Rcpp::List clu(k);
   for (int i = 0; i < k; ++i) {
     NumericMatrix my = subset2d(m,spl(i),spl(i)) ;
-    NumericVector myy = Rcpp::rowSums(my,true) ;
-    //NumericVector myy = as<NumericVector>(my);
+    NumericVector myy = Rcpp::rowMeans(my,true) ;
     CharacterVector coln = colnames(my) ;
     int idx = which_max(myy) ;
     clu(i) = as<CharacterVector>(coln(idx)) ;
@@ -109,3 +127,53 @@ Rcpp::List csingle_cluster(int k , Rcpp::NumericMatrix m, Rcpp::List spl){
 
 
 
+
+
+
+// [[Rcpp::export]]
+//Run ACCA iteration until for max_rep successive iteration no changes among clusters are found.
+CharacterVector acca_iter(NumericMatrix m , int k , Rcpp::List spl,
+                     int max_rep = NA_INTEGER,int maxiter = 100){
+
+  if (Rcpp::internal::Rcpp_IsNA(max_rep)) {
+    max_rep = 2 ;
+  }
+
+  Rcpp::List res;
+  int stp = 0;
+  Rcpp::StringVector nm = colnames(m);
+
+  for(int i = 0 ; i < maxiter ; i++){
+
+    Rcpp::List clu = csingle_acca(m,k,spl) ;
+    NumericVector v (k) ;
+    Function asNamespace("asNamespace") ;
+    Environment base_env = asNamespace("base") ;
+    Function unlist = base_env["unlist"] ;
+    Rcpp::StringVector mainvars = unlist(clu) ;
+    Rcpp::StringVector nm2 = setdiff(nm,mainvars);
+    Rcpp::IntegerVector mothers = match(nm, nm2) ;
+
+
+    for(int j = 0; j < nm2.length(); j++){
+
+      for(int l = 0; l < k; l++){
+        CharacterVector clu_nm = clu(l) ;
+        NumericMatrix my = subset2d(m,clu_nm,nm2(j)) ;
+        double val  = as<double>(colMeans(my,true)) ;
+        v(l) = val ;
+     }
+
+     int clu_idx  = which_max(v) ;
+     Rcpp::StringVector tempstr = clu(clu_idx) ;
+     tempstr.push_back(mothers(j)) ;
+     clu(clu_idx) = tempstr ;
+
+   }
+
+    res.push_back(clu) ;
+
+    if( i > 0 && )
+
+
+}
