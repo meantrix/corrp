@@ -17,7 +17,7 @@ CharacterVector csample_char( CharacterVector x,
 
 
 //Comapre Two CharacterVectors
-bool compareCha( CharacterVector x, CharacterVector y){
+bool compare_cha( CharacterVector x, CharacterVector y){
   Rcpp::LogicalVector r(x.size());
   for( int i=0; i<x.size(); i++){
     r[i] = (x[i] == y[i]);
@@ -26,10 +26,10 @@ bool compareCha( CharacterVector x, CharacterVector y){
 }
 
 //Comapre Two Lists with only CharacterVectors
-bool compareListCha( Rcpp::List x, Rcpp::List y){
+bool compare_list_cha( Rcpp::List x, Rcpp::List y){
   Rcpp::LogicalVector r(x.length());
   for( int i=0; i<x.length(); i++){
-    r[i] = (compareCha(x(i),y(i)));
+    r[i] = (compare_cha(x(i),y(i)));
   }
   return(all(r));
 }
@@ -40,15 +40,15 @@ bool compareListCha( Rcpp::List x, Rcpp::List y){
 // [[Rcpp::export]]
 // Group cmatrix into k uniform random clusters
 Rcpp::List crand_acca(Rcpp::NumericMatrix m,int k) {
-  Rcpp::StringVector v = colnames(m) ;
+  CharacterVector v = colnames(m) ;
   int ncol = m.ncol() ;
   int quo = (int)ncol / k ;
   int div = quo + (int)ncol % k ;
   Rcpp::List clu(k) ;
   for(int l = 0 ; l < k; l++){
         if(v.length() > div) {
-          Rcpp::StringVector sv = csample_char(v,quo,false) ;
-          Rcpp::StringVector v_sv_diff = setdiff(v,sv) ;
+          CharacterVector sv = csample_char(v,quo,false) ;
+          CharacterVector v_sv_diff = setdiff(v,sv) ;
           v = v_sv_diff ;
           clu(l) = sv ;
         } else {
@@ -127,12 +127,9 @@ Rcpp::List csingle_acca(Rcpp::NumericMatrix m, int k , Rcpp::List spl){
 
 
 
-
-
-
 // [[Rcpp::export]]
 //Run ACCA iteration until for max_rep successive iteration no changes among clusters are found.
-CharacterVector acca_iter(NumericMatrix m , int k , Rcpp::List spl,
+List acca_iter(NumericMatrix m , int k , Rcpp::List spl,
                      int max_rep = NA_INTEGER,int maxiter = 100){
 
   if (Rcpp::internal::Rcpp_IsNA(max_rep)) {
@@ -141,7 +138,7 @@ CharacterVector acca_iter(NumericMatrix m , int k , Rcpp::List spl,
 
   Rcpp::List res;
   int stp = 0;
-  Rcpp::StringVector nm = colnames(m);
+  CharacterVector nm = colnames(m);
 
   for(int i = 0 ; i < maxiter ; i++){
 
@@ -150,30 +147,36 @@ CharacterVector acca_iter(NumericMatrix m , int k , Rcpp::List spl,
     Function asNamespace("asNamespace") ;
     Environment base_env = asNamespace("base") ;
     Function unlist = base_env["unlist"] ;
-    Rcpp::StringVector mainvars = unlist(clu) ;
-    Rcpp::StringVector nm2 = setdiff(nm,mainvars);
+    CharacterVector mainvars = unlist(clu) ;
+    CharacterVector nm2 = setdiff(nm,mainvars);
     Rcpp::IntegerVector mothers = match(nm, nm2) ;
 
 
     for(int j = 0; j < nm2.length(); j++){
 
       for(int l = 0; l < k; l++){
-        CharacterVector clu_nm = clu(l) ;
-        NumericMatrix my = subset2d(m,clu_nm,nm2(j)) ;
-        double val  = as<double>(colMeans(my,true)) ;
-        v(l) = val ;
-     }
-
-     int clu_idx  = which_max(v) ;
-     Rcpp::StringVector tempstr = clu(clu_idx) ;
-     tempstr.push_back(mothers(j)) ;
-     clu(clu_idx) = tempstr ;
-
-   }
-
+          CharacterVector clu_nm = clu(l) ;
+          NumericMatrix my = subset2d(m,clu_nm,clu_nm) ;
+          double val  = as<double>(colMeans(my,true)) ;
+          v(l) = val ;
+      }
+      int clu_idx  = which_max(v) ;
+      CharacterVector tempstr = clu(clu_idx) ;
+      tempstr.push_back(mothers(j)) ;
+      clu(clu_idx) = tempstr ;
+    }
     res.push_back(clu) ;
 
-    if( i > 0 && )
+    if( i > 0 && compare_list_cha(res[i],res[i-1]) ) {
+        stp = stp +1 ;
+    }
 
+    if(stp > 1 ){
+      break;
+    }
 
+  }
+return(res) ;
 }
+
+
