@@ -5,11 +5,19 @@ csample_char <- function(x, size, replace, prob = as.numeric( c())) {
     .Call('_corrp_csample_char', PACKAGE = 'corrp', x, size, replace, prob)
 }
 
-randcluster <- function(m, k) {
-    .Call('_corrp_randcluster', PACKAGE = 'corrp', m, k)
+crand_cluster <- function(m, k) {
+    .Call('_corrp_crand_cluster', PACKAGE = 'corrp', m, k)
 }
 
 which_in <- function(x, y) {
     .Call('_corrp_which_in', PACKAGE = 'corrp', x, y)
+}
+
+subset2d <- function(x, rows, cols) {
+    .Call('_corrp_subset2d', PACKAGE = 'corrp', x, rows, cols)
+}
+
+csingle_cluster <- function(k, m, spl) {
+    .Call('_corrp_csingle_cluster', PACKAGE = 'corrp', k, m, spl)
 }
 
