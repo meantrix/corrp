@@ -45,27 +45,6 @@ bool compare_list_cha( Rcpp::List x, Rcpp::List y){
   return res;
 }
 
-// Group cmatrix into k uniform random clusters
-Rcpp::List crand_acca(Rcpp::NumericMatrix m,int k) {
-  Rcpp::StringVector v = colnames(m) ;
-  int ncol = m.ncol() ;
-  int quo = (int)ncol / k ;
-  int div = quo + (int)ncol % k ;
-  Rcpp::List clu(k) ;
-  for(int l = 0 ; l < k; l++){
-        if(v.length() > div) {
-          Rcpp::StringVector sv = csample_char(v,quo,false) ;
-          Rcpp::StringVector v_sv_diff = setdiff(v,sv) ;
-          v = v_sv_diff ;
-          clu[l] = sv ;
-        } else {
-          clu[l] = v ;
-       }
-  }
-return clu ;
-}
-
-
 // %in% operator
 std::vector<int> which_in(IntegerVector x, IntegerVector y) {
   std::vector<int> y_sort(y.size());
@@ -117,20 +96,43 @@ NumericMatrix subset2d(NumericMatrix x, Rcpp::StringVector rows, Rcpp::StringVec
 }
 
 
+// [[Rcpp::export]]
+// Group cmatrix into k uniform random clusters
+Rcpp::List crand_acca(Rcpp::NumericMatrix m,int k) {
+  Rcpp::StringVector v = colnames(m) ;
+  int ncol = m.ncol() ;
+  int quo = (int)ncol / k ;
+  int div = quo + (int)ncol % k ;
+  Rcpp::List clu(k) ;
+  for(int l = 0 ; l < k; l++){
+    if(v.length() > div) {
+      Rcpp::StringVector sv = csample_char(v,quo,false) ;
+      Rcpp::StringVector v_sv_diff = setdiff(v,sv) ;
+      v = v_sv_diff ;
+      clu[l] = sv ;
+    } else {
+      clu[l] = v ;
+    }
+  }
+  return clu ;
+}
+
+
+// [[Rcpp::export]]
 //get variables with maximum mean correlation per cluster
 Rcpp::List csingle_acca(Rcpp::NumericMatrix m, int k , Rcpp::List spl){
   Rcpp::List clu(k);
   for (int i = 0; i < k; ++i) {
     NumericMatrix m2 = subset2d(m,spl[i],spl[i]) ;
-    NumericVector v2 = Rcpp::rowMeans(m2,true) ;
+    int col_num = m2.ncol();
+    NumericVector v2 = Rcpp::rowSums(m2,true)/col_num ;
+    //Rcout << "v2" << v2 << "\n" << std::endl;
     Rcpp::StringVector coln = colnames(m2) ;
     int idx = which_max(v2) ;
     clu[i] = as<Rcpp::StringVector>(coln[idx]) ;
   }
   return clu ;
-
 }
-
 
 // [[Rcpp::export]]
 // ACCA main function iterates until for max_rep successive iteration no changes among clusters are found.
@@ -155,7 +157,6 @@ Rcpp::List acca_main(NumericMatrix m , int k ,
     Function identical = base_env["identical"] ;
 
     Rcpp::StringVector mainvars = unlist(clu) ;
-    Rcout << "main: " << mainvars << "\n" << std::endl;
     Rcpp::StringVector nm2 = setdiff(nm,mainvars) ;
 
     for(int j = 0; j < nm2.size(); j++){
@@ -163,17 +164,17 @@ Rcpp::List acca_main(NumericMatrix m , int k ,
       for(int l = 0; l < clu.length(); l++){
           Rcpp::StringVector clu_nm = clu[l] ;
           NumericMatrix m2 = subset2d(m,clu_nm,nm22) ;
-          NumericVector v2 = colMeans(m2,true) ;
+          int row_num = m2.nrow();
+          NumericVector v2 = Rcpp::colSums(m2,true)/row_num ;
           double val = v2[0] ;
           if( internal::Rcpp_IsNA(val) || internal::Rcpp_IsNaN(val) ){
             val = -2 ;
           }
           v[l] = val ;
       }
-      Rcout << v << "\n" << std::endl ;
+      //Rcout << v << "\n" << std::endl ;
       int clu_idx  = which_max(v) ;
       Rcpp::StringVector tempstr = clu[clu_idx] ;
-      Rcout << "temp: " << tempstr << "\n" << std::endl;
       tempstr.push_back(nm22[0]) ;
       clu[clu_idx] = tempstr ;
     }
@@ -185,7 +186,6 @@ Rcpp::List acca_main(NumericMatrix m , int k ,
     if( i > 0 && identical(res[i],res[h]) ) {
       stp++ ;
     }
-    Rcout << "stp: " << stp << "\n" << std::endl;
     if( stp > maxrep ){
       break ;
     }
