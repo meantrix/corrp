@@ -5,61 +5,67 @@
 using namespace Rcpp;
 
 
-// [[Rcpp::export]]
 //Takes a sample of the specified size from the elements of x using either with or without replacement.
-CharacterVector csample_char( CharacterVector x,
+Rcpp::StringVector csample_char( Rcpp::StringVector x,
                               int size,
                               bool replace,
                               NumericVector prob = NumericVector::create()) {
-  CharacterVector ret = RcppArmadillo::sample(x, size, replace, prob) ;
+  Rcpp::StringVector ret = RcppArmadillo::sample(x, size, replace, prob) ;
   return ret ;
 }
 
+//Compare Two Rcpp::StringVectors
+bool compare_cha( Rcpp::StringVector x, Rcpp::StringVector y){
 
-//Comapre Two CharacterVectors
-bool compare_cha( CharacterVector x, CharacterVector y){
-  Rcpp::LogicalVector r(x.size());
-  for( int i=0; i<x.size(); i++){
-    r[i] = (x[i] == y[i]);
+  bool res = false ;
+
+  if(x.size() == y.size()){
+    Rcpp::LogicalVector r(x.size()) ;
+    for( int i=0; i<x.size(); i++){
+      r[i] = (x[i] == y[i]) ;
+    }
+    res = as<bool>(all(r)) ;
   }
-  return(all(r));
+  return res ;
 }
 
-//Comapre Two Lists with only CharacterVectors
+//Compare Two Lists with Rcpp::StringVectors
 bool compare_list_cha( Rcpp::List x, Rcpp::List y){
-  Rcpp::LogicalVector r(x.length());
-  for( int i=0; i<x.length(); i++){
-    r[i] = (compare_cha(x(i),y(i)));
+
+  bool res = false ;
+
+  if(x.length() == y.length()){
+      Rcpp::LogicalVector r(x.length()) ;
+      for( int i=0; i<x.length(); i++){
+        r[i] = (compare_cha(x[i],y[i])) ;
+      }
+      res = as<bool>(all(r)) ;
   }
-  return(all(r));
+
+  return res;
 }
 
-
-
-
-// [[Rcpp::export]]
 // Group cmatrix into k uniform random clusters
 Rcpp::List crand_acca(Rcpp::NumericMatrix m,int k) {
-  CharacterVector v = colnames(m) ;
+  Rcpp::StringVector v = colnames(m) ;
   int ncol = m.ncol() ;
   int quo = (int)ncol / k ;
   int div = quo + (int)ncol % k ;
   Rcpp::List clu(k) ;
   for(int l = 0 ; l < k; l++){
         if(v.length() > div) {
-          CharacterVector sv = csample_char(v,quo,false) ;
-          CharacterVector v_sv_diff = setdiff(v,sv) ;
+          Rcpp::StringVector sv = csample_char(v,quo,false) ;
+          Rcpp::StringVector v_sv_diff = setdiff(v,sv) ;
           v = v_sv_diff ;
-          clu(l) = sv ;
+          clu[l] = sv ;
         } else {
-          clu(l) = v ;
+          clu[l] = v ;
        }
   }
 return clu ;
 }
 
 
-// [[Rcpp::export]]
 // %in% operator
 std::vector<int> which_in(IntegerVector x, IntegerVector y) {
   std::vector<int> y_sort(y.size());
@@ -79,12 +85,12 @@ std::vector<int> which_in(IntegerVector x, IntegerVector y) {
 }
 
 template <int RTYPE> inline Matrix<RTYPE>
-subset_matrix(const Matrix<RTYPE>& x, CharacterVector crows, CharacterVector ccols) {
+subset_matrix(const Matrix<RTYPE>& x, Rcpp::StringVector crows, Rcpp::StringVector ccols) {
   R_xlen_t i = 0, j = 0, rr = crows.length(), rc = ccols.length(), pos;
   Matrix<RTYPE> res(rr, rc);
 
-  CharacterVector xrows = rownames(x) ;
-  CharacterVector xcols = colnames(x) ;
+  Rcpp::StringVector xrows = rownames(x) ;
+  Rcpp::StringVector xcols = colnames(x) ;
   IntegerVector rows = match(crows, xrows) ;
   IntegerVector cols = match(ccols, xcols) ;
 
@@ -102,84 +108,90 @@ subset_matrix(const Matrix<RTYPE>& x, CharacterVector crows, CharacterVector cco
   return res;
 }
 
-// [[Rcpp::export]]
+
+
 //subset NumericMatrix by row and column names
 //based on https://stackoverflow.com/questions/41987871/subset-numericmatrix-by-row-and-column-names-in-rcpp
-NumericMatrix subset2d(NumericMatrix x, CharacterVector rows, CharacterVector cols) {
+NumericMatrix subset2d(NumericMatrix x, Rcpp::StringVector rows, Rcpp::StringVector cols) {
   return subset_matrix(x, rows, cols);
 }
 
 
-// [[Rcpp::export]]
-//get variable with maximmun mean correlation per cluster
+//get variables with maximum mean correlation per cluster
 Rcpp::List csingle_acca(Rcpp::NumericMatrix m, int k , Rcpp::List spl){
   Rcpp::List clu(k);
   for (int i = 0; i < k; ++i) {
-    NumericMatrix my = subset2d(m,spl(i),spl(i)) ;
-    NumericVector myy = Rcpp::rowMeans(my,true) ;
-    CharacterVector coln = colnames(my) ;
-    int idx = which_max(myy) ;
-    clu(i) = as<CharacterVector>(coln(idx)) ;
+    NumericMatrix m2 = subset2d(m,spl[i],spl[i]) ;
+    NumericVector v2 = Rcpp::rowMeans(m2,true) ;
+    Rcpp::StringVector coln = colnames(m2) ;
+    int idx = which_max(v2) ;
+    clu[i] = as<Rcpp::StringVector>(coln[idx]) ;
   }
   return clu ;
 
 }
 
 
-
 // [[Rcpp::export]]
-//ACCA main function iterates until for max_rep successive iteration no changes among clusters are found.
-List acca_main(NumericMatrix m , int k ,
-                     int max_rep = NA_INTEGER,int maxiter = 100){
+// ACCA main function iterates until for max_rep successive iteration no changes among clusters are found.
+Rcpp::List acca_main(NumericMatrix m , int k ,
+                     int maxrep = 2, int maxiter = 100){
 
-  if (Rcpp::internal::Rcpp_IsNA(max_rep)) {
-    max_rep = 2 ;
+  if (maxrep > maxiter) {
+    stop("maxitter must be greater than maxrep.") ;
   }
 
   Rcpp::List spl = crand_acca(m,k) ;
-
-  Rcpp::List res;
-  int stp = 0;
-  CharacterVector nm = colnames(m);
-
+  Rcpp::List res ;
+  int stp = 0 ;
+  Rcpp::StringVector nm = colnames(m) ;
+  NumericVector v (k) ;
   for(int i = 0 ; i < maxiter ; i++){
 
     Rcpp::List clu = csingle_acca(m,k,spl) ;
-    NumericVector v (k) ;
     Function asNamespace("asNamespace") ;
     Environment base_env = asNamespace("base") ;
     Function unlist = base_env["unlist"] ;
-    CharacterVector mainvars = unlist(clu) ;
-    CharacterVector nm2 = setdiff(nm,mainvars);
-    Rcpp::IntegerVector mothers = match(nm, nm2) ;
+    Function identical = base_env["identical"] ;
 
+    Rcpp::StringVector mainvars = unlist(clu) ;
+    Rcout << "main: " << mainvars << "\n" << std::endl;
+    Rcpp::StringVector nm2 = setdiff(nm,mainvars) ;
 
     for(int j = 0; j < nm2.size(); j++){
+      Rcpp::StringVector nm22 = Rcpp::as<StringVector>(nm2[j]) ;
       for(int l = 0; l < clu.length(); l++){
-          CharacterVector clu_nm = clu(l) ;
-          CharacterVector nm22 = as<CharacterVector>(nm2(j)) ;
-          NumericMatrix my = subset2d(m,clu_nm,nm22) ;
-          double val  = as<double>(colMeans(my,true)) ;
-          v(l) = val ;
+          Rcpp::StringVector clu_nm = clu[l] ;
+          NumericMatrix m2 = subset2d(m,clu_nm,nm22) ;
+          NumericVector v2 = colMeans(m2,true) ;
+          double val = v2[0] ;
+          if( internal::Rcpp_IsNA(val) || internal::Rcpp_IsNaN(val) ){
+            val = -2 ;
+          }
+          v[l] = val ;
       }
+      Rcout << v << "\n" << std::endl ;
       int clu_idx  = which_max(v) ;
-      CharacterVector tempstr = clu(clu_idx) ;
-      tempstr.push_back(mothers(j)) ;
-      clu(clu_idx) = tempstr ;
-    }
-    res.push_back(clu) ;
-
-    if( i > 0 && compare_list_cha( res(i),res(i-1) ) ) {
-        stp = stp +1 ;
+      Rcpp::StringVector tempstr = clu[clu_idx] ;
+      Rcout << "temp: " << tempstr << "\n" << std::endl;
+      tempstr.push_back(nm22[0]) ;
+      clu[clu_idx] = tempstr ;
     }
 
-    if(stp > 1 ){
-      break;
+    spl = clu ;
+    res.push_back(spl) ;
+    int h = i -1 ;
+
+    if( i > 0 && identical(res[i],res[h]) ) {
+      stp++ ;
+    }
+    Rcout << "stp: " << stp << "\n" << std::endl;
+    if( stp > maxrep ){
+      break ;
     }
 
   }
-return(res) ;
+return res  ;
 }
-
 
 
