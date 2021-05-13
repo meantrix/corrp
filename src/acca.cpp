@@ -5,6 +5,9 @@
 using namespace Rcpp;
 
 
+////////////////////////////////////////////////////////////////////////////////
+//Utils
+
 //Takes a sample of the specified size from the elements of x using either with or without replacement.
 Rcpp::StringVector csample_char( Rcpp::StringVector x,
                               int size,
@@ -95,8 +98,9 @@ NumericMatrix subset2d(NumericMatrix x, Rcpp::StringVector rows, Rcpp::StringVec
   return subset_matrix(x, rows, cols);
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//ACCA alg
 
-// [[Rcpp::export]]
 // Group cmatrix into k uniform random clusters
 Rcpp::List crand_acca(Rcpp::NumericMatrix m,int k) {
   Rcpp::StringVector v = colnames(m) ;
@@ -118,7 +122,6 @@ Rcpp::List crand_acca(Rcpp::NumericMatrix m,int k) {
 }
 
 
-// [[Rcpp::export]]
 //get variables with maximum mean correlation per cluster
 Rcpp::List csingle_acca(Rcpp::NumericMatrix m, int k , Rcpp::List spl){
   Rcpp::List clu(k);
@@ -194,4 +197,55 @@ Rcpp::List acca_main(NumericMatrix m , int k ,
 return res  ;
 }
 
+////////////////////////////////////////////////////////////////////////////////
+//Silhouette Alg
+
+double Silhouette(Rcpp::List acca, NumericMatrix m) {
+
+  double a = 0 ;
+  double b = 0 ;
+
+  int len = acca.length() ;
+  Rcpp::List clu = acca[len] ;
+
+  Function asNamespace("asNamespace") ;
+  Environment base_env = asNamespace("base") ;
+  Function unlist = base_env["unlist"] ;
+  Function identical = base_env["identical"] ;
+
+  NumericMatrix dist = 1 - m ;
+
+
+  Rcpp::List res_a(clu.length()) ;
+
+  for(int i = 0; i < clu.length(); i++){
+    Rcpp::StringVector clu_nm = clu[i] ;
+    NumericVector clu_a(clu_nm.length());
+    for(int j = 0;j < clu_nm.length(); j++){
+      Rcpp::StringVector nm2 = Rcpp::as<StringVector>(clu_nm[j]) ;
+      Rcpp::StringVector nm = setdiff(clu_nm,nm2) ;
+      NumericMatrix m2 = subset2d(m,nm,nm2) ;
+      int row_num = m2.nrow();
+      NumericVector v2 = Rcpp::colSums(m2,true)/row_num ;
+      double val = v2[0] ;
+      if( internal::Rcpp_IsNA(val) || internal::Rcpp_IsNaN(val) ){
+        val = 1 ;
+      }
+      clu_a[j] = val ;
+
+    }
+
+
+  }
+
+
+
+
+
+
+
+
+
+
+  }
 
