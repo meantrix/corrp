@@ -1,10 +1,11 @@
 # exploration function ACCA
-library(corrp)
-corr = corrp(mtcars)
-m = corr_matrix(corr)
+# library(corrp)
+# corr = corrp()
+# m = corr_matrix(corr)
 
 #number of cluster k
-k = 3
+tictoc::tic()
+k = 4
 niter = 500
 #'split corr_matrix in almost equal random clusters
 rand.cluster = function(m,k){
@@ -80,12 +81,12 @@ if( j > 1 && identical(res[[j]], res[[j-1]] ) ) {
   stop.now = stop.now + 1
 }
 
-if(stop.now >1 ) {
+if(stop.now >1000 ) {
   break
 }
 
 }
-
+tictoc::toc()
 
 
 
