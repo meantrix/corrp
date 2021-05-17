@@ -202,6 +202,25 @@ return res  ;
 ////////////////////////////////////////////////////////////////////////////////
 //Silhouette Alg
 
+// S_x for each data point i
+double s_x(double b, double a) {
+
+  if(a > b) {
+
+    res = 1 - a/b ;
+
+  } else if(a == b) {
+
+    res = 0 ;
+
+  } else {
+
+    res = b/a - 1 ;
+
+  }
+
+  return res ;
+}
 
 // [[Rcpp::export]]
 //Silhouette (clustering) algorithm
