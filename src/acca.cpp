@@ -1,7 +1,9 @@
 #include <RcppArmadilloExtensions/sample.h>
+#include <RcppEigen.h>
 #include <Rcpp.h>
-// [[Rcpp::depends(RcppArmadillo)]]
 
+// [[Rcpp::depends(RcppArmadillo)]]
+// [[Rcpp::depends(RcppEigen)]]
 using namespace Rcpp;
 
 
@@ -200,7 +202,10 @@ return res  ;
 ////////////////////////////////////////////////////////////////////////////////
 //Silhouette Alg
 
-double Silhouette(Rcpp::List acca, NumericMatrix m) {
+
+// [[Rcpp::export]]
+//Silhouette (clustering) algorithm
+double Silhouette_main(Rcpp::List acca, NumericMatrix m) {
 
   double a = 0 ;
   double b = 0 ;
@@ -216,36 +221,51 @@ double Silhouette(Rcpp::List acca, NumericMatrix m) {
   NumericMatrix dist = 1 - m ;
 
 
-  Rcpp::List res_a(clu.length()) ;
+  NumericVector res_ab(len) ;
 
-  for(int i = 0; i < clu.length(); i++){
-    Rcpp::StringVector clu_nm = clu[i] ;
-    NumericVector clu_a(clu_nm.length());
+  for(int i = 0; i < len; i++){
+    Rcpp::StringVector clu_nm = acca[i] ;
+
+    NumericVector clu_ab(clu_nm.length());
+
     for(int j = 0;j < clu_nm.length(); j++){
       Rcpp::StringVector nm2 = Rcpp::as<StringVector>(clu_nm[j]) ;
       Rcpp::StringVector nm = setdiff(clu_nm,nm2) ;
       NumericMatrix m2 = subset2d(m,nm,nm2) ;
       int row_num = m2.nrow();
       NumericVector v2 = Rcpp::colSums(m2,true)/row_num ;
-      double val = v2[0] ;
-      if( internal::Rcpp_IsNA(val) || internal::Rcpp_IsNaN(val) ){
-        val = 1 ;
+      a = v2[0] ;
+
+      NumericVector clu_b_inside(len-1);
+      IntegerVector sequ =  seq_len(len) ;
+      sequ.erase(i) ;
+      for(int l = 0 ; l < sequ.size(); l++) {
+          Rcpp::StringVector clu_nm2 = acca[l] ;
+        NumericMatrix m3 = subset2d(m,clu_nm2,nm2) ;
+        int row_num3 = m3.nrow();
+        NumericVector v3 = Rcpp::colSums(m3,true)/row_num3 ;
+        double val3 = v3[0] ;
+        if( internal::Rcpp_IsNA(val3) || internal::Rcpp_IsNaN(val3) ){
+          val3 = 1 ;
+        }
+        clu_b_inside[l] = val3 ;
       }
-      clu_a[j] = val ;
+
+      b = Rcpp::min( clu_b_inside,true) ;
+      sx = s_x(b,a)
+      if( internal::Rcpp_IsNA(sx) || internal::Rcpp_IsNaN(sx) ){
+          sx = 0 ;
+      }
+
+      clu_ab[j] = sx ;
 
     }
-
-
-  }
-
-
-
-
-
-
-
-
-
+    res_ab[i] = Rcpp::mean(clu_ab,true) ;
 
   }
+
+return Rcpp::max(res_ab,true) ;
+
+
+}
 
