@@ -1,20 +1,16 @@
 #include <RcppArmadilloExtensions/sample.h>
-#include <RcppEigen.h>
 #include <Rcpp.h>
 
 // [[Rcpp::depends(RcppArmadillo)]]
-// [[Rcpp::depends(RcppEigen)]]
 using namespace Rcpp;
-
-
 ////////////////////////////////////////////////////////////////////////////////
 //Utils
 
 //Takes a sample of the specified size from the elements of x using either with or without replacement.
 Rcpp::StringVector csample_char( Rcpp::StringVector x,
-                              int size,
-                              bool replace,
-                              NumericVector prob = NumericVector::create()) {
+                                 int size,
+                                 bool replace,
+                                 Rcpp::NumericVector prob = Rcpp::NumericVector::create()) {
   Rcpp::StringVector ret = RcppArmadillo::sample(x, size, replace, prob) ;
   return ret ;
 }
@@ -39,19 +35,19 @@ bool compare_list_cha( Rcpp::List x, Rcpp::List y){
 
   bool res = false ;
 
-  if(x.length() == y.length()){
-      Rcpp::LogicalVector r(x.length()) ;
-      for( int i=0; i<x.length(); i++){
-        r[i] = (compare_cha(x[i],y[i])) ;
-      }
-      res = as<bool>(all(r)) ;
+  if(x.size() == y.size()){
+    Rcpp::LogicalVector r(x.size()) ;
+    for( int i=0; i<x.size(); i++){
+      r[i] = (compare_cha(x[i],y[i])) ;
+    }
+    res = as<bool>(all(r)) ;
   }
 
   return res;
 }
 
 // %in% operator
-std::vector<int> which_in(IntegerVector x, IntegerVector y) {
+std::vector<int> which_in(Rcpp::IntegerVector x, Rcpp::IntegerVector y) {
   std::vector<int> y_sort(y.size());
   std::partial_sort_copy (y.begin(), y.end(), y_sort.begin(), y_sort.end());
 
@@ -68,15 +64,15 @@ std::vector<int> which_in(IntegerVector x, IntegerVector y) {
   return out;
 }
 
-template <int RTYPE> inline Matrix<RTYPE>
-subset_matrix(const Matrix<RTYPE>& x, Rcpp::StringVector crows, Rcpp::StringVector ccols) {
+template <int RTYPE> inline Rcpp::Matrix<RTYPE>
+subset_matrix(const Rcpp::Matrix<RTYPE>& x, Rcpp::StringVector crows, Rcpp::StringVector ccols) {
   R_xlen_t i = 0, j = 0, rr = crows.length(), rc = ccols.length(), pos;
-  Matrix<RTYPE> res(rr, rc);
+  Rcpp::Matrix<RTYPE> res(rr, rc);
 
   Rcpp::StringVector xrows = rownames(x) ;
   Rcpp::StringVector xcols = colnames(x) ;
-  IntegerVector rows = match(crows, xrows) ;
-  IntegerVector cols = match(ccols, xcols) ;
+  Rcpp::IntegerVector rows = match(crows, xrows) ;
+  Rcpp::IntegerVector cols = match(ccols, xcols) ;
 
   for (; j < rc; j++) {
     // NB: match returns 1-based indices
@@ -96,9 +92,10 @@ subset_matrix(const Matrix<RTYPE>& x, Rcpp::StringVector crows, Rcpp::StringVect
 
 //subset NumericMatrix by row and column names
 //based on https://stackoverflow.com/questions/41987871/subset-numericmatrix-by-row-and-column-names-in-rcpp
-NumericMatrix subset2d(NumericMatrix x, Rcpp::StringVector rows, Rcpp::StringVector cols) {
+Rcpp::NumericMatrix subset2d(Rcpp::NumericMatrix x, Rcpp::StringVector rows, Rcpp::StringVector cols) {
   return subset_matrix(x, rows, cols);
 }
+
 
 ////////////////////////////////////////////////////////////////////////////////
 //ACCA alg
@@ -128,9 +125,9 @@ Rcpp::List crand_acca(Rcpp::NumericMatrix m,int k) {
 Rcpp::List csingle_acca(Rcpp::NumericMatrix m, int k , Rcpp::List spl){
   Rcpp::List clu(k);
   for (int i = 0; i < k; ++i) {
-    NumericMatrix m2 = subset2d(m,spl[i],spl[i]) ;
+    Rcpp::NumericMatrix m2 = subset2d(m,spl[i],spl[i]) ;
     int col_num = m2.ncol();
-    NumericVector v2 = Rcpp::rowSums(m2,true)/col_num ;
+    Rcpp::NumericVector v2 = Rcpp::rowSums(m2,true)/col_num ;
     //Rcout << "v2" << v2 << "\n" << std::endl;
     Rcpp::StringVector coln = colnames(m2) ;
     int idx = which_max(v2) ;
@@ -141,7 +138,7 @@ Rcpp::List csingle_acca(Rcpp::NumericMatrix m, int k , Rcpp::List spl){
 
 // [[Rcpp::export]]
 // ACCA main function iterates until for max_rep successive iteration no changes among clusters are found.
-Rcpp::List acca_main(NumericMatrix m , int k ,
+Rcpp::List acca_main(Rcpp::NumericMatrix m , int k ,
                      int maxrep = 2, int maxiter = 100){
 
   if (maxrep > maxiter) {
@@ -152,7 +149,7 @@ Rcpp::List acca_main(NumericMatrix m , int k ,
   Rcpp::List res ;
   int stp = 0 ;
   Rcpp::StringVector nm = colnames(m) ;
-  NumericVector v (k) ;
+  Rcpp::NumericVector v (k) ;
   for(int i = 0 ; i < maxiter ; i++){
 
     Rcpp::List clu = csingle_acca(m,k,spl) ;
@@ -166,7 +163,7 @@ Rcpp::List acca_main(NumericMatrix m , int k ,
 
     for(int j = 0; j < nm2.size(); j++){
       Rcpp::StringVector nm22 = Rcpp::as<StringVector>(nm2[j]) ;
-      for(int l = 0; l < clu.length(); l++){
+      for(int l = 0; l < clu.size(); l++){
           Rcpp::StringVector clu_nm = clu[l] ;
           NumericMatrix m2 = subset2d(m,clu_nm,nm22) ;
           int row_num = m2.nrow();
@@ -205,6 +202,8 @@ return res  ;
 // S_x for each data point i
 double s_x(double b, double a) {
 
+  double res = 0 ;
+
   if(a > b) {
 
     res = 1 - a/b ;
@@ -223,67 +222,56 @@ double s_x(double b, double a) {
 }
 
 // [[Rcpp::export]]
-//Silhouette (clustering) algorithm
-double Silhouette_main(Rcpp::List acca, NumericMatrix m) {
+// Silhouette clustering algorithm
+double silhouette_main(Rcpp::List acca, NumericMatrix m) {
 
   double a = 0 ;
   double b = 0 ;
 
-  int len = acca.length() ;
-  Rcpp::List clu = acca[len] ;
-
-  Function asNamespace("asNamespace") ;
-  Environment base_env = asNamespace("base") ;
-  Function unlist = base_env["unlist"] ;
-  Function identical = base_env["identical"] ;
-
+  Rcpp::List clu = acca[acca.size()-1] ;
+  int len = clu.size() ;
   NumericMatrix dist = 1 - m ;
-
-
   NumericVector res_ab(len) ;
 
   for(int i = 0; i < len; i++){
-    Rcpp::StringVector clu_nm = acca[i] ;
 
-    NumericVector clu_ab(clu_nm.length());
+    Rcpp::StringVector clu_nm = clu[i] ;
+    Rcpp::NumericVector clu_ab(clu_nm.length() ) ;
 
-    for(int j = 0;j < clu_nm.length(); j++){
-      Rcpp::StringVector nm2 = Rcpp::as<StringVector>(clu_nm[j]) ;
+    for(int j = 0; j < clu_nm.length(); j++){
+      Rcpp::StringVector nm2 = Rcpp::as<Rcpp::StringVector>(clu_nm[j]) ;
       Rcpp::StringVector nm = setdiff(clu_nm,nm2) ;
-      NumericMatrix m2 = subset2d(m,nm,nm2) ;
+      Rcpp::NumericMatrix m2 = subset2d(dist,nm,nm2) ;
       int row_num = m2.nrow();
-      NumericVector v2 = Rcpp::colSums(m2,true)/row_num ;
+      Rcpp::NumericVector v2 = Rcpp::colSums(m2,true)/row_num ;
       a = v2[0] ;
 
-      NumericVector clu_b_inside(len-1);
-      IntegerVector sequ =  seq_len(len) ;
+      Rcpp::NumericVector clu_b_inside(len-1);
+      Rcpp::IntegerVector sequ =  Rcpp::seq_len(len) ;
       sequ.erase(i) ;
       for(int l = 0 ; l < sequ.size(); l++) {
-          Rcpp::StringVector clu_nm2 = acca[l] ;
-        NumericMatrix m3 = subset2d(m,clu_nm2,nm2) ;
+        int other_idx = sequ[l];
+        Rcpp::StringVector clu_nm2 = acca[other_idx] ;
+        Rcpp::NumericMatrix m3 = subset2d(dist,clu_nm2,nm2) ;
         int row_num3 = m3.nrow();
-        NumericVector v3 = Rcpp::colSums(m3,true)/row_num3 ;
-        double val3 = v3[0] ;
-        if( internal::Rcpp_IsNA(val3) || internal::Rcpp_IsNaN(val3) ){
-          val3 = 1 ;
-        }
-        clu_b_inside[l] = val3 ;
+        Rcpp::NumericVector v3 = Rcpp::colSums(m3,true)/row_num3 ;
+        clu_b_inside[l] = v3[0] ;
       }
-
-      b = Rcpp::min( clu_b_inside,true) ;
-      sx = s_x(b,a)
+      b = min( clu_b_inside) ;
+      double sx = s_x(b,a) ;
       if( internal::Rcpp_IsNA(sx) || internal::Rcpp_IsNaN(sx) ){
-          sx = 0 ;
+        sx = 0 ;
       }
 
       clu_ab[j] = sx ;
 
     }
-    res_ab[i] = Rcpp::mean(clu_ab,true) ;
+    res_ab[i] = mean(clu_ab) ;
 
   }
 
-return Rcpp::max(res_ab,true) ;
+  double max_ab = max(res_ab) ;
+  return max_ab ;
 
 
 }

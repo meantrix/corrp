@@ -6,77 +6,36 @@
 
 using namespace Rcpp;
 
-// csample_char
-//Takes a sample of the specified size from the elements of x using either with or without replacement. CharacterVector csample_char(CharacterVector x, int size, bool replace, NumericVector prob);
-RcppExport SEXP _corrp_csample_char(SEXP xSEXP, SEXP sizeSEXP, SEXP replaceSEXP, SEXP probSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< CharacterVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< int >::type size(sizeSEXP);
-    Rcpp::traits::input_parameter< bool >::type replace(replaceSEXP);
-    Rcpp::traits::input_parameter< NumericVector >::type prob(probSEXP);
-    rcpp_result_gen = Rcpp::wrap(csample_char(x, size, replace, prob));
-    return rcpp_result_gen;
-END_RCPP
-}
-// crand_cluster
-// Group cmatrix into k uniform random cluster Rcpp::List crand_cluster(Rcpp::NumericMatrix m, int k);
-RcppExport SEXP _corrp_crand_cluster(SEXP mSEXP, SEXP kSEXP) {
+// acca_main
+// ACCA main function iterates until for max_rep successive iteration no changes among clusters are found. Rcpp::List acca_main(Rcpp::NumericMatrix m, int k, int maxrep, int maxiter);
+RcppExport SEXP _corrp_acca_main(SEXP mSEXP, SEXP kSEXP, SEXP maxrepSEXP, SEXP maxiterSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type m(mSEXP);
     Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    rcpp_result_gen = Rcpp::wrap(crand_cluster(m, k));
+    Rcpp::traits::input_parameter< int >::type maxrep(maxrepSEXP);
+    Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
+    rcpp_result_gen = Rcpp::wrap(acca_main(m, k, maxrep, maxiter));
     return rcpp_result_gen;
 END_RCPP
 }
-// which_in
-// %in% operator std::vector<int> which_in(IntegerVector x, IntegerVector y);
-RcppExport SEXP _corrp_which_in(SEXP xSEXP, SEXP ySEXP) {
+// silhouette_main
+// Silhouette clustering algorithm double silhouette_main(Rcpp::List acca, NumericMatrix m);
+RcppExport SEXP _corrp_silhouette_main(SEXP accaSEXP, SEXP mSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< IntegerVector >::type x(xSEXP);
-    Rcpp::traits::input_parameter< IntegerVector >::type y(ySEXP);
-    rcpp_result_gen = Rcpp::wrap(which_in(x, y));
-    return rcpp_result_gen;
-END_RCPP
-}
-// subset2d
-//subset NumericMatrix by row and column names //based on https: NumericMatrix subset2d(NumericMatrix x, CharacterVector rows, CharacterVector cols);
-RcppExport SEXP _corrp_subset2d(SEXP xSEXP, SEXP rowsSEXP, SEXP colsSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< NumericMatrix >::type x(xSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type rows(rowsSEXP);
-    Rcpp::traits::input_parameter< CharacterVector >::type cols(colsSEXP);
-    rcpp_result_gen = Rcpp::wrap(subset2d(x, rows, cols));
-    return rcpp_result_gen;
-END_RCPP
-}
-// csingle_cluster
-//max variable per cluster Rcpp::List csingle_cluster(int k, Rcpp::NumericMatrix m, Rcpp::List spl);
-RcppExport SEXP _corrp_csingle_cluster(SEXP kSEXP, SEXP mSEXP, SEXP splSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject rcpp_result_gen;
-    Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type k(kSEXP);
-    Rcpp::traits::input_parameter< Rcpp::NumericMatrix >::type m(mSEXP);
-    Rcpp::traits::input_parameter< Rcpp::List >::type spl(splSEXP);
-    rcpp_result_gen = Rcpp::wrap(csingle_cluster(k, m, spl));
+    Rcpp::traits::input_parameter< Rcpp::List >::type acca(accaSEXP);
+    Rcpp::traits::input_parameter< NumericMatrix >::type m(mSEXP);
+    rcpp_result_gen = Rcpp::wrap(silhouette_main(acca, m));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_corrp_csample_char", (DL_FUNC) &_corrp_csample_char, 4},
-    {"_corrp_crand_cluster", (DL_FUNC) &_corrp_crand_cluster, 2},
-    {"_corrp_which_in", (DL_FUNC) &_corrp_which_in, 2},
-    {"_corrp_subset2d", (DL_FUNC) &_corrp_subset2d, 3},
-    {"_corrp_csingle_cluster", (DL_FUNC) &_corrp_csingle_cluster, 3},
+    {"_corrp_acca_main", (DL_FUNC) &_corrp_acca_main, 4},
+    {"_corrp_silhouette_main", (DL_FUNC) &_corrp_silhouette_main, 2},
     {NULL, NULL, 0}
 };
 
