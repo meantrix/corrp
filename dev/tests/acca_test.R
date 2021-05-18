@@ -35,14 +35,19 @@ compare_list_cha(list('oi'),list('oi','oi'))
 # tictoc::toc()
 # saveRDS(x,file = 'pnadcorrp.rds')
 
-m - readRDS('dev/pnadcorrp.rds')
+x <- readRDS('dev/pnadcorrp.rds')
 
 tictoc::tic()
 m = corrp::corr_matrix(x)
 tictoc::toc()
 
 tictoc::tic()
-acca = acca_main(m,4,1000,1500)
+acca = acca_main(m,4)
 tictoc::toc()
 
+silhouette_main(acca,m)
+
+
+
+stest(acca,m)
 

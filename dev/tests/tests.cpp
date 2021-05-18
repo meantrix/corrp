@@ -20,22 +20,50 @@ int test(){
     clu2[0] =  tempstr ;
     Rcout << "nm2" << nm22 << "\n" << std::endl;
   }
-  
-  for(int i=0; i<clu2.length(); ++i){
-    Rprintf("the value of clu2[%i] : %f \n", i, clu2[i]);
-  }
-  
-  
+
   return 0 ;
 }
 
 int test2(){
-  
+
   NumericVector v =  NumericVector ::create(-1,-1);
   int res =  which_max(v);
   Rcout << res << std::endl;
-  
+
   return 0 ;
-  
+
 }
 
+// [[Rcpp::export]]
+NumericMatrix m2 ( NumericMatrix m) {
+
+  NumericMatrix ms = 1 - m ;
+  return ms ;
+}
+
+// [[Rcpp::export]]
+int stest(Rcpp::List acca, NumericMatrix m) {
+
+    double a = 0 ;
+    double b = 0 ;
+
+    Rcpp::List clu = acca[acca.length()] ;
+    int len = clu.length() ;
+    Rcout << len << std::endl ;
+
+    NumericMatrix dist = 1 - m ;
+    NumericVector res_ab(len) ;
+
+    for(int i = 0 ; i < len; i++) {
+      Rcpp::IntegerVector sequ =  Rcpp::seq_len(len) ;
+      Rcout << "i: " << sequ << std::endl ;
+      Rcout << "sequ: " << sequ << std::endl ;
+      sequ.erase(i) ;
+      Rcout << "sequ.e: "<< sequ << std::endl ;
+      for(int l = 0 ; l < sequ.size(); l++) {
+        Rcout << "sequ.ind: " << sequ[l] << std::endl ;
+      }
+    }
+
+    return 0 ;
+}
