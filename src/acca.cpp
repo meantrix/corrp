@@ -136,7 +136,6 @@ Rcpp::List csingle_acca(Rcpp::NumericMatrix m, int k , Rcpp::List spl){
   return clu ;
 }
 
-// [[Rcpp::export]]
 // ACCA main function iterates until for max_rep successive iteration no changes among clusters are found.
 Rcpp::List acca_main(Rcpp::NumericMatrix m , int k ,
                      int maxrep = 2, int maxiter = 100){
@@ -221,7 +220,6 @@ double s_x(double b, double a) {
   return res ;
 }
 
-// [[Rcpp::export]]
 // Silhouette clustering algorithm
 double silhouette_main(Rcpp::List acca, NumericMatrix m) {
 
@@ -236,7 +234,7 @@ double silhouette_main(Rcpp::List acca, NumericMatrix m) {
   for(int i = 0; i < len; i++){
 
     Rcpp::StringVector clu_nm = clu[i] ;
-    Rcpp::NumericVector clu_ab(clu_nm.length() ) ;
+    Rcpp::NumericVector clu_ab( clu_nm.length() ) ;
 
     for(int j = 0; j < clu_nm.length(); j++){
       Rcpp::StringVector nm2 = Rcpp::as<Rcpp::StringVector>(clu_nm[j]) ;
@@ -247,17 +245,17 @@ double silhouette_main(Rcpp::List acca, NumericMatrix m) {
       a = v2[0] ;
 
       Rcpp::NumericVector clu_b_inside(len-1);
-      Rcpp::IntegerVector sequ =  Rcpp::seq_len(len) ;
+      Rcpp::IntegerVector sequ =  Rcpp::seq_len(len) - 1 ;
       sequ.erase(i) ;
       for(int l = 0 ; l < sequ.size(); l++) {
         int other_idx = sequ[l];
-        Rcpp::StringVector clu_nm2 = acca[other_idx] ;
-        Rcpp::NumericMatrix m3 = subset2d(dist,clu_nm2,nm2) ;
+        Rcpp::StringVector clu_nm3 = clu[other_idx] ;
+        Rcpp::NumericMatrix m3 = subset2d(dist,clu_nm3,nm2) ;
         int row_num3 = m3.nrow();
         Rcpp::NumericVector v3 = Rcpp::colSums(m3,true)/row_num3 ;
         clu_b_inside[l] = v3[0] ;
       }
-      b = min( clu_b_inside) ;
+      b = min(clu_b_inside) ;
       double sx = s_x(b,a) ;
       if( internal::Rcpp_IsNA(sx) || internal::Rcpp_IsNaN(sx) ){
         sx = 0 ;
