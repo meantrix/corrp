@@ -1,5 +1,6 @@
 #include <RcppArmadilloExtensions/sample.h>
 #include <Rcpp.h>
+#include "acca.h"
 
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
@@ -138,7 +139,7 @@ Rcpp::List csingle_acca(Rcpp::NumericMatrix m, int k , Rcpp::List spl){
 
 // ACCA main function iterates until for max_rep successive iteration no changes among clusters are found.
 Rcpp::List acca_main(Rcpp::NumericMatrix m , int k ,
-                     int maxrep = 2, int maxiter = 100){
+                     int maxrep, int maxiter){
 
   if (maxrep > maxiter) {
     stop("maxitter must be greater than maxrep.") ;
