@@ -14,7 +14,7 @@
 #' @param maxrep [\code{integer(1)}]\cr maximum number of interactions without change in the clusters.
 #' @param maxiter [\code{integer(1)}]\cr maximum number of interactions.
 #'
-#' @return [\code{acc.list(1)}]\cr A list with the final result of the cluster.
+#' @return [\code{acca_list(k)}]\cr A list with the final result of the cluster.
 #'  That is, the name of the variables belonging to each cluster k.
 #'
 #' @author Igor D.S. Siciliani
@@ -26,6 +26,16 @@
 #' "Average correlation clustering algorithm (ACCA) for grouping of co-regulated
 #' genes with similar pattern of variation in their expression values."
 #' Journal of Biomedical Informatics 43.4 (2010): 560-568.
+#'
+#'
+#' @examples
+#' \dontrun{
+#'
+#' x = corrp::corrp(iris)
+#' m = corrp::corr_matrix(x)
+#' corrp::acca(m,2)
+#'
+#'}
 #'
 #' @export
 #'
@@ -46,8 +56,9 @@ acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
   checkmate::assert_int(maxiter,lower = maxrep)
 
   allint = .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
-  res = allint[length(allint)]
-  return(structure(res ,class = c('acca.list','list') ) )
+  res = allint[length(allint)][[1]]
+  names(res) =  paste0("cluster",1:k)
+  return(structure(res ,class = c('acca_list','list') ) )
 }
 
 #' @export
@@ -65,9 +76,9 @@ acca.matrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
   checkmate::assert_int(maxiter,lower = maxrep)
 
   allint = .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
-  res = allint[length(allint)]
+  res = allint[length(allint)][[1]]
   names(res) =  paste0("cluster",1:k)
-  return(structure(res ,class = c('acca.list','list') ) )
+  return(structure(res ,class = c('acca_list','list') ) )
 }
 
 
