@@ -1,3 +1,7 @@
+#' @useDynLib corrp, .registration=TRUE
+#' @exportPattern "^[[:alpha:]]+"
+#' @importFrom Rcpp evalCpp
+
 #' @title Average correlation clustering algorithm
 #'
 #' @description A C++ implementation of the ACCA method
@@ -9,6 +13,9 @@
 #' @param k [\code{integer(1)}]\cr number of clusters considered.
 #' @param maxrep [\code{integer(1)}]\cr maximum number of interactions without change in the clusters.
 #' @param maxiter [\code{integer(1)}]\cr maximum number of interactions.
+#'
+#' @return [\code{acc.list(1)}]\cr A list with the final result of the cluster.
+#'  That is, the name of the variables belonging to each cluster k.
 #'
 #' @author Igor D.S. Siciliani
 #'
@@ -27,19 +34,6 @@ UseMethod('acca',m)
 }
 
 
-
-acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
-
-  k = as.integer(k)
-  maxrep = as.integer(maxrep)
-  maxiter = as.integer(maxiter)
-  checkmate::assert_int(k)
-  checkmate::assert_int(maxrep)
-  checkmate::assert_int(maxiter)
-
-    .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
-}
-
 #' @export
 #' @rdname acca
 acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
@@ -47,11 +41,13 @@ acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
   k = as.integer(k)
   maxrep = as.integer(maxrep)
   maxiter = as.integer(maxiter)
-  checkmate::assert_int(k)
-  checkmate::assert_int(maxrep)
-  checkmate::assert_int(maxiter)
+  checkmate::assert_int(k,lower = 2)
+  checkmate::assert_int(maxrep,lower = 2,upper = maxiter)
+  checkmate::assert_int(maxiter,lower = maxrep)
 
-  .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
+  allint = .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
+  res = allint[length(allint)]
+  return(structure(res ,class = c('acca.list','list') ) )
 }
 
 #' @export
@@ -64,16 +60,15 @@ acca.matrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
   k = as.integer(k)
   maxrep = as.integer(maxrep)
   maxiter = as.integer(maxiter)
-  checkmate::assert_int(k)
-  checkmate::assert_int(maxrep)
-  checkmate::assert_int(maxiter)
+  checkmate::assert_int(k,lower = 2)
+  checkmate::assert_int(maxrep,lower = 2,upper = maxiter)
+  checkmate::assert_int(maxiter,lower = maxrep)
 
-  .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
+  allint = .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
+  res = allint[length(allint)]
+  names(res) =  paste0("cluster",1:k)
+  return(structure(res ,class = c('acca.list','list') ) )
 }
 
 
-
-silhouette <- function(acca, m) {
-    .Call(`_corrp_silhouette_main`, acca, m)
-}
 
