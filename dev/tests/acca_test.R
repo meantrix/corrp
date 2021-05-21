@@ -1,9 +1,11 @@
 #ACCA testes C++ functions
 library(corrp)
+tictoc::tic()
 x = corrp::corrp(mtcars)
 m = corrp::corr_matrix(x)
 acca_res = acca(m,3)
 sil_acca(acca = acca_res,m)
+tictoc::toc()
 
 
 
@@ -37,7 +39,6 @@ tictoc::toc()
 
 silhouette_main(acca,m)
 
-2
 library(corrp)
 c = corrp(iris)
 m = corr_matrix(c)
