@@ -2,6 +2,11 @@
 library(corrp)
 x = corrp::corrp(iris)
 m = corrp::corr_matrix(x)
+acca_res = acca(m,2)
+sil_acca(acca = acca_res,m)
+
+
+
 nm = colnames(m)
 spl = crand_acca(m,2)
 m1 = subset2d(m,spl[[1]],spl[[1]])
@@ -15,25 +20,10 @@ compare_list_cha(l1,l2)
 compare_cha(c('oi'),c('oi','oi'))
 compare_list_cha(list('oi'),list('oi','oi'))
 
-# Function asNamespace("asNamespace") ;
-# Environment base_env = asNamespace("base") ;
-# Function unlist = base_env["unlist"] ;
-# Rcpp::StringVector mainvars = unlist(clu) ;
-# Rcpp::StringVector nm2 = setdiff(nm,mainvars);
-# Rcpp::IntegerVector mmain = match(nm, mainvars) ;
-# Rcpp::IntegerVector mothers = match(nm, nm2) ;
 
-#test with large dataset PNADc 2019
-
-# load('dev/pnadc_dat19_i1.rda')
-#
-# crow = sample(1:NROW(pnadc_dat19_i1),10000)
-# ccol = sample(1:NCOL(pnadc_dat19_i1),50)
-# data = as.data.frame(pnadc_dat19_i1[crow,ccol])
-# tictoc::tic()
-# x = corrp::corrp(data,parallel = T,n.cores = 4)
-# tictoc::toc()
-# saveRDS(x,file = 'pnadcorrp.rds')
+c = corrp(iris)
+m = corr_matrix(c)
+acca.result = acca(m,2)
 
 x <- readRDS('dev/pnadcorrp.rds')
 
@@ -47,7 +37,11 @@ tictoc::toc()
 
 silhouette_main(acca,m)
 
+2
+library(corrp)
+c = corrp(iris)
+m = corr_matrix(c)
+acca.res = acca(m,2)
 
-
-stest(acca,m)
+stest2(acca.res,m)
 
