@@ -234,7 +234,6 @@ double silhouette_main(Rcpp::List acca, NumericMatrix m) {
   NumericVector res_ab(len) ;
 
   for(int i = 0; i < len; i++){
-
     Rcpp::StringVector clu_nm = acca[i] ;
     Rcpp::NumericVector clu_ab( clu_nm.length() ) ;
 
@@ -246,10 +245,11 @@ double silhouette_main(Rcpp::List acca, NumericMatrix m) {
       Rcpp::NumericVector v2 = Rcpp::colSums(m2,true)/row_num ;
       a = v2[0] ;
 
-      Rcpp::NumericVector clu_b_inside(len-1);
       Rcpp::IntegerVector sequ =  Rcpp::seq_len(len) - 1 ;
       sequ.erase(i) ;
-      for(int l = 0 ; l < sequ.size(); l++) {
+      int lenb = sequ.size() ;
+      Rcpp::NumericVector clu_b_inside(lenb) ;
+      for(int l = 0 ; l < lenb; l++) {
         int other_idx = sequ[l];
         Rcpp::StringVector clu_nm3 = acca[other_idx] ;
         Rcpp::NumericMatrix m3 = subset2d(dist,clu_nm3,nm2) ;
@@ -257,20 +257,21 @@ double silhouette_main(Rcpp::List acca, NumericMatrix m) {
         Rcpp::NumericVector v3 = Rcpp::colSums(m3,true)/row_num3 ;
         clu_b_inside[l] = v3[0] ;
       }
-      b = min(clu_b_inside) ;
+
+      b = min( na_omit(clu_b_inside) ) ;
+
       double sx = s_x(b,a) ;
       if( internal::Rcpp_IsNA(sx) || internal::Rcpp_IsNaN(sx) ){
         sx = 0 ;
       }
-
       clu_ab[j] = sx ;
 
     }
     res_ab[i] = mean(clu_ab) ;
-
   }
 
   double max_ab = max(res_ab) ;
+
   return max_ab ;
 
 
