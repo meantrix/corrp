@@ -1,9 +1,10 @@
 #include <RcppArmadilloExtensions/sample.h>
 #include <Rcpp.h>
 #include "acca.h"
-
 // [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
+
+
 ////////////////////////////////////////////////////////////////////////////////
 //Utils
 
@@ -166,7 +167,7 @@ Rcpp::List acca_main(Rcpp::NumericMatrix m , int k ,
       for(int l = 0; l < clu.size(); l++){
           Rcpp::StringVector clu_nm = clu[l] ;
           NumericMatrix m2 = subset2d(m,clu_nm,nm22) ;
-          int row_num = m2.nrow();
+          int row_num = m2.nrow() ;
           NumericVector v2 = Rcpp::colSums(m2,true)/row_num ;
           double val = v2[0] ;
           if( internal::Rcpp_IsNA(val) || internal::Rcpp_IsNaN(val) ){
@@ -191,7 +192,6 @@ Rcpp::List acca_main(Rcpp::NumericMatrix m , int k ,
     if( stp > maxrep ){
       break ;
     }
-
   }
 return res  ;
 }
@@ -227,21 +227,22 @@ double silhouette_main(Rcpp::List acca, NumericMatrix m) {
   double a = 0 ;
   double b = 0 ;
 
-  Rcpp::List clu = acca[acca.size()-1] ;
-  int len = clu.size() ;
+  int len = acca.size() ;
   NumericMatrix dist = 1 - m ;
+  colnames(dist) = colnames(m);
+  rownames(dist) = rownames(m);
   NumericVector res_ab(len) ;
 
   for(int i = 0; i < len; i++){
 
-    Rcpp::StringVector clu_nm = clu[i] ;
+    Rcpp::StringVector clu_nm = acca[i] ;
     Rcpp::NumericVector clu_ab( clu_nm.length() ) ;
 
     for(int j = 0; j < clu_nm.length(); j++){
       Rcpp::StringVector nm2 = Rcpp::as<Rcpp::StringVector>(clu_nm[j]) ;
       Rcpp::StringVector nm = setdiff(clu_nm,nm2) ;
       Rcpp::NumericMatrix m2 = subset2d(dist,nm,nm2) ;
-      int row_num = m2.nrow();
+      int row_num = m2.nrow() ;
       Rcpp::NumericVector v2 = Rcpp::colSums(m2,true)/row_num ;
       a = v2[0] ;
 
@@ -250,7 +251,7 @@ double silhouette_main(Rcpp::List acca, NumericMatrix m) {
       sequ.erase(i) ;
       for(int l = 0 ; l < sequ.size(); l++) {
         int other_idx = sequ[l];
-        Rcpp::StringVector clu_nm3 = clu[other_idx] ;
+        Rcpp::StringVector clu_nm3 = acca[other_idx] ;
         Rcpp::NumericMatrix m3 = subset2d(dist,clu_nm3,nm2) ;
         int row_num3 = m3.nrow();
         Rcpp::NumericVector v3 = Rcpp::colSums(m3,true)/row_num3 ;
