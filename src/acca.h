@@ -38,7 +38,7 @@ RcppExport SEXP _corrp_silhouette_main(SEXP accaSEXP, SEXP mSEXP) {
 
 // best_acca_sil
 // Find Best ACCA number of clusters k
-Rcpp::List best_acca_sil(NumericMatrix m,int mink, int maxk,int maxrep = 2, int maxiter = 100);
+Rcpp::List best_acca_sil(Rcpp::NumericMatrix m,int mink, int maxk,int maxrep = 2, int maxiter = 100);
 RcppExport SEXP _corrp_best_acca_sil(SEXP mSEXP, SEXP minkSEXP,SEXP maxkSEXP, SEXP maxrepSEXP, SEXP maxiterSEXP) {
   BEGIN_RCPP
   Rcpp::RObject rcpp_result_gen;

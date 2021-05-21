@@ -65,7 +65,7 @@ acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
 #' @rdname acca
 acca.matrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
 
-  warning("it is not an object of the 'cmatrix' class some results may go wrong.")
+  warning("m is not an object of the 'cmatrix' class some results may go wrong.")
 
 
   k = as.integer(k)
