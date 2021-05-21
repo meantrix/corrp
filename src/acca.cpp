@@ -277,3 +277,29 @@ double silhouette_main(Rcpp::List acca, NumericMatrix m) {
 
 }
 
+// Find Best ACCA number of clusters k
+// [[Rcpp::export]]
+Rcpp::List best_acca_sil(NumericMatrix m,int mink, int maxk
+                ,int maxrep, int maxiter) {
+
+  Rcpp::IntegerVector sequk =  seq(mink,maxk) ;
+  Rcpp::NumericVector resval (sequk.size()) ;
+  Rcpp::List acca ;
+
+  for(int i = 0; i <sequk.size(); i ++ ) {
+    int k = sequk[i] ;
+    acca = acca_main(m,k,maxrep,maxiter) ;
+    Rcpp::List acca_res = acca[acca.size()-1] ;
+    resval[i] = silhouette_main(acca_res,m) ;
+
+  }
+
+  int wmax = which_max(resval) ;
+  int bestk = sequk[wmax] ;
+  Rcpp::List res = List::create(Named("silhouette.coef") = resval , _["k"] = sequk, _["best.k"] = bestk) ;
+  return(res) ;
+
+}
+
+
+
