@@ -278,7 +278,6 @@ double silhouette_main(Rcpp::List acca, NumericMatrix m) {
 }
 
 // Find Best ACCA number of clusters k
-// [[Rcpp::export]]
 Rcpp::List best_acca_sil(NumericMatrix m,int mink, int maxk
                 ,int maxrep, int maxiter) {
 

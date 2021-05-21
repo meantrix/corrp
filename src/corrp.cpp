@@ -8,6 +8,7 @@ RcppExport SEXP _corrp_silhouette_main(SEXP accaSEXP, SEXP mSEXP);
 static const R_CallMethodDef CallEntries[] = {
   {"_corrp_acca_main", (DL_FUNC) &_corrp_acca_main, 4},
   {"_corrp_silhouette_main", (DL_FUNC) &_corrp_silhouette_main, 2},
+  {"_corrp_best_acca_sil", (DL_FUNC) &_corrp_silhouette_main, 5},
   {NULL, NULL, 0}
 };
 
