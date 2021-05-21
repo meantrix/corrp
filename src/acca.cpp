@@ -206,7 +206,7 @@ double s_x(double b, double a) {
 
   if(a > b) {
 
-    res = 1 - a/b ;
+    res = (b - a)/a ;
 
   } else if(a == b) {
 
@@ -214,7 +214,7 @@ double s_x(double b, double a) {
 
   } else {
 
-    res = b/a - 1 ;
+    res = (b- a)/b ;
 
   }
 
@@ -270,9 +270,9 @@ double silhouette_main(Rcpp::List acca, NumericMatrix m) {
     res_ab[i] = mean(clu_ab) ;
   }
 
-  double max_ab = max(res_ab) ;
+  double mean_ab = mean(res_ab) ;
 
-  return max_ab ;
+  return mean_ab ;
 
 
 }
@@ -295,7 +295,7 @@ Rcpp::List best_acca_sil(NumericMatrix m,int mink, int maxk
 
   int wmax = which_max(resval) ;
   int bestk = sequk[wmax] ;
-  Rcpp::List res = List::create(Named("silhouette.coef") = resval , _["k"] = sequk, _["best.k"] = bestk) ;
+  Rcpp::List res = List::create(Named("silhouette.ave") = resval , _["k"] = sequk, _["best.k"] = bestk) ;
   return(res) ;
 
 }
