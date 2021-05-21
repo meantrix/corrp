@@ -22,7 +22,7 @@ acca(m, ...)
 \item{maxiter}{[\code{integer(1)}]\cr maximum number of interactions.}
 }
 \value{
-[\code{acc.list(1)}]\cr A list with the final result of the cluster.
+[\code{acca_list(k)}]\cr A list with the final result of the cluster.
  That is, the name of the variables belonging to each cluster k.
 }
 \description{
@@ -30,6 +30,16 @@ A C++ implementation of the ACCA method
 that works directly with the correlation matrix derived from the \code{\link{corr_matrix}} function.
 In this sense, this implementation differs from the original,
 it works with mixed data and several correlation methods
+}
+\examples{
+\dontrun{
+
+x = corrp::corrp(iris)
+m = corrp::corr_matrix(x)
+corrp::acca(m,2)
+
+}
+
 }
 \references{
 Bhattacharya, Anindya, and Rajat K. De.

@@ -1,8 +1,8 @@
 #ACCA testes C++ functions
 library(corrp)
-x = corrp::corrp(iris)
+x = corrp::corrp(mtcars)
 m = corrp::corr_matrix(x)
-acca_res = acca(m,2)
+acca_res = acca(m,3)
 sil_acca(acca = acca_res,m)
 
 

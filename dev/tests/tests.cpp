@@ -202,71 +202,69 @@ double s_x(double b, double a) {
 }
 
 // [[Rcpp::export]]
-double stest2(Rcpp::List acca, NumericMatrix m){
+// Silhouette clustering algorithm
+double silhouette_main2(Rcpp::List acca, NumericMatrix m) {
 
   double a = 0 ;
   double b = 0 ;
 
   int len = acca.size() ;
-  Rcout << len << std::endl ;
   NumericMatrix dist = 1 - m ;
-
   colnames(dist) = colnames(m);
   rownames(dist) = rownames(m);
   NumericVector res_ab(len) ;
-  Rcout << "out of loop 1: " << std::endl ;
 
   for(int i = 0; i < len; i++){
-
+    Rcout << "i: "<<  i << std::endl ;
     Rcpp::StringVector clu_nm = acca[i] ;
     Rcpp::NumericVector clu_ab( clu_nm.length() ) ;
-    Rcout << clu_nm << std::endl ;
-    Rcout << "here 1 i: " << i << std::endl ;
 
     for(int j = 0; j < clu_nm.length(); j++){
-
-      Rcout << "here 1 j: " << j << std::endl ;
       Rcpp::StringVector nm2 = Rcpp::as<Rcpp::StringVector>(clu_nm[j]) ;
       Rcpp::StringVector nm = setdiff(clu_nm,nm2) ;
       Rcpp::NumericMatrix m2 = subset2d(dist,nm,nm2) ;
       int row_num = m2.nrow() ;
       Rcpp::NumericVector v2 = Rcpp::colSums(m2,true)/row_num ;
       a = v2[0] ;
-      Rcout << "here 2 j: " << j << std::endl ;
-      Rcpp::NumericVector clu_b_inside(len-1) ;
-      Rcpp::IntegerVector sequ =  Rcpp::seq_len(len) - 1 ;
-      sequ.erase(i) ;
-      Rcout << "sequ: " << sequ << std::endl ;
-      Rcout << "here 3 j: " << j << std::endl ;
+      Rcout << "i: "<<  i << "a: " << a << std::endl ;
 
-      for(int l = 0 ; l < sequ.size(); l++) {
-        Rcout << "here 1 l: " << l << std::endl ;
-        int other_idx = sequ[l] ;
+      Rcpp::IntegerVector sequ =  Rcpp::seq_len(len) - 1 ;
+      Rcout << "i: "<<  i << "sequ 1: " << sequ << std::endl ;
+      sequ.erase(i) ;
+      int lenb = sequ.size() ;
+      Rcpp::NumericVector clu_b_inside(lenb) ;
+      Rcout << "i: "<<  i << "sequ 2: " << sequ << std::endl ;
+      for(int l = 0 ; l < lenb; l++) {
+        int other_idx = sequ[l];
         Rcpp::StringVector clu_nm3 = acca[other_idx] ;
         Rcpp::NumericMatrix m3 = subset2d(dist,clu_nm3,nm2) ;
-        int row_num3 = m3.nrow() ;
+        int row_num3 = m3.nrow();
         Rcpp::NumericVector v3 = Rcpp::colSums(m3,true)/row_num3 ;
-        Rcout << "here 2 l: " << l << std::endl ;
+        Rcout << "i: "<<  i << "v3: " << v3 << std::endl ;
         clu_b_inside[l] = v3[0] ;
       }
-      b = min(clu_b_inside) ;
-      double sx = s_x(b,a) ;
+      Rcout << "i: "<<  i << "clu_b_inside: " << clu_b_inside << std::endl ;
+      b = min( na_omit(clu_b_inside) ) ;
+      Rcout << "i: "<<  i << "b: " << b << std::endl ;
 
+      double sx = s_x(b,a) ;
       if( internal::Rcpp_IsNA(sx) || internal::Rcpp_IsNaN(sx) ){
         sx = 0 ;
       }
+      Rcout << "i: "<<  i << "sx: " << sx << std::endl ;
 
       clu_ab[j] = sx ;
-      Rcout << "here 4 j: " << j << std::endl ;
 
     }
+    Rcout << "i: "<<  i << "clu_ab:" << clu_ab << std::endl ;
     res_ab[i] = mean(clu_ab) ;
-    Rcout << "here 2 i: " << i << std::endl ;
+    Rcout << "i: "<<  i << "res_ab[i]:" << res_ab[i] << std::endl ;
 
   }
-  Rcout << "out of loop 2" << std::endl ;
 
   double max_ab = max(res_ab) ;
+  Rcout << "max_ab: " << max_ab << std::endl ;
+
   return max_ab ;
 
 
