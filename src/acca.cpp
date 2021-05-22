@@ -161,8 +161,8 @@ Rcpp::List acca_main(Rcpp::NumericMatrix m , int k ,
 
     Rcpp::StringVector mainvars = unlist(clu) ;
     Rcpp::StringVector nm2 = setdiff(nm,mainvars) ;
-
-    for(int j = 0; j < nm2.size(); j++){
+    nm2 = csample_char(nm2,nm2.length(),false) ;
+    for(int j = 0; j < nm2.length(); j++){
       Rcpp::StringVector nm22 = Rcpp::as<StringVector>(nm2[j]) ;
       for(int l = 0; l < clu.size(); l++){
           Rcpp::StringVector clu_nm = clu[l] ;
@@ -171,7 +171,7 @@ Rcpp::List acca_main(Rcpp::NumericMatrix m , int k ,
           NumericVector v2 = Rcpp::colSums(m2,true)/row_num ;
           double val = v2[0] ;
           if( internal::Rcpp_IsNA(val) || internal::Rcpp_IsNaN(val) ){
-            val = -2 ;
+            val = -1 ;
           }
           v[l] = val ;
       }
