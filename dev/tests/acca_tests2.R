@@ -9,5 +9,11 @@ sil_acca(acca = acca_res,m)
 
 best_acca(m,2,10)
 
+##
+results = corrp::corrp(iris, cor.nn = 'mic',cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2 , verbose = FALSE)
+m = corr_matrix(results,col = 'infer.value',isig = TRUE)
+acca.res = acca(m,2)
+acca.res
 
-corrp::best_acca()
+
+sil_acca(acca.res,m)

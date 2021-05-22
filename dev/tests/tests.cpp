@@ -7,6 +7,7 @@ using namespace Rcpp ;
 ////////////////////////////////////////////////////////////////////////////////
 //Utils
 
+// [[Rcpp::export]]
 //Takes a sample of the specified size from the elements of x using either with or without replacement.
 Rcpp::StringVector csample_char( Rcpp::StringVector x,
                                  int size,
@@ -267,31 +268,6 @@ double silhouette_main2(Rcpp::List acca, NumericMatrix m) {
 
   return max_ab ;
 
-
-}
-
-// Find Best ACCA number of clusters k
-// [[Rcpp::export]]Rcpp::ex
-Rcpp::List best_acca_sil(NumericMatrix m,int mink, int maxk
-                           ,int maxrep, int maxiter) {
-
-  Rcpp::IntegerVector sequk =  seq(mink,maxk) ;
-  Rcpp::NumericVector resk (sequk.size()) ;
-  Rcpp::NumericVector resval (sequk.size()) ;
-
-  for(int i = 0; i <sequk.size(); i ++ ) {
-
-    Rcppp::List acca = acca_main(m,k,maxrep,maxiter) ;
-    Rcpp::List acca_res = acca[acca.size()-1] ;
-    resval[i] = silhouette_main(acca_res,m) ;
-    resk[i] = i ;
-
-  }
-
-  int wmax = which_max(resval) ;
-  int bestk = resk[wmax] ;
-  Rcpp::List res = List::create(Named("silhouette.coef") = resval , _["k"] = resk, _["best.k"] = bestk) ;
-  return(res) ;
 
 }
 
