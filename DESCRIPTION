@@ -1,7 +1,7 @@
 Package: corrp
 Type: Package
 Title: corrp (Compute correlations type analysis in parallel)
-Version: 0.2.0
+Version: 0.3.0
 Author: Igor Dornelles Schoeller Siciliani <igor@meantrix.com>
 Maintainer: Meantrix <dev@meantrix.com>
 Description: Compute multiple types of correlations analysis (Pearson correlation, R^2 
@@ -10,6 +10,7 @@ Description: Compute multiple types of correlations analysis (Pearson correlatio
   Uncertainty coefficient and Predictive Power Score) in large dataframes
   with mixed columns classes(integer, numeric, factor and character)
   in parallel backend.
+  This package also has an C++ implementation of the Average correlation clustering algorithm.
 Depends: 
     R (>= 3.6.0),
     Rcpp (>= 1.0.4.6),
