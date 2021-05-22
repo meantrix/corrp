@@ -1,5 +1,13 @@
 # CHANGELOG
 
+
+## 0.3.0
+
+- Added C++ implementations of Average correlation clustering algorithm and the Average Silhouette width ;
+- `acca` New function to clustering correlations;
+- `sil_acca` Computes the Average Silhouette width to ACCA clusters ;
+- `best_acca` Find the optimal number of ACCA clusters ;
+
 ## 0.2.0
 
 - Changed package name `corrP` to `corrp` ;
