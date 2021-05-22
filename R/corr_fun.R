@@ -79,7 +79,7 @@
 #' @author Igor D.S. Siciliani
 #'
 #' @keywords correlation , power predictive score , linear model , distance correlation ,
-#' mic , point biserial , pearson , cramer's V
+#' mic , point biserial , pearson , cramer'sV
 #'
 #' @references
 #' KS Srikanth,sidekicks,cor2, 2020.

@@ -80,7 +80,7 @@
 #' @author Igor D.S. Siciliani
 #'
 #' @keywords correlation , power predictive score , linear model , distance correlation ,
-#' mic , point biserial , pearson , cramer's V
+#' mic , point biserial , pearson , cramer'sV
 #'
 #' @references
 #' KS Srikanth,sidekicks,cor2, 2020.
@@ -214,7 +214,7 @@ corrp  = function(df,
 
     }
 
-  corr = lapply(corr, null.to.na)
+  corr = lapply(corr, .null.to.na)
   corr = do.call(rbind.data.frame, corr)
   corrp.list = list(data = corr , index = index.grid)
 

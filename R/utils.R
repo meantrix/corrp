@@ -359,7 +359,7 @@
 }
 
 #convert NULL list elements to NA
-null.to.na = function(x) {
+.null.to.na = function(x) {
   x[sapply(x, is.null)] <- NA
   return(x)
 }

@@ -9,12 +9,13 @@
 #' In this sense, this implementation differs from the original,
 #' it works with mixed data and several correlation methods
 #'
-#' @param m  [\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}
+#' @param m  [\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}} or a distance matrix.
 #' @param k [\code{integer(1)}]\cr number of clusters considered.
 #' @param maxrep [\code{integer(1)}]\cr maximum number of interactions without change in the clusters.
 #' @param maxiter [\code{integer(1)}]\cr maximum number of interactions.
+#' @param ... Additional arguments (TODO).
 #'
-#' @return [\code{acca_list(k)}]\cr A list with the final result of the cluster.
+#' @return [\code{acca_list(k)}]\cr A list with the final result of the clustering method.
 #'  That is, the name of the variables belonging to each cluster k.
 #'
 #' @author Igor D.S. Siciliani
