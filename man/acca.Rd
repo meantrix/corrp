@@ -13,7 +13,9 @@ acca(m, ...)
 \method{acca}{matrix}(m, k, maxrep = 2L, maxiter = 100L)
 }
 \arguments{
-\item{m}{[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}}
+\item{m}{[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}} or a distance matrix.}
+
+\item{...}{Additional arguments (TODO).}
 
 \item{k}{[\code{integer(1)}]\cr number of clusters considered.}
 
@@ -22,7 +24,7 @@ acca(m, ...)
 \item{maxiter}{[\code{integer(1)}]\cr maximum number of interactions.}
 }
 \value{
-[\code{acca_list(k)}]\cr A list with the final result of the cluster.
+[\code{acca_list(k)}]\cr A list with the final result of the clustering method.
  That is, the name of the variables belonging to each cluster k.
 }
 \description{

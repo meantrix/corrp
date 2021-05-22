@@ -15,7 +15,10 @@ sil_acca(acca, ...)
 \arguments{
 \item{acca}{[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}}
 
-\item{m}{[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}}
+\item{...}{Additional arguments (TODO).}
+
+\item{m}{[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
+By default the distance matrix(dist) used in this method is given by `dist = 1 - m`.}
 }
 \value{
 [\code{numeric(1)}]\cr the average value of
