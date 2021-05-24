@@ -16,3 +16,4 @@ test_that("Tests on acca and sil_acca functions", {
   expect_true(  inherits(s,"corrpstat") )
 
 })
+
