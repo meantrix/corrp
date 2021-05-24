@@ -1,4 +1,4 @@
-# corrp  <a href='http://meantrix.com'><img src='man/figures/logo.png' align="right" height="139"></a>
+# corrp  <a href='http://meantrix.com'><img src='man/figures/logo.png' align="right" height="139" /></a>
 
 <!-- badges: start -->
 
@@ -128,7 +128,7 @@ To contribute to `corrp`, follow these steps:
 1. Fork this repository.
 2. Create a branch: `git checkout -b <branch_name>`.
 3. Make your changes and commit them: `git commit -m '<commit_message>'`
-4. Push to the original branch: `git push origin leaflet.multiopacity/<location>`
+4. Push to the original branch: `git push origin corrp/<location>`
 5. Create the pull request.
 
 Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
