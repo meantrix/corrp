@@ -8,9 +8,9 @@
 \usage{
 best_acca(m, ...)
 
-\method{best_acca}{cmatrix}(m, mink, maxk, maxrep = 2L, maxiter = 100L)
+\method{best_acca}{cmatrix}(m, mink, maxk, maxrep = 2L, maxiter = 100L, ...)
 
-\method{best_acca}{matrix}(m, mink, maxk, maxrep = 2L, maxiter = 100L)
+\method{best_acca}{matrix}(m, mink, maxk, maxrep = 2L, maxiter = 100L, ...)
 }
 \arguments{
 \item{m}{[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.}

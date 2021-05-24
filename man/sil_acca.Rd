@@ -8,9 +8,9 @@
 \usage{
 sil_acca(acca, ...)
 
-\method{sil_acca}{acca_list}(acca, m)
+\method{sil_acca}{acca_list}(acca, m, ...)
 
-\method{sil_acca}{list}(acca, m)
+\method{sil_acca}{list}(acca, m, ...)
 }
 \arguments{
 \item{acca}{[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}}

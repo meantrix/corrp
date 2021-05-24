@@ -8,9 +8,9 @@
 \usage{
 acca(m, ...)
 
-\method{acca}{cmatrix}(m, k, maxrep = 2L, maxiter = 100L)
+\method{acca}{cmatrix}(m, k, maxrep = 2L, maxiter = 100L, ...)
 
-\method{acca}{matrix}(m, k, maxrep = 2L, maxiter = 100L)
+\method{acca}{matrix}(m, k, maxrep = 2L, maxiter = 100L, ...)
 }
 \arguments{
 \item{m}{[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}} or a distance matrix.}
