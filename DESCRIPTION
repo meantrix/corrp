@@ -14,8 +14,8 @@ Description: Compute multiple types of correlations analysis (Pearson correlatio
 Depends: 
     R (>= 3.6.0),
     Rcpp (>= 1.0.4.6),
-    RcppArmadillo
 Imports: 
+    RcppArmadillo,
     lsr (>= 0.5),
     parallel,
     stats,
