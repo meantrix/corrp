@@ -46,7 +46,7 @@ sil_acca = function(acca,...) {
 
 #' @export
 #' @rdname sil_acca
-sil_acca.acca_list <- function(acca, m) {
+sil_acca.acca_list <- function(acca, m,...) {
 
   checkmate::assert_matrix(m)
 
@@ -65,7 +65,7 @@ sil_acca.acca_list <- function(acca, m) {
 
 #' @export
 #' @rdname sil_acca
-sil_acca.list <- function(acca, m) {
+sil_acca.list <- function(acca, m,...) {
 
   checkmate::assert_matrix(m)
 

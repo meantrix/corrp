@@ -47,7 +47,7 @@ UseMethod('acca',m)
 
 #' @export
 #' @rdname acca
-acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
+acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L,...) {
 
   k = as.integer(k)
   maxrep = as.integer(maxrep)
@@ -64,7 +64,7 @@ acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
 
 #' @export
 #' @rdname acca
-acca.matrix <- function(m, k, maxrep = 2L, maxiter = 100L) {
+acca.matrix <- function(m, k, maxrep = 2L, maxiter = 100L,...) {
 
   warning("m is not an object of the 'cmatrix' class some results may go wrong.")
 

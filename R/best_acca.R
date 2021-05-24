@@ -45,7 +45,7 @@ best_acca = function(m,...) {
 
 #' @export
 #' @rdname best_acca
-best_acca.cmatrix <- function(m, mink,maxk, maxrep = 2L, maxiter = 100L) {
+best_acca.cmatrix <- function(m, mink,maxk, maxrep = 2L, maxiter = 100L,...) {
 
   mink = as.integer(mink)
   maxk = as.integer(maxk)
@@ -61,7 +61,7 @@ best_acca.cmatrix <- function(m, mink,maxk, maxrep = 2L, maxiter = 100L) {
 
 #' @export
 #' @rdname best_acca
-best_acca.matrix <- function(m, mink,maxk, maxrep = 2L, maxiter = 100L) {
+best_acca.matrix <- function(m, mink,maxk, maxrep = 2L, maxiter = 100L,...) {
 
   warning("m is not an object of the 'cmatrix' class some results may go wrong.")
 
