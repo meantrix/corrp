@@ -7,7 +7,7 @@
 #' @description A C++ implementation of the ACCA method
 #' that works directly with the correlation matrix derived from the \code{\link{corr_matrix}} function.
 #' In this sense, this implementation differs from the original,
-#' it works with mixed data and several correlation methods
+#' it works with mixed data and several correlation methods.
 #'
 #' @param m  [\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}} or a distance matrix.
 #' @param k [\code{integer(1)}]\cr number of clusters considered.

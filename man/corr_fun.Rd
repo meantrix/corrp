@@ -2,7 +2,7 @@
 % Please edit documentation in R/corr_fun.R
 \name{corr_fun}
 \alias{corr_fun}
-\title{Compute Correlation type analysis with Statistical Significance.}
+\title{Compute Correlation type analysis with Statistical Significance}
 \usage{
 corr_fun(
   df,

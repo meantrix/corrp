@@ -7,8 +7,8 @@
 
 <!-- badges: end -->
 
-Compute multiple types of correlations analysis (Pearson correlation, R^2  coefficient of linear regression, Cramer's V measure of association, Distance Correlation,The Maximal Information Coefficient, Uncertainty coefficient and Predictive Power Score) in large dataframes with mixed columns classes(integer, numeric, factor and character) in parallel R backend.
-This package also has an C++ implementation of the Average correlation clustering algorithm [ACCA](https://www.sciencedirect.com/science/article/pii/S1532046410000158) 
+Compute multiple types of correlation analysis (Pearson correlation, R^2  coefficient of linear regression, Cramer's V measure of association, Distance Correlation, The Maximal Information Coefficient, Uncertainty coefficient and Predictive Power Score) in large dataframes with mixed columns classes(integer, numeric, factor and character) in parallel R backend.
+This package also has a C++ implementation of the Average correlation clustering algorithm [ACCA](https://www.sciencedirect.com/science/article/pii/S1532046410000158) 
 that works directly with the correlation matrix. In this sense, this implementation differs from the original,
 it works with mixed data and several correlation types methods.
 
