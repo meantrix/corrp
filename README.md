@@ -1,5 +1,5 @@
-# corrp  <a href='http://meantrix.com'><img src='man/figures/logo.png' align="right" height="139" /></a>
-
+# corrp  
+<a href='http://meantrix.com'><img src='man/figures/logo.png' align="right" height="139" /></a>
 <!-- badges: start -->
 
 [![version](https://img.shields.io/badge/version-0.3.0-green.svg)](https://semver.org)
