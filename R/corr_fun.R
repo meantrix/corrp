@@ -1,4 +1,4 @@
-#' @title Compute Correlation type analysis with Statistical Significance.
+#' @title Compute Correlation type analysis with Statistical Significance
 #'
 #' @description Compute correlation type analysis on two mixed classes columns of a given dataframe.
 #'   The dataframe is allowed to have columns of these four classes: integer,
@@ -79,7 +79,7 @@
 #' @author Igor D.S. Siciliani
 #'
 #' @keywords correlation , power predictive score , linear model , distance correlation ,
-#' mic , point biserial , pearson , cramer's V
+#' mic , point biserial , pearson , cramer'sV
 #'
 #' @references
 #' KS Srikanth,sidekicks,cor2, 2020.

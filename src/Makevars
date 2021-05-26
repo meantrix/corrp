@@ -1,0 +1,5 @@
+#CC=ccache clang -Qunused-arguments
+#CXX=ccache clang++ -Qunused-arguments
+#CCACHE_CPP2=yes
+#ALL_CFLAGS = -ggdb -O0 -Wall
+#CFLAGS =    -ggdb -O0 -Wall

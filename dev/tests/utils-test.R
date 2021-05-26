@@ -48,5 +48,3 @@ y4 <- sample(0:1, 100, replace = TRUE)
 
 
 
-
-

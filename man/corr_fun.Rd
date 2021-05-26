@@ -2,7 +2,7 @@
 % Please edit documentation in R/corr_fun.R
 \name{corr_fun}
 \alias{corr_fun}
-\title{Compute Correlation type analysis with Statistical Significance.}
+\title{Compute Correlation type analysis with Statistical Significance}
 \usage{
 corr_fun(
   df,
@@ -143,10 +143,9 @@ URL \url{https://github.com/paulvanderlaken/ppsr}.
 Igor D.S. Siciliani
 }
 \keyword{,}
-\keyword{V}
 \keyword{biserial}
 \keyword{correlation}
-\keyword{cramer's}
+\keyword{cramer'sV}
 \keyword{distance}
 \keyword{linear}
 \keyword{mic}
