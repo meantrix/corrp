@@ -43,3 +43,13 @@ diag(A) = m - M
 
 # Compare the results
 all.equal(as.vector(dist_cpp), as.vector(dist_r))  # Check if the results are equal
+
+
+pt
+
+debug(energy::dcorT.test)
+energy::dcorT.test(data.frame(a= c(3,2,4,4)), data.frame(b= c(5,3,3,7)))
+
+df
+tstat
+df

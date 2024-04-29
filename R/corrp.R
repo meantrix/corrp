@@ -94,46 +94,44 @@
 #' \dontrun{
 #'
 #' air_cor = corrp(airquality)
-#' air_m = corr_matrix(air_cor,isig = F)
+#' air_m = corr_matrix(air_cor, isig = F)
 #' corrplot::corrplot(air_m)
-#'
-#'}
+#' }
 #'
 #' @export
-corrp  = function(df,
-                  parallel = TRUE,
-                  n.cores = 1,
-                  p.value = 0.05,
-                  verbose = TRUE,
-                  num.s = 1000,
-                  rk = F,
-                  comp = c("greater","less"),
-                  alternative = c("two.sided", "less", "greater"),
-                  cor.nn = c("pearson","mic","dcor","pps"),
-                  cor.nc = c("lm","pps"),
-                  cor.cc = c("cramersV","uncoef","pps"),
-                  lm.args = list(),
-                  pearson.args = list(),
-                  dcor.args = list(),
-                  mic.args = list(),
-                  pps.args = list(),
-                  cramersV.args = list(),
-                  uncoef.args = list(),
-  ...){
-
+corrp = function(df,
+                 parallel = TRUE,
+                 n.cores = 1,
+                 p.value = 0.05,
+                 verbose = TRUE,
+                 num.s = 1000,
+                 rk = F,
+                 comp = c("greater", "less"),
+                 alternative = c("two.sided", "less", "greater"),
+                 cor.nn = c("pearson", "mic", "dcor", "pps"),
+                 cor.nc = c("lm", "pps"),
+                 cor.cc = c("cramersV", "uncoef", "pps"),
+                 lm.args = list(),
+                 pearson.args = list(),
+                 dcor.args = list(),
+                 mic.args = list(),
+                 pps.args = list(),
+                 cramersV.args = list(),
+                 uncoef.args = list(),
+                 ...) {
   alternative = match.arg(alternative)
   cor.nn = match.arg(cor.nn)
   cor.nc = match.arg(cor.nc)
   cor.cc = match.arg(cor.cc)
   comp = match.arg(comp)
-  comp = substr(comp,1,1)
+  comp = substr(comp, 1, 1)
   checkmate::assertDataFrame(df)
-  checkmate::assert_character(comp,len = 1, pattern = "l|g")
-  alternative = substr(alternative,1,1)
-  checkmate::assert_character(alternative,len = 1, pattern = "t|l|g")
-  checkmate::assert_logical(verbose,len = 1)
-  checkmate::assert_logical(parallel,len = 1)
-  checkmate::assertNumber(p.value,upper = 1, lower = 0)
+  checkmate::assert_character(comp, len = 1, pattern = "l|g")
+  alternative = substr(alternative, 1, 1)
+  checkmate::assert_character(alternative, len = 1, pattern = "t|l|g")
+  checkmate::assert_logical(verbose, len = 1)
+  checkmate::assert_logical(parallel, len = 1)
+  checkmate::assertNumber(p.value, upper = 1, lower = 0)
   checkmate::assertNumber(n.cores)
   checkmate::assert_list(lm.args)
   checkmate::assert_list(pearson.args)
@@ -143,81 +141,87 @@ corrp  = function(df,
   checkmate::assert_list(cramersV.args)
   checkmate::assert_list(uncoef.args)
 
-  on.exit( if(parallel) parallel::stopCluster(cluster) )
+  on.exit(if (parallel) parallel::stopCluster(cluster))
 
 
-  stopifnot( sapply(df, class) %in% c("integer"
-                                     , "numeric"
-                                     , "factor"
-                                     , "character"))
+  stopifnot(sapply(df, class) %in% c(
+    "integer",
+    "numeric",
+    "factor",
+    "character"
+  ))
 
-
- cnames = colnames(df)
- index.grid = expand.grid("i" = seq(1,NCOL(df)), "j" = seq(1,NCOL(df)), stringsAsFactors = FALSE)
- # parallel corr matrix
-  if( parallel ){
+  
+  cnames = colnames(df)
+  index.grid = expand.grid("i" = seq(1, NCOL(df)), "j" = seq(1, NCOL(df)), stringsAsFactors = FALSE)
+  # parallel corr matrix
+  if (parallel) {
     cluster = parallel::makeCluster(n.cores)
-    parallel::clusterEvalQ(cluster, {library(corrp)})
-    corr = parallel::clusterApply(cluster, seq_len(NROW(index.grid)),
-                                    function(k,...){
-                                      ny = cnames[index.grid[["i"]][k]]
-                                      nx = cnames[index.grid[["j"]][k]]
-                                      corr_fun(df,
-                                              ny = ny,
-                                              nx = nx,
-                                              p.value = p.value,
-                                              verbose = verbose,
-                                              alternative = alternative,
-                                              comp = comp,
-                                              cor.nn = cor.nn,
-                                              cor.nc = cor.nc,
-                                              cor.cc = cor.cc,
-                                              num.s = num.s,
-                                              rk = rk,
-                                              lm.args = lm.args,
-                                              pearson.args = pearson.args,
-                                              cramersV.args = cramersV.args,
-                                              dcor.args = dcor.args,
-                                              pps.args = pps.args,
-                                              mic.args = mic.args,
-                                              uncoef.args = uncoef.args)
-                                    }
+    parallel::clusterEvalQ(cluster, {
+      library(corrp)
+    })
+    corr = parallel::clusterApply(
+      cluster, seq_len(NROW(index.grid)),
+      function(k, ...) {
+        ny = cnames[index.grid[["i"]][k]]
+        nx = cnames[index.grid[["j"]][k]]
+        corr_fun(df,
+          ny = ny,
+          nx = nx,
+          p.value = p.value,
+          verbose = verbose,
+          alternative = alternative,
+          comp = comp,
+          cor.nn = cor.nn,
+          cor.nc = cor.nc,
+          cor.cc = cor.cc,
+          num.s = num.s,
+          rk = rk,
+          lm.args = lm.args,
+          pearson.args = pearson.args,
+          cramersV.args = cramersV.args,
+          dcor.args = dcor.args,
+          pps.args = pps.args,
+          mic.args = mic.args,
+          uncoef.args = uncoef.args
+        )
+      }
     )
-
-    } else {
-      # sequential corr
-      corr = lapply(seq_len(NROW(index.grid)),
-                    function(k,...){
-                      ny = cnames[index.grid[["i"]][k]]
-                      nx = cnames[index.grid[["j"]][k]]
-                      corr_fun(df,
-                              ny = ny,
-                              nx = nx,
-                              p.value = p.value,
-                              verbose = verbose,
-                              alternative = alternative,
-                              comp = comp,
-                              cor.nn = cor.nn,
-                              cor.nc = cor.nc,
-                              cor.cc = cor.cc,
-                              num.s = num.s,
-                              rk = rk,
-                              lm.args = lm.args,
-                              pearson.args = pearson.args,
-                              cramersV.args = cramersV.args,
-                              dcor.args = dcor.args,
-                              pps.args = pps.args,
-                              mic.args = mic.args,
-                              uncoef.args = uncoef.args)
-                    }
-      )
-
-    }
+  } else {
+    # sequential corr
+    corr = lapply(
+      seq_len(NROW(index.grid)),
+      function(k, ...) {
+        ny = cnames[index.grid[["i"]][k]]
+        nx = cnames[index.grid[["j"]][k]]
+        corr_fun(df,
+          ny = ny,
+          nx = nx,
+          p.value = p.value,
+          verbose = verbose,
+          alternative = alternative,
+          comp = comp,
+          cor.nn = cor.nn,
+          cor.nc = cor.nc,
+          cor.cc = cor.cc,
+          num.s = num.s,
+          rk = rk,
+          lm.args = lm.args,
+          pearson.args = pearson.args,
+          cramersV.args = cramersV.args,
+          dcor.args = dcor.args,
+          pps.args = pps.args,
+          mic.args = mic.args,
+          uncoef.args = uncoef.args
+        )
+      }
+    )
+  }
 
   corr = lapply(corr, .null.to.na)
   corr = do.call(rbind.data.frame, corr)
-  corrp.list = list(data = corr , index = index.grid)
+  corrp.list = list(data = corr, index = index.grid)
 
 
-  return( structure(corrp.list,class = c('clist','list') ) )
+  return(structure(corrp.list, class = c("clist", "list")))
 }

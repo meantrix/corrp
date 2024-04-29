@@ -92,23 +92,22 @@
 #' @examples
 #' \dontrun{
 #'
-#' corr_fun(iris,nx = "Sepal.Length",ny = "Sepal.Width",cor.nn = "dcor")
-#'
-#'}
+#' corr_fun(iris, nx = "Sepal.Length", ny = "Sepal.Width", cor.nn = "dcor")
+#' }
 #'
 #' @export
-corr_fun =  function(df,
+corr_fun = function(df,
                     nx,
                     ny,
                     p.value = 0.05,
                     verbose = TRUE,
                     num.s = 1000,
                     rk = F,
-                    comp = c("greater","less"),
+                    comp = c("greater", "less"),
                     alternative = c("two.sided", "less", "greater"),
-                    cor.nn = c("pearson","mic","dcor","pps"),
-                    cor.nc = c("lm","pps"),
-                    cor.cc = c("cramersV","uncoef","pps"),
+                    cor.nn = c("pearson", "mic", "dcor", "pps"),
+                    cor.nc = c("lm", "pps"),
+                    cor.cc = c("cramersV", "uncoef", "pps"),
                     lm.args = list(),
                     pearson.args = list(),
                     dcor.args = list(),
@@ -116,21 +115,19 @@ corr_fun =  function(df,
                     pps.args = list(),
                     cramersV.args = list(),
                     uncoef.args = list(),
-                   ...){
-
-
+                    ...) {
   alternative = match.arg(alternative)
   cor.nn = match.arg(cor.nn)
   cor.nc = match.arg(cor.nc)
   cor.cc = match.arg(cor.cc)
   comp = match.arg(comp)
-  comp = substr(comp,1,1)
+  comp = substr(comp, 1, 1)
   checkmate::assertDataFrame(df)
-  checkmate::assert_character(comp,len = 1, pattern = "l|g")
-  alternative = substr(alternative,1,1)
-  checkmate::assert_character(alternative,len = 1, pattern = "t|l|g")
-  checkmate::assert_logical(verbose,len = 1)
-  checkmate::assertNumber(p.value,upper = 1, lower = 0)
+  checkmate::assert_character(comp, len = 1, pattern = "l|g")
+  alternative = substr(alternative, 1, 1)
+  checkmate::assert_character(alternative, len = 1, pattern = "t|l|g")
+  checkmate::assert_logical(verbose, len = 1)
+  checkmate::assertNumber(p.value, upper = 1, lower = 0)
   checkmate::assert_list(lm.args)
   checkmate::assert_list(pearson.args)
   checkmate::assert_list(dcor.args)
@@ -138,24 +135,21 @@ corr_fun =  function(df,
   checkmate::assert_list(pps.args)
   checkmate::assert_list(cramersV.args)
   checkmate::assert_list(uncoef.args)
-  checkmate::assert_choice(ny,colnames(df))
-  checkmate::assert_choice(nx,colnames(df))
-
-
+  checkmate::assert_choice(ny, colnames(df))
+  checkmate::assert_choice(nx, colnames(df))
 
   y = df[ny]
   x = df[nx]
   cly = class(y[[1]])
   clx = class(x[[1]])
 
-  cond.nn = ( cly %in% c("integer", "numeric") && clx %in% c("integer", "numeric") )
-  cond.nc = ( cly %in% c("integer", "numeric") && clx %in% c("factor", "character") )
-  cond.cn = ( cly %in% c("factor", "character") && clx %in% c("integer", "numeric") )
-  cond.cc = ( cly %in% c("factor", "character") && clx %in% c("factor", "character") )
+  cond.nn = (cly %in% c("integer", "numeric") && clx %in% c("integer", "numeric"))
+  cond.nc = (cly %in% c("integer", "numeric") && clx %in% c("factor", "character"))
+  cond.cn = (cly %in% c("factor", "character") && clx %in% c("integer", "numeric"))
+  cond.cc = (cly %in% c("factor", "character") && clx %in% c("factor", "character"))
 
-  if( cond.cn ){
-
-    if(cor.nc == 'lm'){
+  if (cond.cn) {
+    if (cor.nc == "lm") {
       z = x
       clz = clx
 
@@ -171,91 +165,88 @@ corr_fun =  function(df,
   }
 
   # both are numeric/integer
-  if( cond.nn ){
-
-    switch (cor.nn,
-            "pearson" = {computeCorN = .corperp
-            inf.nm = "Pearson Correlation"
-            },
-            "mic" = { computeCorN = .micorp
-            inf.nm = "Maximal Information Coefficient"
-            },
-            "dcor" = { computeCorN = .dcorp
-            inf.nm = "Distance Correlation"
-            },
-            "pps" = {computeCorN = .corpps
-            inf.nm = "Predictive Power Score"
-            }
+  if (cond.nn) {
+    switch(cor.nn,
+      "pearson" = {
+        computeCorN = .corperp
+        inf.nm = "Pearson Correlation"
+      },
+      "mic" = {
+        computeCorN = .micorp
+        inf.nm = "Maximal Information Coefficient"
+      },
+      "dcor" = {
+        computeCorN = .dcorp
+        inf.nm = "Distance Correlation"
+      },
+      "pps" = {
+        computeCorN = .corpps
+        inf.nm = "Predictive Power Score"
+      }
     )
-
 
     r = try(
-      eval(body(computeCorN), list(), enclos=environment())
+      eval(body(computeCorN), list(), enclos = environment())
     )
-
   }
 
   # one is numeric and other is a factor/character
-  if( cond.nc ){
-
-    switch (cor.nc,
-            "lm" = {computeCorN = .corlm
-            inf.nm = "Linear Model"
-            },
-            "pps" = { computeCorN = .corpps
-            inf.nm = "Predictive Power Score"
-            }
+  if (cond.nc) {
+    switch(cor.nc,
+      "lm" = {
+        computeCorN = .corlm
+        inf.nm = "Linear Model"
+      },
+      "pps" = {
+        computeCorN = .corpps
+        inf.nm = "Predictive Power Score"
+      }
     )
-
-
+    
     r = try(
-      eval(body(computeCorN), list(), enclos=environment())
+      eval(body(computeCorN), list(), enclos = environment())
     )
-
-
   }
 
   # both are factor/character
-  if( cond.cc ){
-
-    switch (cor.cc,
-            "cramersV" = {computeCorN = .cramersvp
-            inf.nm = "Cramer's V"
-            },
-            "uncoef" = { computeCorN = .uncorp
-            inf.nm = "Predictive Power Score"
-            },
-            "pps" = { computeCorN = .corpps
-            inf.nm = "Uncertainty coefficient"
-            }
+  if (cond.cc) {
+    switch(cor.cc,
+      "cramersV" = {
+        computeCorN = .cramersvp
+        inf.nm = "Cramer's V"
+      },
+      "uncoef" = {
+        computeCorN = .uncorp
+        inf.nm = "Predictive Power Score"
+      },
+      "pps" = {
+        computeCorN = .corpps
+        inf.nm = "Uncertainty coefficient"
+      }
     )
 
 
     r = try(
-      eval(body(computeCorN), list(), enclos=environment())
+      eval(body(computeCorN), list(), enclos = environment())
     )
-
-
   }
 
-  if((class(r) %in% "try-error")){
-
+  if ((class(r) %in% "try-error")) {
     msg = ""
 
-    if(verbose){
-      warnings(cat("ERROR: some operations produces Nas values.","\n",
-                   ny, " FUN " ,nx,"\n"))
+    if (verbose) {
+      warnings(cat(
+        "ERROR: some operations produces Nas values.", "\n",
+        ny, " FUN ", nx, "\n"
+      ))
       msg = r[[1]]
     }
 
-    r =  list( infer= inf.nm , infer.value = NA , stat = NA, stat.value = NA ,
-               isig = FALSE, msg = msg , varx = nx, vary = ny )
+    r = list(
+      infer = inf.nm, infer.value = NA, stat = NA, stat.value = NA,
+      isig = FALSE, msg = msg, varx = nx, vary = ny
+    )
   }
 
-
-
-
   return(r)
-
 }
-
