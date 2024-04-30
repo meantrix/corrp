@@ -2,33 +2,30 @@
 using namespace Rcpp;
 
 // Function to calculate Astar
-NumericMatrix Astar(const NumericMatrix& d) {
+NumericMatrix Astar(NumericMatrix& d) {
   int n = d.nrow();
   NumericVector m = rowMeans(d);
-  double M = mean(d);
-  
-  // Create a copy of d
-  NumericMatrix A = clone(d);
-  
+  double M = mean(d);  
+    
   // Subtract row means
   for (int i = 0; i < n; ++i) {
-    A(i, _) = A(i, _) - m[i];
+    d(i, _) = d(i, _) - m[i];
   }
   
   // Subtract column means
   for (int j = 0; j < n; ++j) {
-    A(_, j) = A(_, j) - m[j];
+    d(_, j) = d(_, j) - m[j];
   }
   
   // Add global mean
-  A = A + M;
+  d = d + M;
   
   // Correct diagonal elements
   for (int i = 0; i < n; ++i) {
-    A(i, i) = A(i, i) - m[i] + M;
-  }
+    d(i, i) = d(i, i) - m[i] + M;
+  }  
   
-  return (n / (n - 1.0)) * A;
+  return (n / (n - 1.0)) * d;
 }
 
 NumericMatrix distCpp(NumericMatrix data) {
@@ -56,6 +53,17 @@ List BCDCOR(const NumericMatrix& x, const NumericMatrix& y) {
   // Compute pairwise distances for x and y
   NumericMatrix xDist = distCpp(x);
   NumericMatrix yDist = distCpp(y);
+
+  for (int i = 0; i < xDist.nrow(); i++)
+  {
+    for (int j = 0; j < xDist.ncol(); j++)
+    {
+        std::cout << xDist(i,j) << " ";
+    }
+      
+    // Newline for new row
+    std::cout << std::endl;
+  }
   
   // Compute Astar for x and y
   NumericMatrix AA = Astar(xDist);
@@ -64,6 +72,23 @@ List BCDCOR(const NumericMatrix& x, const NumericMatrix& y) {
   // Extract diagonal elements as vectors
   NumericVector diag_AA = diag(AA);
   NumericVector diag_BB = diag(BB);
+
+  Rcpp::Rcout << "The value of diag_AA : " << diag_AA << "\n";
+  Rcpp::Rcout << "The value of diag_BB : " << diag_BB << "\n";
+
+  Rcpp::Rcout << "The value of AA : " << "\n";
+
+  for (int i = 0; i < AA.nrow(); i++)
+  {
+    for (int j = 0; j < AA.ncol(); j++)
+    {
+        std::cout << AA(i,j) << " ";
+    }      
+    // Newline for new row
+    std::cout << std::endl;
+  }
+
+  
   
   // Compute BCDCOR components
   double XY = sum(AA * BB) - (n / (n - 2)) * sum(diag_AA * diag_BB);
@@ -108,4 +133,10 @@ List dcorT_test(const NumericMatrix& x, const NumericMatrix& y) {
 // [[Rcpp::export]]
 List dcorTcpp(const NumericMatrix& x, const NumericMatrix& y) { 
   return dcorT_test(x, y );
+}
+
+
+// [[Rcpp::export]]
+NumericMatrix Astarcpp(NumericMatrix& d)  { 
+  return Astar(d);
 }
