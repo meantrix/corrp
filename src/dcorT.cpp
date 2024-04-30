@@ -78,12 +78,6 @@ List dcorT_test(const NumericMatrix& x, const NumericMatrix& y) {
                       Named("data.name") = "x and y");
 }
 
-// [[Rcpp::export]]
-List dcorT_test_Rcpp(const NumericMatrix& x, const NumericMatrix& y) {
-  return dcorT_test(x, y);
-}
-
-
 
 NumericMatrix distCpp(NumericMatrix data) {
   int n = data.nrow();

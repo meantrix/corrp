@@ -366,3 +366,8 @@
   x[sapply(x, is.null)] = NA
   return(x)
 }
+
+
+dcorT_test <- function(x, y) {
+  .Call(`_corrp_dcorT_test`, x, y)
+}
