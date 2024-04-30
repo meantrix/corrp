@@ -113,8 +113,8 @@
 
   args = c(list(x), list(y), dcor.args)  
 
-  browser()
-  dc = do.call(energy::dcorT.test, args)
+  
+  dc = do.call(dcorT_test, args)
 
   pv = dc$p.value
   r = as.numeric(dc$estimate)
@@ -367,7 +367,22 @@
   return(x)
 }
 
-
+#' @title Create Correlation Matrix from corrp inferences
+#'
+#' @description Distance correlation t-test of multivariate independence for high dimension. Cpp version of energy::dcorT.test
+#'
+#' @param x [\code{data.frame(1)|matrix(1)}]\cr A data of the first sample.
+#' @param y [\code{data.frame(1)}matrix(1)]\cr A data of the second sample.
+#'
+#' @return List of statistics.
+#' @export
 dcorT_test <- function(x, y) {
-  .Call(`_corrp_dcorT_test`, x, y)
+
+  if (!inherits(x, "matrix"))
+    x <- as.matrix(x)
+
+  if (!inherits(y, "matrix"))
+    y <- as.matrix(y)
+  
+  .Call(`_corrp_dcort_test`, x, y)
 }
