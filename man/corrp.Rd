@@ -130,9 +130,8 @@ categorical variable.
 \dontrun{
 
 air_cor = corrp(airquality)
-air_m = corr_matrix(air_cor,isig = F)
+air_m = corr_matrix(air_cor, isig = F)
 corrplot::corrplot(air_m)
-
 }
 
 }

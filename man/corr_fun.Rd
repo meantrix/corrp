@@ -126,8 +126,7 @@ Compute correlation type analysis on two mixed classes columns of a given datafr
 \examples{
 \dontrun{
 
-corr_fun(iris,nx = "Sepal.Length",ny = "Sepal.Width",cor.nn = "dcor")
-
+corr_fun(iris, nx = "Sepal.Length", ny = "Sepal.Width", cor.nn = "dcor")
 }
 
 }

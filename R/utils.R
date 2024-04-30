@@ -369,12 +369,18 @@
 
 #' @title Create Correlation Matrix from corrp inferences
 #'
-#' @description Distance correlation t-test of multivariate independence for high dimension. Cpp version of energy::dcorT.test
+#' @description Distance correlation t-test of multivariate independence for high dimension. C++ version of energy::dcorT.test.
 #'
-#' @param x [\code{data.frame(1)|matrix(1)}]\cr A data of the first sample.
-#' @param y [\code{data.frame(1)}matrix(1)]\cr A data of the second sample.
+#' @param x [\code{data.frame(1) | matrix(1)}]\cr A data of the first sample.
+#' @param y [\code{data.frame(1) | matrix(1)}]\cr A data of the second sample.
 #'
-#' @return List of statistics.
+#' @return returns a list containing
+#'   \item{method}{description of test}
+#'   \item{statistic}{observed value of the test statistic}
+#'   \item{parameter}{degrees of freedom}
+#'   \item{estimate}{(bias corrected) squared dCor(x,y)}
+#'   \item{p.value}{p-value of the t-test}
+#'   \item{data.name}{description of data}
 #' @export
 dcorT_test <- function(x, y) {
 
