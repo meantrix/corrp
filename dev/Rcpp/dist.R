@@ -50,6 +50,68 @@ pt
 debug(energy::dcorT.test)
 energy::dcorT.test(data.frame(a= c(3,2,4,4)), data.frame(b= c(5,3,3,7)))
 
+dcorT_test(as.matrix(data.frame(a = c(3,2,4,4))), as.matrix(data.frame(b = c(5,3,3,7))))
+
 df
 tstat
 df
+
+
+dcorT_testCpp = Rcpp::cppFunction('
+List dcorT_test(NumericMatrix x, NumericMatrix y) {
+  // Compute pairwise distances for x and y
+  int n = x.nrow();
+  NumericMatrix xDist(n, n);
+  NumericMatrix yDist(n, n);
+  
+  for (int i = 0; i < n; ++i) {
+    for (int j = i; j < n; ++j) {
+      double distance_x = 0.0;
+      double distance_y = 0.0;
+      for (int k = 0; k < x.ncol(); ++k) {
+        distance_x += pow(x(i, k) - x(j, k), 2);
+        distance_y += pow(y(i, k) - y(j, k), 2);
+      }
+      xDist(i, j) = sqrt(distance_x);
+      xDist(j, i) = xDist(i, j); // Distance matrix is symmetric
+      yDist(i, j) = sqrt(distance_y);
+      yDist(j, i) = yDist(i, j); // Distance matrix is symmetric
+    }
+  }
+  
+  // Compute means
+  double mean_x = mean(xDist);
+  double mean_y = mean(yDist);
+  
+  // Compute sums of squares
+  double sum_xx = sum(pow(xDist - mean_x, 2));
+  double sum_yy = sum(pow(yDist - mean_y, 2));
+  double sum_xy = sum((xDist - mean_x) * (yDist - mean_y));
+  
+  // Compute distance correlation
+  double dcor = sum_xy / sqrt(sum_xx * sum_yy);
+  
+  // Compute t-statistic
+  double M = n * (n - 3) / 2;
+  int df = M - 1;
+  double tstat = sqrt(M - 1) * dcor / sqrt(1 - pow(dcor, 2));
+  
+  // Compute p-value
+  double pval = 1 - R::pt(tstat, df, 1, 0);
+  
+  // Return results as a list
+  return List::create(Named("statistic") = tstat,
+                      Named("parameter") = df,
+                      Named("p.value") = pval,
+                      Named("estimate") = dcor,
+                      Named("method") = "dcor t-test of independence for high dimension",
+                      Named("data.name") = "x and y");
+}')
+
+
+
+testcpp = dcorT_testCpp(as.matrix(data.frame(a = c(3, 2, 4, 4))), as.matrix(data.frame(b = c(5, 3, 3, 7))))
+test = energy::dcorT.test(as.matrix(data.frame(a = c(3, 2, 4, 4))), as.matrix(data.frame(b = c(5, 3, 3, 7))))
+
+str(testcpp) 
+str(test) 

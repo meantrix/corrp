@@ -34,17 +34,26 @@ NumericMatrix Astar(const NumericMatrix& d) {
 // Function to calculate bias corrected distance correlation
 List BCDCOR(const NumericMatrix& x, const NumericMatrix& y) {
   int n = x.nrow();
-  NumericMatrix AA = Astar(x);
-  NumericMatrix BB = Astar(y);
+
+  // Compute pairwise distances for x and y
+  NumericMatrix xDist = distCpp(x);
+  NumericMatrix yDist = distCpp(y);
+  
+  // Compute Astar for x and y
+  NumericMatrix AA = Astar(xDist);
+  NumericMatrix BB = Astar(yDist);
   
   // Extract diagonal elements as vectors
   NumericVector diag_AA = diag(AA);
   NumericVector diag_BB = diag(BB);
   
+  // Compute BCDCOR components
   double XY = sum(AA * BB) - (n / (n - 2)) * sum(diag_AA * diag_BB);
   double XX = sum(AA * AA) - (n / (n - 2)) * sum(pow(diag_AA, 2));
   double YY = sum(BB * BB) - (n / (n - 2)) * sum(pow(diag_BB, 2));
   double bcR = XY / sqrt(XX * YY);
+  
+  // Return results as a list
   return List::create(Named("bcR") = bcR,
                       Named("XY") = XY / (n * n),
                       Named("XX") = XX / (n * n),
