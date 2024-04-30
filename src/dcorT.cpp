@@ -31,6 +31,24 @@ NumericMatrix Astar(const NumericMatrix& d) {
   return (n / (n - 1.0)) * A;
 }
 
+NumericMatrix distCpp(NumericMatrix data) {
+  int n = data.nrow();
+  NumericMatrix distances(n, n);
+  
+  for (int i = 0; i < n; ++i) {
+    for (int j = i; j < n; ++j) {
+      double distance = 0.0;
+      for (int k = 0; k < data.ncol(); ++k) {
+        distance += pow(data(i, k) - data(j, k), 2);
+      }
+      distances(i, j) = sqrt(distance);
+      distances(j, i) = distances(i, j); // Distance matrix is symmetric
+    }
+  }
+  
+  return distances;
+}
+
 // Function to calculate bias corrected distance correlation
 List BCDCOR(const NumericMatrix& x, const NumericMatrix& y) {
   int n = x.nrow();
@@ -87,21 +105,7 @@ List dcorT_test(const NumericMatrix& x, const NumericMatrix& y) {
                       Named("data.name") = "x and y");
 }
 
-
-NumericMatrix distCpp(NumericMatrix data) {
-  int n = data.nrow();
-  NumericMatrix distances(n, n);
-  
-  for (int i = 0; i < n; ++i) {
-    for (int j = i; j < n; ++j) {
-      double distance = 0.0;
-      for (int k = 0; k < data.ncol(); ++k) {
-        distance += pow(data(i, k) - data(j, k), 2);
-      }
-      distances(i, j) = sqrt(distance);
-      distances(j, i) = distances(i, j); // Distance matrix is symmetric
-    }
-  }
-  
-  return distances;
+// [[Rcpp::export]]
+List dcorTcpp(const NumericMatrix& x, const NumericMatrix& y) { 
+  return dcorT_test(x, y );
 }
