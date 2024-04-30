@@ -2,30 +2,42 @@
 using namespace Rcpp;
 
 // Function to calculate Astar
-NumericMatrix Astar(NumericMatrix& d) {
+NumericMatrix Astar(NumericMatrix d) {
   int n = d.nrow();
-  NumericVector m = rowMeans(d);
-  double M = mean(d);  
-    
-  // Subtract row means
+  NumericVector m(n);
+  double M = 0.0;
+
+  // Calculate row means
   for (int i = 0; i < n; ++i) {
-    d(i, _) = d(i, _) - m[i];
+    double row_sum = 0.0;
+    for (int j = 0; j < n; ++j) {
+      row_sum += d(i, j);
+    }
+    m[i] = row_sum / n;
+  }
+
+  // Calculate overall mean
+  for (int i = 0; i < n; ++i) {
+    M += m[i];
+  }
+  M /= n;
+
+  // Calculate Astar matrix
+  NumericMatrix A(n, n);
+  for (int i = 0; i < n; ++i) {
+    for (int j = 0; j < n; ++j) {
+      A(i, j) = d(i, j) - m[i] - m[j] + M - d(i,j) / n;
+    }
+  }
+
+  // Apply correction
+  for (int i = 0; i < n; ++i) {
+    A(i, i) = m[i] - M;
   }
   
-  // Subtract column means
-  for (int j = 0; j < n; ++j) {
-    d(_, j) = d(_, j) - m[j];
-  }
-  
-  // Add global mean
-  d = d + M;
-  
-  // Correct diagonal elements
-  for (int i = 0; i < n; ++i) {
-    d(i, i) = d(i, i) - m[i] + M;
-  }  
-  
-  return (n / (n - 1.0)) * d;
+  A = n / (n - 1.0) * A;
+
+  return A;
 }
 
 NumericMatrix distCpp(NumericMatrix data) {
