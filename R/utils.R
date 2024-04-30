@@ -214,8 +214,6 @@
 
   args = c(list(x), list(y), mic.args)
 
-  browser()
-
   pv = ptest(x, y, FUN = function(y, x) {
     args = c(list(x), list(y), mic.args)
     do.call(function(...) {
@@ -317,7 +315,6 @@
 
 # Predictive Power Score Calculations
 .corpps = function(x, y, nx, ny, verbose, pps.args = list(), ...) {
-  browser()
   args = c(list(data.frame(x, y)), list(nx), list(ny), pps.args)  
 
   r = do.call(ppsr::score, args)
@@ -367,28 +364,3 @@
   return(x)
 }
 
-#' @title Create Correlation Matrix from corrp inferences
-#'
-#' @description Distance correlation t-test of multivariate independence for high dimension. C++ version of energy::dcorT.test.
-#'
-#' @param x [\code{data.frame(1) | matrix(1)}]\cr A data of the first sample.
-#' @param y [\code{data.frame(1) | matrix(1)}]\cr A data of the second sample.
-#'
-#' @return returns a list containing
-#'   \item{method}{description of test}
-#'   \item{statistic}{observed value of the test statistic}
-#'   \item{parameter}{degrees of freedom}
-#'   \item{estimate}{(bias corrected) squared dCor(x,y)}
-#'   \item{p.value}{p-value of the t-test}
-#'   \item{data.name}{description of data}
-#' @export
-dcorT_test <- function(x, y) {
-
-  if (!inherits(x, "matrix"))
-    x <- as.matrix(x)
-
-  if (!inherits(y, "matrix"))
-    y <- as.matrix(y)
-  
-  .Call(`_corrp_dcort_test`, x, y)
-}

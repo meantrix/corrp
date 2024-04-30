@@ -106,13 +106,13 @@ test_that("Tests on corrp and cor_fun functions", {
   #Dcor
   for(i in 1:NROW(data.num)){
 
-    i.test = energy::dcorT.test(df[[ as.character(data.num$varx[i]) ]], df[[ as.character(data.num$vary[i]) ]] )
+    i.test = dcorT_test(df[[ as.character(data.num$varx[i]) ]], df[[ as.character(data.num$vary[i]) ]])
 
     i.fun = corr_fun(df,nx = as.character(data.num$varx[i]) , ny = as.character(data.num$vary[i]), alternative = 't', cor.nn = 'dcor',
                      verbose = F)
 
-    expect_equal( as.numeric(i.test$estimate) , i.fun$infer.value )
-    expect_equal( i.test$p.value, i.fun$stat.value)
+    expect_equal(as.numeric(i.test$estimate) , i.fun$infer.value )
+    expect_equal(i.test$p.value, i.fun$stat.value)
 
 
   }
@@ -154,15 +154,15 @@ test_that("Tests on corrp and cor_fun functions", {
   #Uncoef
   for(i in 1:NROW(data.cramer)){
 
-    i.test = DescTools::UncertCoef(df[[ as.character(data.cramer$varx[i]) ]], df[[ as.character(data.cramer$vary[i]) ]] )
-    i.pv = ptest(df[[ as.character(data.cramer$varx[i]) ]], df[[ as.character(data.cramer$vary[i]) ]],
-                 FUN =DescTools::UncertCoef , alternative = 't',rk = TRUE)
+    i.test = DescTools::UncertCoef(df[[as.character(data.cramer$varx[i])]], df[[as.character(data.cramer$vary[i])]])
+    i.pv = ptest(df[[as.character(data.cramer$varx[i]) ]], df[[as.character(data.cramer$vary[i])]],
+                 FUN = DescTools::UncertCoef, alternative = 't', rk = TRUE)
 
-    i.fun = corr_fun(df,nx = as.character(data.cramer$varx[i]) , ny = as.character(data.cramer$vary[i]), alternative = 't', cor.cc = 'uncoef',
+    i.fun = corr_fun(df, nx = as.character(data.cramer$varx[i]), ny = as.character(data.cramer$vary[i]), alternative = 't', cor.cc = 'uncoef',
                      verbose = F)
 
-    expect_equal( i.test, i.fun$infer.value )
-    expect_equal( i.pv, i.fun$stat.value)
+    expect_equal(i.test, i.fun$infer.value)
+    expect_equal(i.pv, i.fun$stat.value)
 
 
   }

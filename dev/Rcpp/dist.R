@@ -25,3 +25,4 @@ class(res_energy) = "list"
 
 dcorT_test(as.matrix(test_data), as.matrix(test_data))
 
+energy::dcorT(as.matrix(test_data), as.matrix(test_data))
