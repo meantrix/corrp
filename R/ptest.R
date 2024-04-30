@@ -87,7 +87,6 @@ ptest = function(x ,y,
 #'   \item{data.name}{description of data}
 #' @export
 dcorT_test <- function(x, y) {
-  browser()
 
   if (!inherits(x, "matrix"))
     x <- as.matrix(x)
