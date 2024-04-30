@@ -1,5 +1,6 @@
-#include <Rcpp.h>
+#include "dcort.h"
 using namespace Rcpp;
+
 
 // Function to calculate Astar
 NumericMatrix Astar(NumericMatrix d) {
@@ -40,7 +41,7 @@ NumericMatrix Astar(NumericMatrix d) {
   return A;
 }
 
-NumericMatrix distCpp(NumericMatrix data) {
+NumericMatrix dist(NumericMatrix data) {
   int n = data.nrow();
   NumericMatrix distances(n, n);
   
@@ -59,23 +60,12 @@ NumericMatrix distCpp(NumericMatrix data) {
 }
 
 // Function to calculate bias corrected distance correlation
-List BCDCOR(const NumericMatrix& x, const NumericMatrix& y) {
+List bcdcor(const NumericMatrix& x, const NumericMatrix& y) {
   int n = x.nrow();
 
   // Compute pairwise distances for x and y
-  NumericMatrix xDist = distCpp(x);
-  NumericMatrix yDist = distCpp(y);
-
-  for (int i = 0; i < xDist.nrow(); i++)
-  {
-    for (int j = 0; j < xDist.ncol(); j++)
-    {
-        std::cout << xDist(i,j) << " ";
-    }
-      
-    // Newline for new row
-    std::cout << std::endl;
-  }
+  NumericMatrix xDist = dist(x);
+  NumericMatrix yDist = dist(y);
   
   // Compute Astar for x and y
   NumericMatrix AA = Astar(xDist);
@@ -84,25 +74,8 @@ List BCDCOR(const NumericMatrix& x, const NumericMatrix& y) {
   // Extract diagonal elements as vectors
   NumericVector diag_AA = diag(AA);
   NumericVector diag_BB = diag(BB);
-
-  Rcpp::Rcout << "The value of diag_AA : " << diag_AA << "\n";
-  Rcpp::Rcout << "The value of diag_BB : " << diag_BB << "\n";
-
-  Rcpp::Rcout << "The value of AA : " << "\n";
-
-  for (int i = 0; i < AA.nrow(); i++)
-  {
-    for (int j = 0; j < AA.ncol(); j++)
-    {
-        std::cout << AA(i,j) << " ";
-    }      
-    // Newline for new row
-    std::cout << std::endl;
-  }
-
   
-  
-  // Compute BCDCOR components
+  // Compute bcdcor components
   double XY = sum(AA * BB) - (n / (n - 2)) * sum(diag_AA * diag_BB);
   double XX = sum(AA * AA) - (n / (n - 2)) * sum(pow(diag_AA, 2));
   double YY = sum(BB * BB) - (n / (n - 2)) * sum(pow(diag_BB, 2));
@@ -117,8 +90,8 @@ List BCDCOR(const NumericMatrix& x, const NumericMatrix& y) {
 }
 
 // Function to calculate the t statistic for corrected high-dim dCor
-double dcorT(const NumericMatrix& x, const NumericMatrix& y) {
-  List r = BCDCOR(x, y);
+double dcort(const NumericMatrix& x, const NumericMatrix& y) {
+  List r = bcdcor(x, y);
   double Cn = as<double>(r["bcR"]);
   int n = as<int>(r["n"]);
   double M = n * (n - 3) / 2;
@@ -126,8 +99,8 @@ double dcorT(const NumericMatrix& x, const NumericMatrix& y) {
 }
 
 // Function to perform the dcor t-test of independence for high dimension
-List dcorT_test(const NumericMatrix& x, const NumericMatrix& y) {
-  List stats = BCDCOR(x, y);
+List dcort_test(const NumericMatrix& x, const NumericMatrix& y) {
+  List stats = bcdcor(x, y);
   double bcR = as<double>(stats["bcR"]);
   int n = as<int>(stats["n"]);
   double M = n * (n - 3) / 2;
@@ -142,13 +115,4 @@ List dcorT_test(const NumericMatrix& x, const NumericMatrix& y) {
                       Named("data.name") = "x and y");
 }
 
-// [[Rcpp::export]]
-List dcorTcpp(const NumericMatrix& x, const NumericMatrix& y) { 
-  return dcorT_test(x, y );
-}
 
-
-// [[Rcpp::export]]
-NumericMatrix Astarcpp(NumericMatrix& d)  { 
-  return Astar(d);
-}
