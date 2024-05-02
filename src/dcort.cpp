@@ -2,7 +2,7 @@
 using namespace Rcpp;
 
 
-// Function to calculate Astar
+// Modified distance covariance statistics
 NumericMatrix Astar(NumericMatrix d) {
   int n = d.nrow();
   NumericVector m(n);
@@ -40,6 +40,7 @@ NumericMatrix Astar(NumericMatrix d) {
   return d;
 }
 
+// Distance matrix
 NumericMatrix dist(NumericMatrix data) {
   int n = data.nrow();
   NumericMatrix distances(n, n);
@@ -81,10 +82,7 @@ List bcdcor(const NumericMatrix& x, const NumericMatrix& y) {
   double bcR = XY / sqrt(XX * YY);
   
   // Return results as a list
-  return List::create(Named("bcR") = bcR,
-                      Named("XY") = XY / (n * n),
-                      Named("XX") = XX / (n * n),
-                      Named("YY") = YY / (n * n),
+  return List::create(Named("bcR") = bcR,                      
                       Named("n") = n);
 }
 
