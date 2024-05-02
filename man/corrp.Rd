@@ -28,58 +28,58 @@ corrp(
 )
 }
 \arguments{
-\item{df}{[\code{data.frame(1)}]\cr input data frame.}
+\item{df}{\[\code{data.frame(1)}]\cr input data frame.}
 
-\item{parallel}{[\code{logical(1)}]\cr If its TRUE run the operations in parallel backend.}
+\item{parallel}{\[\code{logical(1)}]\cr If its TRUE run the operations in parallel backend.}
 
-\item{n.cores}{[\code{numeric(1)}]\cr The number of cores to use for parallel execution.}
+\item{n.cores}{\[\code{numeric(1)}]\cr The number of cores to use for parallel execution.}
 
-\item{p.value}{[\code{logical(1)}]\cr
+\item{p.value}{\[\code{logical(1)}]\cr
 P-value probability of obtaining the observed results of a test,
 assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).}
 
-\item{verbose}{[\code{logical(1)}]\cr Activate verbose mode.}
+\item{verbose}{\[\code{logical(1)}]\cr Activate verbose mode.}
 
-\item{num.s}{[\code{numeric(1)}]\cr Used in permutation test. The number of samples with
+\item{num.s}{\[\code{numeric(1)}]\cr Used in permutation test. The number of samples with
 replacement created with y numeric vector.}
 
-\item{rk}{[\code{logical(1)}]\cr Used in permutation test.
+\item{rk}{\[\code{logical(1)}]\cr Used in permutation test.
 if its TRUE transform x, y numeric vectors with samples ranks.}
 
-\item{comp}{[\code{character(1)}]\cr The param \code{p.value} must be greater
+\item{comp}{\[\code{character(1)}]\cr The param \code{p.value} must be greater
 or less than those estimated in tests and correlations.}
 
-\item{alternative}{[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
+\item{alternative}{\[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
 the correlation inference. It must be one of "two.sided" (default), "greater" or "less".
 You can specify just the initial letter.}
 
-\item{cor.nn}{[\code{character(1)}]\cr
+\item{cor.nn}{\[\code{character(1)}]\cr
 Choose correlation type to be used in integer/numeric pair inference.
 The options are `pearson: Pearson Correlation`,`mic: Maximal Information Coefficient`,
 `dcor: Distance Correlation`,`pps: Predictive Power Score`.Default is `Pearson Correlation`.}
 
-\item{cor.nc}{[\code{character(1)}]\cr
+\item{cor.nc}{\[\code{character(1)}]\cr
 Choose correlation type to be used in integer/numeric - factor/categorical pair inference.
 The option are `lm: Linear Model`,`pps: Predictive Power Score`. Default is `Linear Model`.}
 
-\item{cor.cc}{[\code{character(1)}]\cr
+\item{cor.cc}{\[\code{character(1)}]\cr
 Choose correlation type to be used in factor/categorical pair inference.
 The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 `pps: Predictive Power Score`. Default is ` Cramer's V`.}
 
-\item{lm.args}{[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{lm.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
 
-\item{pearson.args}{[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{pearson.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
 
-\item{dcor.args}{[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{dcor.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
 
-\item{mic.args}{[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{mic.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
 
-\item{pps.args}{[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{pps.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
 
-\item{cramersV.args}{[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{cramersV.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
 
-\item{uncoef.args}{[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{uncoef.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
 
 \item{...}{Additional arguments (TODO).}
 }

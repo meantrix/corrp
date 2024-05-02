@@ -41,40 +41,40 @@
 #' - There is no statistical significance test for the pps algorithm. By default `isig` is TRUE.\cr
 #' - If any errors occur during operations the association measure(`infer.value`) will be `NA`.
 #'
-#' @param df [\code{data.frame(1)}]\cr input data frame.
-#' @param parallel [\code{logical(1)}]\cr If its TRUE run the operations in parallel backend.
-#' @param n.cores [\code{numeric(1)}]\cr The number of cores to use for parallel execution.
-#' @param p.value [\code{logical(1)}]\cr
+#' @param df \[\code{data.frame(1)}]\cr input data frame.
+#' @param parallel \[\code{logical(1)}]\cr If its TRUE run the operations in parallel backend.
+#' @param n.cores \[\code{numeric(1)}]\cr The number of cores to use for parallel execution.
+#' @param p.value \[\code{logical(1)}]\cr
 #' P-value probability of obtaining the observed results of a test,
 #' assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).
-#' @param comp [\code{character(1)}]\cr The param \code{p.value} must be greater
+#' @param comp \[\code{character(1)}]\cr The param \code{p.value} must be greater
 #'  or less than those estimated in tests and correlations.
-#' @param alternative [\code{character(1)}]\cr a character string specifying the alternative hypothesis for
+#' @param alternative \[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
 #' the correlation inference. It must be one of "two.sided" (default), "greater" or "less".
 #' You can specify just the initial letter.
-#' @param verbose [\code{logical(1)}]\cr Activate verbose mode.
-#' @param num.s [\code{numeric(1)}]\cr Used in permutation test. The number of samples with
+#' @param verbose \[\code{logical(1)}]\cr Activate verbose mode.
+#' @param num.s \[\code{numeric(1)}]\cr Used in permutation test. The number of samples with
 #' replacement created with y numeric vector.
-#' @param rk [\code{logical(1)}]\cr Used in permutation test.
+#' @param rk \[\code{logical(1)}]\cr Used in permutation test.
 #' if its TRUE transform x, y numeric vectors with samples ranks.
-#' @param cor.nn [\code{character(1)}]\cr
+#' @param cor.nn \[\code{character(1)}]\cr
 #' Choose correlation type to be used in integer/numeric pair inference.
 #' The options are `pearson: Pearson Correlation`,`mic: Maximal Information Coefficient`,
 #' `dcor: Distance Correlation`,`pps: Predictive Power Score`.Default is `Pearson Correlation`.
-#' @param cor.nc [\code{character(1)}]\cr
+#' @param cor.nc \[\code{character(1)}]\cr
 #' Choose correlation type to be used in integer/numeric - factor/categorical pair inference.
 #' The option are `lm: Linear Model`,`pps: Predictive Power Score`. Default is `Linear Model`.
-#' @param cor.cc  [\code{character(1)}]\cr
+#' @param cor.cc  \[\code{character(1)}]\cr
 #' Choose correlation type to be used in factor/categorical pair inference.
 #' The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 #' `pps: Predictive Power Score`. Default is ` Cramer's V`.
-#' @param lm.args [\code{list(1)}]\cr additional parameters for the specific method.
-#' @param pearson.args [\code{list(1)}]\cr additional parameters for the specific method.
-#' @param dcor.args [\code{list(1)}]\cr additional parameters for the specific method.
-#' @param mic.args [\code{list(1)}]\cr additional parameters for the specific method.
-#' @param pps.args [\code{list(1)}]\cr additional parameters for the specific method.
-#' @param uncoef.args [\code{list(1)}]\cr additional parameters for the specific method.
-#' @param cramersV.args [\code{list(1)}]\cr additional parameters for the specific method.
+#' @param lm.args \[\code{list(1)}]\cr additional parameters for the specific method.
+#' @param pearson.args \[\code{list(1)}]\cr additional parameters for the specific method.
+#' @param dcor.args \[\code{list(1)}]\cr additional parameters for the specific method.
+#' @param mic.args \[\code{list(1)}]\cr additional parameters for the specific method.
+#' @param pps.args \[\code{list(1)}]\cr additional parameters for the specific method.
+#' @param uncoef.args \[\code{list(1)}]\cr additional parameters for the specific method.
+#' @param cramersV.args \[\code{list(1)}]\cr additional parameters for the specific method.
 #' @param ... Additional arguments (TODO).
 #'
 #' @author Igor D.S. Siciliani

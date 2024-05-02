@@ -3,12 +3,12 @@
 #' @description A C++ implementation of the Silhouette method
 #' of interpretation and validation of consistency within acca clusters of data.
 #'
-#' @param acca [\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}
-#' @param m  [\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
+#' @param acca \[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}
+#' @param m  \[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
 #' By default the distance matrix(dist) used in this method is given by `dist = 1 - m`.
 #' @param ... Additional arguments (TODO).
 #'
-#' @return [\code{numeric(1)}]\cr the average value of
+#' @return \[\code{numeric(1)}]\cr the average value of
 #'  the silhouette width over all data of the entire dataset.
 #'  Observations with a large average silhouette width (almost 1)
 #'  are very well clustered.
