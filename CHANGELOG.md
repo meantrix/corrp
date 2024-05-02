@@ -1,5 +1,26 @@
 # CHANGELOG
 
+## 0.4.0
+
+### New methods
+
+- `dcorT_test`: Create Correlation Matrix from corrp inferences (C++ wraper).
+- `C++ methods`:
+  - `Astar`: Derivate the modified distance covariance statistics.
+  - `dist`: Calculate distance matrix.
+  - `bcdcor`: Function to calculate bias corrected distance correlation.
+  - `dcort`: Function to calculate the t statistic for corrected high dimention distance correlation.
+  - `dcort_test`: Function to calculate the t statistic for corrected high dimention distance correlation. 
+  Returns a list:
+    -  method: description of test.
+    -  statistic: observed value of the test statistic.
+    -  parameter: degrees of freedom.
+    -  estimate: (bias corrected) squared distance correlation.
+    -  p.value: p-value of the t-test.
+    -  data.name: description of data.
+
+### Changes
+-  `corr_fun`: Now uses C++ while using distance correlation.
 
 ## 0.3.0
 
