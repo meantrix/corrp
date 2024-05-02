@@ -1,6 +1,5 @@
 #include <RcppArmadilloExtensions/sample.h>
 #include "acca.h"
-
 using namespace Rcpp;
 
 

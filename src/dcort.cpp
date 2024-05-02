@@ -24,21 +24,20 @@ NumericMatrix Astar(NumericMatrix d) {
   M /= n;
 
   // Calculate Astar matrix
-  NumericMatrix A(n, n);
   for (int i = 0; i < n; ++i) {
     for (int j = 0; j < n; ++j) {
-      A(i, j) = d(i, j) - m[i] - m[j] + M - d(i,j) / n;
+      d(i, j) = d(i, j) - m[i] - m[j] + M - d(i,j) / n;
     }
   }
 
   // Apply correction
   for (int i = 0; i < n; ++i) {
-    A(i, i) = m[i] - M;
+    d(i, i) = m[i] - M;
   }
   
-  A = n / (n - 1.0) * A;
+  d = n / (n - 1.0) * d;
 
-  return A;
+  return d;
 }
 
 NumericMatrix dist(NumericMatrix data) {

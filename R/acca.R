@@ -1,6 +1,7 @@
 #' @useDynLib corrp, .registration=TRUE
 #' @exportPattern "^[[:alpha:]]+"
 #' @importFrom Rcpp evalCpp
+#' @importFrom RcppArmadillo armadillo_version
 
 #' @title Average correlation clustering algorithm
 #'
