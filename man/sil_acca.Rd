@@ -13,15 +13,15 @@ sil_acca(acca, ...)
 \method{sil_acca}{list}(acca, m, ...)
 }
 \arguments{
-\item{acca}{[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}}
+\item{acca}{\[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}}
 
 \item{...}{Additional arguments (TODO).}
 
-\item{m}{[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
+\item{m}{\[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
 By default the distance matrix(dist) used in this method is given by `dist = 1 - m`.}
 }
 \value{
-[\code{numeric(1)}]\cr the average value of
+\[\code{numeric(1)}]\cr the average value of
  the silhouette width over all data of the entire dataset.
  Observations with a large average silhouette width (almost 1)
  are very well clustered.

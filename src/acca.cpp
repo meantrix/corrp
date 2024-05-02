@@ -1,7 +1,5 @@
 #include <RcppArmadilloExtensions/sample.h>
-#include <Rcpp.h>
 #include "acca.h"
-// [[Rcpp::depends(RcppArmadillo)]]
 using namespace Rcpp;
 
 

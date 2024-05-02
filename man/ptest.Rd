@@ -15,18 +15,18 @@ ptest(
 )
 }
 \arguments{
-\item{x}{[\code{numeric(1)}]\cr a numeric vector.}
+\item{x}{\[\code{numeric(1)}]\cr a numeric vector.}
 
-\item{y}{[\code{numeric(1)}]\cr a numeric vector.}
+\item{y}{\[\code{numeric(1)}]\cr a numeric vector.}
 
-\item{FUN}{[\code{function(1)}]\cr the function to be applied}
+\item{FUN}{\[\code{function(1)}]\cr the function to be applied}
 
-\item{rk}{[\code{logical(1)}]\cr if its TRUE transform x, y numeric vectors with samples ranks.}
+\item{rk}{\[\code{logical(1)}]\cr if its TRUE transform x, y numeric vectors with samples ranks.}
 
-\item{alternative}{[\code{character(1)}]\cr a character string specifying the alternative hypothesis,
+\item{alternative}{\[\code{character(1)}]\cr a character string specifying the alternative hypothesis,
 must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.}
 
-\item{num.s}{[\code{numeric(1)}]\cr number of samples with replacement created with y numeric vector.}
+\item{num.s}{\[\code{numeric(1)}]\cr number of samples with replacement created with y numeric vector.}
 
 \item{...}{Additional arguments (TODO).}
 }

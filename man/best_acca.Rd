@@ -13,20 +13,20 @@ best_acca(m, ...)
 \method{best_acca}{matrix}(m, mink, maxk, maxrep = 2L, maxiter = 100L, ...)
 }
 \arguments{
-\item{m}{[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.}
+\item{m}{\[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.}
 
 \item{...}{Additional arguments (TODO).}
 
-\item{mink}{[\code{integer(1)}]\cr minimum number of clusters considered.}
+\item{mink}{\[\code{integer(1)}]\cr minimum number of clusters considered.}
 
-\item{maxk}{[\code{integer(1)}]\cr maximum number of clusters considered.}
+\item{maxk}{\[\code{integer(1)}]\cr maximum number of clusters considered.}
 
-\item{maxrep}{[\code{integer(1)}]\cr maximum number of interactions without change in the clusters in the ACCA method.}
+\item{maxrep}{\[\code{integer(1)}]\cr maximum number of interactions without change in the clusters in the ACCA method.}
 
-\item{maxiter}{[\code{integer(1)}]\cr maximum number of interactions in the ACCA method.}
+\item{maxiter}{\[\code{integer(1)}]\cr maximum number of interactions in the ACCA method.}
 }
 \value{
-[\code{list(3)}]\cr A list with: silhouette average with per k `$silhouette.ave`;
+\[\code{list(3)}]\cr A list with: silhouette average with per k `$silhouette.ave`;
 the sequence of clusters tested `$k` and the optimal number of clusters `$best.k`.
 }
 \description{
