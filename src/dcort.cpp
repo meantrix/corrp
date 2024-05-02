@@ -5,30 +5,18 @@ using namespace Rcpp;
 // Modified distance covariance statistics
 NumericMatrix Astar(NumericMatrix d) {
   int n = d.nrow();
-  NumericVector m(n);
-  double M = 0.0;
-
-  // Calculate row means
-  for (int i = 0; i < n; ++i) {
-    double row_sum = 0.0;
-    for (int j = 0; j < n; ++j) {
-      row_sum += d(i, j);
-    }
-    m[i] = row_sum / n;
-  }
+  NumericVector m = Rcpp::rowMeans(d);
 
   // Calculate overall mean
-  for (int i = 0; i < n; ++i) {
-    M += m[i];
-  }
-  M /= n;
+  double M = mean(m);
+  
+  d = (1 - 1 / n) * d + M;
 
-  // Calculate Astar matrix
   for (int i = 0; i < n; ++i) {
-    for (int j = 0; j < n; ++j) {
-      d(i, j) = d(i, j) - m[i] - m[j] + M - d(i,j) / n;
-    }
+    d(i, _) = d(i, _) - m[i];
+    d(_, i) = d(_, i) - m[i];
   }
+
 
   // Apply correction
   for (int i = 0; i < n; ++i) {
@@ -46,15 +34,17 @@ NumericMatrix dist(NumericMatrix data) {
   NumericMatrix distances(n, n);
   
   for (int i = 0; i < n; ++i) {
+    NumericVector row_i = data(i, _);
+
     for (int j = i; j < n; ++j) {
-      double distance = 0.0;
-      for (int k = 0; k < data.ncol(); ++k) {
-        distance += pow(data(i, k) - data(j, k), 2);
-      }
-      distances(i, j) = sqrt(distance);
-      distances(j, i) = distances(i, j); // Distance matrix is symmetric
+      NumericVector row_j = data(j, _);
+      
+      double distance = sqrt(sum(pow(row_i - row_j, 2)));
+      distances(i, j) = distance;
+      distances(j, i) = distance;
     }
   }
+  
   
   return distances;
 }
