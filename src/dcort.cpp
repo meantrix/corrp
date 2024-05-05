@@ -17,7 +17,6 @@ NumericMatrix Astar(NumericMatrix d) {
     d(_, i) = d(_, i) - m[i];
   }
 
-
   // Apply correction
   for (int i = 0; i < n; ++i) {
     d(i, i) = m[i] - M;
@@ -32,12 +31,15 @@ NumericMatrix Astar(NumericMatrix d) {
 NumericMatrix dist(NumericMatrix data) {
   int n = data.nrow();
   NumericMatrix distances(n, n);
+
+  NumericVector row_i(n);
+  NumericVector row_j(n);
   
   for (int i = 0; i < n; ++i) {
-    NumericVector row_i = data(i, _);
-
+    row_i = data(i, _);
+    
     for (int j = i; j < n; ++j) {
-      NumericVector row_j = data(j, _);
+      row_j = data(j, _);
       
       double distance = sqrt(sum(pow(row_i - row_j, 2)));
       distances(i, j) = distance;
