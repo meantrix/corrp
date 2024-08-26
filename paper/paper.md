@@ -10,8 +10,8 @@ authors:
   - name: Igor Dornelles Schoeller Siciliani
     orcid: 0000-0002-9854-9602
     affiliation: "1, 2"
-  - name: Contributor Name
-    orcid: 0000-0002-9854-9602
+  - name: Paulo Henrique dos Santos
+    orcid: 0009-0004-5273-4142
     affiliation: "1, 2"
 affiliations:
  - name: Meantrix, Brazil
