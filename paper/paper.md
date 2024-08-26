@@ -81,6 +81,7 @@ library("corrp")
 results = corrp(iris, cor.nn = 'mic', cor.nc = 'pps', cor.cc = 'uncoef', n.cores = 2, verbose = FALSE)
 
 head(results$data)
+```
 
 |      | infer                           | infer.value | stat       | stat.value |
 |------|---------------------------------|-------------|------------|------------|
@@ -101,22 +102,33 @@ head(results$data)
 | 5    | TRUE  |       | Sepal.Length | Species      |
 | 6    | TRUE  |       | Sepal.Width  | Sepal.Length |
 
-```
-
 
 Using the previous result, we can create a correlation matrix as follows:
 
 ```r
 m = corr_matrix(results, col = 'infer.value', isig = TRUE)
 m
-|                | Sepal.Length | Sepal.Width | Petal.Length | Petal.Width | Species    |
-|----------------|--------------|-------------|--------------|-------------|------------|
-| Sepal.Length   | 0.9994870    | 0.2770503   | 0.7682996    | 0.6683281   | 0.4075487  |
-| Sepal.Width    | 0.2770503    | 0.9967831   | 0.4391362    | 0.4354146   | 0.2012876  |
-| Petal.Length   | 0.7682996    | 0.4391362   | 1.0000000    | 0.9182958   | 0.7904907  |
-| Petal.Width    | 0.6683281    | 0.4354146   | 0.9182958    | 0.9995144   | 0.7561113  |
-| Species        | 0.5591864    | 0.3134401   | 0.9167580    | 0.9398532   | 0.9999758  |
+```
 
+| ID             | Sepal.Length | Sepal.Width |
+|----------------|--------------|-------------|
+| Sepal.Length   | 0.9994870    | 0.2770503   |
+| Sepal.Width    | 0.2770503    | 0.9967831   |
+| Petal.Length   | 0.7682996    | 0.4391362   |
+| Petal.Width    | 0.6683281    | 0.4354146   |
+| Species        | 0.5591864    | 0.3134401   |
+
+| ID             | Petal.Length | Petal.Width | Species    |
+|----------------|--------------|-------------|------------|
+| Sepal.Length   | 0.7682996    | 0.6683281   | 0.4075487  |
+| Sepal.Width    | 0.4391362    | 0.4354146   | 0.2012876  |
+| Petal.Length   | 1.0000000    | 0.9182958   | 0.7904907  |
+| Petal.Width    | 0.9182958    | 0.9995144   | 0.7561113  |
+| Species        | 0.9167580    | 0.9398532   | 0.9999758  |
+
+
+
+```r
 # attr(,"class")
 # [1] "cmatrix" "matrix" 
 
