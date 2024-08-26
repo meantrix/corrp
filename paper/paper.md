@@ -110,7 +110,7 @@ m = corr_matrix(results, col = 'infer.value', isig = TRUE)
 m
 ```
 
-| ID             | Sepal.Length | Sepal.Width |
+|                | Sepal.Length | Sepal.Width |
 |----------------|--------------|-------------|
 | Sepal.Length   | 0.9994870    | 0.2770503   |
 | Sepal.Width    | 0.2770503    | 0.9967831   |
@@ -118,7 +118,7 @@ m
 | Petal.Width    | 0.6683281    | 0.4354146   |
 | Species        | 0.5591864    | 0.3134401   |
 
-| ID             | Petal.Length | Petal.Width | Species    |
+|                | Petal.Length | Petal.Width | Species    |
 |----------------|--------------|-------------|------------|
 | Sepal.Length   | 0.7682996    | 0.6683281   | 0.4075487  |
 | Sepal.Width    | 0.4391362    | 0.4354146   | 0.2012876  |
