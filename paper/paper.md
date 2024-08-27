@@ -42,16 +42,16 @@ R and C++ were combined in the creation of corrp package to merge flexibility of
 - ACCA clustering algorithm with a modified approach to support mixed data and various correlation methods.
 - Functions for creating correlation matrices, removing variables based on significance.
 
-In this package, the association measures are automatically computed according to the following options:
+In this package, the association measures can be computed according to the following options:
 
 - **Numeric pairs (integer/numeric):**
-  - Pearson correlation coefficient [@pearson:1895], a widely used measure of the linear relationship between two variables.
-  - Distance Correlation [@szekely:2007], which measures both linear and nonlinear associations between variables.
-  - Maximal Information Coefficient (MIC) [@reshef:2011], a maximal information based method.
-  - Predictive Power Score (PPS) [@flach:2012], a modern method used to assess predictive relationships between variables.
+  - Pearson correlation coefficient [@pearson:1895], a widely used measure of the strength and direction of linear relationships.
+  - Distance Correlation or distance covariance [@szekely:2007], based on the idea of expanding covariance to distances, can measure both linear and nonlinear associations between variables.
+  - Maximal Information Coefficient (MIC) [@reshef:2011],  a information-based nonparametric based method that can detect linear or non-linear relationships between variables.
+  - Predictive Power Score (PPS) [@flach:2012], a metric used to assess predictive relations between variables.
 
 - **Numeric and categorical pairs (integer/numeric - factor/categorical):**
-  - Square root of the R² coefficient from linear regression [@cohen:1983], used to quantify the proportion of variance explained in the regression model.
+  - Square root of the R² coefficient from linear regression [@cohen:1983].
   - Predictive Power Score (PPS) [@flach:2012].
 
 - **Categorical pairs (factor/categorical):**
