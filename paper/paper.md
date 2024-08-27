@@ -10,8 +10,8 @@ authors:
   - name: Igor Dornelles Schoeller Siciliani
     orcid: 0000-0002-9854-9602
     affiliation: "1, 2"
-  - name: Contributor Name
-    orcid: 0000-0002-9854-9602
+  - name: Paulo Henrique dos Santos
+    orcid: 0009-0004-5273-4142
     affiliation: "1, 2"
 affiliations:
  - name: Meantrix, Brazil
@@ -81,14 +81,26 @@ library("corrp")
 results = corrp(iris, cor.nn = 'mic', cor.nc = 'pps', cor.cc = 'uncoef', n.cores = 2, verbose = FALSE)
 
 head(results$data)
-#                            infer infer.value        stat stat.value  isig msg         varx         vary
-# Maximal Information Coefficient   0.9994870     P-value  0.0000000  TRUE     Sepal.Length Sepal.Length
-# Maximal Information Coefficient   0.2770503     P-value  0.0000000  TRUE     Sepal.Length  Sepal.Width
-# Maximal Information Coefficient   0.7682996     P-value  0.0000000  TRUE     Sepal.Length Petal.Length
-# Maximal Information Coefficient   0.6683281     P-value  0.0000000  TRUE     Sepal.Length  Petal.Width
-#          Predictive Power Score   0.5591864 F1_weighted  0.7028029  TRUE     Sepal.Length      Species
-# Maximal Information Coefficient   0.2770503     P-value  0.0000000  TRUE      Sepal.Width Sepal.Length
 ```
+
+|      | infer                           | infer.value | stat       | stat.value |
+|------|---------------------------------|-------------|------------|------------|
+| 1    | Maximal Information Coefficient | 0.9994870   | P-value    | 0.0000000  |
+| 2    | Maximal Information Coefficient | 0.2770503   | P-value    | 0.0000000  |
+| 3    | Maximal Information Coefficient | 0.7682996   | P-value    | 0.0000000  |
+| 4    | Maximal Information Coefficient | 0.6683281   | P-value    | 0.0000000  |
+| 5    | Predictive Power Score          | 0.5591864   | F1_weighted| 0.7028029  |
+| 6    | Maximal Information Coefficient | 0.2770503   | P-value    | 0.0000000  |
+
+
+|      | isig  | msg   | varx         | vary         |
+|------|-------|-------|--------------|--------------|
+| 1    | TRUE  |       | Sepal.Length | Sepal.Length |
+| 2    | TRUE  |       | Sepal.Length | Sepal.Width  |
+| 3    | TRUE  |       | Sepal.Length | Petal.Length |
+| 4    | TRUE  |       | Sepal.Length | Petal.Width  |
+| 5    | TRUE  |       | Sepal.Length | Species      |
+| 6    | TRUE  |       | Sepal.Width  | Sepal.Length |
 
 
 Using the previous result, we can create a correlation matrix as follows:
@@ -96,12 +108,27 @@ Using the previous result, we can create a correlation matrix as follows:
 ```r
 m = corr_matrix(results, col = 'infer.value', isig = TRUE)
 m
-#              Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
-# Sepal.Length    0.9994870   0.2770503    0.7682996   0.6683281 0.4075487
-# Sepal.Width     0.2770503   0.9967831    0.4391362   0.4354146 0.2012876
-# Petal.Length    0.7682996   0.4391362    1.0000000   0.9182958 0.7904907
-# Petal.Width     0.6683281   0.4354146    0.9182958   0.9995144 0.7561113
-# Species         0.5591864   0.3134401    0.9167580   0.9398532 0.9999758
+```
+
+|                | Sepal.Length | Sepal.Width |
+|----------------|--------------|-------------|
+| Sepal.Length   | 0.9994870    | 0.2770503   |
+| Sepal.Width    | 0.2770503    | 0.9967831   |
+| Petal.Length   | 0.7682996    | 0.4391362   |
+| Petal.Width    | 0.6683281    | 0.4354146   |
+| Species        | 0.5591864    | 0.3134401   |
+
+|                | Petal.Length | Petal.Width | Species    |
+|----------------|--------------|-------------|------------|
+| Sepal.Length   | 0.7682996    | 0.6683281   | 0.4075487  |
+| Sepal.Width    | 0.4391362    | 0.4354146   | 0.2012876  |
+| Petal.Length   | 1.0000000    | 0.9182958   | 0.7904907  |
+| Petal.Width    | 0.9182958    | 0.9995144   | 0.7561113  |
+| Species        | 0.9167580    | 0.9398532   | 0.9999758  |
+
+
+
+```r
 # attr(,"class")
 # [1] "cmatrix" "matrix" 
 
