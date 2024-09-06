@@ -24,40 +24,35 @@ bibliography: paper.bib
 
 # Summary
 
-Correlation-like analysis provides an important statistical measure that can describe the size and direction of an association between variables. However, there are few R packages that can efficiently perform this type of analysis on large datasets with mixed data types. The **corrp** package provides a full suite of solutions for computing various kinds of correlation-like measures such as Pearson correlation [@pearson:1895], Distance Correlation [@szekely:2007], Maximal Information Coefficient (MIC) [@reshef:2011], Predictive Power Score (PPS) [@flach:2012], Cramér's V [@cramer:1946], and the Uncertainty Coefficient [@theil:1970]. These methods support the analysis of data frames with mixed classes (integer, numeric, factor, and character). In addition, it offers a C++ implementation of the Average Correlation Clustering Algorithm (ACCA) [@tibshirani:2010], which is original used in genetic studies. In this package, the ACCA algorithm has been extended to work directly with correlation matrices derived from different association methods, depending on the data types and user preferences. Furthermore, the package is designed for parallel processing in R, making it highly efficient for large datasets.
+Correlation-like analysis provides an important statistical measure that can describe the size and direction of an association between variables. However, there are few R packages that can efficiently perform this type of analysis on large datasets with mixed data types. The `corrp` package provides a full suite of solutions for computing various kinds of correlation-like measures such as Pearson correlation [@pearson:1895], Distance Correlation [@szekely:2007], Maximal Information Coefficient (MIC) [@reshef:2011], Predictive Power Score (PPS) [@pps:2020], Cramér's V [@cramer:1946], and the Uncertainty Coefficient [@theil:1970]. These methods support the analysis of data frames with mixed classes (integer, numeric, factor, and character). In addition, it offers a C++ implementation of the Average Correlation Clustering Algorithm (ACCA) [@bhattacharya:2010], which is original used in genetic studies. In this package, the ACCA algorithm has been extended to work directly with correlation matrices derived from different association methods, depending on the data types and user preferences. Furthermore, the package is designed for parallel processing in R, making it highly efficient for large datasets.
 
 
 
 # Statement of need
 
-The corrp package is an R package that provides a flexible and efficient way of doing correlation-like analysis on mixed-type data frames. Most traditional correlation methods in R are applicable only to specific data types or small datasets.**corrp** extends this capability by handling mixed classes, integrating various association methods, and offering clustering directly from the resulting correlation matrix. The package is particularly useful for researchers and data scientists working with complex datasets who require robust and scalable tools for both association analysis and clustering.
+The corrp package is an R package that provides a flexible and efficient way of doing correlation-like analysis on mixed-type data frames. Most traditional correlation methods in R are applicable only to specific data types or small datasets `corrp` extends this capability by handling mixed classes, integrating various association methods, and offering clustering directly from the resulting correlation matrix. The package is particularly useful for researchers and data scientists working with complex datasets who require robust and scalable tools for both association analysis and clustering.
 
 
 # Implementation
 
-R and C++ were combined in the creation of corrp package to merge flexibility of R with the speed of C++ which is used for key operations. The core functionalities include:
+The `corrp` package integrates R and C++ to combine the flexibility of R with the speed of C++, optimizing key operations. Its core functionalities include the selection of correlation-like methods based on pair of variable types (numeric pairs, numeric and categorical pairs, etc.). Users can create correlation matrices, remove variables based on significance, and cluster the correlation matrix using the ACCA clustering algorithm. This approach has been modified to support mixed data types and various correlation methods. Additionally, the package supports parallel processing through the `foreach` package, significantly improving performance on large datasets.
 
-- Automatic selection of correlation-like methods based on variable types (numeric, categorical, etc.).
-- Parallel processing support using the `foreach` package, thus improving performance on large datasets.
-- ACCA clustering algorithm with a modified approach to support mixed data and various correlation methods.
-- Functions for creating correlation matrices, removing variables based on significance.
-
-In this package, the association measures can be computed according to the following options:
+As mentioned before, one can choose between the following options based on the type pair:
 
 - **Numeric pairs (integer/numeric):**
   - Pearson correlation coefficient [@pearson:1895], a widely used measure of the strength and direction of linear relationships.
   - Distance Correlation or distance covariance [@szekely:2007], based on the idea of expanding covariance to distances, can measure both linear and nonlinear associations between variables.
   - Maximal Information Coefficient (MIC) [@reshef:2011],  a information-based nonparametric based method that can detect linear or non-linear relationships between variables.
-  - Predictive Power Score (PPS) [@flach:2012], a metric used to assess predictive relations between variables.
+  - Predictive Power Score (PPS) [@pps:2020], a metric used to assess predictive relations between variables.
 
 - **Numeric and categorical pairs (integer/numeric - factor/categorical):**
   - Square root of the R² coefficient from linear regression [@cohen:1983].
-  - Predictive Power Score (PPS) [@flach:2012].
+  - Predictive Power Score (PPS) [@pps:2020].
 
 - **Categorical pairs (factor/categorical):**
   - Cramér's V [@cramer:1946], a measure of association between nominal variables.
   - Uncertainty Coefficient [@theil:1970], a measure of nominal association between two variables.
-  - Predictive Power Score (PPS) [@flach:2012].
+  - Predictive Power Score (PPS) [@pps:2020].
 
 
 
@@ -66,15 +61,14 @@ In this package, the association measures can be computed according to the follo
 The `corrp` package provides seven main functions for correlation calculations, clustering, and basic data manipulation:
 
 
-- `corrp()`: Performs correlation-like analysis with user-specified methods for numeric, categorical, factor, interger and mixed pairs.
-- `corr_matrix()`: Generates a correlation matrix from analysis results.
-- `corr_rm()`: Removes variables based on p-value significance.
-- `acca()`: Implements the ACCA clustering algorithm with added support for mixed data types.
-- `sil_acca()`: A generic C++ implementation of the Silhouette method.
-- `best_acca()`: Determining the optimal number of clusters in ACCA clustering using the average silhouette approach.
+- **corrp**: Performs correlation-like analysis with user-specified methods for numeric, categorical, factor, interger and mixed pairs.
+- **corr_matrix**: Generates a correlation matrix from analysis results.
+- **corr_rm**: Removes variables based on p-value significance.
+- **acca**: Performs the ACCA clustering algorithm with added support for mixed data types.
+- **sil_acca**: A C++ implementation of the Silhouette method for interpreting and validating the consistency of clusters within ACCA clusters of data.
+- **best_acca**: Determining the optimal number of clusters in ACCA clustering using the average silhouette approach.
 
-
-First, we calculate the correlations for the `iris` dataset using the Maximal Information Coefficient for numeric pairs, the Predictive Power Score algorithm for numeric/categorical pairs, and the Uncertainty Coefficient for categorical pairs.
+First, we calculate the correlations for the *iris* dataset using the Maximal Information Coefficient for numeric pairs, the Predictive Power Score algorithm for numeric/categorical pairs, and the Uncertainty Coefficient for categorical pairs.
 
 ```r
 library("corrp")
@@ -156,5 +150,4 @@ acca.res
 We acknowledge the contributions of the Meantrix team (https://github.com/meantrix) and thank Srikanth Komala Sheshachala (https://github.com/talegari) for the initial inspiration from the cor2 function.
 
 # References
-
 
