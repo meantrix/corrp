@@ -14,10 +14,10 @@ authors:
     orcid: 0009-0004-5273-4142
     affiliation: "1, 2"
 affiliations:
- - name: Meantrix, Brazil
-   index: 1
- - name: Universidade Federal de Santa Catarina, Brazil
-   index: 2
+  - name: Meantrix, Brazil
+    index: 1
+  - name: Universidade Federal de Santa Catarina, Brazil
+    index: 2
 date: 16 August 2024
 bibliography: paper.bib
 ---
@@ -72,7 +72,11 @@ First, we calculate the correlations for the *iris* dataset using the Maximal In
 
 ```r
 library("corrp")
-results = corrp(iris, cor.nn = 'mic', cor.nc = 'pps', cor.cc = 'uncoef', n.cores = 2, verbose = FALSE)
+results = corrp(
+  iris, 
+  cor.nn = 'mic', cor.nc = 'pps', cor.cc = 'uncoef', 
+  n.cores = 2, verbose = FALSE
+)
 
 head(results$data)
 ```
