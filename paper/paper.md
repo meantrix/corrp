@@ -24,7 +24,7 @@ bibliography: paper.bib
 
 # Summary
 
-Correlation-like analysis provides an important statistical measure that can describe the size and direction of an association between variables. However, there are few R packages that can efficiently perform this type of analysis on large datasets with mixed data types. The `corrp` package provides a full suite of solutions for computing various kinds of correlation-like measures such as Pearson correlation [@pearson:1895], Distance Correlation [@szekely:2007], Maximal Information Coefficient (MIC) [@reshef:2011], Predictive Power Score (PPS) [@pps:2020], Cramér's V [@cramer:1946], and the Uncertainty Coefficient [@theil:1970]. These methods support the analysis of data frames with mixed classes (integer, numeric, factor, and character). In addition, it offers a C++ implementation of the Average Correlation Clustering Algorithm (ACCA) [@bhattacharya:2010], which is original used in genetic studies. In this package, the ACCA algorithm has been extended to work directly with correlation matrices derived from different association methods, depending on the data types and user preferences. Furthermore, the package is designed for parallel processing in R, making it highly efficient for large datasets.
+Correlation-like analysis provides an important statistical measure that can describe the size and direction of an association between variables. However, there are few R packages that can efficiently perform this type of analysis on large datasets with mixed data types. The `corrp` package provides a full suite of solutions for computing various kinds of correlation-like measures such as Pearson correlation [@pearson:1895], Distance Correlation [@szekely:2007], Maximal Information Coefficient (MIC) [@reshef:2011], Predictive Power Score (PPS) [@pps:2020], Cramér's V [@cramer:1946], and the Uncertainty Coefficient [@theil:1972]. These methods support the analysis of data frames with mixed classes (integer, numeric, factor, and character). In addition, it offers a C++ implementation of the Average Correlation Clustering Algorithm (ACCA) [@bhattacharya:2010], which is original used in genetic studies. In this package, the ACCA algorithm has been extended to work directly with correlation matrices derived from different association methods, depending on the data types and user preferences. Furthermore, the package is designed for parallel processing in R, making it highly efficient for large datasets.
 
 
 
@@ -51,7 +51,7 @@ As mentioned before, one can choose between the following options based on the t
 
 - **Categorical pairs (factor/categorical):**
   - Cramér's V [@cramer:1946], a measure of association between nominal variables.
-  - Uncertainty Coefficient [@theil:1970], a measure of nominal association between two variables.
+  - Uncertainty Coefficient [@theil:1972], a measure of nominal association between two variables.
   - Predictive Power Score (PPS) [@pps:2020].
 
 
