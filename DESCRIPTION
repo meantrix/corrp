@@ -24,7 +24,9 @@ Imports:
     checkmate (>= 2.0.0),
     ppsr (>= 0.0.2),
     DescTools(>= 0.99.40)
-Suggests: testthat
+Suggests: 
+    energy,
+    testthat
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
