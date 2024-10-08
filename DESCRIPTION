@@ -13,8 +13,8 @@ Description: Compute multiple types of correlations analysis (Pearson correlatio
   This package also has a C++ implementation of the Average correlation clustering algorithm and distance correlation t-test.
 Depends: 
     R (>= 3.6.0),
-    Rcpp (>= 1.0.4.6),
 Imports: 
+    Rcpp (>= 1.0.4.6),
     RcppArmadillo,
     lsr (>= 0.5),
     parallel,
