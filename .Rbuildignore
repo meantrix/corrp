@@ -10,3 +10,4 @@
 ^LICENSE\.md$
 ^_pkgdown\.yml$
 ^.renvignore$
+^CHANGELOG\.md$
