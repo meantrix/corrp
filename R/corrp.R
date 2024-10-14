@@ -94,7 +94,7 @@
 #' \dontrun{
 #'
 #' air_cor <- corrp(airquality)
-#' air_m <- corr_matrix(air_cor, isig = F)
+#' air_m <- corr_matrix(air_cor, isig = FALSE)
 #' corrplot::corrplot(air_m)
 #' }
 #'
@@ -105,7 +105,7 @@ corrp <- function(df,
                   p.value = 0.05,
                   verbose = TRUE,
                   num.s = 1000,
-                  rk = F,
+                  rk = FALSE,
                   comp = c("greater", "less"),
                   alternative = c("two.sided", "less", "greater"),
                   cor.nn = c("pearson", "mic", "dcor", "pps"),

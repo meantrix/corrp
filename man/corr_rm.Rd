@@ -56,7 +56,7 @@ corrp functions outputs and the caret package function \code{\link[caret]{findCo
 \dontrun{
 
 air_cor <- corrp(airquality)
-corr_rm(df = airquality, c = air_cor, cutoff = 0.75, col = "infer.value", isig = F)
+corr_rm(df = airquality, c = air_cor, cutoff = 0.75, col = "infer.value", isig = FALSE)
 }
 }
 \author{

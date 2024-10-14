@@ -16,7 +16,7 @@
 
   pv <- stats::pf(sum.res$fstatistic[1], sum.res$fstatistic[2],
     sum.res$fstatistic[3],
-    lower.tail = F
+    lower.tail = FALSE
   )
 
   compare <- .comparepv(x = pv, pv = p.value, comp = comp)

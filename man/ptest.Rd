@@ -8,7 +8,7 @@ ptest(
   x,
   y,
   FUN,
-  rk = F,
+  rk = FALSE,
   alternative = c("two.sided", "less", "greater"),
   num.s = 1000,
   ...

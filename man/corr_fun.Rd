@@ -11,7 +11,7 @@ corr_fun(
   p.value = 0.05,
   verbose = TRUE,
   num.s = 1000,
-  rk = F,
+  rk = FALSE,
   comp = c("greater", "less"),
   alternative = c("two.sided", "less", "greater"),
   cor.nn = c("pearson", "mic", "dcor", "pps"),
