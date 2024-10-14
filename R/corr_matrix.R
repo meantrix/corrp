@@ -64,7 +64,7 @@ corr_matrix.clist <- function(c, col = c("infer.value", "stat.value", "isig"), i
     m <- matrix(NA, ncol = len, nrow = len)
   }
 
-  for (k in 1:NROW(df)) {
+  for (k in seq_len(NROW(df))) {
     m[df$i[k], df$j[k]] <- df[k, col]
   }
 

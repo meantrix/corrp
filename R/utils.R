@@ -62,7 +62,7 @@
   if (is.data.frame(x)) x <- x[[1]]
   if (is.data.frame(y)) y <- y[[1]]
 
-  infer <- "Cramer's V"
+  infer <- "Cramer\'s V"
   stat <- "P-value"
 
   args <- c(list(x), list(y), cramersV.args)
@@ -357,8 +357,9 @@
   return(list("comp" = comp, "str" = str))
 }
 
-# convert NULL list elements to NA
+# Convert NULL list elements to NA
 .null.to.na <- function(x) {
-  x[sapply(x, is.null)] <- NA
+  null_indices <- vapply(x, is.null, logical(1))
+  x[null_indices] <- NA
   return(x)
 }

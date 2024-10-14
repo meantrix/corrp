@@ -7,29 +7,31 @@ Authors@R:
         person("Igor", "Dornelles Schoeller Siciliani", email = "igor@meantrix.com", role = c("aut", "cre")),
         person("Paulo", "Henrique dos Santos", email = "paulo.santos@meantrix.com", role = "aut")
     )
-Description: Compute multiple types of correlations analysis (Pearson correlation, R^2 
-  coefficient of linear regression, Cramer's V measure of association, 
-  Distance Correlation,The Maximal Information Coefficient,
-  Uncertainty coefficient and Predictive Power Score) in large dataframes
-  with mixed columns classes(integer, numeric, factor and character)
-  in parallel backend.
-  This package also has a C++ implementation of the Average correlation clustering algorithm and distance correlation t-test.
-Depends: 
-    R (>= 3.6.0),
+Description: Compute multiple types of correlation analyses, including 
+    Pearson correlation, R^2 coefficient of linear regression, Cramer's 
+    V measure of association, distance correlation, the Maximal 
+    Information Coefficient, uncertainty coefficient, and Predictive 
+    Power Score in large data frames with mixed column classes 
+    (integer, numeric, factor, and character) using a parallel 
+    backend. This package also includes a C++ implementation of 
+    the average correlation clustering algorithm and distance 
+    correlation t-test.
+Imports:     
     Rcpp (>= 1.0.4.6),
-Imports: 
-    RcppArmadillo,
+    RcppArmadillo (>= 0.11.2.0.0),
     lsr (>= 0.5),
-    parallel,
-    stats,
+    parallel (>= 3.6.3),
+    stats (>= 3.6.3),
     caret (>= 6.0-85),
     minerva (>= 1.5.8),    
     checkmate (>= 2.0.0),
     ppsr (>= 0.0.2),
-    DescTools(>= 0.99.40)
+    DescTools (>= 0.99.40)
 Suggests: testthat
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-LinkingTo: Rcpp,  RcppArmadillo
+LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 7.2.3
+URL: https://github.com/meantrix/corrp
+BugReports: https://github.com/meantrix/corrp/issues

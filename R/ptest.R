@@ -52,7 +52,7 @@ ptest <- function(x, y,
   obs <- FUN(x, y)
   est <- c()
   for (i in 1:num.s) {
-    y_i <- sample(y, length(y), replace = T)
+    y_i <- sample(y, length(y), replace = TRUE)
     est <- append(est, FUN(x, y_i))
   }
 

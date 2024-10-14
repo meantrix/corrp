@@ -24,7 +24,7 @@ test_that("Tests on corrp and cor_fun functions", {
   data.linear <- subset(data, infer == "Linear Model")
 
   # Pearson Correlation
-  for (i in 1:NROW(data.pearson)) {
+  for (i in seq_len(NROW(data.pearson))) {
     i.test <- stats::cor.test(df[[as.character(data.pearson$varx[i])]], df[[as.character(data.pearson$vary[i])]], alternative = "t")
 
     expect_equal(i.test$p.value, data.pearson$stat.value[i])
@@ -32,7 +32,7 @@ test_that("Tests on corrp and cor_fun functions", {
   }
 
   # Cramer's V
-  for (i in 1:NROW(data.cramer)) {
+  for (i in seq_len(NROW(data.cramer))) {
     i.pv <- stats::chisq.test(df[[as.character(data.cramer$varx[i])]], df[[as.character(data.cramer$vary[i])]],
       simulate.p.value = TRUE
     )$p.value
@@ -43,7 +43,7 @@ test_that("Tests on corrp and cor_fun functions", {
   }
 
   # Linear Model
-  for (i in 1:NROW(data.linear)) {
+  for (i in seq_len(NROW(data.linear))) {
     x <- df[[as.character(data.linear$varx[i])]]
     y <- df[[as.character(data.linear$vary[i])]]
     clx <- class(x)
@@ -75,11 +75,11 @@ test_that("Tests on corrp and cor_fun functions", {
   # Inferences test 2: cor_fun
 
   # sample numerical correlations to test
-  data.num <- data.pearson[sample(1:NROW(data.pearson), 3), ]
+  data.num <- data.pearson[sample(seq_len(NROW(data.pearson)), 3), ]
 
   # Numerical
   # MIC
-  for (i in 1:NROW(data.num)) {
+  for (i in seq_len(NROW(data.num))) {
     i.test <- minerva::mine(df[[as.character(data.num$varx[i])]], df[[as.character(data.num$vary[i])]])$MIC
     i.pv <- ptest(df[[as.character(data.num$varx[i])]], df[[as.character(data.num$vary[i])]],
       FUN = function(...) {
@@ -98,7 +98,7 @@ test_that("Tests on corrp and cor_fun functions", {
   }
 
   # Dcor
-  for (i in 1:NROW(data.num)) {
+  for (i in seq_len(NROW(data.num))) {
     i.test <- dcorT_test(df[[as.character(data.num$varx[i])]], df[[as.character(data.num$vary[i])]])
 
     i.fun <- corr_fun(df,
@@ -111,7 +111,7 @@ test_that("Tests on corrp and cor_fun functions", {
   }
 
   # PPS
-  for (i in 1:NROW(data.num)) {
+  for (i in seq_len(NROW(data.num))) {
     i.test <- ppsr::score(df, x = as.character(data.num$varx[i]), y = as.character(data.num$vary[i]))
 
     i.fun <- corr_fun(df,
@@ -129,7 +129,7 @@ test_that("Tests on corrp and cor_fun functions", {
   # Categorical
 
   # PPS
-  for (i in 1:NROW(data.cramer)) {
+  for (i in seq_len(NROW(data.cramer))) {
     i.test <- ppsr::score(df, x = as.character(data.cramer$varx[i]), y = as.character(data.cramer$vary[i]))
 
     i.fun <- corr_fun(df,
@@ -145,7 +145,7 @@ test_that("Tests on corrp and cor_fun functions", {
   }
 
   # Uncoef
-  for (i in 1:NROW(data.cramer)) {
+  for (i in seq_len(NROW(data.cramer))) {
     i.test <- DescTools::UncertCoef(df[[as.character(data.cramer$varx[i])]], df[[as.character(data.cramer$vary[i])]])
     i.pv <- ptest(df[[as.character(data.cramer$varx[i])]], df[[as.character(data.cramer$vary[i])]],
       FUN = DescTools::UncertCoef, alternative = "t", rk = TRUE

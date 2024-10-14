@@ -36,10 +36,9 @@ average silhouette aproach.
 \examples{
 \dontrun{
 
-x = corrp::corrp(iris)
-m = corrp::corr_matrix(x)
-best_acca(m,2,6)
-
+x <- corrp::corrp(iris)
+m <- corrp::corr_matrix(x)
+best_acca(m, 2, 6)
 }
 
 }

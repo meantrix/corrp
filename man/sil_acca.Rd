@@ -33,11 +33,10 @@ of interpretation and validation of consistency within acca clusters of data.
 \examples{
 \dontrun{
 
-x = corrp::corrp(iris)
-m = corrp::corr_matrix(x)
-acca = corrp::acca(m,2)
-sil_acca(acca,m)
-
+x <- corrp::corrp(iris)
+m <- corrp::corr_matrix(x)
+acca <- corrp::acca(m, 2)
+sil_acca(acca, m)
 }
 
 }
