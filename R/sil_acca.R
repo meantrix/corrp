@@ -30,57 +30,49 @@
 #' @examples
 #' \dontrun{
 #'
-#' x = corrp::corrp(iris)
-#' m = corrp::corr_matrix(x)
-#' acca = corrp::acca(m,2)
-#' sil_acca(acca,m)
-#'
-#'}
+#' x <- corrp::corrp(iris)
+#' m <- corrp::corr_matrix(x)
+#' acca <- corrp::acca(m, 2)
+#' sil_acca(acca, m)
+#' }
 #'
 #' @export
 #'
-sil_acca = function(acca,...) {
-  UseMethod('sil_acca',acca)
+sil_acca <- function(acca, ...) {
+  UseMethod("sil_acca", acca)
 }
 
 
 #' @export
 #' @rdname sil_acca
-sil_acca.acca_list <- function(acca, m,...) {
-
+sil_acca.acca_list <- function(acca, m, ...) {
   checkmate::assert_matrix(m)
 
-  if(!inherits(m,"cmatrix")){
+  if (!inherits(m, "cmatrix")) {
     warning("m is not an object of the 'cmatrix' class some results may go wrong.")
   }
 
-  rval = .Call(`_corrp_silhouette_main`, acca, m)
+  rval <- .Call(`_corrp_silhouette_main`, acca, m)
 
-  class(rval) <- c( "corrpstat" )
+  class(rval) <- c("corrpstat")
   attr(rval, "statistic") <- "Silhouette"
   return(rval)
-
 }
 
 
 #' @export
 #' @rdname sil_acca
-sil_acca.list <- function(acca, m,...) {
-
+sil_acca.list <- function(acca, m, ...) {
   checkmate::assert_matrix(m)
 
   warning("acca is not an object of the 'acca_list' class some results may go wrong. \n")
-  if(!inherits(m,"cmatrix")){
+  if (!inherits(m, "cmatrix")) {
     warning("m is not an object of the 'cmatrix' class some results may go wrong.")
   }
 
-  rval = .Call(`_corrp_silhouette_main`, acca, m)
+  rval <- .Call(`_corrp_silhouette_main`, acca, m)
 
-  class(rval) <- c( "corrpstat" )
+  class(rval) <- c("corrpstat")
   attr(rval, "statistic") <- "Silhouette"
   return(rval)
-
 }
-
-
-

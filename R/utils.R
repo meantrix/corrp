@@ -1,34 +1,34 @@
 # auxiliar functions
 
 # linear regression Calculations
-.corlm = function(x, y, nx, ny, p.value, comp, verbose, lm.args = list(), ...) {
-  if (is.data.frame(x)) x = x[[1]]
-  if (is.data.frame(y)) y = y[[1]]
+.corlm <- function(x, y, nx, ny, p.value, comp, verbose, lm.args = list(), ...) {
+  if (is.data.frame(x)) x <- x[[1]]
+  if (is.data.frame(y)) y <- y[[1]]
 
-  infer = "Linear Model"
-  stat = "P-value"
+  infer <- "Linear Model"
+  stat <- "P-value"
 
-  args = c(list(y ~ as.factor(x)), lm.args)
+  args <- c(list(y ~ as.factor(x)), lm.args)
 
-  sum.res = summary(
+  sum.res <- summary(
     do.call(stats::lm, args)
   )
 
-  pv = stats::pf(sum.res$fstatistic[1], sum.res$fstatistic[2],
+  pv <- stats::pf(sum.res$fstatistic[1], sum.res$fstatistic[2],
     sum.res$fstatistic[3],
     lower.tail = F
   )
 
-  compare = .comparepv(x = pv, pv = p.value, comp = comp)
-  r = sqrt(sum.res[["r.squared"]])
-  msg = ""
+  compare <- .comparepv(x = pv, pv = p.value, comp = comp)
+  r <- sqrt(sum.res[["r.squared"]])
+  msg <- ""
 
 
   if (compare$comp) {
-    isig = TRUE
+    isig <- TRUE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "Alternative hypothesis: true ", infer, " is not equal to 0.",
         "P-value: ", pv, "."
@@ -37,10 +37,10 @@
       message(msg)
     }
   } else {
-    isig = FALSE
+    isig <- FALSE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "There is no correlation at the confidence level  p-value.",
         "P-value:", p.value, compare$str, "estimated p-value:", pv
@@ -58,26 +58,26 @@
 }
 
 # CramersV Calculations
-.cramersvp = function(x, y, nx, ny, p.value, comp, verbose, cramersV.args = list(), ...) {
-  if (is.data.frame(x)) x = x[[1]]
-  if (is.data.frame(y)) y = y[[1]]
+.cramersvp <- function(x, y, nx, ny, p.value, comp, verbose, cramersV.args = list(), ...) {
+  if (is.data.frame(x)) x <- x[[1]]
+  if (is.data.frame(y)) y <- y[[1]]
 
-  infer = "Cramer's V"
-  stat = "P-value"
+  infer <- "Cramer's V"
+  stat <- "P-value"
 
-  args = c(list(x), list(y), cramersV.args)
+  args <- c(list(x), list(y), cramersV.args)
 
-  pv = stats::chisq.test(x, y, simulate.p.value = TRUE)$p.value
-  r = do.call(lsr::cramersV, args)
-  compare = .comparepv(x = pv, pv = p.value, comp = comp)
-  msg = ""
+  pv <- stats::chisq.test(x, y, simulate.p.value = TRUE)$p.value
+  r <- do.call(lsr::cramersV, args)
+  compare <- .comparepv(x = pv, pv = p.value, comp = comp)
+  msg <- ""
 
 
   if (compare$comp) {
-    isig = TRUE
+    isig <- TRUE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "Alternative hypothesis: true ", infer, " is not equal to 0.",
         "P-value: ", pv, "."
@@ -86,10 +86,10 @@
       message(msg)
     }
   } else {
-    isig = FALSE
+    isig <- FALSE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "There is no correlation at the confidence level  p-value.",
         "P-value:", p.value, compare$str, "estimated p-value:", pv
@@ -106,26 +106,25 @@
 }
 
 # Distance Correlation Calculations
-.dcorp = function(x, y, nx, ny, p.value, comp, verbose, dcor.args = list(), ...) {
+.dcorp <- function(x, y, nx, ny, p.value, comp, verbose, dcor.args = list(), ...) {
+  infer <- "Distance Correlation"
+  stat <- "P-value"
 
-  infer = "Distance Correlation"
-  stat = "P-value"
+  args <- c(list(x), list(y), dcor.args)
 
-  args = c(list(x), list(y), dcor.args)  
 
-  
-  dc = do.call(dcorT_test, args)
+  dc <- do.call(dcorT_test, args)
 
-  pv = dc$p.value
-  r = as.numeric(dc$estimate)
-  compare = .comparepv(x = pv, pv = p.value, comp = comp)
-  msg = ""
+  pv <- dc$p.value
+  r <- as.numeric(dc$estimate)
+  compare <- .comparepv(x = pv, pv = p.value, comp = comp)
+  msg <- ""
 
   if (compare$comp) {
-    isig = TRUE
+    isig <- TRUE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "Alternative hypothesis: true ", infer, " is not equal to 0.",
         "P-value: ", pv, "."
@@ -134,10 +133,10 @@
       message(msg)
     }
   } else {
-    isig = FALSE
+    isig <- FALSE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "There is no correlation at the confidence level  p-value.",
         "P-value:", p.value, compare$str, "estimated p-value:", pv
@@ -153,29 +152,29 @@
   ))
 }
 # Pearson Calculations
-.corperp = function(x, y, nx, ny, p.value, comp, verbose, alternative, pearson.args = list(), ...) {
-  if (is.data.frame(x)) x = x[[1]]
-  if (is.data.frame(y)) y = y[[1]]
+.corperp <- function(x, y, nx, ny, p.value, comp, verbose, alternative, pearson.args = list(), ...) {
+  if (is.data.frame(x)) x <- x[[1]]
+  if (is.data.frame(y)) y <- y[[1]]
 
-  infer = "Pearson Correlation"
-  stat = "P-value"
+  infer <- "Pearson Correlation"
+  stat <- "P-value"
 
-  pearson.args$alternative = alternative # from global
-  pearson.args$method = "pearson"
-  args = c(list(x), list(y), pearson.args)
+  pearson.args$alternative <- alternative # from global
+  pearson.args$method <- "pearson"
+  args <- c(list(x), list(y), pearson.args)
 
-  res = do.call(stats::cor.test, args = args)
-  pv = res[["p.value"]]
-  r = as.numeric(res[["estimate"]])
-  compare = .comparepv(x = pv, pv = p.value, comp = comp)
-  msg = ""
+  res <- do.call(stats::cor.test, args = args)
+  pv <- res[["p.value"]]
+  r <- as.numeric(res[["estimate"]])
+  compare <- .comparepv(x = pv, pv = p.value, comp = comp)
+  msg <- ""
 
 
   if (compare$comp) {
-    isig = TRUE
+    isig <- TRUE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "Alternative hypothesis: true ", infer, " is not equal to 0.",
         "P-value: ", pv, "."
@@ -184,10 +183,10 @@
       message(msg)
     }
   } else {
-    isig = FALSE
+    isig <- FALSE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "There is no correlation at the confidence level  p-value.",
         "P-value:", p.value, compare$str, "estimated p-value:", pv
@@ -205,35 +204,35 @@
 
 
 # MIC calculations
-.micorp = function(x, y, nx, ny, p.value, comp, verbose, alternative, num.s, rk, mic.args = list(), ...) {
-  if (is.data.frame(x)) x = x[[1]]
-  if (is.data.frame(y)) y = y[[1]]
+.micorp <- function(x, y, nx, ny, p.value, comp, verbose, alternative, num.s, rk, mic.args = list(), ...) {
+  if (is.data.frame(x)) x <- x[[1]]
+  if (is.data.frame(y)) y <- y[[1]]
 
-  infer = "Maximal Information Coefficient"
-  stat = "P-value"
+  infer <- "Maximal Information Coefficient"
+  stat <- "P-value"
 
-  args = c(list(x), list(y), mic.args)
+  args <- c(list(x), list(y), mic.args)
 
-  pv = ptest(x, y, FUN = function(y, x) {
-    args = c(list(x), list(y), mic.args)
+  pv <- ptest(x, y, FUN = function(y, x) {
+    args <- c(list(x), list(y), mic.args)
     do.call(function(...) {
-      z = minerva::mine(...)
+      z <- minerva::mine(...)
       return(z$MIC)
     }, args)
   }, rk = rk, num.s = num.s, alternative = alternative)
   # ptest(y,x,FUN = function(y,x) {minerva::mine(y,x)$MIC} )
-  compare = .comparepv(x = pv, pv = p.value, comp = comp)
-  r = do.call(function(...) {
-    z = minerva::mine(...)
+  compare <- .comparepv(x = pv, pv = p.value, comp = comp)
+  r <- do.call(function(...) {
+    z <- minerva::mine(...)
     return(z$MIC)
   }, args)
-  msg = ""
+  msg <- ""
 
   if (compare$comp) {
-    isig = TRUE
+    isig <- TRUE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "Alternative hypothesis: true ", infer, " is not equal to 0.",
         "P-value: ", pv, "."
@@ -242,10 +241,10 @@
       message(msg)
     }
   } else {
-    isig = FALSE
+    isig <- FALSE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "There is no correlation at the confidence level  p-value.",
         "P-value:", p.value, compare$str, "estimated p-value:", pv
@@ -263,29 +262,29 @@
 
 
 # Uncertainty coefficient Calculations
-.uncorp = function(x, y, nx, ny, p.value, comp, verbose, alternative, num.s, rk, uncoef.args = list(), ...) {
-  if (is.data.frame(x)) x = x[[1]]
-  if (is.data.frame(y)) y = y[[1]]
+.uncorp <- function(x, y, nx, ny, p.value, comp, verbose, alternative, num.s, rk, uncoef.args = list(), ...) {
+  if (is.data.frame(x)) x <- x[[1]]
+  if (is.data.frame(y)) y <- y[[1]]
 
-  args = c(list(x), list(y), uncoef.args)
+  args <- c(list(x), list(y), uncoef.args)
 
-  pv = ptest(y, x, FUN = function(x, y) {
-    args = c(list(x), list(y), uncoef.args)
+  pv <- ptest(y, x, FUN = function(x, y) {
+    args <- c(list(x), list(y), uncoef.args)
     do.call(DescTools::UncertCoef, args)
   }, rk = TRUE, num.s = num.s, alternative = alternative)
   # pv = ptest(y,x,FUN = function(y,x) DescTools::UncertCoef(y,x) )
 
-  infer = "Uncertainty coefficient"
-  stat = "P-value"
-  compare = .comparepv(x = pv, pv = p.value, comp = comp)
-  r = do.call(DescTools::UncertCoef, args)
-  msg = ""
+  infer <- "Uncertainty coefficient"
+  stat <- "P-value"
+  compare <- .comparepv(x = pv, pv = p.value, comp = comp)
+  r <- do.call(DescTools::UncertCoef, args)
+  msg <- ""
 
   if (compare$comp) {
-    isig = TRUE
+    isig <- TRUE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "Alternative hypothesis: true ", infer, " is not equal to 0.",
         "P-value: ", pv, "."
@@ -294,10 +293,10 @@
       message(msg)
     }
   } else {
-    isig = FALSE
+    isig <- FALSE
 
     if (verbose) {
-      msg = paste(
+      msg <- paste(
         ny, "vs.", nx, ".",
         "There is no correlation at the confidence level  p-value.",
         "P-value:", p.value, compare$str, "estimated p-value:", pv
@@ -314,20 +313,20 @@
 }
 
 # Predictive Power Score Calculations
-.corpps = function(x, y, nx, ny, verbose, pps.args = list(), ...) {
-  args = c(list(data.frame(x, y)), list(nx), list(ny), pps.args)  
+.corpps <- function(x, y, nx, ny, verbose, pps.args = list(), ...) {
+  args <- c(list(data.frame(x, y)), list(nx), list(ny), pps.args)
 
-  r = do.call(ppsr::score, args)
+  r <- do.call(ppsr::score, args)
 
-  msg = ""
-  infer = "Predictive Power Score"
-  infer.value = r$pps
-  stat = r$metric
-  stat.value = r$model_score
-  isig = TRUE
+  msg <- ""
+  infer <- "Predictive Power Score"
+  infer.value <- r$pps
+  stat <- r$metric
+  stat.value <- r$model_score
+  isig <- TRUE
 
   if (verbose) {
-    msg = paste(
+    msg <- paste(
       "Target: ", ny, "vs. Predicted: ", nx, ".",
       "Anothers Outputs(baseline_score,cv_folds,algorithm,model_type):",
       r$baseline_score, ";", r$cv_folds, ";", r$algorithm, ";", r$model_type
@@ -344,22 +343,22 @@
 
 
 # compare p-value alternatives
-.comparepv = function(x, pv, comp = c("l", "g")) {
-  comp = match.arg(comp)
+.comparepv <- function(x, pv, comp = c("l", "g")) {
+  comp <- match.arg(comp)
 
   if (comp == "g") {
-    str = "<"
-    comp = pv > x
+    str <- "<"
+    comp <- pv > x
   } else {
-    str = ">"
-    comp = pv < x
+    str <- ">"
+    comp <- pv < x
   }
 
   return(list("comp" = comp, "str" = str))
 }
 
 # convert NULL list elements to NA
-.null.to.na = function(x) {
-  x[sapply(x, is.null)] = NA
+.null.to.na <- function(x) {
+  x[sapply(x, is.null)] <- NA
   return(x)
 }

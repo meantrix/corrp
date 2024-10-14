@@ -30,52 +30,47 @@
 #' @examples
 #' \dontrun{
 #'
-#' x = corrp::corrp(iris)
-#' m = corrp::corr_matrix(x)
-#' best_acca(m,2,6)
-#'
-#'}
+#' x <- corrp::corrp(iris)
+#' m <- corrp::corr_matrix(x)
+#' best_acca(m, 2, 6)
+#' }
 #'
 #' @export
 #'
-best_acca = function(m,...) {
-  UseMethod('best_acca',m)
+best_acca <- function(m, ...) {
+  UseMethod("best_acca", m)
 }
 
 
 #' @export
 #' @rdname best_acca
-best_acca.cmatrix <- function(m, mink,maxk, maxrep = 2L, maxiter = 100L,...) {
-
-  mink = as.integer(mink)
-  maxk = as.integer(maxk)
-  maxrep = as.integer(maxrep)
-  maxiter = as.integer(maxiter)
-  checkmate::assert_int(mink,lower = 2)
+best_acca.cmatrix <- function(m, mink, maxk, maxrep = 2L, maxiter = 100L, ...) {
+  mink <- as.integer(mink)
+  maxk <- as.integer(maxk)
+  maxrep <- as.integer(maxrep)
+  maxiter <- as.integer(maxiter)
+  checkmate::assert_int(mink, lower = 2)
   checkmate::assert_true(mink < maxk)
-  checkmate::assert_int(maxrep,lower = 2,upper = maxiter)
-  checkmate::assert_int(maxiter,lower = maxrep)
+  checkmate::assert_int(maxrep, lower = 2, upper = maxiter)
+  checkmate::assert_int(maxiter, lower = maxrep)
 
   .Call(`_corrp_best_acca_sil`, m, mink, maxk, maxrep, maxiter)
 }
 
 #' @export
 #' @rdname best_acca
-best_acca.matrix <- function(m, mink,maxk, maxrep = 2L, maxiter = 100L,...) {
-
+best_acca.matrix <- function(m, mink, maxk, maxrep = 2L, maxiter = 100L, ...) {
   warning("m is not an object of the 'cmatrix' class some results may go wrong.")
 
 
-  mink = as.integer(mink)
-  maxk = as.integer(maxk)
-  maxrep = as.integer(maxrep)
-  maxiter = as.integer(maxiter)
-  checkmate::assert_int(mink,lower = 2)
+  mink <- as.integer(mink)
+  maxk <- as.integer(maxk)
+  maxrep <- as.integer(maxrep)
+  maxiter <- as.integer(maxiter)
+  checkmate::assert_int(mink, lower = 2)
   checkmate::assert_true(mink < maxk)
-  checkmate::assert_int(maxrep,lower = 2,upper = maxiter)
-  checkmate::assert_int(maxiter,lower = maxrep)
+  checkmate::assert_int(maxrep, lower = 2, upper = maxiter)
+  checkmate::assert_int(maxiter, lower = maxrep)
 
   .Call(`_corrp_best_acca_sil`, m, mink, maxk, maxrep, maxiter)
-
 }
-

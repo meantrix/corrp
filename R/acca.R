@@ -33,55 +33,49 @@
 #' @examples
 #' \dontrun{
 #'
-#' x = corrp::corrp(iris)
-#' m = corrp::corr_matrix(x)
-#' corrp::acca(m,2)
-#'
-#'}
+#' x <- corrp::corrp(iris)
+#' m <- corrp::corr_matrix(x)
+#' corrp::acca(m, 2)
+#' }
 #'
 #' @export
 #'
-acca = function(m,...) {
-UseMethod('acca',m)
+acca <- function(m, ...) {
+  UseMethod("acca", m)
 }
 
 
 #' @export
 #' @rdname acca
-acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L,...) {
+acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L, ...) {
+  k <- as.integer(k)
+  maxrep <- as.integer(maxrep)
+  maxiter <- as.integer(maxiter)
+  checkmate::assert_int(k, lower = 2)
+  checkmate::assert_int(maxrep, lower = 2, upper = maxiter)
+  checkmate::assert_int(maxiter, lower = maxrep)
 
-  k = as.integer(k)
-  maxrep = as.integer(maxrep)
-  maxiter = as.integer(maxiter)
-  checkmate::assert_int(k,lower = 2)
-  checkmate::assert_int(maxrep,lower = 2,upper = maxiter)
-  checkmate::assert_int(maxiter,lower = maxrep)
-
-  allint = .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
-  res = allint[length(allint)][[1]]
-  names(res) =  paste0("cluster",1:k)
-  return(structure(res ,class = c('acca_list','list') ) )
+  allint <- .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
+  res <- allint[length(allint)][[1]]
+  names(res) <- paste0("cluster", 1:k)
+  return(structure(res, class = c("acca_list", "list")))
 }
 
 #' @export
 #' @rdname acca
-acca.matrix <- function(m, k, maxrep = 2L, maxiter = 100L,...) {
-
+acca.matrix <- function(m, k, maxrep = 2L, maxiter = 100L, ...) {
   warning("m is not an object of the 'cmatrix' class some results may go wrong.")
 
 
-  k = as.integer(k)
-  maxrep = as.integer(maxrep)
-  maxiter = as.integer(maxiter)
-  checkmate::assert_int(k,lower = 2)
-  checkmate::assert_int(maxrep,lower = 2,upper = maxiter)
-  checkmate::assert_int(maxiter,lower = maxrep)
+  k <- as.integer(k)
+  maxrep <- as.integer(maxrep)
+  maxiter <- as.integer(maxiter)
+  checkmate::assert_int(k, lower = 2)
+  checkmate::assert_int(maxrep, lower = 2, upper = maxiter)
+  checkmate::assert_int(maxiter, lower = maxrep)
 
-  allint = .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
-  res = allint[length(allint)][[1]]
-  names(res) =  paste0("cluster",1:k)
-  return(structure(res ,class = c('acca_list','list') ) )
+  allint <- .Call(`_corrp_acca_main`, m, k, maxrep, maxiter)
+  res <- allint[length(allint)][[1]]
+  names(res) <- paste0("cluster", 1:k)
+  return(structure(res, class = c("acca_list", "list")))
 }
-
-
-
