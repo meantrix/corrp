@@ -1,9 +1,12 @@
 Package: corrp
 Type: Package
-Title: corrp (Compute correlations type analysis in parallel)
+Title: Compute Correlations Type Analysis in Parallel
 Version: 0.4.0
-Author: Igor Dornelles Schoeller Siciliani <igor@meantrix.com>
-Maintainer: Meantrix <dev@meantrix.com>
+Authors@R: 
+    c(
+        person("Igor", "Dornelles Schoeller Siciliani", email = "igor@meantrix.com", role = c("aut", "cre")),
+        person("Paulo", "Henrique dos Santos", email = "paulo.santos@meantrix.com", role = "aut")
+    )
 Description: Compute multiple types of correlations analysis (Pearson correlation, R^2 
   coefficient of linear regression, Cramer's V measure of association, 
   Distance Correlation,The Maximal Information Coefficient,
