@@ -1,6 +1,7 @@
 #' @title Compute Correlation type analysis with Statistical Significance
 #'
-#' @description Compute correlation type analysis on two mixed classes columns of a given dataframe.
+#' @description Compute correlation type analysis
+#' on two mixed classes columns of a given dataframe.
 #'   The dataframe is allowed to have columns of these four classes: integer,
 #'   numeric, factor and character. The character column is considered as
 #'   categorical variable.
@@ -9,38 +10,51 @@
 #'
 #' @section Details (Types):
 #'
-#' - \code{integer/numeric pair} Pearson Correlation using \code{\link[stats]{cor}} function. The
+#' - \code{integer/numeric pair} Pearson Correlation using
+#' \code{\link[stats]{cor}} function. The
 #'   value lies between -1 and 1.\cr
-#' - \code{integer/numeric pair} Distance Correlation using \code{\link[energy]{dcorT.test}} function. The
+#' - \code{integer/numeric pair} Distance Correlation
+#' using \code{\link[energy]{dcorT.test}} function. The
 #'   value lies between 0 and 1.\cr
-#' - \code{integer/numeric pair} Maximal Information Coefficient using \code{\link[minerva]{mine}} function. The
+#' - \code{integer/numeric pair} Maximal Information Coefficient using
+#' \code{\link[minerva]{mine}} function. The
 #'   value lies between 0 and 1.\cr
-#' - \code{integer/numeric pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
+#' - \code{integer/numeric pair} Predictive Power Score using 
+#' \code{\link[ppsr]{score}} function. The
 #'   value lies between 0 and 1.\cr\cr
 #' - \code{integer/numeric - factor/categorical pair} correlation coefficient or
 #'   squared root of R^2 coefficient of linear regression of integer/numeric
-#'   variable over factor/categorical variable using \code{\link[stats]{lm}} function. The value
+#'   variable over factor/categorical variable using 
+#' \code{\link[stats]{lm}} function. The value
 #'   lies between 0 and 1.\cr
-#' - \code{integer/numeric - factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
-#'   value lies between 0 and 1.\cr\cr
+#' - \code{integer/numeric - factor/categorical pair} 
+#' Predictive Power Score using \code{\link[ppsr]{score}} function. 
+#' The value lies between 0 and 1.\cr\cr
 #' - \code{factor/categorical pair} Cramer's V value is
-#'   computed based on chisq test and using \code{\link[lsr]{cramersV}} function. The value lies
+#'   computed based on chisq test and using 
+#' \code{\link[lsr]{cramersV}} function. The value lies
 #'   between 0 and 1.\cr
-#' - \code{factor/categorical pair} Uncertainty coefficient using \code{\link[DescTools]{UncertCoef}} function. The
+#' - \code{factor/categorical pair} Uncertainty coefficient 
+#' using \code{\link[DescTools]{UncertCoef}} function. The
 #'   value lies between 0 and 1.\cr
-#' - \code{factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
-#'   value lies between 0 and 1.\cr
+#' - \code{factor/categorical pair} Predictive Power Score 
+#' using \code{\link[ppsr]{score}} function. 
+#' The value lies between 0 and 1.\cr
 #'
 #' @return list with all statistical results.\cr
 #' - All statistical tests are controlled by the confidence internal of
-#'   p.value param. If the statistical tests do not obtain a significance greater/less
+#'   p.value param. If the statistical tests do not 
+#' obtain a significance greater/less
 #'   than p.value the value of variable `isig` will be `FALSE`.\cr
-#' - There is no statistical significance test for the pps algorithm. By default `isig` is TRUE.\cr
-#' - If any errors occur during operations by default the association measure(`infer.value`) will be `NA`.
+#' - There is no statistical significance test 
+#' for the pps algorithm. By default `isig` is TRUE.\cr
+#' - If any errors occur during operations by 
+#' default the association measure(`infer.value`) will be `NA`.
 #'
 #'
 #' @param df \[\code{data.frame(1)}]\cr input data frame.
-#' @param nx \[\code{character(1)}]\cr column name of independent/predictor variable.
+#' @param nx \[\code{character(1)}]\cr column name of 
+#' independent/predictor variable.
 #' @param ny \[\code{character(1)}]\cr column name of dependent/target variable.
 #' @param p.value \[\code{logical(1)}]\cr
 #' P-value probability of obtaining the observed results of a test,

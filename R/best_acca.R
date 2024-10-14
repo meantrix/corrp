@@ -1,17 +1,23 @@
 #' @title Silhouette (clustering)
 #'
-#' @description Determining the optimal number of cluster in the ACCA clustering using the
+#' @description Determining the optimal number of
+#' cluster in the ACCA clustering using the
 #' average silhouette aproach.
 #'
-#' @param m  \[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
+#' @param m  \[\code{matrix(1)}]\cr correlation matrix
+#' from \code{\link{corr_matrix}}.
 #' @param mink \[\code{integer(1)}]\cr minimum number of clusters considered.
 #' @param maxk \[\code{integer(1)}]\cr maximum number of clusters considered.
-#' @param maxrep \[\code{integer(1)}]\cr maximum number of interactions without change in the clusters in the ACCA method.
-#' @param maxiter \[\code{integer(1)}]\cr maximum number of interactions in the ACCA method.
+#' @param maxrep \[\code{integer(1)}]\cr maximum number of interactions
+#' without change in the clusters in the ACCA method.
+#' @param maxiter \[\code{integer(1)}]\cr maximum number
+#' of interactions in the ACCA method.
 #' @param ... Additional arguments (TODO).
 #'
-#' @return \[\code{list(3)}]\cr A list with: silhouette average with per k `$silhouette.ave`;
-#' the sequence of clusters tested `$k` and the optimal number of clusters `$best.k`.
+#' @return \[\code{list(3)}]\cr A list with:
+#' silhouette average with per k `$silhouette.ave`;
+#' the sequence of clusters tested `$k` and
+#' the optimal number of clusters `$best.k`.
 #' @seealso \code{\link{sil_acca}}
 #'
 #' @author Igor D.S. Siciliani
@@ -21,10 +27,13 @@
 #' @references
 #' Leonard Kaufman; Peter J. Rousseeuw (1990).
 #' Finding groups in data : An introduction to cluster analysis.
-#' Hoboken, NJ: Wiley-Interscience. p. 87. doi:10.1002/9780470316801. ISBN 9780471878766.
+#' Hoboken, NJ: Wiley-Interscience.
+#' p. 87. doi:10.1002/9780470316801. ISBN 9780471878766.
 #'
-#' Starczewski, Artur, and Adam Krzyżak. "Performance evaluation of the silhouette index.
-#' " International Conference on Artificial Intelligence and Soft Computing. Springer, Cham, 2015.
+#' Starczewski, Artur, and Adam Krzyżak.
+#' "Performance evaluation of the silhouette index.
+#' "International Conference on Artificial Intelligence
+#' and Soft Computing. Springer, Cham, 2015.
 #'
 #'
 #' @examples
@@ -60,7 +69,10 @@ best_acca.cmatrix <- function(m, mink, maxk, maxrep = 2L, maxiter = 100L, ...) {
 #' @export
 #' @rdname best_acca
 best_acca.matrix <- function(m, mink, maxk, maxrep = 2L, maxiter = 100L, ...) {
-  warning("m is not an object of the 'cmatrix' class some results may go wrong.")
+  warning(
+    "m is not an object of the 'cmatrix'
+    class some results may go wrong."
+  )
 
 
   mink <- as.integer(mink)

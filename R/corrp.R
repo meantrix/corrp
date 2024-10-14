@@ -144,11 +144,11 @@ corrp <- function(df,
   on.exit(if (parallel) parallel::stopCluster(cluster))
 
 
-  
- 
+
+
   stopifnot(
     all(
-      vapply(df, class, character(1)) %in% 
+      vapply(df, class, character(1)) %in%
         c("integer", "numeric", "factor", "character")
     )
   )
