@@ -1,5 +1,11 @@
 # CHANGELOG
 
+## 0.5.0
+
+- Creates the package website with the command: `usethis::use_pkgdown_github_page`;
+- Improves test coverage to: 84.34%;
+- Clarifies package's authors.
+
 ## 0.4.0
 
 ### New methods
