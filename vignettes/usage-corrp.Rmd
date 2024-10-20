@@ -1,0 +1,123 @@
+---
+title: "Using the corrp package for correlation analysis"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Using the corrp package for correlation analysis}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+## Introduction
+
+The `corrp` package provides an efficient way to compute correlations between variables in a dataset. It supports various correlation measures for numerical and categorical data, making it a powerful tool for general correlation analysis. In this vignette, we will explore how to use `corrp` for different types of correlations, both with numerical and categorical variables.
+
+## Usage Example
+
+We will use the built-in `iris` dataset, which includes 150 observations of 5 variables: 4 numerical variables and 1 categorical variable (the species of the flower).
+
+```{r}
+# Load the iris dataset
+data(iris)
+head(iris)
+```
+
+## Basic Usage of `corrp`
+
+### 1. Computing Correlations with `corrp`
+
+The `corrp` function can be used to compute correlations between variables, user can select pair  correlation type based on the pair data types.
+
+```{r}
+# Compute correlations for iris dataset
+results <- corrp(iris, 
+                 cor.nn = "pearson",    # Correlation for numerical-numerical variables
+                 cor.nc = "pps",        # Correlation for numerical-categorical variables
+                 cor.cc = "cramer",     # Correlation for categorical-categorical variables
+                 verbose = FALSE)
+
+results
+```
+
+### 2. Exploring the Results
+
+The result returned by `corrp` is an object of class `"clist"`, which contains the correlation values and associated statistical information.
+
+```{r}
+# Access the correlation data
+results$data
+```
+
+### 3. Filtering Significant Correlations
+
+To focus on significant correlations, you can filter the results based on significance or another criterion. Here, we filter the results for all correlations that are significant according to the default p-value threshold of 0.05.
+
+```{r}
+# Filter significant correlations (p-value < 0.05)
+significant_results <- subset(results$data, isig == TRUE)
+significant_results
+```
+
+### 4. Correlation Types
+
+The `corrp` function allows you to specify different correlation methods based on the types of variables being compared:
+
+- **Numerical-Numerical Correlations**: Options include Pearson, MIC, and Dcor.
+- **Numerical-Categorical Correlations**: Options include PPS and MIC.
+- **Categorical-Categorical Correlations**: Options include Cramer's V and Uncertainty Coefficient.
+
+For example, let's compute the correlations using different methods for numerical-numerical, numerical-categorical, and categorical-categorical data.
+
+```{r}
+# Example of changing correlation methods
+results_custom <- corrp(iris, 
+                        cor.nn = "mic", 
+                        cor.nc = "pps", 
+                        cor.cc = "uncoef", 
+                        verbose = FALSE)
+results_custom$data
+```
+
+## Advanced Usage
+
+### 1. Parallel Processing
+
+You can enable parallel processing to speed up the computation, especially when working with large datasets. Set the `n.cores` argument to the number of cores you'd like to use.
+
+```{r}
+# Using 2 cores for parallel processing
+results_parallel <- corrp(iris, 
+                          cor.nn = "pearson", 
+                          cor.nc = "pps", 
+                          cor.cc = "cramer", 
+                          n.cores = 2, 
+                          verbose = FALSE)
+```
+
+### 2. Custom Inferences with `corr_fun`
+
+The `corr_fun` function can be used directly if you need finer control over the correlation calculation for specific pairs of variables. It allows you to specify the variables and methods for computing the correlation.
+
+```{r}
+# Using corr_fun to compute Pearson correlation between Sepal.Length and Petal.Length
+corr_fun(
+  iris, 
+  nx = "Sepal.Length", 
+  ny = "Petal.Length", 
+  cor.nn = "pearson", 
+  verbose = FALSE
+)
+```
+
+
+## Conclusion
+
+The `corrp` package provides a simple way to compute correlations across different types of variables. If you are working with mixed data, `corrp` offers a solution for your correlation analysis needs. By leveraging parallel processing and C++ implementation, `corrp` can handle large datasets efficiently.
+```
+
