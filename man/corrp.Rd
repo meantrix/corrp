@@ -126,15 +126,6 @@ categorical variable.
   value lies between 0 and 1.\cr
 }
 
-\examples{
-\dontrun{
-
-air_cor <- corrp(airquality)
-air_m <- corr_matrix(air_cor, isig = FALSE)
-corrplot::corrplot(air_m)
-}
-
-}
 \references{
 KS Srikanth,sidekicks,cor2, 2020.
 URL \url{https://github.com/talegari/sidekicks/}.

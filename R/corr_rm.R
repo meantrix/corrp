@@ -19,12 +19,6 @@
 #'
 #' @keywords highly correlated , cmatrix , clist
 #'
-#' @examples
-#' \dontrun{
-#'
-#' air_cor <- corrp(airquality)
-#' corr_rm(df = airquality, c = air_cor, cutoff = 0.75, col = "infer.value", isig = FALSE)
-#' }
 #' @export
 corr_rm <- function(df, c, ...) {
   UseMethod("corr_rm", c)

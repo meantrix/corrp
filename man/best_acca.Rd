@@ -39,15 +39,6 @@ Determining the optimal number of
 cluster in the ACCA clustering using the
 average silhouette aproach.
 }
-\examples{
-\dontrun{
-
-x <- corrp::corrp(iris)
-m <- corrp::corr_matrix(x)
-best_acca(m, 2, 6)
-}
-
-}
 \references{
 Leonard Kaufman; Peter J. Rousseeuw (1990).
 Finding groups in data : An introduction to cluster analysis.

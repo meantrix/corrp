@@ -27,14 +27,6 @@
 #' " International Conference on Artificial Intelligence and Soft Computing. Springer, Cham, 2015.
 #'
 #'
-#' @examples
-#' \dontrun{
-#'
-#' x <- corrp::corrp(iris)
-#' m <- corrp::corr_matrix(x)
-#' acca <- corrp::acca(m, 2)
-#' sil_acca(acca, m)
-#' }
 #'
 #' @export
 #'

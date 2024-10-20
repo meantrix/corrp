@@ -33,13 +33,6 @@
 #' Journal of Biomedical Informatics 43.4 (2010): 560-568.
 #'
 #'
-#' @examples
-#' \dontrun{
-#'
-#' x <- corrp::corrp(iris)
-#' m <- corrp::corr_matrix(x)
-#' corrp::acca(m, 2)
-#' }
 #'
 #' @export
 #'

@@ -26,15 +26,6 @@ be represented by NA or FALSE in the correlation matrix.}
 Through the results obtained from corrp function
 create a correlation matrix.
 }
-\examples{
-\dontrun{
-
-air_cor <- corrp(airquality)
-air_m <- corr_matrix(air_cor, isig = FALSE)
-corrplot::corrplot(air_m)
-}
-
-}
 \author{
 Igor D.S. Siciliani
 }

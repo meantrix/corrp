@@ -10,13 +10,7 @@
 #' @param alternative \[\code{character(1)}]\cr a character string specifying the alternative hypothesis,
 #' must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.
 #' @param ... Additional arguments (TODO).
-#' @examples
-#' \dontrun{
-#'
-#' x <- iris[[1]]
-#' y <- iris[[2]]
-#' ptest(x, y, FUN = function(x, y) cor(x, y), alternative = "t")
-#' }
+#' 
 #' @export
 #'
 ptest <- function(x, y,

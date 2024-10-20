@@ -52,13 +52,6 @@ The default values is 0.75.}
 Remove highly correlated variables from a data.frame using the
 corrp functions outputs and the caret package function \code{\link[caret]{findCorrelation}}.
 }
-\examples{
-\dontrun{
-
-air_cor <- corrp(airquality)
-corr_rm(df = airquality, c = air_cor, cutoff = 0.75, col = "infer.value", isig = FALSE)
-}
-}
 \author{
 Igor D.S. Siciliani
 }

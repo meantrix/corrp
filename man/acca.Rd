@@ -37,15 +37,6 @@ matrix derived from the \code{\link{corr_matrix}} function.
 In this sense, this implementation differs from the original,
 it works with mixed data and several correlation methods.
 }
-\examples{
-\dontrun{
-
-x <- corrp::corrp(iris)
-m <- corrp::corr_matrix(x)
-corrp::acca(m, 2)
-}
-
-}
 \references{
 Bhattacharya, Anindya, and Rajat K. De.
 "Average correlation clustering algorithm (ACCA) for grouping of co-regulated

@@ -137,13 +137,6 @@ using \code{\link[ppsr]{score}} function.
 The value lies between 0 and 1.\cr
 }
 
-\examples{
-\dontrun{
-
-corr_fun(iris, nx = "Sepal.Length", ny = "Sepal.Width", cor.nn = "dcor")
-}
-
-}
 \references{
 KS Srikanth,sidekicks,cor2, 2020.
 URL \url{https://github.com/talegari/sidekicks/}.

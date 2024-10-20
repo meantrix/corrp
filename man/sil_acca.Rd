@@ -30,16 +30,6 @@ By default the distance matrix(dist) used in this method is given by `dist = 1 -
 A C++ implementation of the Silhouette method
 of interpretation and validation of consistency within acca clusters of data.
 }
-\examples{
-\dontrun{
-
-x <- corrp::corrp(iris)
-m <- corrp::corr_matrix(x)
-acca <- corrp::acca(m, 2)
-sil_acca(acca, m)
-}
-
-}
 \references{
 Leonard Kaufman; Peter J. Rousseeuw (1990).
 Finding groups in data : An introduction to cluster analysis.

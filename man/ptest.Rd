@@ -35,11 +35,3 @@ Execute one-sample permutation test on two numeric vector.
 Its keep one vector constant and ‘shuffle’ the other by resampling.
 This approximates the null hypothesis — that there is no dependency/difference between the variables.
 }
-\examples{
-\dontrun{
-
-x <- iris[[1]]
-y <- iris[[2]]
-ptest(x, y, FUN = function(x, y) cor(x, y), alternative = "t")
-}
-}

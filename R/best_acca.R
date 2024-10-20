@@ -36,13 +36,6 @@
 #' and Soft Computing. Springer, Cham, 2015.
 #'
 #'
-#' @examples
-#' \dontrun{
-#'
-#' x <- corrp::corrp(iris)
-#' m <- corrp::corr_matrix(x)
-#' best_acca(m, 2, 6)
-#' }
 #'
 #' @export
 #'

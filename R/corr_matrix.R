@@ -14,13 +14,6 @@
 #' @keywords correlation matrix , corrp
 #'
 #'
-#' @examples
-#' \dontrun{
-#'
-#' air_cor <- corrp(airquality)
-#' air_m <- corr_matrix(air_cor, isig = FALSE)
-#' corrplot::corrplot(air_m)
-#' }
 #'
 #' @export
 corr_matrix <- function(c, ...) {

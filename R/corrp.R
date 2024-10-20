@@ -90,13 +90,6 @@
 #' Paul van der Laken, ppsr,2021.
 #' URL \url{https://github.com/paulvanderlaken/ppsr}.
 #'
-#' @examples
-#' \dontrun{
-#'
-#' air_cor <- corrp(airquality)
-#' air_m <- corr_matrix(air_cor, isig = FALSE)
-#' corrplot::corrplot(air_m)
-#' }
 #'
 #' @export
 corrp <- function(df,
