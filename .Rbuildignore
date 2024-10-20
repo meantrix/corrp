@@ -12,3 +12,4 @@
 ^.renvignore$
 ^CHANGELOG.md$
 ^paper$
+^\.github$

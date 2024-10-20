@@ -16,7 +16,7 @@ Description: Compute multiple types of correlation analyses, including
     backend. This package also includes a C++ implementation of 
     the average correlation clustering algorithm and distance 
     correlation t-test.
-Imports:     
+Imports: 
     Rcpp (>= 1.0.4.6),
     RcppArmadillo (>= 0.11.2.0.0),
     lsr (>= 0.5),
@@ -36,5 +36,6 @@ Encoding: UTF-8
 LazyData: true
 LinkingTo: Rcpp, RcppArmadillo
 RoxygenNote: 7.2.3
-URL: https://github.com/meantrix/corrp
+URL: https://github.com/meantrix/corrp,
+    https://meantrix.github.io/corrp/
 BugReports: https://github.com/meantrix/corrp/issues
