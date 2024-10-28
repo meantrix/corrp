@@ -5,13 +5,13 @@ gc()
 test_data = readRDS("dev/Rcpp/x.rds") 
 test_data = as.matrix(data.frame(a = c(3, 2, 4, 4)))
 
-Rcpp::sourceCpp("src/dcorT.cpp")  
-dist_cpp = distCpp(test_data)   # Compute distances using distCpp
+Rcpp::sourceCpp("src/dcort.cpp")
+# Compute distances using distCpp
 dist_r = as.matrix(dist(test_data)) 
-
+dist
 all(dist_r == dist_cpp)
 
-
+dist
 
 all(Astar(dist_cpp) == Astarcpp(dist_cpp))
 
