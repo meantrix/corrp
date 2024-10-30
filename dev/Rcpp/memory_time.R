@@ -14,8 +14,7 @@ calculate_memory <- function(expr) {
       28L
     else 56L
   }
-  gc1 <- gc(reset = TRUE)
-
+  
   promise = future::future(globals = FALSE, seed = TRUE, {
     res = expr
     gc(reset = TRUE)
@@ -39,17 +38,12 @@ calculate_memory <- function(expr) {
 
   res = future::value(promise)
   rm(promise)
-  gc2 <- invisible(gc())
-  max_mem_used_delta <- invisible(sum(gc2[, 6] - gc1[, 2]))
-  # max_mem_used_gc = invisible(sum(gc()[, 5] * c(node_size(), 8)) / 1024^2)
 
   gc(reset = TRUE)
   mallinfo::malloc.trim()
   # cat(sprintf("mem: %.1fMb.\n", res))
   return(
-    list(
-      # Máximo de memória menos memória utilizada no início da rotina
-      max_mem_used_delta = max_mem_used_delta,
+    list(      
       # Máximo de memória
       max_mem_used = max_mem_used,
       # Resultado da expressão
@@ -78,10 +72,9 @@ calculate_memory_runtime <- function(expr, msg = deparse(substitute(expr))) {
   m <- calculate_memory(
     calculate_runtime(expr, msg = msg)
   )
-  m$runtime = m[[3]]$runtime
-  m$res = m[[3]]$res
-  message("MEMORY DELTA(mb): ", m[[1]])
-  message("MEMORY PEAK(mb): ", m[[2]])
+  m$runtime = m[[2]]$runtime
+  m$res = m[[2]]$res
+  message("MEMORY PEAK(mb): ", m[[1]])
   message("TIME (S): ", m$runtime)
   
   return(m)
