@@ -101,6 +101,8 @@ head(results$data)
 | 6    | TRUE  |       | Sepal.Width  | Sepal.Length |
 
 
+
+
 Using the previous result, we can create a correlation matrix as follows:
 
 ```r
@@ -148,6 +150,19 @@ acca.res
 
 ```
 
+## Performance Improvements
+
+When using the `corrp` function with the `dcor` method for numeric pairs (i.e., `cor.nn = "dcor"`), significant improvements in both memory usage and runtime are observed. This is because the `corrp` package uses a C++ implementation of distance correlation (`dcorT_test`), which is more efficient than the `energy::dcorT.test` function from the `energy` package.
+
+For example, using two vector of length 10000 and 20000, the benchmarks show the following improvements:
+
+| Method                | 10,000       |                | 20,000           |                  |
+|-----------------------|--------------|----------------|------------------|------------------|
+|                       | Memory (MB)  | Time (sec)     | Memory (MB)      | Time (sec)       |
+| **dcorT_test (C++)**  | 4701.44      | 6.022          | 18440.54         | 25.977           |
+| **energy::dcorT.test**| 7000.65      | 13.846         | 27598.38         | 60.264           |
+
+This highlights a substantial reduction in both memory usage and execution time, making the `corrp` package more scalable for larger datasets when applying distance correlation methods. The memory reduction is particularly important because calculating distance correlation requires constructing a distance matrix of size $N^2$, where $N$ is the length of the input vector. As $N$ grows, the memory demands can quickly become prohibitive.
 
 # Acknowledgements
 
