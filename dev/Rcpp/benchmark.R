@@ -1,6 +1,6 @@
 
 library(corrp)
-source("./dev/Rcpp/memory_time.R")
+source("./dev/memory_time.R")
 
 test_data_a = data.frame(a = runif(1e4)) 
 test_data_b = data.frame(b = runif(1e4))

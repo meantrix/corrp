@@ -10,7 +10,7 @@ corrp(
   n.cores = 1,
   p.value = 0.05,
   verbose = TRUE,
-  num.s = 1000,
+  num.s = 250,
   rk = FALSE,
   comp = c("greater", "less"),
   alternative = c("two.sided", "less", "greater"),
