@@ -60,7 +60,6 @@ As mentioned before, one can choose between the following options based on the t
 
 The `corrp` package provides seven main functions for correlation calculations, clustering, and basic data manipulation:
 
-
 - **corrp**: Performs correlation-like analysis with user-specified methods for numeric, categorical, factor, interger and mixed pairs.
 - **corr_matrix**: Generates a correlation matrix from analysis results.
 - **corr_rm**: Removes variables based on p-value significance.
@@ -71,10 +70,10 @@ The `corrp` package provides seven main functions for correlation calculations, 
 We calculate correlations for the *eusilc* dataset using the Maximal Information Coefficient for numeric pairs, Predictive Power Score for numeric/categorical pairs, and Uncertainty Coefficient for categorical pairs. This synthetic dataset represents Austrian EU-SILC data on income, demographics, and household characteristics.
 
 ```r
+set.seed(2024)
 library("laeken")
 library("corrp")
 data(eusilc)
-
 
 eusilc = eusilc[, c("eqSS", "eqIncome", "db040", "rb090")]
 colnames(eusilc) = c("House_Size", "Income", "State", "Sex")
@@ -88,26 +87,24 @@ results = corrp(
 head(results$data)
 ```
 
+|      | infer               | infer.value | stat    | stat.value |
+|------|---------------------|-------------|---------|------------|
+| 1    | Distance Correlation| 1.000       | P-value | 0.000      |
+| 2    | Distance Correlation| 0.008       | P-value | 0.000      |
+| 3    | Linear Model        | 0.146       | P-value | 3.57e-64   |
+| 4    | Linear Model        | 0.071       | P-value | 4.79e-18   |
+| 5    | Distance Correlation| 0.008       | P-value | 0.000      |
+| 6    | Distance Correlation| 1.000       | P-value | 0.000      |
 
-|      | infer                  | infer.value    | stat          | stat.value      |
-|------|------------------------|----------------|---------------|-----------------|
-| 1    | Pearson Correlation    | 1.00000000     | P-value       | 0.0000000000    |
-| 2    | Pearson Correlation    | -0.02750826    | P-value       | 0.0008083282    |
-| 3    | Predictive Power Score | 0.00000000     | F1_weighted   | 0.0451575746    |
-| 4    | Predictive Power Score | 0.01811129     | F1_weighted   | 0.4983966359    |
-| 5    | Pearson Correlation    | -0.02750826    | P-value       | 0.0008083282    |
-| 6    | Pearson Correlation    | 1.00000000     | P-value       | 0.0000000000    |
+|      | isig | msg | varx       | vary       |
+|------|------|-----|------------|------------|
+| 1    | TRUE |     | House_Size | House_Size |
+| 2    | TRUE |     | House_Size | Income     |
+| 3    | TRUE |     | House_Size | State      |
+| 4    | TRUE |     | House_Size | Sex        |
+| 5    | TRUE |     | Income     | House_Size |
+| 6    | TRUE |     | Income     | Income     |
 
-
-
-|      | isig | msg | varx         | vary         |
-|------|------|-----|--------------|--------------|
-| 1    | TRUE |     | House_Size   | House_Size   |
-| 2    | TRUE |     | House_Size   | Income       |
-| 3    | TRUE |     | House_Size   | State        |
-| 4    | TRUE |     | House_Size   | Sex          |
-| 5    | TRUE |     | Income       | House_Size   |
-| 6    | TRUE |     | Income       | Income       |
 
 
 When choosing correlation methods, it's important to think about their performance for different pair types. For **numeric pairs**, **Pearson** is the quickest and most efficient option, while the **Maximal Information Coefficient (mic)** is significantly slower, making it less suitable for large datasets. **Distance correlation (dcor)** is a better performer than mic but still not the fastest choice, and **Predictive Power Score (pps)** is efficient but may take longer than Pearson. For **numeric-categorical pairs**, the **linear model (lm)** typically outperforms pps. In **categorical pairs**, **Cramér's V**, **Uncertainty Coefficient (uncoef)**, and **pps** are options, with **uncoef** being the slowest of the three.
@@ -141,13 +138,13 @@ Finally, we can cluster the dataset variables using the ACCA algorithm and the c
 acca.res = acca(m, 2)
 acca.res
 # $cluster1
-# [1] "State"      "House_Size"
+# [1] "Sex"    "Income"
 # 
 # $cluster2
-# [1] "Income" "Sex"   
+# [1] "State"      "House_Size"
 # 
 # attr(,"class")
-# [1] "acca_list" "list" 
+# [1] "acca_list" "list"  
 ```
 
 ## Performance Improvements

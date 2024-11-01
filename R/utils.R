@@ -69,6 +69,7 @@
 
   pv <- stats::chisq.test(x, y, simulate.p.value = TRUE)$p.value
   r <- do.call(lsr::cramersV, args)
+
   compare <- .comparepv(x = pv, pv = p.value, comp = comp)
   msg <- ""
 
