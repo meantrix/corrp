@@ -24,6 +24,7 @@ We will use the built-in `iris` dataset, which includes 150 observations of 5 va
 
 ```{r}
 # Load the iris dataset
+library(corrp)
 data(iris)
 head(iris)
 ```
