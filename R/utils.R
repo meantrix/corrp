@@ -28,9 +28,9 @@
     isig <- TRUE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "Alternative hypothesis: true ", infer, " is not equal to 0.",
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
         "P-value: ", pv, "."
       )
 
@@ -40,10 +40,10 @@
     isig <- FALSE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "There is no correlation at the confidence level  p-value.",
-        "P-value:", p.value, compare$str, "estimated p-value:", pv
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "There is no correlation at the confidence level p-value. ",
+        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
       )
 
       message(msg)
@@ -78,9 +78,9 @@
     isig <- TRUE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "Alternative hypothesis: true ", infer, " is not equal to 0.",
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
         "P-value: ", pv, "."
       )
 
@@ -90,10 +90,10 @@
     isig <- FALSE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "There is no correlation at the confidence level  p-value.",
-        "P-value:", p.value, compare$str, "estimated p-value:", pv
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "There is no correlation at the confidence level p-value. ",
+        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
       )
 
       message(msg)
@@ -125,9 +125,9 @@
     isig <- TRUE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "Alternative hypothesis: true ", infer, " is not equal to 0.",
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
         "P-value: ", pv, "."
       )
 
@@ -137,10 +137,10 @@
     isig <- FALSE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "There is no correlation at the confidence level  p-value.",
-        "P-value:", p.value, compare$str, "estimated p-value:", pv
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "There is no correlation at the confidence level p-value. ",
+        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
       )
 
       message(msg)
@@ -175,9 +175,9 @@
     isig <- TRUE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "Alternative hypothesis: true ", infer, " is not equal to 0.",
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
         "P-value: ", pv, "."
       )
 
@@ -187,10 +187,10 @@
     isig <- FALSE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "There is no correlation at the confidence level  p-value.",
-        "P-value:", p.value, compare$str, "estimated p-value:", pv
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "There is no correlation at the confidence level p-value. ",
+        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
       )
 
       message(msg)
@@ -233,9 +233,9 @@
     isig <- TRUE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "Alternative hypothesis: true ", infer, " is not equal to 0.",
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
         "P-value: ", pv, "."
       )
 
@@ -245,10 +245,10 @@
     isig <- FALSE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "There is no correlation at the confidence level  p-value.",
-        "P-value:", p.value, compare$str, "estimated p-value:", pv
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "There is no correlation at the confidence level p-value. ",
+        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
       )
 
       message(msg)
@@ -285,9 +285,9 @@
     isig <- TRUE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "Alternative hypothesis: true ", infer, " is not equal to 0.",
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
         "P-value: ", pv, "."
       )
 
@@ -297,10 +297,10 @@
     isig <- FALSE
 
     if (verbose) {
-      msg <- paste(
-        ny, "vs.", nx, ".",
-        "There is no correlation at the confidence level  p-value.",
-        "P-value:", p.value, compare$str, "estimated p-value:", pv
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "There is no correlation at the confidence level p-value. ",
+        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
       )
 
       message(msg)
