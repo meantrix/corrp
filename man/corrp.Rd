@@ -91,7 +91,8 @@ list with two tables: data and index.\cr
   p.value param. If the statistical tests do not obtain a significance greater/less
   than p.value the value of variable `isig` will be `FALSE`.\cr
 - There is no statistical significance test for the pps algorithm. By default `isig` is TRUE.\cr
-- If any errors occur during operations the association measure(`infer.value`) will be `NA`.
+- If any errors occur during operations the association measure(`infer.value`) will be `NA`.\cr
+- The result `data` and `index` will have \eqn{N^2} rows, where N is the number of variables of the input data.
 }
 \description{
 Compute correlations type analysis on mixed classes columns of larges dataframes
