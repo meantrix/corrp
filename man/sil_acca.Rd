@@ -15,7 +15,7 @@ sil_acca(acca, ...)
 \arguments{
 \item{acca}{\[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Additional arguments.}
 
 \item{m}{\[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
 By default the distance matrix(dist) used in this method is given by `dist = 1 - m`.}
@@ -29,6 +29,14 @@ By default the distance matrix(dist) used in this method is given by `dist = 1 -
 \description{
 A C++ implementation of the Silhouette method
 of interpretation and validation of consistency within acca clusters of data.
+}
+\examples{
+
+x <- corrp::corrp(iris)
+m <- corrp::corr_matrix(x)
+acca <- corrp::acca(m, 2)
+sil_acca(acca, m)
+
 }
 \references{
 Leonard Kaufman; Peter J. Rousseeuw (1990).

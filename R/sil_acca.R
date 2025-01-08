@@ -6,7 +6,7 @@
 #' @param acca \[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}
 #' @param m  \[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
 #' By default the distance matrix(dist) used in this method is given by `dist = 1 - m`.
-#' @param ... Additional arguments (TODO).
+#' @param ... Additional arguments.
 #'
 #' @return \[\code{numeric(1)}]\cr the average value of
 #'  the silhouette width over all data of the entire dataset.
@@ -26,7 +26,13 @@
 #' Starczewski, Artur, and Adam Krzyżak. "Performance evaluation of the silhouette index.
 #' " International Conference on Artificial Intelligence and Soft Computing. Springer, Cham, 2015.
 #'
+#' @examples
+
 #'
+#' x <- corrp::corrp(iris)
+#' m <- corrp::corr_matrix(x)
+#' acca <- corrp::acca(m, 2)
+#' sil_acca(acca, m)
 #'
 #' @export
 #'

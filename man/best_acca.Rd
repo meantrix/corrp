@@ -16,7 +16,7 @@ best_acca(m, ...)
 \item{m}{\[\code{matrix(1)}]\cr correlation matrix
 from \code{\link{corr_matrix}}.}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Additional arguments.}
 
 \item{mink}{\[\code{integer(1)}]\cr minimum number of clusters considered.}
 
@@ -38,6 +38,13 @@ the optimal number of clusters `$best.k`.
 Determining the optimal number of
 cluster in the ACCA clustering using the
 average silhouette aproach.
+}
+\examples{
+
+x <- corrp::corrp(iris)
+m <- corrp::corr_matrix(x)
+best_acca(m, 2, 6)
+
 }
 \references{
 Leonard Kaufman; Peter J. Rousseeuw (1990).

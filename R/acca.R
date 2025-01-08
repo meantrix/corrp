@@ -16,7 +16,7 @@
 #' @param maxrep \[\code{integer(1)}]\cr maximum number of
 #' interactions without change in the clusters.
 #' @param maxiter \[\code{integer(1)}]\cr maximum number of interactions.
-#' @param ... Additional arguments (TODO).
+#' @param ... Additional arguments .
 #'
 #' @return \[\code{acca_list(k)}]\cr A list with the
 #' final result of the clustering method.
@@ -31,8 +31,12 @@
 #' "Average correlation clustering algorithm (ACCA) for grouping of co-regulated
 #' genes with similar pattern of variation in their expression values."
 #' Journal of Biomedical Informatics 43.4 (2010): 560-568.
+#' 
+#' @examples
 #'
-#'
+#' x <- corrp::corrp(iris)
+#' m <- corrp::corr_matrix(x)
+#' corrp::acca(m, 2)
 #'
 #' @export
 #'

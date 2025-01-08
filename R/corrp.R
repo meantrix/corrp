@@ -76,7 +76,7 @@
 #' @param pps.args \[\code{list(1)}]\cr additional parameters for the specific method.
 #' @param uncoef.args \[\code{list(1)}]\cr additional parameters for the specific method.
 #' @param cramersV.args \[\code{list(1)}]\cr additional parameters for the specific method.
-#' @param ... Additional arguments (TODO).
+#' @param ... Additional arguments.
 #'
 #' @author Igor D.S. Siciliani
 #'
@@ -90,7 +90,12 @@
 #'
 #' Paul van der Laken, ppsr,2021.
 #' URL \url{https://github.com/paulvanderlaken/ppsr}.
-#'
+#' 
+#' @examples
+#'  iris_c <- corrp(iris)
+#'  iris_m <- corr_matrix(iris_c, isig = FALSE)
+#'  corrplot::corrplot(iris_m)
+#' 
 #'
 #' @export
 corrp <- function(df,

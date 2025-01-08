@@ -60,7 +60,7 @@ To focus on significant correlations, you can filter the results based on signif
 
 ```{r}
 # Filter significant correlations (p-value < 0.05)
-significant_results <- subset(results$data, isig == TRUE)
+significant_results <- subset(results$data, isTRUE(isig))
 significant_results
 ```
 

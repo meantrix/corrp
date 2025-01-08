@@ -14,6 +14,10 @@
 #' be represented by NA or FALSE in the correlation matrix.
 #' @param ... Additional arguments (TODO).
 #'
+#' @examples
+#'
+#' iris_cor <- corrp(iris)
+#' corr_rm(df = iris, c = iris_cor, cutoff = 0.75, col = "infer.value", isig = FALSE)
 #'
 #' @author Igor D.S. Siciliani
 #'

@@ -16,7 +16,7 @@ acca(m, ...)
 \item{m}{\[\code{matrix(1)}]\cr correlation matrix from
 \code{\link{corr_matrix}} or a distance matrix.}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Additional arguments .}
 
 \item{k}{\[\code{integer(1)}]\cr number of clusters considered.}
 
@@ -36,6 +36,13 @@ that works directly with the correlation
 matrix derived from the \code{\link{corr_matrix}} function.
 In this sense, this implementation differs from the original,
 it works with mixed data and several correlation methods.
+}
+\examples{
+
+x <- corrp::corrp(iris)
+m <- corrp::corr_matrix(x)
+corrp::acca(m, 2)
+
 }
 \references{
 Bhattacharya, Anindya, and Rajat K. De.

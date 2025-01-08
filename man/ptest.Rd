@@ -28,10 +28,17 @@ must be one of "two.sided" (default), "greater" or "less". You can specify just 
 
 \item{num.s}{\[\code{numeric(1)}]\cr number of samples with replacement created with y numeric vector.}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Additional arguments.}
 }
 \description{
 Execute one-sample permutation test on two numeric vector.
 Its keep one vector constant and ‘shuffle’ the other by resampling.
 This approximates the null hypothesis — that there is no dependency/difference between the variables.
+}
+\examples{
+
+x <- iris[[1]]
+y <- iris[[2]]
+ptest(x, y, FUN = function(x, y) cor(x, y), alternative = "t")
+
 }

@@ -7,3 +7,4 @@ renv.lock
 .renvignore
 .Rprofile
 renv
+inst/doc

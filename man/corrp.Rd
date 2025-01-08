@@ -81,7 +81,7 @@ The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 
 \item{uncoef.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Additional arguments.}
 }
 \value{
 list with two tables: data and index.\cr
@@ -127,6 +127,13 @@ categorical variable.
   value lies between 0 and 1.\cr
 }
 
+\examples{
+ iris_c <- corrp(iris)
+ iris_m <- corr_matrix(iris_c, isig = FALSE)
+ corrplot::corrplot(iris_m)
+
+
+}
 \references{
 KS Srikanth,sidekicks,cor2, 2020.
 URL \url{https://github.com/talegari/sidekicks/}.

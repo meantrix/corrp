@@ -17,19 +17,21 @@ Description: Compute multiple types of correlation analyses, including
     the average correlation clustering algorithm and distance 
     correlation t-test.
 Imports: 
-    Rcpp (>= 1.0.4.6),
-    RcppArmadillo (>= 0.11.2.0.0),
-    lsr (>= 0.5),
-    parallel (>= 3.6.3),
-    stats (>= 3.6.3),
-    caret (>= 6.0-85),
-    minerva (>= 1.5.8),    
-    checkmate (>= 2.0.0),
+    Rcpp (>= 1.0.13-1),
+    RcppArmadillo (>= 14.2.2-1),
+    lsr (>= 0.5.2),
+    parallel (>= 4.4.1),
+    stats (>= 4.4.1),
+    caret (>= 7.0-1),
+    minerva (>= 1.5.10),
+    checkmate (>= 2.3.2),
     ppsr (>= 0.0.2),
     DescTools (>= 0.99.40)
 Suggests: 
     corrplot,
     energy,
+    knitr,
+    rmarkdown,
     testthat
 License: GPL (>= 3)
 Encoding: UTF-8
@@ -39,3 +41,4 @@ RoxygenNote: 7.3.2
 URL: https://github.com/meantrix/corrp,
     https://meantrix.github.io/corrp/
 BugReports: https://github.com/meantrix/corrp/issues
+VignetteBuilder: knitr
