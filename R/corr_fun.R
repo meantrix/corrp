@@ -103,7 +103,11 @@
 #' Paul van der Laken, ppsr,2021.
 #' URL \url{https://github.com/paulvanderlaken/ppsr}.
 #'
-#'
+#' @examples
+#' \dontrun{
+#' # since both `nx` and `ny` columns are numerical the method type is defined by `cor.nn`
+#' corr_fun(iris, nx = "Sepal.Length", ny = "Sepal.Width", cor.nn = "dcor")
+#' }
 #' @export
 corr_fun <- function(df,
                      nx,
