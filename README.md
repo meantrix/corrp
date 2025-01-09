@@ -66,9 +66,9 @@ remotes::install_github("meantrix/corrp@main")
 
 ```r
 # coorp with using iris using parallel processing
-results = corrp::corrp(iris, cor.nn = 'pps', cor.nc = 'pps',cor.cc = 'pps', n.cores = 2 , verbose = FALSE)
+results = corrp::corrp(iris, cor.nn = 'mic', cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2 , verbose = FALSE)
 # an sequential example with different correlation pair types
-results_2 = corrp::corrp(mtcars, cor.nn = 'pps', cor.nc = 'lm', cor.cc = 'cramersV', verbose = FALSE)
+results_2 = corrp::corrp(mtcars, cor.nn = 'pps', cor.nc = 'lm', cor.cc = 'cramersV', parallel = FALSE, verbose = FALSE)
 
 head(results$data)
 #                            infer infer.value        stat stat.value isig msg         varx         vary

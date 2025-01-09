@@ -35,28 +35,28 @@
 #' @return 
 #' A list with two tables: `data` and `index`.
 #' 
-#' - **`data`**: A table containing all the statistical results. The columns of this table are as follows:
-#'   \itemize{
-#'     \item infer: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
-#'     \item infer.value: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
-#'     \item stat: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
-#'     \item stat.value The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
-#'     \item isig: A logical value indicating whether the statistical result is significant (`TRUE`) or not, based on predefined criteria (e.g., threshold for P-value).
-#'     \item msg: A message or error related to the inference process.
-#'     \item varx: The name of the first variable in the analysis (independent variable or feature).
-#'     \item vary: The name of the second variable in the analysis (dependent/target variable).
-#'   }
+#' - **data**: A table containing all the statistical results. The columns of this table are as follows:
+#'   
+#'     - `infer`: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
+#'     - `infer.value`: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
+#'     - `stat`: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
+#'     - `stat.value: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
+#'     - `isig`: A logical value indicating whether the statistical result is significant (`TRUE`) or not, based on predefined criteria (e.g., threshold for P-value).
+#'     - `msg`: A message or error related to the inference process.
+#'     - `varx`: The name of the first variable in the analysis (independent variable or feature).
+#'     - `vary`: The name of the second variable in the analysis (dependent/target variable).
+#'   
 #' 
 #' 
-#' - **`index`**: A table that contains the pairs of indices used in each inference of the `data` table.
+#' - **index**: A table that contains the pairs of indices used in each inference of the `data` table.
 #' 
 #' 
-#' - All statistical tests are controlled by the confidence internal of
+#' All statistical tests are controlled by the confidence internal of
 #'   p.value param. If the statistical tests do not obtain a significance greater/less
 #'   than p.value the value of variable `isig` will be `FALSE`.\cr
-#' - There is no statistical significance test for the pps algorithm. By default `isig` is TRUE.\cr
-#' - If any errors occur during operations the association measure(`infer.value`) will be `NA`.\cr
-#' - The result `data` and `index` will have \eqn{N^2} rows, where N is the number of variables of the input data.
+#' There is no statistical significance test for the pps algorithm. By default `isig` is TRUE.\cr
+#' If any errors occur during operations the association measure (`infer.value`) will be `NA`.\cr
+#' The result `data` and `index` will have \eqn{N^2} rows, where N is the number of variables of the input data.
 #'
 #' @param df \[\code{data.frame(1)}]\cr input data frame.
 #' @param parallel \[\code{logical(1)}]\cr If its TRUE run the operations in parallel backend.

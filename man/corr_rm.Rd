@@ -33,20 +33,20 @@ corr_rm(df, c, ...)
 \method{corr_rm}{matrix}(df, c, cutoff = 0.75, ...)
 }
 \arguments{
-\item{df}{\[\code{data.frame(1)}]\cr input data frame.}
+\item{df}{[\code{data.frame(1)}]\cr input data frame.}
 
-\item{c}{\[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list output from the function \code{\link[corrp]{corrp}} 
-with class \code{\link[corrp]{clist}} or correlation matrix output 
+\item{c}{[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list output from the function \code{\link[corrp]{corrp}}
+with class \code{\link[corrp]{clist}} or correlation matrix output
 from \code{\link[corrp]{corr_matrix}} with class \code{\link[corrp]{cmatrix}}.}
 
 \item{...}{Additional arguments.}
 
-\item{col}{\[\code{character(1)}]\cr choose the column to be used in the correlation matrix}
+\item{col}{[\code{character(1)}]\cr choose the column to be used in the correlation matrix}
 
-\item{isig}{\[\code{logical(1)}]\cr values that are not statistically significant will
+\item{isig}{[\code{logical(1)}]\cr values that are not statistically significant will
 be represented by NA or FALSE in the correlation matrix.}
 
-\item{cutoff}{\[\code{numeric(1)}]\cr A numeric value for the pair-wise absolute correlation cutoff.
+\item{cutoff}{[\code{numeric(1)}]\cr A numeric value for the pair-wise absolute correlation cutoff.
 The default values is 0.75.}
 }
 \description{

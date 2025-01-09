@@ -272,7 +272,7 @@
   pv <- ptest(y, x, FUN = function(x, y) {
     args <- c(list(x), list(y), uncoef.args)
     do.call(DescTools::UncertCoef, args)
-  }, rk = TRUE, num.s = num.s, alternative = alternative)
+  }, rk = rk, num.s = num.s, alternative = alternative)
   # pv = ptest(y,x,FUN = function(y,x) DescTools::UncertCoef(y,x) )
 
   infer <- "Uncertainty coefficient"
@@ -314,24 +314,56 @@
 }
 
 # Predictive Power Score Calculations
-.corpps <- function(x, y, nx, ny, verbose, pps.args = list(), ...) {
-  args <- c(list(data.frame(x, y)), list(nx), list(ny), pps.args)
-
+.corpps <- function(x, y, nx, ny, p.value, comp, verbose, alternative, num.s, rk, pps.args = list(), ...) {
+  
+  args <- c(list(data.frame(x = unlist(x), y = unlist(y))), list("x", "y"), pps.args)
+  
+  pv <- ptest(y, x, FUN = function(x, y) {    
+    args <- c(list(data.frame(x = x, y = y)), list("x", "y"), pps.args)    
+    r = do.call(ppsr::score, args)
+    return(r$pps)
+  }, rk = rk, num.s = num.s, alternative = alternative)
+  
+  compare <- .comparepv(x = pv, pv = p.value, comp = comp)
   r <- do.call(ppsr::score, args)
 
   msg <- ""
   infer <- "Predictive Power Score"
   infer.value <- r$pps
-  stat <- r$metric
-  stat.value <- r$model_score
+  stat <- "P-value"
+  stat.value <- pv
   isig <- TRUE
 
+  if (compare$comp) {
+    isig <- TRUE
+
+    if (verbose) {
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
+        "P-value: ", pv, "."
+      )
+    }
+  } else {
+    isig <- FALSE
+
+    if (verbose) {
+      msg <- paste0(
+        ny, " vs. ", nx, ". ",
+        "There is no correlation at the confidence level p-value. ",
+        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
+      )
+     
+    }
+  }
+
   if (verbose) {
-    msg <- paste(
-      "Target: ", ny, "vs. Predicted: ", nx, ".",
-      "Anothers Outputs(baseline_score,cv_folds,algorithm,model_type):",
-      r$baseline_score, ";", r$cv_folds, ";", r$algorithm, ";", r$model_type
-    )
+    msg = paste0(msg,
+      "\nModel Parameters:",
+      "\nbaseline_score: ", r$baseline_score, 
+      "\ncv_folds: ", r$cv_folds, ";",
+      "\nalgorithm: ", r$algorithm, ";",
+      "\nmodel_type: ", r$model_type, ".")
 
     message(msg)
   }

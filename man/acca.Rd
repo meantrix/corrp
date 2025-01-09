@@ -13,22 +13,22 @@ acca(m, ...)
 \method{acca}{matrix}(m, k, maxrep = 2L, maxiter = 100L, ...)
 }
 \arguments{
-\item{m}{\[\code{matrix(1)}]\cr correlation matrix from
+\item{m}{[\code{matrix(1)}]\cr correlation matrix from
 \code{\link{corr_matrix}} or a distance matrix.}
 
 \item{...}{Additional arguments .}
 
-\item{k}{\[\code{integer(1)}]\cr number of clusters considered.}
+\item{k}{[\code{integer(1)}]\cr number of clusters considered.}
 
-\item{maxrep}{\[\code{integer(1)}]\cr maximum number of
+\item{maxrep}{[\code{integer(1)}]\cr maximum number of
 interactions without change in the clusters.}
 
-\item{maxiter}{\[\code{integer(1)}]\cr maximum number of interactions.}
+\item{maxiter}{[\code{integer(1)}]\cr maximum number of interactions.}
 }
 \value{
-\[\code{acca_list(k)}]\cr A list with the
+[\code{acca_list(k)}]\cr A list with the
 final result of the clustering method.
- That is, the name of the variables belonging to each cluster k.
+That is, the name of the variables belonging to each cluster k.
 }
 \description{
 A C++ implementation of the ACCA method
