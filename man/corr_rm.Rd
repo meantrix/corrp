@@ -35,10 +35,11 @@ corr_rm(df, c, ...)
 \arguments{
 \item{df}{\[\code{data.frame(1)}]\cr input data frame.}
 
-\item{c}{\[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list  output from \code{\link{corrp}} or
-correlation matrix output from \code{\link{corr_matrix}}.}
+\item{c}{\[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list output from the function \code{\link[corrp]{corrp}} 
+with class \code{\link[corrp]{clist}} or correlation matrix output 
+from \code{\link[corrp]{corr_matrix}} with class \code{\link[corrp]{cmatrix}}.}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Additional arguments.}
 
 \item{col}{\[\code{character(1)}]\cr choose the column to be used in the correlation matrix}
 
@@ -54,8 +55,10 @@ corrp functions outputs and the caret package function \code{\link[caret]{findCo
 }
 \examples{
 
-iris_cor <- corrp(iris)
-corr_rm(df = iris, c = iris_cor, cutoff = 0.75, col = "infer.value", isig = FALSE)
+iris_clist <- corrp(iris)
+iris_cmatrix <- corr_matrix(iris_clist)
+corr_rm(df = iris, c = iris_clist, cutoff = 0.75, col = "infer.value", isig = FALSE)
+corr_rm(df = iris, c = iris_cmatrix, cutoff = 0.75, col = "infer.value", isig = FALSE)
 
 }
 \author{
