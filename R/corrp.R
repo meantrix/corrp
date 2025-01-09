@@ -8,7 +8,7 @@
 #'
 #' @name corrp
 #'
-#' @section Details (Types):
+#' @section Details (Pair Types):
 #'
 #' - \code{integer/numeric pair} Pearson Correlation using \code{\link[stats]{cor}} function. The
 #'   value lies between -1 and 1.\cr
@@ -33,8 +33,17 @@
 #'   value lies between 0 and 1.\cr
 #'
 #' @return list with two tables: data and index.\cr
-#' - The `$data` table contains all the statistical results;\cr
-#' - The `$index` table contains the pairs of indices used in each inference of the data table.
+#' - **`data`**: A table containing all the statistical results. The columns of this table are as follows:\cr
+#'   - **`infer`**: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).\cr
+#'   - **`infer.value`**: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.\cr
+#'   - **`stat`**: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).\cr
+#'   - **`stat.value`**: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).\cr
+#'   - **`isig`**: A logical value indicating whether the statistical result is significant (`TRUE`) or not, based on predefined criteria (e.g., threshold for P-value).\cr
+#'   - **`msg`**: A message or error related to the inference process.\cr
+#'   - **`varx`**: The name of the first variable in the analysis (independent variable or feature).\cr
+#'   - **`vary`**: The name of the second variable in the analysis (dependent/target variable).\cr\cr
+#' - The `$index` table contains the pairs of indices used in each inference of the data table.\cr\cr
+#' 
 #' - All statistical tests are controlled by the confidence internal of
 #'   p.value param. If the statistical tests do not obtain a significance greater/less
 #'   than p.value the value of variable `isig` will be `FALSE`.\cr
