@@ -243,15 +243,14 @@ corr_fun <- function(df,
     )
   }
 
-  if ((class(r) %in% "try-error")) {
-    msg <- "" #
-
+  if (inherits(r, "try-error")) {
+    msg <- ""   
     if (verbose) {
       warnings(cat(
         "ERROR: some operations produces Nas values.", "\n",
         ny, " FUN ", nx, "\n"
       ))
-      msg <- r[[1]]
+      msg <- attr(r, "condition")$message
     }
 
     r <- list(
