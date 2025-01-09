@@ -30,10 +30,9 @@ corr_fun(
 \arguments{
 \item{df}{\[\code{data.frame(1)}]\cr input data frame.}
 
-\item{nx}{\[\code{character(1)}]\cr column name of 
-independent/predictor variable.}
+\item{nx}{\[\code{character(1)}]\cr first variable column name: independent/predictor variable.}
 
-\item{ny}{\[\code{character(1)}]\cr column name of dependent/target variable.}
+\item{ny}{\[\code{character(1)}]\cr second variable column name: dependent/target variable.}
 
 \item{p.value}{\[\code{logical(1)}]\cr
 P-value probability of obtaining the observed results of a test,
@@ -82,7 +81,7 @@ The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 
 \item{uncoef.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Additional arguments.}
 }
 \value{
 list with all statistical results.\cr

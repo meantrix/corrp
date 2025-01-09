@@ -53,9 +53,8 @@
 #'
 #'
 #' @param df \[\code{data.frame(1)}]\cr input data frame.
-#' @param nx \[\code{character(1)}]\cr column name of 
-#' independent/predictor variable.
-#' @param ny \[\code{character(1)}]\cr column name of dependent/target variable.
+#' @param nx \[\code{character(1)}]\cr first variable column name: independent/predictor variable. 
+#' @param ny \[\code{character(1)}]\cr second variable column name: dependent/target variable.
 #' @param p.value \[\code{logical(1)}]\cr
 #' P-value probability of obtaining the observed results of a test,
 #' assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).
@@ -87,7 +86,7 @@
 #' @param pps.args \[\code{list(1)}]\cr additional parameters for the specific method.
 #' @param uncoef.args \[\code{list(1)}]\cr additional parameters for the specific method.
 #' @param cramersV.args \[\code{list(1)}]\cr additional parameters for the specific method.
-#' @param ... Additional arguments (TODO).
+#' @param ... Additional arguments.
 #'
 #'
 #' @author Igor D.S. Siciliani
@@ -245,7 +244,7 @@ corr_fun <- function(df,
   }
 
   if ((class(r) %in% "try-error")) {
-    msg <- ""
+    msg <- "" #
 
     if (verbose) {
       warnings(cat(

@@ -21,7 +21,7 @@ The data.frame is allowed to have columns of these four classes: integer, numeri
 In this new package the correlation is automatically computed according to the follow options: 
 
 #### integer/numeric pair:
-- [Pearson correlation test](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) ;
+- [Pearson correlation test](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient);
 - [Distance Correlation](https://en.wikipedia.org/wiki/Distance_correlation);
 - [Maximal Information Coefficient](https://en.wikipedia.org/wiki/Maximal_information_coefficient);
 - [Predictive Power Score](https://github.com/paulvanderlaken/ppsr).
@@ -66,7 +66,7 @@ remotes::install_github("meantrix/corrp@main")
 
 ```r
 # coorp with using iris using parallel processing
-results = corrp::corrp(iris, cor.nn = 'mic', cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2 , verbose = FALSE)
+results = corrp::corrp(iris, cor.nn = 'pps', cor.nc = 'pps',cor.cc = 'pps', n.cores = 2 , verbose = FALSE)
 # an sequential example with different correlation pair types
 results_2 = corrp::corrp(mtcars, cor.nn = 'pps', cor.nc = 'lm', cor.cc = 'cramersV', verbose = FALSE)
 
