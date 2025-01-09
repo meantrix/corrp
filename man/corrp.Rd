@@ -130,7 +130,7 @@ categorical variable.
 \examples{
  iris_c <- corrp(iris)
  iris_m <- corr_matrix(iris_c, isig = FALSE)
- corrplot::corrplot(iris_m)
+ corrplot(iris_m)
 
 
 }

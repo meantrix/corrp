@@ -17,7 +17,7 @@
 #'
 #' iris_cor <- corrp(iris)
 #' iris_m <- corr_matrix(iris_cor, isig = FALSE)
-#' corrplot::corrplot(iris_m)
+#' corrplot(iris_m)
 #' @export
 corr_matrix <- function(c, ...) {
   UseMethod("corr_matrix", c)
