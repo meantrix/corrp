@@ -84,17 +84,23 @@ The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 \item{...}{Additional arguments.}
 }
 \value{
-list with two tables: data and index.\cr
-- **`data`**: A table containing all the statistical results. The columns of this table are as follows:\cr
-  - **`infer`**: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).\cr
-  - **`infer.value`**: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.\cr
-  - **`stat`**: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).\cr
-  - **`stat.value`**: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).\cr
-  - **`isig`**: A logical value indicating whether the statistical result is significant (`TRUE`) or not, based on predefined criteria (e.g., threshold for P-value).\cr
-  - **`msg`**: A message or error related to the inference process.\cr
-  - **`varx`**: The name of the first variable in the analysis (independent variable or feature).\cr
-  - **`vary`**: The name of the second variable in the analysis (dependent/target variable).\cr\cr
-- The `$index` table contains the pairs of indices used in each inference of the data table.\cr\cr
+A list with two tables: `data` and `index`.
+
+- **`data`**: A table containing all the statistical results. The columns of this table are as follows:
+  \itemize{
+    \item **`infer`**: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
+    \item **`infer.value`**: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
+    \item **`stat`**: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
+    \item **`stat.value`**: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
+    \item **`isig`**: A logical value indicating whether the statistical result is significant (`TRUE`) or not, based on predefined criteria (e.g., threshold for P-value).
+    \item **`msg`**: A message or error related to the inference process.
+    \item **`varx`**: The name of the first variable in the analysis (independent variable or feature).
+    \item **`vary`**: The name of the second variable in the analysis (dependent/target variable).
+  }
+
+
+- **`index`**: A table that contains the pairs of indices used in each inference of the `data` table.
+
 
 - All statistical tests are controlled by the confidence internal of
   p.value param. If the statistical tests do not obtain a significance greater/less
