@@ -8,6 +8,8 @@
   infer <- "Linear Model"
   stat <- "P-value"
 
+  set_arguments(lm.args)
+
   args <- c(list(y ~ as.factor(x)), lm.args)
 
   sum.res <- summary(
@@ -65,6 +67,8 @@
   infer <- "Cramer\'s V"
   stat <- "P-value"
 
+  set_arguments(cramersV.args)
+
   args <- c(list(x), list(y), cramersV.args)
 
   pv <- stats::chisq.test(x, y, simulate.p.value = TRUE)$p.value
@@ -110,6 +114,8 @@
 .dcorp <- function(x, y, nx, ny, p.value, comp, verbose, dcor.args = list(), ...) {
   infer <- "Distance Correlation"
   stat <- "P-value"
+
+  set_arguments(dcor.args)
 
   args <- c(list(x), list(y), dcor.args)
 
@@ -159,6 +165,8 @@
 
   infer <- "Pearson Correlation"
   stat <- "P-value"
+
+  set_arguments(pearson.args)
 
   pearson.args$alternative <- alternative # from global
   pearson.args$method <- "pearson"
@@ -211,6 +219,8 @@
 
   infer <- "Maximal Information Coefficient"
   stat <- "P-value"
+
+  set_arguments(mic.args)
 
   args <- c(list(x), list(y), mic.args)
 
@@ -267,6 +277,8 @@
   if (is.data.frame(x)) x <- x[[1]]
   if (is.data.frame(y)) y <- y[[1]]
 
+  set_arguments(uncoef.args)
+
   args <- c(list(x), list(y), uncoef.args)
 
   pv <- ptest(y, x, FUN = function(x, y) {
@@ -314,52 +326,60 @@
 }
 
 # Predictive Power Score Calculations
-.corpps <- function(x, y, nx, ny, p.value, comp, verbose, alternative, num.s, rk, pps.args = list(), ...) {
-  
+.corpps <- function(x, y, nx, ny, p.value, comp, verbose, alternative, num.s, rk, pps.args = list(ptest = FALSE), ...) {
+
+  ptest = FALSE
+  set_arguments(pps.args)    
   args <- c(list(data.frame(x = unlist(x), y = unlist(y))), list("x", "y"), pps.args)
-  
-  pv <- ptest(y, x, FUN = function(x, y) {    
-    args <- c(list(data.frame(x = x, y = y)), list("x", "y"), pps.args)    
-    r = do.call(ppsr::score, args)
-    return(r$pps)
-  }, rk = rk, num.s = num.s, alternative = alternative)
-  
-  compare <- .comparepv(x = pv, pv = p.value, comp = comp)
-  r <- do.call(ppsr::score, args)
+
+  if (!isFALSE(ptest)) {  
+    pv <- ptest(y, x, FUN = function(x, y) {    
+      args <- c(list(data.frame(x = x, y = y)), list("x", "y"), pps.args)    
+      r = do.call(ppsr::score, args)
+      return(r$pps)
+    }, rk = rk, num.s = num.s, alternative = alternative)
+    
+    compare <- .comparepv(x = pv, pv = p.value, comp = comp)
+  }
+  r <- do.call(ppsr::score, args) 
 
   msg <- ""
   infer <- "Predictive Power Score"
-  infer.value <- r$pps
-  stat <- "P-value"
-  stat.value <- pv
-  isig <- TRUE
+  infer.value <- r$pps  
+  stat = r$metric
+  stat.value = r$model_score
+  isig <- NA
 
-  if (compare$comp) {
-    isig <- TRUE
+  if (!isFALSE(ptest)) {
+    stat <- "P-value"
+    stat.value <- pv
 
-    if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
-        "P-value: ", pv, "."
-      )
-    }
-  } else {
-    isig <- FALSE
+    if (compare$comp) {
+      isig <- TRUE
 
-    if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "There is no correlation at the confidence level p-value. ",
-        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
-      )
-     
+      if (verbose) {
+        msg <- paste0(
+          ny, " vs. ", nx, ". ",
+          "Alternative hypothesis: true ", infer, " is not equal to 0. ",
+          "P-value: ", pv, ".\n"
+        )
+      }
+    } else {
+      isig <- FALSE
+
+      if (verbose) {
+        msg <- paste0(
+          ny, " vs. ", nx, ". ",
+          "There is no correlation at the confidence level p-value. ",
+          "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, ".\n"
+        )      
+      }
     }
   }
 
   if (verbose) {
     msg = paste0(msg,
-      "\nModel Parameters:",
+      "Model Parameters:",
       "\nbaseline_score: ", r$baseline_score, 
       "\ncv_folds: ", r$cv_folds, ";",
       "\nalgorithm: ", r$algorithm, ";",
@@ -421,4 +441,28 @@ assert_required_argument <- function(arg, description) {
       sep = "\n  "
     ), sys.call(sys.parent())))
   }
+}
+
+#' @title Set Argument
+#' @description Assigns provided arguments from the `args_list` to the parent environment. If an argument is inside the arguments of the methods that calculate statistics, it assigns it on the parent environment, and removes the argument from the list.
+#'
+#' @param args_list \[\code{list}]\cr 
+#' A named list of arguments to be assigned to the parent environment.
+#'
+#' @return A modified \code{args_list} with the arguments that were assigned to the parent environment removed.
+#'
+#' @export
+set_arguments = function(args_list) {
+  checkmate::assert_list(args_list)
+  list_name <- deparse(substitute(args_list))
+  
+  for (name_arg in names(args_list)) {
+    if (name_arg %in% c("p.value", "comp", "verbose", "alternative", "num.s", "rk", "ptest")) {
+      assign(name_arg, args_list[[name_arg]], envir = parent.frame())
+      args_list[[name_arg]] = NULL
+    }
+  }
+
+  assign(list_name, args_list, envir = parent.frame())
+  return(invisible())
 }

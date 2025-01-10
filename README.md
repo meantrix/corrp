@@ -72,22 +72,22 @@ results_2 = corrp::corrp(mtcars, cor.nn = 'pps', cor.nc = 'lm', cor.cc = 'cramer
 
 head(results$data)
 #                            infer infer.value        stat stat.value isig msg         varx         vary
-# Maximal Information Coefficient   0.9994870     P-value  0.0000000 TRUE     Sepal.Length Sepal.Length
-# Maximal Information Coefficient   0.2770503     P-value  0.0000000 TRUE     Sepal.Length  Sepal.Width
-# Maximal Information Coefficient   0.7682996     P-value  0.0000000 TRUE     Sepal.Length Petal.Length
-# Maximal Information Coefficient   0.6683281     P-value  0.0000000 TRUE     Sepal.Length  Petal.Width
-#          Predictive Power Score   0.5591864 F1_weighted  0.7028029 TRUE     Sepal.Length      Species
+# Maximal Information Coefficient   0.9994870     P-value  0.0000000 TRUE      Sepal.Length Sepal.Length
+# Maximal Information Coefficient   0.2770503     P-value  0.0000000 TRUE      Sepal.Length  Sepal.Width
+# Maximal Information Coefficient   0.7682996     P-value  0.0000000 TRUE      Sepal.Length Petal.Length
+# Maximal Information Coefficient   0.6683281     P-value  0.0000000 TRUE      Sepal.Length  Petal.Width
+#          Predictive Power Score   0.5591864 F1_weighted  0.7028029 NA        Sepal.Length      Species
 # Maximal Information Coefficient   0.2770503     P-value  0.0000000 TRUE      Sepal.Width Sepal.Length
 
 head(results_2$data)
 
 #                  infer infer.value stat stat.value isig msg varx vary
-# Predictive Power Score   1.0000000 <NA>         NA TRUE      mpg  mpg
-# Predictive Power Score   0.3861810  MAE  0.8899206 TRUE      mpg  cyl
-# Predictive Power Score   0.3141056  MAE 74.7816795 TRUE      mpg disp
-# Predictive Power Score   0.2311418  MAE 42.3961506 TRUE      mpg   hp
-# Predictive Power Score   0.1646116  MAE  0.3992651 TRUE      mpg drat
-# Predictive Power Score   0.2075760  MAE  0.5768637 TRUE      mpg   wt
+# Predictive Power Score   1.0000000 <NA>         NA NA      mpg  mpg
+# Predictive Power Score   0.3861810  MAE  0.8899206 NA      mpg  cyl
+# Predictive Power Score   0.3141056  MAE 74.7816795 NA      mpg disp
+# Predictive Power Score   0.2311418  MAE 42.3961506 NA      mpg   hp
+# Predictive Power Score   0.1646116  MAE  0.3992651 NA      mpg drat
+# Predictive Power Score   0.2075760  MAE  0.5768637 NA      mpg   wt
 
 ```
 

@@ -124,7 +124,7 @@ corr_fun <- function(df,
                      pearson.args = list(),
                      dcor.args = list(),
                      mic.args = list(),
-                     pps.args = list(),
+                     pps.args = list(ptest = FALSE),
                      cramersV.args = list(),
                      uncoef.args = list(),
                      ...) {

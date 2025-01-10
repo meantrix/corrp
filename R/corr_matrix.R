@@ -38,9 +38,6 @@ corr_matrix.clist <- function(c, col = c("infer.value", "stat.value", "isig"), i
   .corr_matrix(c = c, col = col, isig = isig, ...)
 }
 
-
-
-
 .corr_matrix <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...) {
   checkmate::assert_names(names(c), identical.to = c("data", "index"))
   checkmate::assert_logical(isig, len = 1)
@@ -67,7 +64,6 @@ corr_matrix.clist <- function(c, col = c("infer.value", "stat.value", "isig"), i
 
   rownames(m) <- mnames
   colnames(m) <- mnames
-
 
   return(structure(m, class = c("cmatrix", "matrix")))
 }
