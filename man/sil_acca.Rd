@@ -6,7 +6,7 @@
 \alias{sil_acca.list}
 \title{Silhouette (clustering)}
 \usage{
-sil_acca(acca, ...)
+sil_acca(acca, m, ...)
 
 \method{sil_acca}{acca_list}(acca, m, ...)
 
@@ -15,10 +15,10 @@ sil_acca(acca, ...)
 \arguments{
 \item{acca}{[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}}
 
-\item{...}{Additional arguments.}
-
-\item{m}{[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
+\item{m}{[\code{cmatrix(1)|matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
 By default the distance matrix(dist) used in this method is given by \code{dist = 1 - m}.}
+
+\item{...}{Additional arguments.}
 }
 \value{
 [\code{numeric(1)}]\cr the average value of

@@ -41,7 +41,9 @@
 #'
 #' @export
 #'
-acca <- function(m, ...) {
+acca <- function(m, k, ...) {
+  assert_required_argument(m, "The 'm' argument must be a cmatrix object, which is the output from corr_matrix function, or it must be a matrix.")
+  assert_required_argument(m, "The 'k' argument must be the number of number of clusters considered.")
   UseMethod("acca", m)
 }
 

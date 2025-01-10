@@ -44,6 +44,7 @@
 #' @export
 #'
 best_acca <- function(m, ...) {
+  assert_required_argument(m, "The 'm' argument must be a cmatrix object, which is the output from corr_matrix function, or it must be a matrix.")
   UseMethod("best_acca", m)
 }
 

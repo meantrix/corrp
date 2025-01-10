@@ -6,7 +6,7 @@
 \alias{acca.matrix}
 \title{Average correlation clustering algorithm}
 \usage{
-acca(m, ...)
+acca(m, k, ...)
 
 \method{acca}{cmatrix}(m, k, maxrep = 2L, maxiter = 100L, ...)
 
@@ -16,9 +16,9 @@ acca(m, ...)
 \item{m}{[\code{matrix(1)}]\cr correlation matrix from
 \code{\link{corr_matrix}} or a distance matrix.}
 
-\item{...}{Additional arguments .}
-
 \item{k}{[\code{integer(1)}]\cr number of clusters considered.}
+
+\item{...}{Additional arguments .}
 
 \item{maxrep}{[\code{integer(1)}]\cr maximum number of
 interactions without change in the clusters.}
