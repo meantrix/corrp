@@ -413,7 +413,8 @@
 #' @export
 assert_required_argument <- function(arg, description) {
   arg_name <- deparse(substitute(arg))
-  if (!exists(arg_name)) {
+  t = try(arg, silent = TRUE)  
+  if (inherits(t, "try-error")) {    
     stop(simpleError(paste(
       sprintf("\n  Missing required argument: '%s'.", arg_name),
       description,

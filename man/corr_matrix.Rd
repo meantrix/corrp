@@ -13,7 +13,7 @@ corr_matrix(c, ...)
 \method{corr_matrix}{clist}(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...)
 }
 \arguments{
-\item{c}{[\code{corrp.list(1)}]\cr output from the \code{\link{corrp}} function.}
+\item{c}{[\code{clist(1)}]\cr output from the \code{\link{corrp}} function.}
 
 \item{...}{Additional arguments (TODO).}
 

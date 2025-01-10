@@ -28,6 +28,8 @@
 #'
 #' @export
 corr_rm <- function(df, c, ...) {
+  assert_required_argument(df, "The 'df' argument must be a data.frame which columns will be filtered.")
+  assert_required_argument(c, "The 'c' argument must be a clist object, which is the output from corrp, or a cmatrix object, which is the output from corr_matrix.")
   UseMethod("corr_rm", c)
 }
 

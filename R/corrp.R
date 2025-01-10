@@ -134,6 +134,8 @@ corrp <- function(df,
                   cramersV.args = list(),
                   uncoef.args = list(),
                   ...) {
+
+  assert_required_argument(df, "The 'df' argument must be a data.frame containing the data to analyze.")
   alternative <- match.arg(alternative)
   cor.nn <- match.arg(cor.nn)
   cor.nc <- match.arg(cor.nc)
