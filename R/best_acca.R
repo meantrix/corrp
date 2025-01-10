@@ -20,7 +20,7 @@
 #' the optimal number of clusters `$best.k`.
 #' @seealso \code{\link{sil_acca}}
 #'
-#' @author Igor D.S. Siciliani
+#' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords silhouette , acca , optimal , k
 #'

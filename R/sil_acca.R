@@ -14,7 +14,7 @@
 #'  are very well clustered.
 #'
 #'
-#' @author Igor D.S. Siciliani
+#' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords silhouette , acca
 #'

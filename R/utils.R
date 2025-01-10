@@ -457,7 +457,7 @@ set_arguments = function(args_list) {
   list_name <- deparse(substitute(args_list))
   
   for (name_arg in names(args_list)) {
-    if (name_arg %in% c("p.value", "comp", "verbose", "alternative", "num.s", "rk", "ptest")) {
+    if (name_arg %in% c("p.value", "comp", "alternative", "num.s", "rk", "ptest")) {
       assign(name_arg, args_list[[name_arg]], envir = parent.frame())
       args_list[[name_arg]] = NULL
     }

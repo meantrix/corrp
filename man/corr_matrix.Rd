@@ -30,10 +30,10 @@ create a correlation matrix.
 
 iris_cor <- corrp(iris)
 iris_m <- corr_matrix(iris_cor, isig = FALSE)
-corrplot(iris_m)
+corrplot::corrplot(iris_m)
 }
 \author{
-Igor D.S. Siciliani
+Igor D.S. Siciliani, Paulo H. dos Santos
 }
 \keyword{,}
 \keyword{correlation}

@@ -61,7 +61,7 @@ and Soft Computing. Springer, Cham, 2015.
 \code{\link{sil_acca}}
 }
 \author{
-Igor D.S. Siciliani
+Igor D.S. Siciliani, Paulo H. dos Santos
 }
 \keyword{,}
 \keyword{acca}

@@ -47,7 +47,7 @@ Starczewski, Artur, and Adam Krzyżak. "Performance evaluation of the silhouette
 " International Conference on Artificial Intelligence and Soft Computing. Springer, Cham, 2015.
 }
 \author{
-Igor D.S. Siciliani
+Igor D.S. Siciliani, Paulo H. dos Santos
 }
 \keyword{,}
 \keyword{acca}

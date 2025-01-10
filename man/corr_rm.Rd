@@ -36,8 +36,8 @@ corr_rm(df, c, ...)
 \item{df}{[\code{data.frame(1)}]\cr input data frame.}
 
 \item{c}{[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list output from the function \code{\link[corrp]{corrp}}
-with class \code{\link[corrp]{clist}} or correlation matrix output
-from \code{\link[corrp]{corr_matrix}} with class \code{\link[corrp]{cmatrix}}.}
+with class \code{clist} or correlation matrix output
+from \code{\link[corrp]{corr_matrix}} with class \code{cmatrix}.}
 
 \item{...}{Additional arguments.}
 
@@ -62,7 +62,7 @@ corr_rm(df = iris, c = iris_cmatrix, cutoff = 0.75, col = "infer.value", isig = 
 
 }
 \author{
-Igor D.S. Siciliani
+Igor D.S. Siciliani, Paulo H. dos Santos
 }
 \keyword{,}
 \keyword{clist}

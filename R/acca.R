@@ -23,7 +23,7 @@
 #' final result of the clustering method.
 #'  That is, the name of the variables belonging to each cluster k.
 #'
-#' @author Igor D.S. Siciliani
+#' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords correlation , acca
 #'

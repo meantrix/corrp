@@ -19,6 +19,7 @@ Description: Compute multiple types of correlation analyses, including
 Imports: 
     Rcpp (>= 1.0.13-1),
     RcppArmadillo (>= 14.2.2-1),
+    corrplot (>= 0.95),
     lsr (>= 0.5.2),
     parallel (>= 4.4.1),
     stats (>= 4.4.1),
@@ -28,7 +29,6 @@ Imports:
     ppsr (>= 0.0.2),
     DescTools (>= 0.99.40)
 Suggests: 
-    corrplot,
     energy,
     knitr,
     rmarkdown,

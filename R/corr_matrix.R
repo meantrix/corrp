@@ -9,7 +9,7 @@
 #' be represented by NA or FALSE in the correlation matrix.
 #' @param ... Additional arguments (TODO).
 #'
-#' @author Igor D.S. Siciliani
+#' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords correlation matrix , corrp
 #'
@@ -17,7 +17,7 @@
 #'
 #' iris_cor <- corrp(iris)
 #' iris_m <- corr_matrix(iris_cor, isig = FALSE)
-#' corrplot(iris_m)
+#' corrplot::corrplot(iris_m)
 #' @export
 corr_matrix <- function(c, ...) {
   assert_required_argument(c, "The 'c' argument must be a clist object, which is the output from corrp.")

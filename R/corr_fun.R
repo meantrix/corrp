@@ -8,38 +8,8 @@
 #'
 #' @name corr_fun
 #'
-#' @section Details (Types):
+#' @inheritSection corrp Pair Types
 #'
-#' - \code{integer/numeric pair} Pearson Correlation using
-#' \code{\link[stats]{cor}} function. The
-#'   value lies between -1 and 1.\cr
-#' - \code{integer/numeric pair} Distance Correlation
-#' using \code{\link[energy]{dcorT.test}} function. The
-#'   value lies between 0 and 1.\cr
-#' - \code{integer/numeric pair} Maximal Information Coefficient using
-#' \code{\link[minerva]{mine}} function. The
-#'   value lies between 0 and 1.\cr
-#' - \code{integer/numeric pair} Predictive Power Score using 
-#' \code{\link[ppsr]{score}} function. The
-#'   value lies between 0 and 1.\cr\cr
-#' - \code{integer/numeric - factor/categorical pair} correlation coefficient or
-#'   squared root of R^2 coefficient of linear regression of integer/numeric
-#'   variable over factor/categorical variable using 
-#' \code{\link[stats]{lm}} function. The value
-#'   lies between 0 and 1.\cr
-#' - \code{integer/numeric - factor/categorical pair} 
-#' Predictive Power Score using \code{\link[ppsr]{score}} function. 
-#' The value lies between 0 and 1.\cr\cr
-#' - \code{factor/categorical pair} Cramer's V value is
-#'   computed based on chisq test and using 
-#' \code{\link[lsr]{cramersV}} function. The value lies
-#'   between 0 and 1.\cr
-#' - \code{factor/categorical pair} Uncertainty coefficient 
-#' using \code{\link[DescTools]{UncertCoef}} function. The
-#'   value lies between 0 and 1.\cr
-#' - \code{factor/categorical pair} Predictive Power Score 
-#' using \code{\link[ppsr]{score}} function. 
-#' The value lies between 0 and 1.\cr
 #'
 #' @return list with all statistical results.\cr
 #' - All statistical tests are controlled by the confidence internal of
@@ -52,44 +22,12 @@
 #' default the association measure(`infer.value`) will be `NA`.
 #'
 #'
-#' @param df \[\code{data.frame(1)}]\cr input data frame.
+#' @inheritParams corrp
 #' @param nx \[\code{character(1)}]\cr first variable column name: independent/predictor variable. 
 #' @param ny \[\code{character(1)}]\cr second variable column name: dependent/target variable.
-#' @param p.value \[\code{logical(1)}]\cr
-#' P-value probability of obtaining the observed results of a test,
-#' assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).
-#' @param comp \[\code{character(1)}]\cr The param \code{p.value} must be greater
-#'  or less than those estimated in tests and correlations.
-#' @param alternative \[\code{character(1)}]\cr a character string specifying the alternative hypothesis,
-#' must be one of "greater" (default), "less" or "two.sided". You can specify just the initial letter.
-#' You can specify just the initial letter.
-#' @param verbose \[\code{logical(1)}]\cr Activate verbose mode.
-#' @param num.s \[\code{numeric(1)}]\cr Used in permutation test. The number of samples with
-#' replacement created with y numeric vector.
-#' @param rk \[\code{logical(1)}]\cr Used in permutation test.
-#' if its TRUE transform x, y numeric vectors with samples ranks.
-#' @param cor.nn \[\code{character(1)}]\cr
-#' Choose correlation type to be used in integer/numeric pair inference.
-#' The options are `pearson: Pearson Correlation`,`mic: Maximal Information Coefficient`,
-#' `dcor: Distance Correlation`,`pps: Predictive Power Score`.Default is `Pearson Correlation`.
-#' @param cor.nc \[\code{character(1)}]\cr
-#' Choose correlation type to be used in integer/numeric - factor/categorical pair inference.
-#' The option are `lm: Linear Model`,`pps: Predictive Power Score`. Default is `Linear Model`.
-#' @param cor.cc  \[\code{character(1)}]\cr
-#' Choose correlation type to be used in factor/categorical pair inference.
-#' The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
-#' `pps: Predictive Power Score`. Default is ` Cramer's V`.
-#' @param lm.args \[\code{list(1)}]\cr additional parameters for the specific method.
-#' @param pearson.args \[\code{list(1)}]\cr additional parameters for the specific method.
-#' @param dcor.args \[\code{list(1)}]\cr additional parameters for the specific method.
-#' @param mic.args \[\code{list(1)}]\cr additional parameters for the specific method.
-#' @param pps.args \[\code{list(1)}]\cr additional parameters for the specific method.
-#' @param uncoef.args \[\code{list(1)}]\cr additional parameters for the specific method.
-#' @param cramersV.args \[\code{list(1)}]\cr additional parameters for the specific method.
-#' @param ... Additional arguments.
 #'
 #'
-#' @author Igor D.S. Siciliani
+#' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords correlation , power predictive score , linear model , distance correlation ,
 #' mic , point biserial , pearson , cramer'sV

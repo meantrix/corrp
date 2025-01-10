@@ -51,7 +51,7 @@ genes with similar pattern of variation in their expression values."
 Journal of Biomedical Informatics 43.4 (2010): 560-568.
 }
 \author{
-Igor D.S. Siciliani
+Igor D.S. Siciliani, Paulo H. dos Santos
 }
 \keyword{,}
 \keyword{acca}
