@@ -8,7 +8,7 @@
 #' @param num.s \[\code{numeric(1)}]\cr number of samples with replacement created with y numeric vector.
 #' @param rk \[\code{logical(1)}]\cr if its TRUE transform x, y numeric vectors with samples ranks.
 #' @param alternative \[\code{character(1)}]\cr a character string specifying the alternative hypothesis,
-#' must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.
+#' must be one of "greater" (default), "less" or "two.sided". You can specify just the initial letter.
 #' @param ... Additional arguments.
 #' 
 #' @examples
@@ -22,7 +22,7 @@
 ptest <- function(x, y,
                   FUN,
                   rk = FALSE,
-                  alternative = c("two.sided", "less", "greater"),
+                  alternative = c("greater", "less", "two.sided"),
                   num.s = 250, ...) {
   FUN <- match.fun(FUN)
   # check mandatory args

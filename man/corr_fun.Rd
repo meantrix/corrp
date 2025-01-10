@@ -13,7 +13,7 @@ corr_fun(
   num.s = 250,
   rk = FALSE,
   comp = c("greater", "less"),
-  alternative = c("two.sided", "less", "greater"),
+  alternative = c("greater", "less", "two.sided"),
   cor.nn = c("pearson", "mic", "dcor", "pps"),
   cor.nc = c("lm", "pps"),
   cor.cc = c("cramersV", "uncoef", "pps"),
@@ -49,8 +49,8 @@ if its TRUE transform x, y numeric vectors with samples ranks.}
 \item{comp}{[\code{character(1)}]\cr The param \code{p.value} must be greater
 or less than those estimated in tests and correlations.}
 
-\item{alternative}{[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
-the correlation inference. It must be one of "two.sided" (default), "greater" or "less".
+\item{alternative}{[\code{character(1)}]\cr a character string specifying the alternative hypothesis,
+must be one of "greater" (default), "less" or "two.sided". You can specify just the initial letter.
 You can specify just the initial letter.}
 
 \item{cor.nn}{[\code{character(1)}]\cr

@@ -13,7 +13,7 @@ corrp(
   num.s = 250,
   rk = FALSE,
   comp = c("greater", "less"),
-  alternative = c("two.sided", "less", "greater"),
+  alternative = c("greater", "less", "two.sided"),
   cor.nn = c("pearson", "mic", "dcor", "pps"),
   cor.nc = c("lm", "pps"),
   cor.cc = c("cramersV", "uncoef", "pps"),
@@ -104,7 +104,7 @@ All statistical tests are controlled by the confidence internal of
 p.value param. If the statistical tests do not obtain a significance greater/less
 than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
 There is no statistical significance test for the pps algorithm. By default \code{isig} is TRUE.\cr
-If any errors occur during operations the association measure(\code{infer.value}) will be \code{NA}.\cr
+If any errors occur during operations the association measure (\code{infer.value}) will be \code{NA}.\cr
 The result \code{data} and \code{index} will have \eqn{N^2} rows, where N is the number of variables of the input data.
 }
 \description{

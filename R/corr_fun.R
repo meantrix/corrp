@@ -60,8 +60,8 @@
 #' assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).
 #' @param comp \[\code{character(1)}]\cr The param \code{p.value} must be greater
 #'  or less than those estimated in tests and correlations.
-#' @param alternative \[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
-#' the correlation inference. It must be one of "two.sided" (default), "greater" or "less".
+#' @param alternative \[\code{character(1)}]\cr a character string specifying the alternative hypothesis,
+#' must be one of "greater" (default), "less" or "two.sided". You can specify just the initial letter.
 #' You can specify just the initial letter.
 #' @param verbose \[\code{logical(1)}]\cr Activate verbose mode.
 #' @param num.s \[\code{numeric(1)}]\cr Used in permutation test. The number of samples with
@@ -116,7 +116,7 @@ corr_fun <- function(df,
                      num.s = 250,
                      rk = FALSE,
                      comp = c("greater", "less"),
-                     alternative = c("two.sided", "less", "greater"),
+                     alternative = c("greater", "less", "two.sided"),
                      cor.nn = c("pearson", "mic", "dcor", "pps"),
                      cor.nc = c("lm", "pps"),
                      cor.cc = c("cramersV", "uncoef", "pps"),
@@ -128,6 +128,15 @@ corr_fun <- function(df,
                      cramersV.args = list(),
                      uncoef.args = list(),
                      ...) {
+
+
+  assert_required_argument(df, 
+    "The 'df' argument must be a data.frame containing the data to analyze.")
+  assert_required_argument(nx, 
+    "The 'nx' argument must be a character vector specifying a column name from 'df' for the independent variable(s).")
+  assert_required_argument(ny, 
+    "The 'ny' argument must be a character string specifying a column name from 'df' for the dependent variable.")
+
   alternative <- match.arg(alternative)
   cor.nn <- match.arg(cor.nn)
   cor.nc <- match.arg(cor.nc)

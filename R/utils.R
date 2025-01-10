@@ -396,3 +396,28 @@
   x[null_indices] <- NA
   return(x)
 }
+
+
+#' @title Assert Required Argument
+#' @description Ensures that a required argument is provided. If the argument is missing, it throws an error with a clear message.
+#'
+#' @param arg \[\code{any}]\cr 
+#' The argument to check.
+#'
+#' @param description \[\code{character(1)}]\cr 
+#' A description of the argument's purpose and requirements.
+#'
+#' @return Throws an error if the argument is missing; otherwise, returns \code{NULL}.
+#'
+#' 
+#' @export
+assert_required_argument <- function(arg, description) {  
+  arg_name <- deparse(substitute(arg))
+  if (isFALSE(exists(arg_name))) {
+    stop(paste(
+      sprintf("Missing argument: '%s'.", arg_name),
+      description,
+      sep = "\n"
+    ))
+  }
+}
