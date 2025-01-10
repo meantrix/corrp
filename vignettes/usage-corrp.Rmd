@@ -120,5 +120,5 @@ corr_fun(
 ## Conclusion
 
 The `corrp` package provides a simple way to compute correlations across different types of variables. If you are working with mixed data, `corrp` offers a solution for your correlation analysis needs. By leveraging parallel processing and C++ implementation, `corrp` can handle large datasets efficiently.
-```
+
 
