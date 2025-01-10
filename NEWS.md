@@ -1,5 +1,31 @@
 # CHANGELOG
 
+
+## 0.6.0
+
+- Add `VignetteBuilder: knitr` to DESCRIPTION
+- Add usefull error message for required parameters.
+- Fix C++ `Astar` method.
+- Run benchmarks, expand the paper to include statements on resource-intensive options, and incorporate an enhanced version of `energy::dcorT.test`. Also, change the data used in the paper.
+
+
+### Methods Added
+
+-  Added method `set_arguments`: Assigns provided arguments from the `args_list` to the parent environment. If an argument is inside the arguments of the methods that calculate statistics, it assigns it on the parent environment, and removes the argument from the list.
+-  Added method `assert_required_argument`: Ensures that a required argument is provided. If the argument is missing, it throws an error with a clear message.
+
+### Methods Altered
+
+- Altered messages and make *.args lists be able to alter arguments (`p.value`, `comp`, "alternative", "num.s", "rk") of methods: `.corlm`, `.cramersvp`, `.dcorp`, `.corperp`, `.micorp`, `.uncorp`, `.corpps`.
+- Update the `.corpps` method to support p-value testing (`p-test`), which is disabled by default due to its slow performance. When `p-test` is not performed, the `isig` value is set to `NA`. `p-test` can be run assigning an element `ptest = TRUE` to `pps.args` argument.
+
+### Documentation
+
+- Enhanced the documentation for `corrp` by including examples, refining the pair type section with additional details and references, and providing a more comprehensive explanation of the output format and its interpretation.
+- Improved the documentation for `corr_rm` by adding examples and providing a clearer explanation of the `c` parameter.
+- Added examples of usage in the documentation for: `acca`, `best_acca`, `corrp`, `corr_rm`, `corr_matrix`, `corr_fun`, `ptest`, `sil_acca`.
+
+
 ## 0.5.0
 
 - Creates the package website with the command: `usethis::use_pkgdown_github_page`;
@@ -25,7 +51,7 @@
     -  p.value: p-value of the t-test.
     -  data.name: description of data.
 
-### Changes
+### Methods Altered
 -  `corr_fun`: Now uses C++ while using distance correlation.
 
 ## 0.3.0
