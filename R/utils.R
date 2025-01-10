@@ -411,13 +411,13 @@
 #'
 #' 
 #' @export
-assert_required_argument <- function(arg, description) {  
+assert_required_argument <- function(arg, description) {
   arg_name <- deparse(substitute(arg))
-  if (isFALSE(exists(arg_name))) {
-    stop(paste(
-      sprintf("Missing argument: '%s'.", arg_name),
+  if (!exists(arg_name)) {
+    stop(simpleError(paste(
+      sprintf("\n  Missing required argument: '%s'.", arg_name),
       description,
-      sep = "\n"
-    ))
+      sep = "\n  "
+    ), sys.call(sys.parent())))
   }
 }
