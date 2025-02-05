@@ -3,20 +3,24 @@
 #' @description Through the results obtained from corrp function
 #' create a correlation matrix.
 #'
-#' @param c \[\code{corrp.list(1)}]\cr output from the \code{\link{corrp}} function.
+#' @param c \[\code{clist(1)}]\cr output from the \code{\link{corrp}} function.
 #' @param col \[\code{character(1)}]\cr choose the column to be used in the correlation matrix.
 #' @param isig \[\code{logical(1)}]\cr values that are not statistically significant will
 #' be represented by NA or FALSE in the correlation matrix.
 #' @param ... Additional arguments (TODO).
 #'
-#' @author Igor D.S. Siciliani
+#' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords correlation matrix , corrp
 #'
+#' @examples
 #'
-#'
+#' iris_cor <- corrp(iris)
+#' iris_m <- corr_matrix(iris_cor, isig = FALSE)
+#' corrplot::corrplot(iris_m)
 #' @export
 corr_matrix <- function(c, ...) {
+  assert_required_argument(c, "The 'c' argument must be a clist object, which is the output from corrp.")
   UseMethod("corr_matrix", c)
 }
 
@@ -33,9 +37,6 @@ corr_matrix.default <- function(c, col = c("infer.value", "stat.value", "isig"),
 corr_matrix.clist <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...) {
   .corr_matrix(c = c, col = col, isig = isig, ...)
 }
-
-
-
 
 .corr_matrix <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...) {
   checkmate::assert_names(names(c), identical.to = c("data", "index"))
@@ -63,7 +64,6 @@ corr_matrix.clist <- function(c, col = c("infer.value", "stat.value", "isig"), i
 
   rownames(m) <- mnames
   colnames(m) <- mnames
-
 
   return(structure(m, class = c("cmatrix", "matrix")))
 }

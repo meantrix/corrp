@@ -10,10 +10,10 @@ corrp(
   n.cores = 1,
   p.value = 0.05,
   verbose = TRUE,
-  num.s = 1000,
+  num.s = 250,
   rk = FALSE,
   comp = c("greater", "less"),
-  alternative = c("two.sided", "less", "greater"),
+  alternative = c("greater", "less", "two.sided"),
   cor.nn = c("pearson", "mic", "dcor", "pps"),
   cor.nc = c("lm", "pps"),
   cor.cc = c("cramersV", "uncoef", "pps"),
@@ -21,77 +21,92 @@ corrp(
   pearson.args = list(),
   dcor.args = list(),
   mic.args = list(),
-  pps.args = list(),
+  pps.args = list(ptest = FALSE),
   cramersV.args = list(),
   uncoef.args = list(),
   ...
 )
 }
 \arguments{
-\item{df}{\[\code{data.frame(1)}]\cr input data frame.}
+\item{df}{[\code{data.frame(1)}]\cr input data frame.}
 
-\item{parallel}{\[\code{logical(1)}]\cr If its TRUE run the operations in parallel backend.}
+\item{parallel}{[\code{logical(1)}]\cr If its TRUE run the operations in parallel backend.}
 
-\item{n.cores}{\[\code{numeric(1)}]\cr The number of cores to use for parallel execution.}
+\item{n.cores}{[\code{numeric(1)}]\cr The number of cores to use for parallel execution.}
 
-\item{p.value}{\[\code{logical(1)}]\cr
+\item{p.value}{[\code{logical(1)}]\cr
 P-value probability of obtaining the observed results of a test,
 assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).}
 
-\item{verbose}{\[\code{logical(1)}]\cr Activate verbose mode.}
+\item{verbose}{[\code{logical(1)}]\cr Activate verbose mode.}
 
-\item{num.s}{\[\code{numeric(1)}]\cr Used in permutation test. The number of samples with
+\item{num.s}{[\code{numeric(1)}]\cr Used in permutation test. The number of samples with
 replacement created with y numeric vector.}
 
-\item{rk}{\[\code{logical(1)}]\cr Used in permutation test.
+\item{rk}{[\code{logical(1)}]\cr Used in permutation test.
 if its TRUE transform x, y numeric vectors with samples ranks.}
 
-\item{comp}{\[\code{character(1)}]\cr The param \code{p.value} must be greater
+\item{comp}{[\code{character(1)}]\cr The param \code{p.value} must be greater
 or less than those estimated in tests and correlations.}
 
-\item{alternative}{\[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
+\item{alternative}{[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
 the correlation inference. It must be one of "two.sided" (default), "greater" or "less".
 You can specify just the initial letter.}
 
-\item{cor.nn}{\[\code{character(1)}]\cr
+\item{cor.nn}{[\code{character(1)}]\cr
 Choose correlation type to be used in integer/numeric pair inference.
-The options are `pearson: Pearson Correlation`,`mic: Maximal Information Coefficient`,
-`dcor: Distance Correlation`,`pps: Predictive Power Score`.Default is `Pearson Correlation`.}
+The options are \verb{pearson: Pearson Correlation},\verb{mic: Maximal Information Coefficient},
+\verb{dcor: Distance Correlation},\verb{pps: Predictive Power Score}.Default is \verb{Pearson Correlation}.}
 
-\item{cor.nc}{\[\code{character(1)}]\cr
+\item{cor.nc}{[\code{character(1)}]\cr
 Choose correlation type to be used in integer/numeric - factor/categorical pair inference.
-The option are `lm: Linear Model`,`pps: Predictive Power Score`. Default is `Linear Model`.}
+The option are \verb{lm: Linear Model},\verb{pps: Predictive Power Score}. Default is \verb{Linear Model}.}
 
-\item{cor.cc}{\[\code{character(1)}]\cr
+\item{cor.cc}{[\code{character(1)}]\cr
 Choose correlation type to be used in factor/categorical pair inference.
-The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
-`pps: Predictive Power Score`. Default is ` Cramer's V`.}
+The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient},
+\verb{pps: Predictive Power Score}. Default is \verb{ Cramer's V}.}
 
-\item{lm.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{lm.args}{[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.}
 
-\item{pearson.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{pearson.args}{[\code{list(1)}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.}
 
-\item{dcor.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{dcor.args}{[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcorT_test}}.}
 
-\item{mic.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{mic.args}{[\code{list(1)}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.}
 
-\item{pps.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{pps.args}{[\code{list(1)}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.}
 
-\item{cramersV.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{cramersV.args}{[\code{list(1)}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.}
 
-\item{uncoef.args}{\[\code{list(1)}]\cr additional parameters for the specific method.}
+\item{uncoef.args}{[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Additional arguments.}
 }
 \value{
-list with two tables: data and index.\cr
-- The `$data` table contains all the statistical results;\cr
-- The `$index` table contains the pairs of indices used in each inference of the data table.
-- All statistical tests are controlled by the confidence internal of
-  p.value param. If the statistical tests do not obtain a significance greater/less
-  than p.value the value of variable `isig` will be `FALSE`.\cr
-- There is no statistical significance test for the pps algorithm. By default `isig` is TRUE.\cr
-- If any errors occur during operations the association measure(`infer.value`) will be `NA`.
+A list with two tables: \code{data} and \code{index}.
+\itemize{
+\item \strong{data}: A table containing all the statistical results. The columns of this table are as follows:
+\itemize{
+\item \code{infer}: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
+\item \code{infer.value}: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
+\item \code{stat}: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
+\item `stat.value: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
+\item \code{isig}: A logical value indicating whether the statistical result is significant (\code{TRUE}) or not, based on predefined criteria (e.g., threshold for P-value).
+\item \code{msg}: A message or error related to the inference process.
+\item \code{varx}: The name of the first variable in the analysis (independent variable or feature).
+\item \code{vary}: The name of the second variable in the analysis (dependent/target variable).
+}
+\item \strong{index}: A table that contains the pairs of indices used in each inference of the \code{data} table.
+}
+
+All statistical tests are controlled by the confidence internal of
+p.value param. If the statistical tests do not obtain a significance greater/less
+than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
+If any errors occur during operations the association measure (\code{infer.value}) will be \code{NA}.\cr
+The result \code{data} and \code{index} will have \eqn{N^2} rows, where N is the number of variables of the input data.
+By default there is no statistical significance test for the pps algorithm. By default \code{isig} is NA, you can enable in the \code{pps.args} setting \code{ptest = TRUE}.\cr
+All the \verb{*.args} can modified the parameters (\code{p.value}, \code{comp}, \code{alternative}, \code{num.s}, \code{rk}, \code{ptest}) for the respective method on it's prefix.
 }
 \description{
 Compute correlations type analysis on mixed classes columns of larges dataframes
@@ -100,42 +115,47 @@ The dataframe is allowed to have columns of these four classes: integer,
 numeric, factor and character. The character column is considered as
 categorical variable.
 }
-\section{Details (Types)}{
+\section{Pair Types}{
 
 
-- \code{integer/numeric pair} Pearson Correlation using \code{\link[stats]{cor}} function. The
-  value lies between -1 and 1.\cr
-- \code{integer/numeric pair} Distance Correlation using \code{\link[energy]{dcorT.test}} function. The
-  value lies between 0 and 1.\cr
-- \code{integer/numeric pair} Maximal Information Coefficient using \code{\link[minerva]{mine}} function. The
-  value lies between 0 and 1.\cr
-- \code{integer/numeric pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
-  value lies between 0 and 1.\cr\cr
-- \code{integer/numeric - factor/categorical pair} correlation coefficient or
-  squared root of R^2 coefficient of linear regression of integer/numeric
-  variable over factor/categorical variable using \code{\link[stats]{lm}} function. The value
-  lies between 0 and 1.\cr
-- \code{integer/numeric - factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
-  value lies between 0 and 1.\cr\cr
-- \code{factor/categorical pair} Cramer's V value is
-  computed based on chisq test and using \code{\link[lsr]{cramersV}} function. The value lies
-  between 0 and 1.\cr
-- \code{factor/categorical pair} Uncertainty coefficient using \code{\link[DescTools]{UncertCoef}} function. The
-  value lies between 0 and 1.\cr
-- \code{factor/categorical pair} Predictive Power Score using \code{\link[ppsr]{score}} function. The
-  value lies between 0 and 1.\cr
+\strong{Numeric pairs (integer/numeric):}
+\itemize{
+\item \strong{Pearson Correlation Coefficient:} A widely used measure of the strength and direction of linear relationships. Implemented using \code{\link[stats]{cor}}. For more details, see \url{https://doi.org/10.1098/rspl.1895.0041}. The value lies between -1 and 1.\cr
+\item \strong{Distance Correlation:} Based on the idea of expanding covariance to distances, it measures both linear and nonlinear associations between variables. Implemented using \code{\link[energy]{dcorT.test}}. For more details, see \url{https://doi.org/10.1214/009053607000000505}. The value lies between 0 and 1.\cr
+\item \strong{Maximal Information Coefficient (MIC):} An information-based nonparametric method that can detect both linear and non-linear relationships between variables. Implemented using \code{\link[minerva]{mine}}. For more details, see \url{https://doi.org/10.1126/science.1205438}. The value lies between 0 and 1.\cr
+\item \strong{Predictive Power Score (PPS):} A metric used to assess predictive relations between variables. Implemented using \code{\link[ppsr]{score}}. For more details, see \url{https://zenodo.org/record/4091345}. The value lies between 0 and 1.\cr\cr
 }
 
+\strong{Numeric and categorical pairs (integer/numeric - factor/categorical):}
+\itemize{
+\item \strong{Square Root of R² Coefficient:} From linear regression of the numeric variable over the categorical variable. Implemented using \code{\link[stats]{lm}}. For more details, see \url{https://doi.org/10.4324/9780203774441}. The value lies between 0 and 1.\cr
+\item \strong{Predictive Power Score (PPS):} A metric used to assess predictive relations between numeric and categorical variables. Implemented using \code{\link[ppsr]{score}}. For more details, see \url{https://zenodo.org/record/4091345}. The value lies between 0 and 1.\cr\cr
+}
+
+\strong{Categorical pairs (factor/categorical):}
+\itemize{
+\item \strong{Cramér's V:} A measure of association between nominal variables. Computed based on a chi-squared test and implemented using \code{\link[lsr]{cramersV}}. For more details, see \url{https://doi.org/10.1515/9781400883868}. The value lies between 0 and 1.\cr
+\item \strong{Uncertainty Coefficient:} A measure of nominal association between two variables. Implemented using \code{\link[DescTools]{UncertCoef}}. For more details, see \url{https://doi.org/10.1016/j.jbi.2010.02.001}. The value lies between 0 and 1.\cr
+\item \strong{Predictive Power Score (PPS):} A metric used to assess predictive relations between categorical variables. Implemented using \code{\link[ppsr]{score}}. For more details, see \url{https://zenodo.org/record/4091345}. The value lies between 0 and 1.\cr
+}
+}
+
+\examples{
+ iris_c <- corrp(iris)
+ iris_m <- corr_matrix(iris_c, isig = FALSE)
+ corrplot::corrplot(iris_m)
+
+
+}
 \references{
 KS Srikanth,sidekicks,cor2, 2020.
 URL \url{https://github.com/talegari/sidekicks/}.
-
 
 Paul van der Laken, ppsr,2021.
 URL \url{https://github.com/paulvanderlaken/ppsr}.
 }
 \author{
-Igor D.S. Siciliani
+Igor D.S. Siciliani, Paulo H. dos Santos
 }
 \keyword{,}
 \keyword{biserial}

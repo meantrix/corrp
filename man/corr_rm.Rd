@@ -33,27 +33,36 @@ corr_rm(df, c, ...)
 \method{corr_rm}{matrix}(df, c, cutoff = 0.75, ...)
 }
 \arguments{
-\item{df}{\[\code{data.frame(1)}]\cr input data frame.}
+\item{df}{[\code{data.frame(1)}]\cr input data frame.}
 
-\item{c}{\[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list  output from \code{\link{corrp}} or
-correlation matrix output from \code{\link{corr_matrix}}.}
+\item{c}{[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list output from the function \code{\link[corrp]{corrp}}
+with class \code{clist} or correlation matrix output
+from \code{\link[corrp]{corr_matrix}} with class \code{cmatrix}.}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Additional arguments.}
 
-\item{col}{\[\code{character(1)}]\cr choose the column to be used in the correlation matrix}
+\item{col}{[\code{character(1)}]\cr choose the column to be used in the correlation matrix}
 
-\item{isig}{\[\code{logical(1)}]\cr values that are not statistically significant will
+\item{isig}{[\code{logical(1)}]\cr values that are not statistically significant will
 be represented by NA or FALSE in the correlation matrix.}
 
-\item{cutoff}{\[\code{numeric(1)}]\cr A numeric value for the pair-wise absolute correlation cutoff.
+\item{cutoff}{[\code{numeric(1)}]\cr A numeric value for the pair-wise absolute correlation cutoff.
 The default values is 0.75.}
 }
 \description{
 Remove highly correlated variables from a data.frame using the
 corrp functions outputs and the caret package function \code{\link[caret]{findCorrelation}}.
 }
+\examples{
+
+iris_clist <- corrp(iris)
+iris_cmatrix <- corr_matrix(iris_clist)
+corr_rm(df = iris, c = iris_clist, cutoff = 0.75, col = "infer.value", isig = FALSE)
+corr_rm(df = iris, c = iris_cmatrix, cutoff = 0.75, col = "infer.value", isig = FALSE)
+
+}
 \author{
-Igor D.S. Siciliani
+Igor D.S. Siciliani, Paulo H. dos Santos
 }
 \keyword{,}
 \keyword{clist}

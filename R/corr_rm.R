@@ -5,22 +5,31 @@
 #'
 #'
 #' @param df \[\code{data.frame(1)}]\cr input data frame.
-#' @param c \[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list  output from \code{\link{corrp}} or
-#' correlation matrix output from \code{\link{corr_matrix}}.
+#' @param c \[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list output from the function \code{\link[corrp]{corrp}} 
+#' with class \code{clist} or correlation matrix output 
+#' from \code{\link[corrp]{corr_matrix}} with class \code{cmatrix}.
 #' @param cutoff \[\code{numeric(1)}]\cr A numeric value for the pair-wise absolute correlation cutoff.
 #' The default values is 0.75.
 #' @param col \[\code{character(1)}]\cr choose the column to be used in the correlation matrix
 #' @param isig \[\code{logical(1)}]\cr values that are not statistically significant will
 #' be represented by NA or FALSE in the correlation matrix.
-#' @param ... Additional arguments (TODO).
+#' @param ... Additional arguments.
 #'
+#' @examples
 #'
-#' @author Igor D.S. Siciliani
+#' iris_clist <- corrp(iris)
+#' iris_cmatrix <- corr_matrix(iris_clist)
+#' corr_rm(df = iris, c = iris_clist, cutoff = 0.75, col = "infer.value", isig = FALSE)
+#' corr_rm(df = iris, c = iris_cmatrix, cutoff = 0.75, col = "infer.value", isig = FALSE)
+#'
+#' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords highly correlated , cmatrix , clist
 #'
 #' @export
 corr_rm <- function(df, c, ...) {
+  assert_required_argument(df, "The 'df' argument must be a data.frame which columns will be filtered.")
+  assert_required_argument(c, "The 'c' argument must be a clist object, which is the output from corrp, or a cmatrix object, which is the output from corr_matrix.")
   UseMethod("corr_rm", c)
 }
 

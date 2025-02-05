@@ -1,6 +1,7 @@
 #' @useDynLib corrp, .registration=TRUE
 #' @importFrom Rcpp evalCpp
 #' @importFrom RcppArmadillo armadillo_version
+#' @importFrom corrplot corrplot
 
 #' @title Average correlation clustering algorithm
 #'
@@ -16,13 +17,13 @@
 #' @param maxrep \[\code{integer(1)}]\cr maximum number of
 #' interactions without change in the clusters.
 #' @param maxiter \[\code{integer(1)}]\cr maximum number of interactions.
-#' @param ... Additional arguments (TODO).
+#' @param ... Additional arguments .
 #'
 #' @return \[\code{acca_list(k)}]\cr A list with the
 #' final result of the clustering method.
 #'  That is, the name of the variables belonging to each cluster k.
 #'
-#' @author Igor D.S. Siciliani
+#' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords correlation , acca
 #'
@@ -31,12 +32,18 @@
 #' "Average correlation clustering algorithm (ACCA) for grouping of co-regulated
 #' genes with similar pattern of variation in their expression values."
 #' Journal of Biomedical Informatics 43.4 (2010): 560-568.
+#' 
+#' @examples
 #'
-#'
+#' x <- corrp::corrp(iris)
+#' m <- corrp::corr_matrix(x)
+#' corrp::acca(m, 2)
 #'
 #' @export
 #'
-acca <- function(m, ...) {
+acca <- function(m, k, ...) {
+  assert_required_argument(m, "The 'm' argument must be a cmatrix object, which is the output from corr_matrix function, or it must be a matrix.")
+  assert_required_argument(m, "The 'k' argument must be the number of number of clusters considered.")
   UseMethod("acca", m)
 }
 

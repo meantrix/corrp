@@ -8,16 +8,22 @@
 #' @param num.s \[\code{numeric(1)}]\cr number of samples with replacement created with y numeric vector.
 #' @param rk \[\code{logical(1)}]\cr if its TRUE transform x, y numeric vectors with samples ranks.
 #' @param alternative \[\code{character(1)}]\cr a character string specifying the alternative hypothesis,
-#' must be one of "two.sided" (default), "greater" or "less". You can specify just the initial letter.
-#' @param ... Additional arguments (TODO).
+#' must be one of "greater" (default), "less" or "two.sided". You can specify just the initial letter.
+#' @param ... Additional arguments.
+#' 
+#' @examples
+#'
+#' x <- iris[[1]]
+#' y <- iris[[2]]
+#' ptest(x, y, FUN = function(x, y) cor(x, y), alternative = "t")
 #' 
 #' @export
 #'
 ptest <- function(x, y,
                   FUN,
                   rk = FALSE,
-                  alternative = c("two.sided", "less", "greater"),
-                  num.s = 1000, ...) {
+                  alternative = c("greater", "less", "two.sided"),
+                  num.s = 250, ...) {
   FUN <- match.fun(FUN)
   # check mandatory args
   fargs <- formals(FUN)
@@ -34,7 +40,7 @@ ptest <- function(x, y,
   checkmate::assert_number(num.s)
   if (is.data.frame(x)) x <- x[[1]]
   if (is.data.frame(y)) y <- y[[1]]
-  if (!rk) stopifnot(is.numeric(x), is.numeric(y))
+  # if (!rk) stopifnot(is.numeric(x), is.numeric(y))
   stopifnot(length(x) == length(y))
 
 
@@ -57,8 +63,8 @@ ptest <- function(x, y,
     "g" = {
       p.value <- mean(est >= obs)
     },
-    "t" = {
-      p.value <- mean(abs(est) >= abs(obs))
+    "t" = {      
+      p.value <- min(mean(est >= obs), mean(est <= obs)) * 2
     }
   )
 

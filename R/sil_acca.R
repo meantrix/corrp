@@ -4,9 +4,9 @@
 #' of interpretation and validation of consistency within acca clusters of data.
 #'
 #' @param acca \[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}
-#' @param m  \[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
+#' @param m  \[\code{cmatrix(1)|matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
 #' By default the distance matrix(dist) used in this method is given by `dist = 1 - m`.
-#' @param ... Additional arguments (TODO).
+#' @param ... Additional arguments.
 #'
 #' @return \[\code{numeric(1)}]\cr the average value of
 #'  the silhouette width over all data of the entire dataset.
@@ -14,7 +14,7 @@
 #'  are very well clustered.
 #'
 #'
-#' @author Igor D.S. Siciliani
+#' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords silhouette , acca
 #'
@@ -26,11 +26,19 @@
 #' Starczewski, Artur, and Adam Krzyżak. "Performance evaluation of the silhouette index.
 #' " International Conference on Artificial Intelligence and Soft Computing. Springer, Cham, 2015.
 #'
+#' @examples
+
 #'
+#' x <- corrp::corrp(iris)
+#' m <- corrp::corr_matrix(x)
+#' acca <- corrp::acca(m, 2)
+#' sil_acca(acca, m)
 #'
 #' @export
 #'
-sil_acca <- function(acca, ...) {
+sil_acca <- function(acca, m, ...) {
+  assert_required_argument(acca, "The 'acca' argument must be a acca_list object, which is the output from acca function, or it must be a list.")
+  assert_required_argument(m, "The 'm' argument must be a cmatrix object, which is the output from corr_matrix function or it must be a matrix.")
   UseMethod("sil_acca", acca)
 }
 

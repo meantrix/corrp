@@ -12,7 +12,7 @@
 #' without change in the clusters in the ACCA method.
 #' @param maxiter \[\code{integer(1)}]\cr maximum number
 #' of interactions in the ACCA method.
-#' @param ... Additional arguments (TODO).
+#' @param ... Additional arguments.
 #'
 #' @return \[\code{list(3)}]\cr A list with:
 #' silhouette average with per k `$silhouette.ave`;
@@ -20,7 +20,7 @@
 #' the optimal number of clusters `$best.k`.
 #' @seealso \code{\link{sil_acca}}
 #'
-#' @author Igor D.S. Siciliani
+#' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords silhouette , acca , optimal , k
 #'
@@ -35,11 +35,16 @@
 #' "International Conference on Artificial Intelligence
 #' and Soft Computing. Springer, Cham, 2015.
 #'
+#' @examples
 #'
+#' x <- corrp::corrp(iris)
+#' m <- corrp::corr_matrix(x)
+#' best_acca(m, 2, 6)
 #'
 #' @export
 #'
 best_acca <- function(m, ...) {
+  assert_required_argument(m, "The 'm' argument must be a cmatrix object, which is the output from corr_matrix function, or it must be a matrix.")
   UseMethod("best_acca", m)
 }
 

@@ -60,7 +60,6 @@ As mentioned before, one can choose between the following options based on the t
 
 The `corrp` package provides seven main functions for correlation calculations, clustering, and basic data manipulation:
 
-
 - **corrp**: Performs correlation-like analysis with user-specified methods for numeric, categorical, factor, interger and mixed pairs.
 - **corr_matrix**: Generates a correlation matrix from analysis results.
 - **corr_rm**: Removes variables based on p-value significance.
@@ -68,38 +67,49 @@ The `corrp` package provides seven main functions for correlation calculations, 
 - **sil_acca**: A C++ implementation of the Silhouette method for interpreting and validating the consistency of clusters within ACCA clusters of data.
 - **best_acca**: Determining the optimal number of clusters in ACCA clustering using the average silhouette approach.
 
-First, we calculate the correlations for the *iris* dataset using the Maximal Information Coefficient for numeric pairs, the Predictive Power Score algorithm for numeric/categorical pairs, and the Uncertainty Coefficient for categorical pairs.
+We calculate correlations for the *eusilc* dataset using the Maximal Information Coefficient for numeric pairs, Predictive Power Score for numeric/categorical pairs, and Uncertainty Coefficient for categorical pairs. This synthetic dataset represents Austrian EU-SILC data on income, demographics, and household characteristics.
 
 ```r
+set.seed(2024)
+library("laeken")
 library("corrp")
+data(eusilc)
+
+eusilc = eusilc[, c("eqSS", "eqIncome", "db040", "rb090")]
+colnames(eusilc) = c("House_Size", "Income", "State", "Sex")
+
 results = corrp(
-  iris, 
-  cor.nn = 'mic', cor.nc = 'pps', cor.cc = 'uncoef', 
-  n.cores = 2, verbose = FALSE
+  eusilc, 
+  cor.nn = 'dcor', cor.nc = 'lm', cor.cc = 'pps',
+  verbose = FALSE
 )
 
 head(results$data)
 ```
 
-|      | infer                           | infer.value | stat       | stat.value |
-|------|---------------------------------|-------------|------------|------------|
-| 1    | Maximal Information Coefficient | 0.9994870   | P-value    | 0.0000000  |
-| 2    | Maximal Information Coefficient | 0.2770503   | P-value    | 0.0000000  |
-| 3    | Maximal Information Coefficient | 0.7682996   | P-value    | 0.0000000  |
-| 4    | Maximal Information Coefficient | 0.6683281   | P-value    | 0.0000000  |
-| 5    | Predictive Power Score          | 0.5591864   | F1_weighted| 0.7028029  |
-| 6    | Maximal Information Coefficient | 0.2770503   | P-value    | 0.0000000  |
+|      | infer               | infer.value | stat    | stat.value |
+|------|---------------------|-------------|---------|------------|
+| 1    | Distance Correlation| 1.000       | P-value | 0.000      |
+| 2    | Distance Correlation| 0.008       | P-value | 0.000      |
+| 3    | Linear Model        | 0.146       | P-value | 3.57e-64   |
+| 4    | Linear Model        | 0.071       | P-value | 4.79e-18   |
+| 5    | Distance Correlation| 0.008       | P-value | 0.000      |
+| 6    | Distance Correlation| 1.000       | P-value | 0.000      |
+
+|      | isig | msg | varx       | vary       |
+|------|------|-----|------------|------------|
+| 1    | TRUE |     | House_Size | House_Size |
+| 2    | TRUE |     | House_Size | Income     |
+| 3    | TRUE |     | House_Size | State      |
+| 4    | TRUE |     | House_Size | Sex        |
+| 5    | TRUE |     | Income     | House_Size |
+| 6    | TRUE |     | Income     | Income     |
 
 
-|      | isig  | msg   | varx         | vary         |
-|------|-------|-------|--------------|--------------|
-| 1    | TRUE  |       | Sepal.Length | Sepal.Length |
-| 2    | TRUE  |       | Sepal.Length | Sepal.Width  |
-| 3    | TRUE  |       | Sepal.Length | Petal.Length |
-| 4    | TRUE  |       | Sepal.Length | Petal.Width  |
-| 5    | TRUE  |       | Sepal.Length | Species      |
-| 6    | TRUE  |       | Sepal.Width  | Sepal.Length |
 
+When choosing correlation methods, it's important to think about their performance for different pair types. For **numeric pairs**, **Pearson** is the quickest and most efficient option, while the **Maximal Information Coefficient (mic)** is significantly slower, making it less suitable for large datasets. **Distance correlation (dcor)** is a better performer than mic but still not the fastest choice, and **Predictive Power Score (pps)** is efficient but may take longer than Pearson. For **numeric-categorical pairs**, the **linear model (lm)** typically outperforms pps. In **categorical pairs**, **Cramér's V**, **Uncertainty Coefficient (uncoef)**, and **pps** are options, with **uncoef** being the slowest of the three.
+
+As you increase the number of columns, runtime will grow significantly due to the `N * N` scaling, so choose your methods wisely to ensure efficient performance.
 
 Using the previous result, we can create a correlation matrix as follows:
 
@@ -108,22 +118,12 @@ m = corr_matrix(results, col = 'infer.value', isig = TRUE)
 m
 ```
 
-|                | Sepal.Length | Sepal.Width |
-|----------------|--------------|-------------|
-| Sepal.Length   | 0.9994870    | 0.2770503   |
-| Sepal.Width    | 0.2770503    | 0.9967831   |
-| Petal.Length   | 0.7682996    | 0.4391362   |
-| Petal.Width    | 0.6683281    | 0.4354146   |
-| Species        | 0.5591864    | 0.3134401   |
-
-|                | Petal.Length | Petal.Width | Species    |
-|----------------|--------------|-------------|------------|
-| Sepal.Length   | 0.7682996    | 0.6683281   | 0.4075487  |
-| Sepal.Width    | 0.4391362    | 0.4354146   | 0.2012876  |
-| Petal.Length   | 1.0000000    | 0.9182958   | 0.7904907  |
-| Petal.Width    | 0.9182958    | 0.9995144   | 0.7561113  |
-| Species        | 0.9167580    | 0.9398532   | 0.9999758  |
-
+|            | House_Size |  Income  |  State  |   Sex   |
+|------------|------------|----------|---------|---------|
+| House_Size |   1.000    |   0.008  |  0.146  |  0.071  |
+| Income     |   0.008    |   1.000  |  0.070  |  0.071  |
+| State      |   0.146    |   0.070  |  1.000  |  0.000  |
+| Sex        |   0.071    |   0.071  |  0.000  |  1.000  |
 
 
 ```r
@@ -138,16 +138,28 @@ Finally, we can cluster the dataset variables using the ACCA algorithm and the c
 acca.res = acca(m, 2)
 acca.res
 # $cluster1
-# [1] "Species"      "Sepal.Length" "Petal.Width" 
+# [1] "Sex"    "Income"
 # 
 # $cluster2
-# [1] "Petal.Length" "Sepal.Width" 
+# [1] "State"      "House_Size"
 # 
 # attr(,"class")
-# [1] "acca_list" "list"     
-
+# [1] "acca_list" "list"  
 ```
 
+## Performance Improvements
+
+When using the `corrp` function with the `dcor` method for numeric pairs (i.e., `cor.nn = "dcor"`), significant improvements in both memory usage and runtime are observed. This is because the `corrp` package uses a C++ implementation of distance correlation (`dcorT_test`), which is more efficient than the `energy::dcorT.test` function from the `energy` package.
+
+For example, using two vector of length 10000 and 20000, the benchmarks show the following improvements:
+
+| Method                | 10,000       |                | 20,000           |                  |
+|-----------------------|--------------|----------------|------------------|------------------|
+|                       | Memory (MB)  | Time (sec)     | Memory (MB)      | Time (sec)       |
+| **dcorT_test (C++)**  | 4701.44      | 6.022          | 18440.54         | 25.977           |
+| **energy::dcorT.test**| 7000.65      | 13.846         | 27598.38         | 60.264           |
+
+This highlights a substantial reduction in both memory usage and execution time, making the `corrp` package more scalable for larger datasets when applying distance correlation methods. The memory reduction is particularly important because calculating distance correlation requires constructing a distance matrix of size $N^2$, where $N$ is the length of the input vector. As $N$ grows, the memory demands can quickly become prohibitive.
 
 # Acknowledgements
 

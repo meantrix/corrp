@@ -13,21 +13,27 @@ corr_matrix(c, ...)
 \method{corr_matrix}{clist}(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...)
 }
 \arguments{
-\item{c}{\[\code{corrp.list(1)}]\cr output from the \code{\link{corrp}} function.}
+\item{c}{[\code{clist(1)}]\cr output from the \code{\link{corrp}} function.}
 
 \item{...}{Additional arguments (TODO).}
 
-\item{col}{\[\code{character(1)}]\cr choose the column to be used in the correlation matrix.}
+\item{col}{[\code{character(1)}]\cr choose the column to be used in the correlation matrix.}
 
-\item{isig}{\[\code{logical(1)}]\cr values that are not statistically significant will
+\item{isig}{[\code{logical(1)}]\cr values that are not statistically significant will
 be represented by NA or FALSE in the correlation matrix.}
 }
 \description{
 Through the results obtained from corrp function
 create a correlation matrix.
 }
+\examples{
+
+iris_cor <- corrp(iris)
+iris_m <- corr_matrix(iris_cor, isig = FALSE)
+corrplot::corrplot(iris_m)
+}
 \author{
-Igor D.S. Siciliani
+Igor D.S. Siciliani, Paulo H. dos Santos
 }
 \keyword{,}
 \keyword{correlation}

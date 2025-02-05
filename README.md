@@ -21,7 +21,7 @@ The data.frame is allowed to have columns of these four classes: integer, numeri
 In this new package the correlation is automatically computed according to the follow options: 
 
 #### integer/numeric pair:
-- [Pearson correlation test](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) ;
+- [Pearson correlation test](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient);
 - [Distance Correlation](https://en.wikipedia.org/wiki/Distance_correlation);
 - [Maximal Information Coefficient](https://en.wikipedia.org/wiki/Maximal_information_coefficient);
 - [Predictive Power Score](https://github.com/paulvanderlaken/ppsr).
@@ -65,16 +65,29 @@ remotes::install_github("meantrix/corrp@main")
 `corrp` Next, we calculate the correlations for the data set iris using: Maximal Information Coefficient for numeric pair, the Power Predictive Score algorithm for numeric/categorical pair and Uncertainty coefficient for categorical pair.
 
 ```r
-results = corrp::corrp(iris, cor.nn = 'mic',cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2 , verbose = FALSE)
+# coorp with using iris using parallel processing
+results = corrp::corrp(iris, cor.nn = 'mic', cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2 , verbose = FALSE)
+# an sequential example with different correlation pair types
+results_2 = corrp::corrp(mtcars, cor.nn = 'pps', cor.nc = 'lm', cor.cc = 'cramersV', parallel = FALSE, verbose = FALSE)
 
 head(results$data)
 #                            infer infer.value        stat stat.value isig msg         varx         vary
-# Maximal Information Coefficient   0.9994870     P-value  0.0000000 TRUE     Sepal.Length Sepal.Length
-# Maximal Information Coefficient   0.2770503     P-value  0.0000000 TRUE     Sepal.Length  Sepal.Width
-# Maximal Information Coefficient   0.7682996     P-value  0.0000000 TRUE     Sepal.Length Petal.Length
-# Maximal Information Coefficient   0.6683281     P-value  0.0000000 TRUE     Sepal.Length  Petal.Width
-#          Predictive Power Score   0.5591864 F1_weighted  0.7028029 TRUE     Sepal.Length      Species
+# Maximal Information Coefficient   0.9994870     P-value  0.0000000 TRUE      Sepal.Length Sepal.Length
+# Maximal Information Coefficient   0.2770503     P-value  0.0000000 TRUE      Sepal.Length  Sepal.Width
+# Maximal Information Coefficient   0.7682996     P-value  0.0000000 TRUE      Sepal.Length Petal.Length
+# Maximal Information Coefficient   0.6683281     P-value  0.0000000 TRUE      Sepal.Length  Petal.Width
+#          Predictive Power Score   0.5591864 F1_weighted  0.7028029 NA        Sepal.Length      Species
 # Maximal Information Coefficient   0.2770503     P-value  0.0000000 TRUE      Sepal.Width Sepal.Length
+
+head(results_2$data)
+
+#                  infer infer.value stat stat.value isig msg varx vary
+# Predictive Power Score   1.0000000 <NA>         NA NA      mpg  mpg
+# Predictive Power Score   0.3861810  MAE  0.8899206 NA      mpg  cyl
+# Predictive Power Score   0.3141056  MAE 74.7816795 NA      mpg disp
+# Predictive Power Score   0.2311418  MAE 42.3961506 NA      mpg   hp
+# Predictive Power Score   0.1646116  MAE  0.3992651 NA      mpg drat
+# Predictive Power Score   0.2075760  MAE  0.5768637 NA      mpg   wt
 
 ```
 
