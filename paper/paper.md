@@ -34,12 +34,18 @@ In this package, the ACCA algorithm has been extended to work directly with corr
 
 # Statement of need
 
-The corrp package is an R package that provides a flexible and efficient way of doing correlation-like analysis on mixed-type data frames. Most traditional correlation methods in R are applicable only to specific data types or small datasets `corrp` extends this capability by handling mixed classes, integrating various association methods, and offering clustering directly from the resulting correlation matrix. The package is particularly useful for researchers and data scientists working with complex datasets who require robust and scalable tools for both association analysis and clustering.
+The `corrp` package is an R package that provides a flexible and efficient way of performing correlation-like analysis on mixed-type data frames. These datasets can contain different variable types, such as continuous (numeric), ordinal (ordered categorical), and nominal (unordered categorical) variables, which frequently arise in practical scenarios.
+
+Moreover, most traditional correlation methods in R are applicable only to specific data types or small datasets. In this sense, `corrp` extends this capability by handling mixed data types, integrating various association methods, and offering clustering directly from the resulting correlation matrix.
+
+The `corrp` package automatically detects the variable types present in the dataset. However, manual intervention is needed to select the appropriate correlation measure for each detected variable pair (numeric pairs, categorical pairs, and numeric-categorical pairs) from the available options, as explained in more detail above.
+
+The package is particularly useful for researchers and data scientists working with complex datasets who require robust and scalable tools for both association analysis and clustering.
 
 
 # Implementation
 
-The `corrp` package integrates R and C++ to combine the flexibility of R with the speed of C++, optimizing key operations. Its core functionalities include the selection of correlation-like methods based on pair of variable types (numeric pairs, numeric and categorical pairs, etc.). Users can create correlation matrices, remove variables based on significance, and cluster the correlation matrix using the ACCA clustering algorithm. This approach has been modified to support mixed data types and various correlation methods. Additionally, the package supports parallel processing through the `foreach` package, significantly improving performance on large datasets.
+The `corrp` package integrates R and C++ to combine the flexibility of R with the speed of C++, optimizing key operations. Its core functionalities include the selection of correlation-like methods based on pair of variable types (numeric pairs, numeric and categorical pairs, etc.). Users can create correlation matrices, remove variables based on significance, and cluster the correlation matrix using the ACCA clustering algorithm. This approach has been modified to support mixed data types and various correlation methods. Also, the package supports parallel processing through the `foreach` package, significantly improving performance on large datasets.
 
 As mentioned before, one can choose between the following options based on the type pair:
 
