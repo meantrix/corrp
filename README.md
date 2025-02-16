@@ -2,7 +2,7 @@
 <a href='http://meantrix.com'><img src='man/figures/logo.png' align="right" height="139" /></a>
 <!-- badges: start -->
 
-[![version](https://img.shields.io/badge/version-0.4.0-green.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.6.0-green.svg)](https://semver.org)
 [![License: GPL3](https://img.shields.io/badge/License-GPL3-green.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 <!-- badges: end -->

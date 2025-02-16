@@ -1,7 +1,7 @@
 Package: corrp
 Type: Package
 Title: Compute Correlations Type Analysis in Parallel
-Version: 0.5.0
+Version: 0.6.0
 Authors@R: 
     c(
         person("Igor", "Dornelles Schoeller Siciliani", email = "igor@meantrix.com", role = c("aut", "cre")),

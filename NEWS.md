@@ -3,6 +3,8 @@
 
 ## 0.6.0
 
+Dedicated version for the publication of the corrp package in the JOSS.
+
 - Add `VignetteBuilder: knitr` to DESCRIPTION
 - Add usefull error message for required parameters.
 - Fix C++ `Astar` method.
