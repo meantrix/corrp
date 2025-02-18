@@ -17,7 +17,10 @@
 #'
 #' iris_cor <- corrp(iris)
 #' iris_m <- corr_matrix(iris_cor, isig = FALSE)
-#' corrplot(iris_m)
+#' if (require("corrplot")) {
+#'   corrplot(iris_m) # You can visualize the matrix using corrplot
+#' }
+
 #' @export
 corr_matrix <- function(c, ...) {
   assert_required_argument(c, "The 'c' argument must be a clist object, which is the output from corrp.")
@@ -68,6 +71,3 @@ corr_matrix.clist <- function(c, col = c("infer.value", "stat.value", "isig"), i
   return(structure(m, class = c("cmatrix", "matrix")))
 }
 
-#' @inherit corrplot::corrplot
-#' @export
-corrplot <- corrplot::corrplot

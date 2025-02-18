@@ -30,7 +30,9 @@ this function creates a correlation matrix.
 
 iris_cor <- corrp(iris)
 iris_m <- corr_matrix(iris_cor, isig = FALSE)
-corrplot(iris_m)
+if (require("corrplot")) {
+  corrplot(iris_m) # You can visualize the matrix using corrplot
+}
 }
 \author{
 Igor D.S. Siciliani, Paulo H. dos Santos

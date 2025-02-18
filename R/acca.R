@@ -1,6 +1,7 @@
 #' @useDynLib corrp, .registration=TRUE
 #' @importFrom Rcpp evalCpp
 #' @importFrom RcppArmadillo armadillo_version
+#' @importFrom corrplot corrplot
 
 
 #' @title Average correlation clustering algorithm
