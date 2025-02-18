@@ -82,15 +82,11 @@ The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient
 }
 \value{
 list with all statistical results.\cr
-\itemize{
-\item All statistical tests are controlled by the confidence interval of
-p.value param. If the statistical tests do not
-obtain a significance greater/less
-than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
-\item There is no statistical significance test
-for the pps algorithm. By default \code{isig} is TRUE.\cr
-\item If any errors occur during operations, the association measure (\code{infer.value}) will default to \code{NA}.
-}
+All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
+If any errors occur during operations the association measure (\code{infer.value}) will be \code{NA}.\cr
+The result \code{data} and \code{index} will have \eqn{N^2} rows, where N is the number of variables of the input data.
+By default there is no statistical significance test for the PPS algorithm. In this case \code{isig} is NA, you can enable it by setting \code{ptest = TRUE} in \code{pps.args}.\cr
+All the \verb{*.args} can modify the parameters (\code{p.value}, \code{comp}, \code{alternative}, \code{num.s}, \code{rk}, \code{ptest}) for the respective method on it's prefix.
 }
 \description{
 Performs correlation type analysis

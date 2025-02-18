@@ -1,10 +1,8 @@
 #' @title corrp compute correlations types analysis in parallel backend.
 #'
-#' @description Compute correlation-type analysis on mixed classes columns of large dataframes
-#' with parallel backend.
-#' The dataframe is allowed to have columns of these four classes: integer,
-#' numeric, factor and character. The character column is considered as
-#' categorical variable.
+#' @description Computes correlation-type analysis on large data frames with mixed column types, including integer, numeric, factor, and character. Character columns are treated as categorical variables.\cr
+# This function supports parallel processing, allowing faster computations on large datasets. It ensures that different column types are handled appropriately without requiring manual adjustments.\cr
+# The method is designed to work efficiently with mixed data, providing a flexible and fast way to analyze relationships between numerical and categorical variables.
 #'
 #' @name corrp
 #'
@@ -47,13 +45,10 @@
 #' - **index**: A table that contains the pairs of indices used in each inference of the `data` table.
 #'
 #'
-#' All statistical tests are controlled by the confidence interval of
-#'   p.value parameter. If the statistical tests do not obtain a significance greater/less
-#'   than p.value the value of variable `isig` will be `FALSE`.\cr
-
+#' All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable `isig` will be `FALSE`.\cr
 #' If any errors occur during operations the association measure (`infer.value`) will be `NA`.\cr
 #' The result `data` and `index` will have \eqn{N^2} rows, where N is the number of variables of the input data.
-#' By default there is no statistical significance test for the PPS algorithm. By default `isig` is NA, you can enable it by setting `ptest = TRUE` in `pps.args`.\cr
+#' By default there is no statistical significance test for the PPS algorithm. In this case `isig` is NA, you can enable it by setting `ptest = TRUE` in `pps.args`.\cr
 #' All the `*.args` can modify the parameters (`p.value`, `comp`, `alternative`, `num.s`, `rk`, `ptest`) for the respective method on it's prefix.
 #'
 #' @param df \[\code{data.frame(1)}]\cr input data frame.

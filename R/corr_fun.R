@@ -12,13 +12,11 @@
 #'
 #'
 #' @return list with all statistical results.\cr
-#' - All statistical tests are controlled by the confidence interval of
-#'   p.value param. If the statistical tests do not
-#' obtain a significance greater/less
-#'   than p.value the value of variable `isig` will be `FALSE`.\cr
-#' - There is no statistical significance test
-#' for the pps algorithm. By default `isig` is TRUE.\cr
-#' - If any errors occur during operations, the association measure (`infer.value`) will default to `NA`.
+#' All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable `isig` will be `FALSE`.\cr
+#' If any errors occur during operations the association measure (`infer.value`) will be `NA`.\cr
+#' The result `data` and `index` will have \eqn{N^2} rows, where N is the number of variables of the input data.
+#' By default there is no statistical significance test for the PPS algorithm. In this case `isig` is NA, you can enable it by setting `ptest = TRUE` in `pps.args`.\cr
+#' All the `*.args` can modify the parameters (`p.value`, `comp`, `alternative`, `num.s`, `rk`, `ptest`) for the respective method on it's prefix.
 #'
 #'
 #' @inheritParams corrp

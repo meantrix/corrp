@@ -97,20 +97,14 @@ A list with two tables: \code{data} and \code{index}.
 \item \strong{index}: A table that contains the pairs of indices used in each inference of the \code{data} table.
 }
 
-All statistical tests are controlled by the confidence interval of
-p.value parameter. If the statistical tests do not obtain a significance greater/less
-than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
+All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
 If any errors occur during operations the association measure (\code{infer.value}) will be \code{NA}.\cr
 The result \code{data} and \code{index} will have \eqn{N^2} rows, where N is the number of variables of the input data.
-By default there is no statistical significance test for the PPS algorithm. By default \code{isig} is NA, you can enable it by setting \code{ptest = TRUE} in \code{pps.args}.\cr
+By default there is no statistical significance test for the PPS algorithm. In this case \code{isig} is NA, you can enable it by setting \code{ptest = TRUE} in \code{pps.args}.\cr
 All the \verb{*.args} can modify the parameters (\code{p.value}, \code{comp}, \code{alternative}, \code{num.s}, \code{rk}, \code{ptest}) for the respective method on it's prefix.
 }
 \description{
-Compute correlation-type analysis on mixed classes columns of large dataframes
-with parallel backend.
-The dataframe is allowed to have columns of these four classes: integer,
-numeric, factor and character. The character column is considered as
-categorical variable.
+Computes correlation-type analysis on large data frames with mixed column types, including integer, numeric, factor, and character. Character columns are treated as categorical variables.\cr
 }
 \section{Pair Types}{
 

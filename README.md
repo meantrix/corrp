@@ -7,10 +7,12 @@
 
 <!-- badges: end -->
 
-Compute multiple types of correlation analysis (Pearson correlation, R^2  coefficient of linear regression, Cramer's V measure of association, Distance Correlation, The Maximal Information Coefficient, Uncertainty coefficient and Predictive Power Score) in large dataframes with mixed columns classes(integer, numeric, factor and character) in parallel R backend.
-This package also has a C++ implementation of the Average correlation clustering algorithm [ACCA](https://www.sciencedirect.com/science/article/pii/S1532046410000158) 
-that works directly with the correlation matrix. In this sense, this implementation differs from the original,
-it works with mixed data and several correlation types methods.
+Correlation-like analysis provides an important statistical measure that describes the size and direction of an association between variables. However, there are few R packages that can efficiently perform this type of analysis on large datasets with mixed data types. The `corrp` package provides a full suite of solutions for computing various correlation-like measures, such as Pearson correlation, Distance Correlation, Maximal Information Coefficient (MIC), Predictive Power Score (PPS), Cramér's V, and the Uncertainty Coefficient. These methods support the analysis of data frames with mixed classes (integer, numeric, factor, and character).
+
+Additionally, it offers a C++ implementation of the Average Correlation Clustering Algorithm (ACCA) [ACCA](https://www.sciencedirect.com/science/article/pii/S1532046410000158), which was originally developed for genetic studies using Pearson correlation as a similarity measure. In general, ACCA is an unsupervised clustering method, as it identifies patterns in the data without requiring predefined labels. Moreover, it requires the K parameter to be defined, similar to k-means. One of its main differences compared to other clustering methods is that it operates based on correlations rather than traditional distance metrics, such as Euclidean or Mahalanobis distance.
+
+In this package, the ACCA algorithm has been extended to work directly with correlation matrices derived from different association methods, depending on the data types and user preferences. Furthermore, the package is designed for parallel processing in R, making it highly efficient for large datasets.
+
 
 ## Details
 
@@ -36,11 +38,14 @@ In this new package the correlation is automatically computed according to the f
 - [Predictive Power Score](https://github.com/paulvanderlaken/ppsr).
 
 
-Also, all statistical tests are controlled by the significance of
-p.value param. If the statistical tests do not obtain a significance greater/less
-than p.value, by default the output of variable `isig` will be `FALSE`.
-There is no statistical significance test for the `pps` algorithm, `isig = TRUE` in this case.
-If any errors occur during operations by default the correlation will be `NA`.
+Also, All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable `isig` will be `FALSE`.
+
+If any errors occur during operations the association measure (`infer.value`) will be `NA`.
+#' The result `data` and `index` will have \eqn{N^2} rows, where N is the number of variables of the input data.
+
+By default, the statistical significance test for the PPS algorithm is not calculated, as it is prohibitively expensive for medium to large datasets. In this case `isig` is NA, you can enable it by setting `ptest = TRUE` in `pps.args`.
+
+All the `*.args` can modify the parameters (`p.value`, `comp`, `alternative`, `num.s`, `rk`, `ptest`) for the respective method on it's prefix.
 
 
 ### Installation
