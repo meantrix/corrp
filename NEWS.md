@@ -12,6 +12,8 @@ Dedicated version for the publication of the corrp package in the JOSS.
 - Update paper:
   - Give a more detail explanation of `ACCA` algorithm.
   - Strenghted statement of need.
+  - Provide a brief remark on the symmetry of the correlation matrix.
+- Update `README.md` according with changes in the paper and functions.
 
 ### Methods Added
 
