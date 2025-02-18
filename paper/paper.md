@@ -30,8 +30,6 @@ Additionally, it offers a C++ implementation of the Average Correlation Clusteri
 
 In this package, the ACCA algorithm has been extended to work directly with correlation matrices derived from different association methods, depending on the data types and user preferences. Furthermore, the package is designed for parallel processing in R, making it highly efficient for large datasets.
 
-
-
 # Statement of need
 
 The `corrp` package is an R package that provides a flexible and efficient way of performing correlation-like analysis on mixed-type data frames. These datasets can contain different variable types, such as continuous (numeric), ordinal (ordered categorical), and nominal (unordered categorical) variables, which frequently arise in practical scenarios.
@@ -41,7 +39,6 @@ Moreover, most traditional correlation methods in R are applicable only to speci
 The `corrp` package automatically detects the variable types present in the dataset. However, manual intervention is needed to select the appropriate correlation measure for each detected variable pair (numeric pairs, categorical pairs, and numeric-categorical pairs) from the available options, as explained in more detail above.
 
 The package is particularly useful for researchers and data scientists working with complex datasets who require robust and scalable tools for both association analysis and clustering.
-
 
 # Implementation
 
@@ -64,7 +61,7 @@ As mentioned before, one can choose between the following options based on the t
   - Uncertainty Coefficient [@theil:1972], a measure of nominal association between two variables.
   - Predictive Power Score (PPS) [@pps:2020].
 
-
+An important point to note is that some methods, such as the square root of R², Predictive Power Score (PPS), and the Uncertainty Coefficient, are asymmetric. In other words, the correlation value between two variables, A and B, may not be the same as the correlation between B and A in the correlation matrix.
 
 # Usage
 
