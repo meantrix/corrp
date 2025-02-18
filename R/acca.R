@@ -25,7 +25,7 @@
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
-#' @keywords correlation , acca
+#' @keywords correlation, acca
 #'
 #' @references
 #' Bhattacharya, Anindya, and Rajat K. De.
@@ -43,7 +43,7 @@
 #'
 acca <- function(m, k, ...) {
   assert_required_argument(m, "The 'm' argument must be a cmatrix object, which is the output from corr_matrix function, or it must be a matrix.")
-  assert_required_argument(m, "The 'k' argument must be the number of number of clusters considered.")
+  assert_required_argument(m, "The 'k' argument must be the number of clusters considered.")
   UseMethod("acca", m)
 }
 
@@ -68,10 +68,8 @@ acca.cmatrix <- function(m, k, maxrep = 2L, maxiter = 100L, ...) {
 #' @rdname acca
 acca.matrix <- function(m, k, maxrep = 2L, maxiter = 100L, ...) {
   warning(
-    "m is not an object of the 'cmatrix'
-    class some results may go wrong."
+    "m is not an object of the 'cmatrix' class, so some results may be incorrect."
   )
-
 
   k <- as.integer(k)
   maxrep <- as.integer(maxrep)

@@ -6,7 +6,7 @@
 \alias{corr_rm.list}
 \alias{corr_rm.cmatrix}
 \alias{corr_rm.matrix}
-\title{corr_rm filter data.frame by correlation values.}
+\title{Filter Data Frame by Correlation Values}
 \usage{
 corr_rm(df, c, ...)
 
@@ -33,25 +33,24 @@ corr_rm(df, c, ...)
 \method{corr_rm}{matrix}(df, c, cutoff = 0.75, ...)
 }
 \arguments{
-\item{df}{[\code{data.frame(1)}]\cr input data frame.}
+\item{df}{[\code{data.frame(1)}]\cr The input data frame.}
 
-\item{c}{[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list output from the function \code{\link[corrp]{corrp}}
-with class \code{clist} or correlation matrix output
-from \code{\link[corrp]{corr_matrix}} with class \code{cmatrix}.}
+\item{c}{[\code{clist(1)} | \code{cmatrix(1)}]\cr A correlation list output from the \code{\link[corrp]{corrp}} function (with class \code{clist}),
+or a correlation matrix output from the \code{\link[corrp]{corr_matrix}} function (with class \code{cmatrix}).}
 
 \item{...}{Additional arguments.}
 
-\item{col}{[\code{character(1)}]\cr choose the column to be used in the correlation matrix}
+\item{col}{[\code{character(1)}]\cr The column to be used in the correlation matrix.}
 
-\item{isig}{[\code{logical(1)}]\cr values that are not statistically significant will
-be represented by NA or FALSE in the correlation matrix.}
+\item{isig}{[\code{logical(1)}]\cr Whether values that are not statistically significant should
+be represented by \code{NA} or \code{FALSE} in the correlation matrix.}
 
-\item{cutoff}{[\code{numeric(1)}]\cr A numeric value for the pair-wise absolute correlation cutoff.
-The default values is 0.75.}
+\item{cutoff}{[\code{numeric(1)}]\cr A numeric value for the pairwise absolute correlation cutoff.
+The default value is 0.75.}
 }
 \description{
-Remove highly correlated variables from a data.frame using the
-corrp functions outputs and the caret package function \code{\link[caret]{findCorrelation}}.
+Remove highly correlated variables from a data frame using the
+correlation functions' outputs and the \code{\link[caret]{findCorrelation}} function from the caret package.
 }
 \examples{
 
@@ -64,8 +63,7 @@ corr_rm(df = iris, c = iris_cmatrix, cutoff = 0.75, col = "infer.value", isig = 
 \author{
 Igor D.S. Siciliani, Paulo H. dos Santos
 }
-\keyword{,}
 \keyword{clist}
-\keyword{cmatrix}
-\keyword{correlated}
+\keyword{cmatrix,}
+\keyword{correlated,}
 \keyword{highly}

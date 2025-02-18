@@ -2,7 +2,7 @@
 % Please edit documentation in R/corr_fun.R
 \name{corr_fun}
 \alias{corr_fun}
-\title{Compute Correlation type analysis with Statistical Significance}
+\title{Compute Correlation Type Analysis with Statistical Significance}
 \usage{
 corr_fun(
   df,
@@ -46,7 +46,7 @@ replacement created with y numeric vector.}
 \item{rk}{[\code{logical(1)}]\cr Used in permutation test.
 if its TRUE transform x, y numeric vectors with samples ranks.}
 
-\item{comp}{[\code{character(1)}]\cr The param \code{p.value} must be greater
+\item{comp}{[\code{character(1)}]\cr The parameter \code{p.value} must be greater
 or less than those estimated in tests and correlations.}
 
 \item{alternative}{[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
@@ -86,22 +86,21 @@ The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient
 \value{
 list with all statistical results.\cr
 \itemize{
-\item All statistical tests are controlled by the confidence internal of
+\item All statistical tests are controlled by the confidence interval of
 p.value param. If the statistical tests do not
 obtain a significance greater/less
 than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
 \item There is no statistical significance test
 for the pps algorithm. By default \code{isig} is TRUE.\cr
-\item If any errors occur during operations by
-default the association measure(\code{infer.value}) will be \code{NA}.
+\item If any errors occur during operations, the association measure (\code{infer.value}) will default to \code{NA}.
 }
 }
 \description{
-Compute correlation type analysis
-on two mixed classes columns of a given dataframe.
-The dataframe is allowed to have columns of these four classes: integer,
-numeric, factor and character. The character column is considered as
-categorical variable.
+Performs correlation type analysis
+on two mixed-class columns of a given dataframe.
+The dataframe can contain columns of four types: integer,
+numeric, factor, and character. The character column is considered as
+a categorical variable.
 }
 \section{Pair Types}{
 
@@ -135,25 +134,24 @@ corr_fun(iris, nx = "Sepal.Length", ny = "Sepal.Width", cor.nn = "dcor")
 
 }
 \references{
-KS Srikanth,sidekicks,cor2, 2020.
+KS Srikanth, sidekicks, cor2, 2020.
 URL \url{https://github.com/talegari/sidekicks/}.
 
-Paul van der Laken, ppsr,2021.
+Paul van der Laken, ppsr, 2021.
 URL \url{https://github.com/paulvanderlaken/ppsr}.
 }
 \author{
 Igor D.S. Siciliani, Paulo H. dos Santos
 }
-\keyword{,}
-\keyword{biserial}
-\keyword{correlation}
+\keyword{biserial,}
+\keyword{correlation,}
 \keyword{cramer'sV}
 \keyword{distance}
 \keyword{linear}
-\keyword{mic}
-\keyword{model}
-\keyword{pearson}
+\keyword{mic,}
+\keyword{model,}
+\keyword{pearson,}
 \keyword{point}
 \keyword{power}
 \keyword{predictive}
-\keyword{score}
+\keyword{score,}

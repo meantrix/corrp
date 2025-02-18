@@ -1,10 +1,10 @@
-#' @title Compute Correlation type analysis with Statistical Significance
+#' @title Compute Correlation Type Analysis with Statistical Significance
 #'
-#' @description Compute correlation type analysis
-#' on two mixed classes columns of a given dataframe.
-#'   The dataframe is allowed to have columns of these four classes: integer,
-#'   numeric, factor and character. The character column is considered as
-#'   categorical variable.
+#' @description Performs correlation type analysis
+#' on two mixed-class columns of a given dataframe.
+#'   The dataframe can contain columns of four types: integer,
+#'   numeric, factor, and character. The character column is considered as
+#'   a categorical variable.
 #'
 #' @name corr_fun
 #'
@@ -12,14 +12,13 @@
 #'
 #'
 #' @return list with all statistical results.\cr
-#' - All statistical tests are controlled by the confidence internal of
+#' - All statistical tests are controlled by the confidence interval of
 #'   p.value param. If the statistical tests do not
 #' obtain a significance greater/less
 #'   than p.value the value of variable `isig` will be `FALSE`.\cr
 #' - There is no statistical significance test
 #' for the pps algorithm. By default `isig` is TRUE.\cr
-#' - If any errors occur during operations by
-#' default the association measure(`infer.value`) will be `NA`.
+#' - If any errors occur during operations, the association measure (`infer.value`) will default to `NA`.
 #'
 #'
 #' @inheritParams corrp
@@ -29,15 +28,13 @@
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
-#' @keywords correlation , power predictive score , linear model , distance correlation ,
-#' mic , point biserial , pearson , cramer'sV
+#' @keywords correlation, power predictive score, linear model, distance correlation, mic, point biserial, pearson, cramer'sV
 #'
 #' @references
-#' KS Srikanth,sidekicks,cor2, 2020.
+#' KS Srikanth, sidekicks, cor2, 2020.
 #' URL \url{https://github.com/talegari/sidekicks/}.
 #'
-#'
-#' Paul van der Laken, ppsr,2021.
+#' Paul van der Laken, ppsr, 2021.
 #' URL \url{https://github.com/paulvanderlaken/ppsr}.
 #'
 #' @examples
@@ -66,18 +63,9 @@ corr_fun <- function(df,
                      cramersV.args = list(),
                      uncoef.args = list(),
                      ...) {
-  assert_required_argument(
-    df,
-    "The 'df' argument must be a data.frame containing the data to analyze."
-  )
-  assert_required_argument(
-    nx,
-    "The 'nx' argument must be a character vector specifying a column name from 'df' for the independent variable(s)."
-  )
-  assert_required_argument(
-    ny,
-    "The 'ny' argument must be a character string specifying a column name from 'df' for the dependent variable."
-  )
+  assert_required_argument(df, "The 'df' argument must be a data.frame containing the data to analyze.")
+  assert_required_argument(nx, "The 'nx' argument must be a character vector specifying a column name from 'df' for the independent variable(s).")
+  assert_required_argument(ny, "The 'ny' argument must be a character string specifying a column name from 'df' for the dependent variable.")
 
   alternative <- match.arg(alternative)
   cor.nn <- match.arg(cor.nn)

@@ -1,6 +1,6 @@
 #' @title corrp compute correlations types analysis in parallel backend.
 #'
-#' @description Compute correlations type analysis on mixed classes columns of larges dataframes
+#' @description Compute correlation-type analysis on mixed classes columns of large dataframes
 #' with parallel backend.
 #' The dataframe is allowed to have columns of these four classes: integer,
 #' numeric, factor and character. The character column is considered as
@@ -47,22 +47,22 @@
 #' - **index**: A table that contains the pairs of indices used in each inference of the `data` table.
 #'
 #'
-#' All statistical tests are controlled by the confidence internal of
-#'   p.value param. If the statistical tests do not obtain a significance greater/less
+#' All statistical tests are controlled by the confidence interval of
+#'   p.value parameter. If the statistical tests do not obtain a significance greater/less
 #'   than p.value the value of variable `isig` will be `FALSE`.\cr
 
 #' If any errors occur during operations the association measure (`infer.value`) will be `NA`.\cr
 #' The result `data` and `index` will have \eqn{N^2} rows, where N is the number of variables of the input data.
-#' By default there is no statistical significance test for the pps algorithm. By default `isig` is NA, you can enable in the `pps.args` setting `ptest = TRUE`.\cr
-#' All the `*.args` can modified the parameters (`p.value`, `comp`, `alternative`, `num.s`, `rk`, `ptest`) for the respective method on it's prefix.
+#' By default there is no statistical significance test for the PPS algorithm. By default `isig` is NA, you can enable it by setting `ptest = TRUE` in `pps.args`.\cr
+#' All the `*.args` can modify the parameters (`p.value`, `comp`, `alternative`, `num.s`, `rk`, `ptest`) for the respective method on it's prefix.
 #'
 #' @param df \[\code{data.frame(1)}]\cr input data frame.
-#' @param parallel \[\code{logical(1)}]\cr If its TRUE run the operations in parallel backend.
+#' @param parallel \[\code{logical(1)}]\cr If it's TRUE run the operations in parallel backend.
 #' @param n.cores \[\code{numeric(1)}]\cr The number of cores to use for parallel execution.
 #' @param p.value \[\code{logical(1)}]\cr
 #' P-value probability of obtaining the observed results of a test,
 #' assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).
-#' @param comp \[\code{character(1)}]\cr The param \code{p.value} must be greater
+#' @param comp \[\code{character(1)}]\cr The parameter \code{p.value} must be greater
 #'  or less than those estimated in tests and correlations.
 #' @param alternative \[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
 #' the correlation inference. It must be one of "two.sided" (default), "greater" or "less".
@@ -94,16 +94,11 @@
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
-#' @keywords correlation , power predictive score , linear model , distance correlation ,
-#' mic , point biserial , pearson , cramer'sV
+#' @keywords correlation, predictive power score, linear model, distance correlation, mic, pearson, cramér's V
 #'
 #' @references
-#' KS Srikanth,sidekicks,cor2, 2020.
-#' URL \url{https://github.com/talegari/sidekicks/}.
-#'
-#'
-#' Paul van der Laken, ppsr,2021.
-#' URL \url{https://github.com/paulvanderlaken/ppsr}.
+#' KS Srikanth, sidekicks, cor2, 2020. URL: \url{https://github.com/talegari/sidekicks/}.
+#' Paul van der Laken, ppsr, 2021. URL: \url{https://github.com/paulvanderlaken/ppsr/}.
 #'
 #' @examples
 #' iris_c <- corrp(iris)
@@ -156,9 +151,6 @@ corrp <- function(df,
 
   on.exit(if (parallel) parallel::stopCluster(cluster))
 
-
-
-
   stopifnot(
     all(
       vapply(df, class, character(1)) %in%
@@ -166,10 +158,10 @@ corrp <- function(df,
     )
   )
 
-
   cnames <- colnames(df)
   index.grid <- expand.grid("i" = seq(1, NCOL(df)), "j" = seq(1, NCOL(df)), stringsAsFactors = FALSE)
-  # parallel corr matrix
+
+  # Parallel corr_fun
   if (parallel) {
     cluster <- parallel::makeCluster(n.cores)
     parallel::clusterEvalQ(cluster, {
@@ -203,7 +195,7 @@ corrp <- function(df,
       }
     )
   } else {
-    # sequential corr
+    # Sequential corr_fun
     corr <- lapply(
       seq_len(NROW(index.grid)),
       function(k, ...) {

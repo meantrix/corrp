@@ -1,17 +1,17 @@
-#' @title Create Correlation Matrix from corrp inferences
+#' @title Create Correlation Matrix from corrp Inferences
 #'
-#' @description Through the results obtained from corrp function
-#' create a correlation matrix.
+#' @description Using the results obtained from the corrp function,
+#' this function creates a correlation matrix.
 #'
-#' @param c \[\code{clist(1)}]\cr output from the \code{\link{corrp}} function.
-#' @param col \[\code{character(1)}]\cr choose the column to be used in the correlation matrix.
-#' @param isig \[\code{logical(1)}]\cr values that are not statistically significant will
-#' be represented by NA or FALSE in the correlation matrix.
+#' @param c \[\code{clist(1)}]\cr Output from the \code{\link{corrp}} function.
+#' @param col \[\code{character(1)}]\cr Specifies the column to be used in the correlation matrix.
+#' @param isig \[\code{logical(1)}]\cr Determines whether values that are not statistically significant
+#' should be represented by NA or FALSE in the correlation matrix.
 #' @param ... Additional arguments (TODO).
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
-#' @keywords correlation matrix , corrp
+#' @keywords correlation matrix, corrp
 #'
 #' @examples
 #'
@@ -27,7 +27,7 @@ corr_matrix <- function(c, ...) {
 #' @export
 #' @rdname corr_matrix
 corr_matrix.default <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...) {
-  warning("it is not an object of the 'clist' class some results may go wrong.")
+  warning("The provided object is not of class 'clist'; some results may be incorrect.")
 
   .corr_matrix(c = c, col = col, isig = isig, ...)
 }

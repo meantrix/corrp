@@ -37,7 +37,7 @@ the optimal number of clusters \verb{$best.k}.
 \description{
 Determining the optimal number of
 cluster in the ACCA clustering using the
-average silhouette aproach.
+average silhouette approach.
 }
 \examples{
 
@@ -63,8 +63,7 @@ and Soft Computing. Springer, Cham, 2015.
 \author{
 Igor D.S. Siciliani, Paulo H. dos Santos
 }
-\keyword{,}
-\keyword{acca}
+\keyword{acca,}
 \keyword{k}
-\keyword{optimal}
-\keyword{silhouette}
+\keyword{optimal,}
+\keyword{silhouette,}

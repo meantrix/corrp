@@ -14,7 +14,7 @@ it works with mixed data and several correlation types methods.
 
 ## Details
 
-The [corrp package](https://github.com/meantrix/corrP) under development by Meantrix team and original based on Srikanth KS (talegari) [cor2 function](https://github.com/talegari/sidekicks/) can provide to R users a way to work with correlation analysis among large data.frames, tibbles or data.tables through a R parallel backend and C++ functions.
+The [corrp package](https://github.com/meantrix/corrp) under development by Meantrix team and original based on Srikanth KS (talegari) [cor2 function](https://github.com/talegari/sidekicks/) can provide to R users a way to work with correlation analysis among large data.frames, tibbles or data.tables through a R parallel backend and C++ functions.
 
 The data.frame is allowed to have columns of these four classes: integer, numeric, factor and character. The character column is considered as categorical variable.
 

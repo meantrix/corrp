@@ -30,7 +30,7 @@ corrp(
 \arguments{
 \item{df}{[\code{data.frame(1)}]\cr input data frame.}
 
-\item{parallel}{[\code{logical(1)}]\cr If its TRUE run the operations in parallel backend.}
+\item{parallel}{[\code{logical(1)}]\cr If it's TRUE run the operations in parallel backend.}
 
 \item{n.cores}{[\code{numeric(1)}]\cr The number of cores to use for parallel execution.}
 
@@ -46,7 +46,7 @@ replacement created with y numeric vector.}
 \item{rk}{[\code{logical(1)}]\cr Used in permutation test.
 if its TRUE transform x, y numeric vectors with samples ranks.}
 
-\item{comp}{[\code{character(1)}]\cr The param \code{p.value} must be greater
+\item{comp}{[\code{character(1)}]\cr The parameter \code{p.value} must be greater
 or less than those estimated in tests and correlations.}
 
 \item{alternative}{[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
@@ -100,16 +100,16 @@ A list with two tables: \code{data} and \code{index}.
 \item \strong{index}: A table that contains the pairs of indices used in each inference of the \code{data} table.
 }
 
-All statistical tests are controlled by the confidence internal of
-p.value param. If the statistical tests do not obtain a significance greater/less
+All statistical tests are controlled by the confidence interval of
+p.value parameter. If the statistical tests do not obtain a significance greater/less
 than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
 If any errors occur during operations the association measure (\code{infer.value}) will be \code{NA}.\cr
 The result \code{data} and \code{index} will have \eqn{N^2} rows, where N is the number of variables of the input data.
-By default there is no statistical significance test for the pps algorithm. By default \code{isig} is NA, you can enable in the \code{pps.args} setting \code{ptest = TRUE}.\cr
-All the \verb{*.args} can modified the parameters (\code{p.value}, \code{comp}, \code{alternative}, \code{num.s}, \code{rk}, \code{ptest}) for the respective method on it's prefix.
+By default there is no statistical significance test for the PPS algorithm. By default \code{isig} is NA, you can enable it by setting \code{ptest = TRUE} in \code{pps.args}.\cr
+All the \verb{*.args} can modify the parameters (\code{p.value}, \code{comp}, \code{alternative}, \code{num.s}, \code{rk}, \code{ptest}) for the respective method on it's prefix.
 }
 \description{
-Compute correlations type analysis on mixed classes columns of larges dataframes
+Compute correlation-type analysis on mixed classes columns of large dataframes
 with parallel backend.
 The dataframe is allowed to have columns of these four classes: integer,
 numeric, factor and character. The character column is considered as
@@ -141,32 +141,26 @@ categorical variable.
 }
 
 \examples{
- iris_c <- corrp(iris)
- iris_m <- corr_matrix(iris_c, isig = FALSE)
- corrplot::corrplot(iris_m)
-
+iris_c <- corrp(iris)
+iris_m <- corr_matrix(iris_c, isig = FALSE)
+corrplot::corrplot(iris_m)
 
 }
 \references{
-KS Srikanth,sidekicks,cor2, 2020.
-URL \url{https://github.com/talegari/sidekicks/}.
-
-Paul van der Laken, ppsr,2021.
-URL \url{https://github.com/paulvanderlaken/ppsr}.
+KS Srikanth, sidekicks, cor2, 2020. URL: \url{https://github.com/talegari/sidekicks/}.
+Paul van der Laken, ppsr, 2021. URL: \url{https://github.com/paulvanderlaken/ppsr/}.
 }
 \author{
 Igor D.S. Siciliani, Paulo H. dos Santos
 }
-\keyword{,}
-\keyword{biserial}
-\keyword{correlation}
-\keyword{cramer'sV}
+\keyword{V}
+\keyword{correlation,}
+\keyword{cramér's}
 \keyword{distance}
 \keyword{linear}
-\keyword{mic}
-\keyword{model}
-\keyword{pearson}
-\keyword{point}
+\keyword{mic,}
+\keyword{model,}
+\keyword{pearson,}
 \keyword{power}
 \keyword{predictive}
-\keyword{score}
+\keyword{score,}

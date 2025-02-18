@@ -1,4 +1,4 @@
-library('corrP')
+library('corrp')
 
 
 df = iris
