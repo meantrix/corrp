@@ -61,8 +61,7 @@ corr_fun <- function(df,
                      mic.args = list(),
                      pps.args = list(ptest = FALSE),
                      cramersV.args = list(),
-                     uncoef.args = list(),
-                     ...) {
+                     uncoef.args = list()) {
   assert_required_argument(df, "The 'df' argument must be a data.frame containing the data to analyze.")
   assert_required_argument(nx, "The 'nx' argument must be a character vector specifying a column name from 'df' for the independent variable(s).")
   assert_required_argument(ny, "The 'ny' argument must be a character string specifying a column name from 'df' for the dependent variable.")

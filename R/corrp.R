@@ -90,7 +90,6 @@
 #' @param pps.args \[\code{list(1)}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.
 #' @param uncoef.args \[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.
 #' @param cramersV.args \[\code{list(1)}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.
-#' @param ... Additional arguments.
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
@@ -124,8 +123,7 @@ corrp <- function(df,
                   mic.args = list(),
                   pps.args = list(ptest = FALSE),
                   cramersV.args = list(),
-                  uncoef.args = list(),
-                  ...) {
+                  uncoef.args = list()) {
   assert_required_argument(df, "The 'df' argument must be a data.frame containing the data to analyze.")
   alternative <- match.arg(alternative)
   cor.nn <- match.arg(cor.nn)
@@ -169,7 +167,7 @@ corrp <- function(df,
     })
     corr <- parallel::clusterApply(
       cluster, seq_len(NROW(index.grid)),
-      function(k, ...) {
+      function(k) {
         ny <- cnames[index.grid[["i"]][k]]
         nx <- cnames[index.grid[["j"]][k]]
         corr_fun(df,
@@ -198,7 +196,7 @@ corrp <- function(df,
     # Sequential corr_fun
     corr <- lapply(
       seq_len(NROW(index.grid)),
-      function(k, ...) {
+      function(k) {
         ny <- cnames[index.grid[["i"]][k]]
         nx <- cnames[index.grid[["j"]][k]]
         corr_fun(df,

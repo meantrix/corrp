@@ -16,7 +16,7 @@ best_acca(m, ...)
 \item{m}{[\code{matrix(1)}]\cr correlation matrix
 from \code{\link{corr_matrix}}.}
 
-\item{...}{Additional arguments.}
+\item{...}{Not used. Included for S3 method consistency.}
 
 \item{mink}{[\code{integer(1)}]\cr minimum number of clusters considered.}
 

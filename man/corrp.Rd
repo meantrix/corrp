@@ -23,8 +23,7 @@ corrp(
   mic.args = list(),
   pps.args = list(ptest = FALSE),
   cramersV.args = list(),
-  uncoef.args = list(),
-  ...
+  uncoef.args = list()
 )
 }
 \arguments{
@@ -80,8 +79,6 @@ The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient
 \item{cramersV.args}{[\code{list(1)}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.}
 
 \item{uncoef.args}{[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
-
-\item{...}{Additional arguments.}
 }
 \value{
 A list with two tables: \code{data} and \code{index}.

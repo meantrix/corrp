@@ -17,7 +17,7 @@
 #' @param maxrep \[\code{integer(1)}]\cr maximum number of
 #' interactions without change in the clusters.
 #' @param maxiter \[\code{integer(1)}]\cr maximum number of interactions.
-#' @param ... Additional arguments .
+#' @param ... Not used. Included for S3 method consistency.
 #'
 #' @return \[\code{acca_list(k)}]\cr A list with the
 #' final result of the clustering method.

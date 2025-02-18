@@ -12,7 +12,7 @@
 #' without change in the clusters in the ACCA method.
 #' @param maxiter \[\code{integer(1)}]\cr maximum number
 #' of interactions in the ACCA method.
-#' @param ... Additional arguments.
+#' @param ... Not used. Included for S3 method consistency.
 #'
 #' @return \[\code{list(3)}]\cr A list with:
 #' silhouette average with per k `$silhouette.ave`;

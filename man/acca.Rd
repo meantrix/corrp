@@ -18,7 +18,7 @@ acca(m, k, ...)
 
 \item{k}{[\code{integer(1)}]\cr number of clusters considered.}
 
-\item{...}{Additional arguments .}
+\item{...}{Not used. Included for S3 method consistency.}
 
 \item{maxrep}{[\code{integer(1)}]\cr maximum number of
 interactions without change in the clusters.}
