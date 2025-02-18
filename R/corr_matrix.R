@@ -7,7 +7,7 @@
 #' @param col \[\code{character(1)}]\cr Specifies the column to be used in the correlation matrix.
 #' @param isig \[\code{logical(1)}]\cr Determines whether values that are not statistically significant
 #' should be represented by NA or FALSE in the correlation matrix.
-#' @param ... Additional arguments (TODO).
+#' @param ... Not used. Included for S3 method consistency.
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
@@ -29,16 +29,16 @@ corr_matrix <- function(c, ...) {
 corr_matrix.default <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...) {
   warning("The provided object is not of class 'clist'; some results may be incorrect.")
 
-  .corr_matrix(c = c, col = col, isig = isig, ...)
+  .corr_matrix(c = c, col = col, isig = isig)
 }
 
 #' @export
 #' @rdname corr_matrix
 corr_matrix.clist <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...) {
-  .corr_matrix(c = c, col = col, isig = isig, ...)
+  .corr_matrix(c = c, col = col, isig = isig)
 }
 
-.corr_matrix <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...) {
+.corr_matrix <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE) {
   checkmate::assert_names(names(c), identical.to = c("data", "index"))
   checkmate::assert_logical(isig, len = 1)
   stopifnot(all(unique(c$index$i) == unique(c$index$j)))

@@ -15,7 +15,7 @@ corr_matrix(c, ...)
 \arguments{
 \item{c}{[\code{clist(1)}]\cr Output from the \code{\link{corrp}} function.}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Not used. Included for S3 method consistency.}
 
 \item{col}{[\code{character(1)}]\cr Specifies the column to be used in the correlation matrix.}
 
