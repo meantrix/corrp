@@ -103,7 +103,7 @@
 #' # Usage with default settings
 #' iris_c <- corrp(iris)
 #' iris_m <- corr_matrix(iris_c, isig = FALSE) # You can then make correlation matrix
-#' corrp::corrplot(iris_m) # You can visualize the matrix using corrplot
+#' corrplot(iris_m) # You can visualize the matrix using corrplot
 #'
 #' # Using PPS for both numeric-numeric and numeric-categorical pairs
 #' iris_c1 <- corrp(iris, cor.nn = "pps", cor.nc = "pps")
