@@ -32,7 +32,7 @@
 #' "Average correlation clustering algorithm (ACCA) for grouping of co-regulated
 #' genes with similar pattern of variation in their expression values."
 #' Journal of Biomedical Informatics 43.4 (2010): 560-568.
-#' 
+#'
 #' @examples
 #'
 #' x <- corrp::corrp(iris)

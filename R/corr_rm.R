@@ -5,8 +5,8 @@
 #'
 #'
 #' @param df \[\code{data.frame(1)}]\cr input data frame.
-#' @param c \[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list output from the function \code{\link[corrp]{corrp}} 
-#' with class \code{clist} or correlation matrix output 
+#' @param c \[\code{clist(1)} | \code{cmatrix(1)}]\cr correlation list output from the function \code{\link[corrp]{corrp}}
+#' with class \code{clist} or correlation matrix output
 #' from \code{\link[corrp]{corr_matrix}} with class \code{cmatrix}.
 #' @param cutoff \[\code{numeric(1)}]\cr A numeric value for the pair-wise absolute correlation cutoff.
 #' The default values is 0.75.

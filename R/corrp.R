@@ -11,28 +11,28 @@
 #' @section Pair Types:
 #'
 #' **Numeric pairs (integer/numeric):**
-#' 
+#'
 #' - **Pearson Correlation Coefficient:** A widely used measure of the strength and direction of linear relationships. Implemented using \code{\link[stats]{cor}}. For more details, see \url{https://doi.org/10.1098/rspl.1895.0041}. The value lies between -1 and 1.\cr
 #' - **Distance Correlation:** Based on the idea of expanding covariance to distances, it measures both linear and nonlinear associations between variables. Implemented using \code{\link[energy]{dcorT.test}}. For more details, see \url{https://doi.org/10.1214/009053607000000505}. The value lies between 0 and 1.\cr
 #' - **Maximal Information Coefficient (MIC):** An information-based nonparametric method that can detect both linear and non-linear relationships between variables. Implemented using \code{\link[minerva]{mine}}. For more details, see \url{https://doi.org/10.1126/science.1205438}. The value lies between 0 and 1.\cr
 #' - **Predictive Power Score (PPS):** A metric used to assess predictive relations between variables. Implemented using \code{\link[ppsr]{score}}. For more details, see \url{https://zenodo.org/record/4091345}. The value lies between 0 and 1.\cr\cr
 #'
 #' **Numeric and categorical pairs (integer/numeric - factor/categorical):**
-#' 
+#'
 #' - **Square Root of R² Coefficient:** From linear regression of the numeric variable over the categorical variable. Implemented using \code{\link[stats]{lm}}. For more details, see \url{https://doi.org/10.4324/9780203774441}. The value lies between 0 and 1.\cr
 #' - **Predictive Power Score (PPS):** A metric used to assess predictive relations between numeric and categorical variables. Implemented using \code{\link[ppsr]{score}}. For more details, see \url{https://zenodo.org/record/4091345}. The value lies between 0 and 1.\cr\cr
 #'
 #' **Categorical pairs (factor/categorical):**
-#' 
+#'
 #' - **Cramér's V:** A measure of association between nominal variables. Computed based on a chi-squared test and implemented using \code{\link[lsr]{cramersV}}. For more details, see \url{https://doi.org/10.1515/9781400883868}. The value lies between 0 and 1.\cr
 #' - **Uncertainty Coefficient:** A measure of nominal association between two variables. Implemented using \code{\link[DescTools]{UncertCoef}}. For more details, see \url{https://doi.org/10.1016/j.jbi.2010.02.001}. The value lies between 0 and 1.\cr
 #' - **Predictive Power Score (PPS):** A metric used to assess predictive relations between categorical variables. Implemented using \code{\link[ppsr]{score}}. For more details, see \url{https://zenodo.org/record/4091345}. The value lies between 0 and 1.\cr
 #'
-#' @return 
+#' @return
 #' A list with two tables: `data` and `index`.
-#' 
+#'
 #' - **data**: A table containing all the statistical results. The columns of this table are as follows:
-#'   
+#'
 #'     - `infer`: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
 #'     - `infer.value`: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
 #'     - `stat`: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
@@ -41,12 +41,12 @@
 #'     - `msg`: A message or error related to the inference process.
 #'     - `varx`: The name of the first variable in the analysis (independent variable or feature).
 #'     - `vary`: The name of the second variable in the analysis (dependent/target variable).
-#'   
-#' 
-#' 
+#'
+#'
+#'
 #' - **index**: A table that contains the pairs of indices used in each inference of the `data` table.
-#' 
-#' 
+#'
+#'
 #' All statistical tests are controlled by the confidence internal of
 #'   p.value param. If the statistical tests do not obtain a significance greater/less
 #'   than p.value the value of variable `isig` will be `FALSE`.\cr
@@ -83,9 +83,9 @@
 #' Choose correlation type to be used in factor/categorical pair inference.
 #' The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 #' `pps: Predictive Power Score`. Default is ` Cramer's V`.
-#' @param lm.args \[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}. 
+#' @param lm.args \[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.
 #' @param pearson.args \[\code{list(1)}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.
-#' @param dcor.args \[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcorT_test}}. 
+#' @param dcor.args \[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcorT_test}}.
 #' @param mic.args \[\code{list(1)}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.
 #' @param pps.args \[\code{list(1)}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.
 #' @param uncoef.args \[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.
@@ -104,12 +104,11 @@
 #'
 #' Paul van der Laken, ppsr,2021.
 #' URL \url{https://github.com/paulvanderlaken/ppsr}.
-#' 
+#'
 #' @examples
-#'  iris_c <- corrp(iris)
-#'  iris_m <- corr_matrix(iris_c, isig = FALSE)
-#'  corrplot::corrplot(iris_m)
-#' 
+#' iris_c <- corrp(iris)
+#' iris_m <- corr_matrix(iris_c, isig = FALSE)
+#' corrplot::corrplot(iris_m)
 #'
 #' @export
 corrp <- function(df,
@@ -132,7 +131,6 @@ corrp <- function(df,
                   cramersV.args = list(),
                   uncoef.args = list(),
                   ...) {
-
   assert_required_argument(df, "The 'df' argument must be a data.frame containing the data to analyze.")
   alternative <- match.arg(alternative)
   cor.nn <- match.arg(cor.nn)

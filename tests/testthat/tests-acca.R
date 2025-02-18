@@ -10,7 +10,7 @@ test_that("Tests on acca and sil_acca functions", {
   set.seed(1)
   acca.res <- acca(m, k)
   set.seed(1)
-  expect_warning(acca.res2 <-  acca(m2, k))
+  expect_warning(acca.res2 <- acca(m2, k))
   expect_true(all(acca.res[[2]] %in% acca.res2[[2]]))
 
   # test class acca
@@ -26,8 +26,7 @@ test_that("Tests on acca and sil_acca functions", {
   acca.res.list <- acca.res
   class(acca.res.list) <- "list"
   expect_warning(s.list <- sil_acca(acca.res.list, m))
-  expect_equal(s,s.list)
-
+  expect_equal(s, s.list)
 })
 
 
@@ -43,13 +42,9 @@ test_that("Checks if best_acca works", {
   class(m2) <- "matrix"
 
   set.seed(1)
-  best.acca1 <- best_acca(m, mink = 2 , maxk = 10)
+  best.acca1 <- best_acca(m, mink = 2, maxk = 10)
   set.seed(1)
-  expect_warning(best.acca2 <- best_acca(m2, mink = 2 , maxk = 10))
+  expect_warning(best.acca2 <- best_acca(m2, mink = 2, maxk = 10))
 
-  expect_equal(best.acca1$k,best.acca2$k)
-
-
-
+  expect_equal(best.acca1$k, best.acca2$k)
 })
-

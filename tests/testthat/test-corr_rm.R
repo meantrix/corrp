@@ -13,5 +13,4 @@ test_that("Tests on corr_rm", {
   expect_warning(df4 <- corr_rm(df = df, c = m2))
   expect_equal(df2, df3)
   expect_equal(df2, df4)
-
 })

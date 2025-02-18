@@ -10,13 +10,13 @@
 #' @param alternative \[\code{character(1)}]\cr a character string specifying the alternative hypothesis,
 #' must be one of "greater" (default), "less" or "two.sided". You can specify just the initial letter.
 #' @param ... Additional arguments.
-#' 
+#'
 #' @examples
 #'
 #' x <- iris[[1]]
 #' y <- iris[[2]]
 #' ptest(x, y, FUN = function(x, y) cor(x, y), alternative = "t")
-#' 
+#'
 #' @export
 #'
 ptest <- function(x, y,
@@ -63,7 +63,7 @@ ptest <- function(x, y,
     "g" = {
       p.value <- mean(est >= obs)
     },
-    "t" = {      
+    "t" = {
       p.value <- min(mean(est >= obs), mean(est <= obs)) * 2
     }
   )

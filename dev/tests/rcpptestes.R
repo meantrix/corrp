@@ -55,7 +55,7 @@ basic_function(c('o','o','oi'),c('oa','oa','oi'))
 cppFunction("void Test(){
   List L;
   List L1=List::create(12,45,22,44);
-  SEXP x=Language("c",L,L1).eval();//update, add L1's elements on L's back.
+  SEXP x=Language('c',L,L1).eval();//update, add L1's elements on L's back.
   Rf_PrintValue(x) ; Rprintf( "\n") ;
 
   L = x;

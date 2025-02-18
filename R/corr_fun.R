@@ -13,17 +13,17 @@
 #'
 #' @return list with all statistical results.\cr
 #' - All statistical tests are controlled by the confidence internal of
-#'   p.value param. If the statistical tests do not 
+#'   p.value param. If the statistical tests do not
 #' obtain a significance greater/less
 #'   than p.value the value of variable `isig` will be `FALSE`.\cr
-#' - There is no statistical significance test 
+#' - There is no statistical significance test
 #' for the pps algorithm. By default `isig` is TRUE.\cr
-#' - If any errors occur during operations by 
+#' - If any errors occur during operations by
 #' default the association measure(`infer.value`) will be `NA`.
 #'
 #'
 #' @inheritParams corrp
-#' @param nx \[\code{character(1)}]\cr first variable column name: independent/predictor variable. 
+#' @param nx \[\code{character(1)}]\cr first variable column name: independent/predictor variable.
 #' @param ny \[\code{character(1)}]\cr second variable column name: dependent/target variable.
 #'
 #'
@@ -41,10 +41,10 @@
 #' URL \url{https://github.com/paulvanderlaken/ppsr}.
 #'
 #' @examples
-#' 
+#'
 #' # since both `nx` and `ny` columns are numerical the method type is defined by `cor.nn`
 #' corr_fun(iris, nx = "Sepal.Length", ny = "Sepal.Width", cor.nn = "dcor")
-#' 
+#'
 #' @export
 corr_fun <- function(df,
                      nx,
@@ -66,14 +66,18 @@ corr_fun <- function(df,
                      cramersV.args = list(),
                      uncoef.args = list(),
                      ...) {
-
-
-  assert_required_argument(df, 
-    "The 'df' argument must be a data.frame containing the data to analyze.")
-  assert_required_argument(nx, 
-    "The 'nx' argument must be a character vector specifying a column name from 'df' for the independent variable(s).")
-  assert_required_argument(ny, 
-    "The 'ny' argument must be a character string specifying a column name from 'df' for the dependent variable.")
+  assert_required_argument(
+    df,
+    "The 'df' argument must be a data.frame containing the data to analyze."
+  )
+  assert_required_argument(
+    nx,
+    "The 'nx' argument must be a character vector specifying a column name from 'df' for the independent variable(s)."
+  )
+  assert_required_argument(
+    ny,
+    "The 'ny' argument must be a character string specifying a column name from 'df' for the dependent variable."
+  )
 
   alternative <- match.arg(alternative)
   cor.nn <- match.arg(cor.nn)
@@ -191,7 +195,7 @@ corr_fun <- function(df,
   }
 
   if (inherits(r, "try-error")) {
-    msg <- ""   
+    msg <- ""
     if (verbose) {
       warnings(cat(
         "ERROR: some operations produces Nas values.", "\n",
