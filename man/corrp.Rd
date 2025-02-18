@@ -138,10 +138,30 @@ categorical variable.
 }
 
 \examples{
+# Usage with default settings
 iris_c <- corrp(iris)
-iris_m <- corr_matrix(iris_c, isig = FALSE)
-corrplot::corrplot(iris_m)
+iris_m <- corr_matrix(iris_c, isig = FALSE) # You can then make correlation matrix
+corrplot(iris_m) # You can visualize the matrix using corrplot
 
+# Using PPS for both numeric-numeric and numeric-categorical pairs
+iris_c1 <- corrp(iris, cor.nn = "pps", cor.nc = "pps")
+
+# Using Distance Correlation for numeric-numeric and Predictive Power Score for numeric-categorical
+iris_c2 <- corrp(iris, cor.nn = "dcor", cor.nc = "pps", dcor.args = list(method = "auto"))
+
+# Using Maximal Information Coefficient (MIC) for numeric-numeric and Uncertainty Coefficient for categorical-categorical
+iris_c3 <- corrp(iris, cor.nn = "mic", cor.cc = "uncoef", mic.args = list(alpha = 0.6))
+
+# Using PPS for all pair types
+iris_c4 <- corrp(iris, cor.nn = "pps", cor.nc = "pps", cor.cc = "pps")
+
+# Using Distance Correlation for numeric-numeric, Predictive Power Score for numeric-categorical,
+# and Uncertainty Coefficient for categorical-categorical
+iris_c5 <- corrp(
+  iris,
+  cor.nn = "dcor", cor.nc = "pps", cor.cc = "uncoef",
+  dcor.args = list(method = "auto")
+)
 }
 \references{
 KS Srikanth, sidekicks, cor2, 2020. URL: \url{https://github.com/talegari/sidekicks/}.
