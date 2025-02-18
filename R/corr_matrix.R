@@ -70,4 +70,3 @@ corr_matrix.clist <- function(c, col = c("infer.value", "stat.value", "isig"), i
 
   return(structure(m, class = c("cmatrix", "matrix")))
 }
-

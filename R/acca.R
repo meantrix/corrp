@@ -53,7 +53,6 @@
 #' result <- corrp::acca(m, k = 2, maxrep = 50)
 #' print(result)
 #'
-#'
 #' @export
 #'
 acca <- function(m, k, ...) {
