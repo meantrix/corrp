@@ -61,6 +61,16 @@ As mentioned before, one can choose between the following options based on the t
   - Uncertainty Coefficient [@theil:1972], a measure of nominal association between two variables.
   - Predictive Power Score (PPS) [@pps:2020].
 
+In R, various statistical functions are available to measure these correlation. Below follows a list of correlation techniques and their corresponding R functions:  
+
+- **Linear Model (lm)** → `stats::lm`  
+- **Pearson Correlation** → `stats::cor.test`  
+- **Distance Correlation** → `corrp::dcorT_test`  
+- **Maximal Information Coefficient (MIC)** → `minerva::mine`  
+- **Predictive Power Score (PPS)** → `ppsr::score`  
+- **Uncertainty Coefficient** → `DescTools::UncertCoef`  
+- **Cramer's V** → `lsr::cramersV`
+
 An important point to note is that some methods, such as the square root of R², Predictive Power Score (PPS), and the Uncertainty Coefficient, are asymmetric. In other words, the correlation value between two variables, A and B, may not be the same as the correlation between B and A in the correlation matrix.
 
 # Usage
