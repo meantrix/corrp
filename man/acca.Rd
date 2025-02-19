@@ -56,7 +56,6 @@ m <- corrp::corr_matrix(x)
 result <- corrp::acca(m, k = 2, maxrep = 50)
 print(result)
 
-
 }
 \references{
 Bhattacharya, Anindya, and Rajat K. De.

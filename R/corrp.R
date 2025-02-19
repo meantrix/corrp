@@ -77,7 +77,7 @@
 #' @param cor.cc  \[\code{character(1)}]\cr
 #' Choose correlation type to be used in factor/categorical pair inference.
 #' The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
-#' `pps: Predictive Power Score`. Default is ` Cramer's V`.
+#' `pps: Predictive Power Score`. Default is `Cramer's V`.
 #' @param lm.args \[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.
 #' @param pearson.args \[\code{list(1)}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.
 #' @param dcor.args \[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcorT_test}}.

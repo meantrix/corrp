@@ -64,7 +64,7 @@ The option are \verb{lm: Linear Model},\verb{pps: Predictive Power Score}. Defau
 \item{cor.cc}{[\code{character(1)}]\cr
 Choose correlation type to be used in factor/categorical pair inference.
 The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient},
-\verb{pps: Predictive Power Score}. Default is \verb{ Cramer's V}.}
+\verb{pps: Predictive Power Score}. Default is \verb{Cramer's V}.}
 
 \item{lm.args}{[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.}
 
