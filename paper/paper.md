@@ -42,14 +42,14 @@ The package is particularly useful for researchers and data scientists working w
 
 # Implementation
 
-The `corrp` package integrates R and C++ to combine the flexibility of R with the speed of C++, optimizing key operations. Its core functionalities include the selection of correlation-like methods based on pair of variable types (numeric pairs, numeric and categorical pairs, etc.). Users can create correlation matrices, remove variables based on significance, and cluster the correlation matrix using the ACCA clustering algorithm. This approach has been modified to support mixed data types and various correlation methods. Also, the package supports parallel processing through the `foreach` package, significantly improving performance on large datasets.
+The `corrp` package integrates R and C++ to combine the flexibility of R with the speed of C++, optimizing key operations. Its core functionalities include the selection of correlation-like methods based on pairs of variable types (numeric pairs, numeric and categorical pairs, etc.). Users can create correlation matrices, remove variables based on significance, and cluster the correlation matrix using the ACCA clustering algorithm. This approach has been modified to support mixed data types and various correlation methods. Also, the package supports parallel processing through the `foreach` package, significantly improving performance on large datasets.
 
 As mentioned before, one can choose between the following options based on the type pair:
 
 - **Numeric pairs (integer/numeric):**
   - Pearson correlation coefficient [@pearson:1895], a widely used measure of the strength and direction of linear relationships.
   - Distance Correlation or distance covariance [@szekely:2007], based on the idea of expanding covariance to distances, can measure both linear and nonlinear associations between variables.
-  - Maximal Information Coefficient (MIC) [@reshef:2011],  a information-based nonparametric based method that can detect linear or non-linear relationships between variables.
+  - Maximal Information Coefficient (MIC) [@reshef:2011],  an information-based nonparametric based method that can detect linear or non-linear relationships between variables.
   - Predictive Power Score (PPS) [@pps:2020], a metric used to assess predictive relations between variables.
 
 - **Numeric and categorical pairs (integer/numeric - factor/categorical):**
@@ -61,7 +61,7 @@ As mentioned before, one can choose between the following options based on the t
   - Uncertainty Coefficient [@theil:1972], a measure of nominal association between two variables.
   - Predictive Power Score (PPS) [@pps:2020].
 
-In R, various statistical functions are available to measure these correlation. Below follows a list of correlation techniques and their corresponding R functions:  
+In R, various statistical functions are available to measure these correlations. Below follows a list of correlation techniques and their corresponding R functions:  
 
 - **Linear Model (lm)** → `stats::lm`  
 - **Pearson Correlation** → `stats::cor.test`  
@@ -77,7 +77,7 @@ An important point to note is that some methods, such as the square root of R²,
 
 The `corrp` package provides seven main functions for correlation calculations, clustering, and basic data manipulation:
 
-- **corrp**: Performs correlation-like analysis with user-specified methods for numeric, categorical, factor, interger and mixed pairs.
+- **corrp**: Performs correlation-like analysis with user-specified methods for numeric, categorical, factor, integer and mixed pairs.
 - **corr_matrix**: Generates a correlation matrix from analysis results.
 - **corr_rm**: Removes variables based on p-value significance.
 - **acca**: Performs the ACCA clustering algorithm with added support for mixed data types.
@@ -168,7 +168,7 @@ acca.res
 
 When using the `corrp` function with the `dcor` method for numeric pairs (i.e., `cor.nn = "dcor"`), significant improvements in both memory usage and runtime are observed. This is because the `corrp` package uses a C++ implementation of distance correlation (`dcorT_test`), which is more efficient than the `energy::dcorT.test` function from the `energy` package.
 
-For example, using two vector of length 10000 and 20000, the benchmarks show the following improvements:
+For example, using two vectors of length 10000 and 20000, the benchmarks show the following improvements:
 
 | Method                | 10,000       |                | 20,000           |                  |
 |-----------------------|--------------|----------------|------------------|------------------|
