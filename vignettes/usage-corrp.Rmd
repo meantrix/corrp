@@ -37,11 +37,12 @@ The `corrp` function can be used to compute correlations between variables, user
 
 ```{r}
 # Compute correlations for iris dataset
-results <- corrp(iris, 
-                 cor.nn = "pearson",    # Correlation for numerical-numerical variables
-                 cor.nc = "pps",        # Correlation for numerical-categorical variables
-                 cor.cc = "cramer",     # Correlation for categorical-categorical variables
-                 verbose = FALSE)
+results <- corrp(iris,
+  cor.nn = "pearson", # Correlation for numerical-numerical variables
+  cor.nc = "pps", # Correlation for numerical-categorical variables
+  cor.cc = "cramer", # Correlation for categorical-categorical variables
+  verbose = FALSE
+)
 
 results
 ```
@@ -77,11 +78,12 @@ For example, let's compute the correlations using different methods for numerica
 
 ```{r}
 # Example of changing correlation methods
-results_custom <- corrp(iris, 
-                        cor.nn = "mic", 
-                        cor.nc = "pps", 
-                        cor.cc = "uncoef", 
-                        verbose = FALSE)
+results_custom <- corrp(iris,
+  cor.nn = "mic",
+  cor.nc = "pps",
+  cor.cc = "uncoef",
+  verbose = FALSE
+)
 results_custom$data
 ```
 
@@ -93,12 +95,13 @@ You can enable parallel processing to speed up the computation, especially when 
 
 ```{r}
 # Using 2 cores for parallel processing
-results_parallel <- corrp(iris, 
-                          cor.nn = "pearson", 
-                          cor.nc = "pps", 
-                          cor.cc = "cramer", 
-                          n.cores = 2, 
-                          verbose = FALSE)
+results_parallel <- corrp(iris,
+  cor.nn = "pearson",
+  cor.nc = "pps",
+  cor.cc = "cramer",
+  n.cores = 2,
+  verbose = FALSE
+)
 ```
 
 ### 2. Custom Inferences with `corr_fun`
@@ -108,10 +111,10 @@ The `corr_fun` function can be used directly if you need finer control over the 
 ```{r}
 # Using corr_fun to compute Pearson correlation between Sepal.Length and Petal.Length
 corr_fun(
-  iris, 
-  nx = "Sepal.Length", 
-  ny = "Petal.Length", 
-  cor.nn = "pearson", 
+  iris,
+  nx = "Sepal.Length",
+  ny = "Petal.Length",
+  cor.nn = "pearson",
   verbose = FALSE
 )
 ```

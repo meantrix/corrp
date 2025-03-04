@@ -4,7 +4,7 @@
 \alias{sil_acca}
 \alias{sil_acca.acca_list}
 \alias{sil_acca.list}
-\title{Silhouette (clustering)}
+\title{Silhouette (Clustering)}
 \usage{
 sil_acca(acca, m, ...)
 
@@ -13,22 +13,22 @@ sil_acca(acca, m, ...)
 \method{sil_acca}{list}(acca, m, ...)
 }
 \arguments{
-\item{acca}{[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}}
+\item{acca}{[\code{acca_list(1)}]\cr Acca clustering results from \code{\link{acca}}.}
 
-\item{m}{[\code{cmatrix(1)|matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}}.
-By default the distance matrix(dist) used in this method is given by \code{dist = 1 - m}.}
+\item{m}{[\code{cmatrix(1)|matrix(1)}]\cr A correlation matrix from \code{\link{corr_matrix}}.
+By default, the distance matrix (dist) used in this method is given by \code{dist = 1 - m}.}
 
 \item{...}{Additional arguments.}
 }
 \value{
-[\code{numeric(1)}]\cr the average value of
-the silhouette width over all data of the entire dataset.
-Observations with a large average silhouette width (almost 1)
+[\code{numeric(1)}]\cr The average value of
+the silhouette width across all data in the entire dataset.
+Observations with a large average silhouette width (close to 1)
 are very well clustered.
 }
 \description{
 A C++ implementation of the Silhouette method
-of interpretation and validation of consistency within acca clusters of data.
+for interpreting and validating consistency within acca clusters of data.
 }
 \examples{
 
@@ -40,15 +40,14 @@ sil_acca(acca, m)
 }
 \references{
 Leonard Kaufman; Peter J. Rousseeuw (1990).
-Finding groups in data : An introduction to cluster analysis.
+Finding Groups in Data: An Introduction to Cluster Analysis.
 Hoboken, NJ: Wiley-Interscience. p. 87. doi:10.1002/9780470316801. ISBN 9780471878766.
 
-Starczewski, Artur, and Adam Krzyżak. "Performance evaluation of the silhouette index.
-" International Conference on Artificial Intelligence and Soft Computing. Springer, Cham, 2015.
+Starczewski, Artur, and Adam Krzyżak. "Performance Evaluation of the Silhouette Index."
+International Conference on Artificial Intelligence and Soft Computing. Springer, Cham, 2015.
 }
 \author{
 Igor D.S. Siciliani, Paulo H. dos Santos
 }
-\keyword{,}
 \keyword{acca}
-\keyword{silhouette}
+\keyword{silhouette,}

@@ -3,11 +3,18 @@
 
 ## 0.6.0
 
+Dedicated version for the publication of the corrp package in the JOSS.
+
 - Add `VignetteBuilder: knitr` to DESCRIPTION
 - Add usefull error message for required parameters.
 - Fix C++ `Astar` method.
 - Run benchmarks, expand the paper to include statements on resource-intensive options, and incorporate an enhanced version of `energy::dcorT.test`. Also, change the data used in the paper.
-
+- Update paper:
+  - Give a more detail explanation of `ACCA` algorithm.
+  - Strenghted statement of need.
+  - Make a map of correlation → R method.
+  - Provide a brief remark on the symmetry of the correlation matrix.
+- Update `README.md` according with changes in the paper and functions.
 
 ### Methods Added
 
@@ -21,9 +28,11 @@
 
 ### Documentation
 
-- Enhanced the documentation for `corrp` by including examples, refining the pair type section with additional details and references, and providing a more comprehensive explanation of the output format and its interpretation.
+- Enhanced the documentation for `corrp` and `corr_fun` by including examples, refining the pair type section with additional details and references, and providing a more comprehensive explanation of the output format and its interpretation.
 - Improved the documentation for `corr_rm` by adding examples and providing a clearer explanation of the `c` parameter.
+- Improved the documentation for `acca` by adding examples and providing a more detailed explanation in the description.
 - Added examples of usage in the documentation for: `acca`, `best_acca`, `corrp`, `corr_rm`, `corr_matrix`, `corr_fun`, `ptest`, `sil_acca`.
+- Fix grammar and ensure package style cohesion.
 
 
 ## 0.5.0

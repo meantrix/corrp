@@ -2,7 +2,7 @@
 #'
 #' @description Determining the optimal number of
 #' cluster in the ACCA clustering using the
-#' average silhouette aproach.
+#' average silhouette approach.
 #'
 #' @param m  \[\code{matrix(1)}]\cr correlation matrix
 #' from \code{\link{corr_matrix}}.
@@ -12,7 +12,7 @@
 #' without change in the clusters in the ACCA method.
 #' @param maxiter \[\code{integer(1)}]\cr maximum number
 #' of interactions in the ACCA method.
-#' @param ... Additional arguments.
+#' @param ... Not used. Included for S3 method consistency.
 #'
 #' @return \[\code{list(3)}]\cr A list with:
 #' silhouette average with per k `$silhouette.ave`;
@@ -22,7 +22,7 @@
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
-#' @keywords silhouette , acca , optimal , k
+#' @keywords silhouette, acca, optimal, k
 #'
 #' @references
 #' Leonard Kaufman; Peter J. Rousseeuw (1990).
@@ -68,10 +68,8 @@ best_acca.cmatrix <- function(m, mink, maxk, maxrep = 2L, maxiter = 100L, ...) {
 #' @rdname best_acca
 best_acca.matrix <- function(m, mink, maxk, maxrep = 2L, maxiter = 100L, ...) {
   warning(
-    "m is not an object of the 'cmatrix'
-    class some results may go wrong."
+    "m is not an object of the 'cmatrix' class, so some results may be incorrect."
   )
-
 
   mink <- as.integer(mink)
   maxk <- as.integer(maxk)

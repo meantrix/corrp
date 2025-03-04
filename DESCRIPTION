@@ -1,7 +1,7 @@
 Package: corrp
 Type: Package
 Title: Compute Correlations Type Analysis in Parallel
-Version: 0.5.0
+Version: 0.6.0
 Authors@R: 
     c(
         person("Igor", "Dornelles Schoeller Siciliani", email = "igor@meantrix.com", role = c("aut", "cre")),
@@ -17,7 +17,7 @@ Description: Compute multiple types of correlation analyses, including
     the average correlation clustering algorithm and distance 
     correlation t-test.
 Imports: 
-    Rcpp (>= 1.0.13-1),
+    Rcpp (>= 1.0.13),
     RcppArmadillo (>= 14.2.2-1),
     corrplot (>= 0.95),
     lsr (>= 0.5.2),

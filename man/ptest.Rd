@@ -2,7 +2,7 @@
 % Please edit documentation in R/ptest.R
 \name{ptest}
 \alias{ptest}
-\title{Correlation permutation test}
+\title{Correlation Permutation Test}
 \usage{
 ptest(
   x,
@@ -15,25 +15,25 @@ ptest(
 )
 }
 \arguments{
-\item{x}{[\code{numeric(1)}]\cr a numeric vector.}
+\item{x}{[\code{numeric(1)}]\cr A numeric vector.}
 
-\item{y}{[\code{numeric(1)}]\cr a numeric vector.}
+\item{y}{[\code{numeric(1)}]\cr A numeric vector.}
 
-\item{FUN}{[\code{function(1)}]\cr the function to be applied}
+\item{FUN}{[\code{function(1)}]\cr The function to be applied.}
 
-\item{rk}{[\code{logical(1)}]\cr if its TRUE transform x, y numeric vectors with samples ranks.}
+\item{rk}{[\code{logical(1)}]\cr If TRUE, transform x and y numeric vectors with sample ranks.}
 
-\item{alternative}{[\code{character(1)}]\cr a character string specifying the alternative hypothesis,
-must be one of "greater" (default), "less" or "two.sided". You can specify just the initial letter.}
+\item{alternative}{[\code{character(1)}]\cr A character string specifying the alternative hypothesis.
+Must be one of "greater" (default), "less", or "two.sided". You can specify just the initial letter.}
 
-\item{num.s}{[\code{numeric(1)}]\cr number of samples with replacement created with y numeric vector.}
+\item{num.s}{[\code{numeric(1)}]\cr The number of samples with replacement created from the y numeric vector.}
 
 \item{...}{Additional arguments.}
 }
 \description{
-Execute one-sample permutation test on two numeric vector.
-Its keep one vector constant and ‘shuffle’ the other by resampling.
-This approximates the null hypothesis — that there is no dependency/difference between the variables.
+Execute a one-sample permutation test on two numeric vectors.
+One vector is kept constant while the other is "shuffled" by resampling.
+This approximates the null hypothesis — that there is no dependency or difference between the variables.
 }
 \examples{
 

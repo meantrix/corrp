@@ -23,14 +23,13 @@ corrp(
   mic.args = list(),
   pps.args = list(ptest = FALSE),
   cramersV.args = list(),
-  uncoef.args = list(),
-  ...
+  uncoef.args = list()
 )
 }
 \arguments{
 \item{df}{[\code{data.frame(1)}]\cr input data frame.}
 
-\item{parallel}{[\code{logical(1)}]\cr If its TRUE run the operations in parallel backend.}
+\item{parallel}{[\code{logical(1)}]\cr If it's TRUE run the operations in parallel backend.}
 
 \item{n.cores}{[\code{numeric(1)}]\cr The number of cores to use for parallel execution.}
 
@@ -46,7 +45,7 @@ replacement created with y numeric vector.}
 \item{rk}{[\code{logical(1)}]\cr Used in permutation test.
 if its TRUE transform x, y numeric vectors with samples ranks.}
 
-\item{comp}{[\code{character(1)}]\cr The param \code{p.value} must be greater
+\item{comp}{[\code{character(1)}]\cr The parameter \code{p.value} must be greater
 or less than those estimated in tests and correlations.}
 
 \item{alternative}{[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
@@ -65,7 +64,7 @@ The option are \verb{lm: Linear Model},\verb{pps: Predictive Power Score}. Defau
 \item{cor.cc}{[\code{character(1)}]\cr
 Choose correlation type to be used in factor/categorical pair inference.
 The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient},
-\verb{pps: Predictive Power Score}. Default is \verb{ Cramer's V}.}
+\verb{pps: Predictive Power Score}. Default is \verb{Cramer's V}.}
 
 \item{lm.args}{[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.}
 
@@ -80,8 +79,6 @@ The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient
 \item{cramersV.args}{[\code{list(1)}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.}
 
 \item{uncoef.args}{[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
-
-\item{...}{Additional arguments.}
 }
 \value{
 A list with two tables: \code{data} and \code{index}.
@@ -100,20 +97,14 @@ A list with two tables: \code{data} and \code{index}.
 \item \strong{index}: A table that contains the pairs of indices used in each inference of the \code{data} table.
 }
 
-All statistical tests are controlled by the confidence internal of
-p.value param. If the statistical tests do not obtain a significance greater/less
-than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
+All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
 If any errors occur during operations the association measure (\code{infer.value}) will be \code{NA}.\cr
 The result \code{data} and \code{index} will have \eqn{N^2} rows, where N is the number of variables of the input data.
-By default there is no statistical significance test for the pps algorithm. By default \code{isig} is NA, you can enable in the \code{pps.args} setting \code{ptest = TRUE}.\cr
-All the \verb{*.args} can modified the parameters (\code{p.value}, \code{comp}, \code{alternative}, \code{num.s}, \code{rk}, \code{ptest}) for the respective method on it's prefix.
+By default there is no statistical significance test for the PPS algorithm. In this case \code{isig} is NA, you can enable it by setting \code{ptest = TRUE} in \code{pps.args}.\cr
+All the \verb{*.args} can modify the parameters (\code{p.value}, \code{comp}, \code{alternative}, \code{num.s}, \code{rk}, \code{ptest}) for the respective method on it's prefix.
 }
 \description{
-Compute correlations type analysis on mixed classes columns of larges dataframes
-with parallel backend.
-The dataframe is allowed to have columns of these four classes: integer,
-numeric, factor and character. The character column is considered as
-categorical variable.
+Computes correlation-type analysis on large data frames with mixed column types, including integer, numeric, factor, and character. Character columns are treated as categorical variables.\cr
 }
 \section{Pair Types}{
 
@@ -141,32 +132,48 @@ categorical variable.
 }
 
 \examples{
- iris_c <- corrp(iris)
- iris_m <- corr_matrix(iris_c, isig = FALSE)
- corrplot::corrplot(iris_m)
+# Usage with default settings
+iris_c <- corrp(iris)
+iris_m <- corr_matrix(iris_c, isig = FALSE) # You can then make correlation matrix
+if (require("corrplot")) {
+  corrplot(iris_m) # You can visualize the matrix using corrplot
+}
 
+# Using PPS for both numeric-numeric and numeric-categorical pairs
+iris_c1 <- corrp(iris, cor.nn = "pps", cor.nc = "pps")
 
+# Using Distance Correlation for numeric-numeric and Predictive Power Score for numeric-categorical
+iris_c2 <- corrp(iris, cor.nn = "dcor", cor.nc = "pps", dcor.args = list(method = "auto"))
+
+# Using Maximal Information Coefficient (MIC) for numeric-numeric and Uncertainty Coefficient for categorical-categorical
+iris_c3 <- corrp(iris, cor.nn = "mic", cor.cc = "uncoef", mic.args = list(alpha = 0.6))
+
+# Using PPS for all pair types
+iris_c4 <- corrp(iris, cor.nn = "pps", cor.nc = "pps", cor.cc = "pps")
+
+# Using Distance Correlation for numeric-numeric, Predictive Power Score for numeric-categorical,
+# and Uncertainty Coefficient for categorical-categorical
+iris_c5 <- corrp(
+  iris,
+  cor.nn = "dcor", cor.nc = "pps", cor.cc = "uncoef",
+  dcor.args = list(method = "auto")
+)
 }
 \references{
-KS Srikanth,sidekicks,cor2, 2020.
-URL \url{https://github.com/talegari/sidekicks/}.
-
-Paul van der Laken, ppsr,2021.
-URL \url{https://github.com/paulvanderlaken/ppsr}.
+KS Srikanth, sidekicks, cor2, 2020. URL: \url{https://github.com/talegari/sidekicks/}.
+Paul van der Laken, ppsr, 2021. URL: \url{https://github.com/paulvanderlaken/ppsr/}.
 }
 \author{
 Igor D.S. Siciliani, Paulo H. dos Santos
 }
-\keyword{,}
-\keyword{biserial}
-\keyword{correlation}
-\keyword{cramer'sV}
+\keyword{V}
+\keyword{correlation,}
+\keyword{cramér's}
 \keyword{distance}
 \keyword{linear}
-\keyword{mic}
-\keyword{model}
-\keyword{pearson}
-\keyword{point}
+\keyword{mic,}
+\keyword{model,}
+\keyword{pearson,}
 \keyword{power}
 \keyword{predictive}
-\keyword{score}
+\keyword{score,}

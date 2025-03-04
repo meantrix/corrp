@@ -16,7 +16,7 @@ best_acca(m, ...)
 \item{m}{[\code{matrix(1)}]\cr correlation matrix
 from \code{\link{corr_matrix}}.}
 
-\item{...}{Additional arguments.}
+\item{...}{Not used. Included for S3 method consistency.}
 
 \item{mink}{[\code{integer(1)}]\cr minimum number of clusters considered.}
 
@@ -37,7 +37,7 @@ the optimal number of clusters \verb{$best.k}.
 \description{
 Determining the optimal number of
 cluster in the ACCA clustering using the
-average silhouette aproach.
+average silhouette approach.
 }
 \examples{
 
@@ -63,8 +63,7 @@ and Soft Computing. Springer, Cham, 2015.
 \author{
 Igor D.S. Siciliani, Paulo H. dos Santos
 }
-\keyword{,}
-\keyword{acca}
+\keyword{acca,}
 \keyword{k}
-\keyword{optimal}
-\keyword{silhouette}
+\keyword{optimal,}
+\keyword{silhouette,}

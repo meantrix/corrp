@@ -1,23 +1,26 @@
-#' @title Create Correlation Matrix from corrp inferences
+#' @title Create Correlation Matrix from corrp Inferences
 #'
-#' @description Through the results obtained from corrp function
-#' create a correlation matrix.
+#' @description Using the results obtained from the corrp function,
+#' this function creates a correlation matrix.
 #'
-#' @param c \[\code{clist(1)}]\cr output from the \code{\link{corrp}} function.
-#' @param col \[\code{character(1)}]\cr choose the column to be used in the correlation matrix.
-#' @param isig \[\code{logical(1)}]\cr values that are not statistically significant will
-#' be represented by NA or FALSE in the correlation matrix.
-#' @param ... Additional arguments (TODO).
+#' @param c \[\code{clist(1)}]\cr Output from the \code{\link{corrp}} function.
+#' @param col \[\code{character(1)}]\cr Specifies the column to be used in the correlation matrix.
+#' @param isig \[\code{logical(1)}]\cr Determines whether values that are not statistically significant
+#' should be represented by NA or FALSE in the correlation matrix.
+#' @param ... Not used. Included for S3 method consistency.
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
-#' @keywords correlation matrix , corrp
+#' @keywords correlation matrix, corrp
 #'
 #' @examples
 #'
 #' iris_cor <- corrp(iris)
 #' iris_m <- corr_matrix(iris_cor, isig = FALSE)
-#' corrplot::corrplot(iris_m)
+#' if (require("corrplot")) {
+#'   corrplot(iris_m) # You can visualize the matrix using corrplot
+#' }
+
 #' @export
 corr_matrix <- function(c, ...) {
   assert_required_argument(c, "The 'c' argument must be a clist object, which is the output from corrp.")
@@ -27,18 +30,18 @@ corr_matrix <- function(c, ...) {
 #' @export
 #' @rdname corr_matrix
 corr_matrix.default <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...) {
-  warning("it is not an object of the 'clist' class some results may go wrong.")
+  warning("The provided object is not of class 'clist'; some results may be incorrect.")
 
-  .corr_matrix(c = c, col = col, isig = isig, ...)
+  .corr_matrix(c = c, col = col, isig = isig)
 }
 
 #' @export
 #' @rdname corr_matrix
 corr_matrix.clist <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...) {
-  .corr_matrix(c = c, col = col, isig = isig, ...)
+  .corr_matrix(c = c, col = col, isig = isig)
 }
 
-.corr_matrix <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...) {
+.corr_matrix <- function(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE) {
   checkmate::assert_names(names(c), identical.to = c("data", "index"))
   checkmate::assert_logical(isig, len = 1)
   stopifnot(all(unique(c$index$i) == unique(c$index$j)))
