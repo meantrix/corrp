@@ -44,7 +44,7 @@ The package is particularly useful for researchers and data scientists working w
 
 The `corrp` package integrates R and C++ to combine the flexibility of R with the speed of C++, optimizing key operations. Its core functionalities include the selection of correlation-like methods based on pairs of variable types (numeric pairs, numeric and categorical pairs, etc.). Users can create correlation matrices, remove variables based on significance, and cluster the correlation matrix using the ACCA clustering algorithm. This algorithm has been modified to support mixed data types and various correlation methods. Also, the package supports parallel processing through the `foreach` package, significantly improving performance on large datasets.
 
-As mentioned before, one can choose between the following options based on the type of variables pair:
+As mentioned before, one can choose between the following options based on the type of variable pair:
 
 - **Numeric pairs (integer/numeric):**
   - Pearson correlation coefficient [@pearson:1895], a widely used measure of the strength and direction of linear relationships.
@@ -124,14 +124,14 @@ head(results$data)
 
 
 
-When choosing correlation methods, it's important to think about their performance for different pair types. For **numeric pairs**, **Pearson** is the quickest and most efficient option, while the **Maximal Information Coefficient (mic)** is significantly slower, making it less suitable for large datasets. **Distance correlation (dcor)** is a better performer than mic but still not the fastest choice, and **Predictive Power Score (pps)** is efficient but may take longer than Pearson. For **numeric-categorical pairs**, the **linear model (lm)** typically outperforms pps. In **categorical pairs**, **Cramér's V**, **Uncertainty Coefficient (uncoef)**, and **pps** are options, with **uncoef** being the slowest of the three.
+When choosing correlation methods, it's important to think about their performance for different pair types. For **numeric pairs**, **Pearson** (`?`) is the quickest and most efficient option, while the **Maximal Information Coefficient** (`mic`) is significantly slower, making it less suitable for large datasets. **Distance correlation** (`dcor`) is a better performer than MIC but still not the fastest choice, while **Predictive Power Score** (`pps`) is efficient but may take longer than Pearson. For **numeric-categorical pairs**, the **linear model** (`lm`) typically outperforms `pps`. In **categorical pairs**, **Cramér's V** (`?`), **Uncertainty Coefficient** (`uncoef`), and `pps` are options, with `uncoef` being the slowest of the three.
 
-As you increase the number of columns, runtime will grow significantly due to the `N * N` scaling, so choose your methods wisely to ensure efficient performance.
+As the number of columns in the data increases, the runtime will also increase due to the `N * N` scaling. Therefore, the user should choose the methods wisely to ensure efficient performance.
 
 Using the previous result, we can create a correlation matrix as follows:
 
 ```r
-m = corr_matrix(results, col = 'infer.value', isig = TRUE)
+m <- corr_matrix(results, col = 'infer.value', isig = TRUE)
 m
 ```
 
@@ -152,7 +152,7 @@ m
 Finally, we can cluster the dataset variables using the ACCA algorithm and the correlation matrix. For example, consider clustering into 2 groups (k = 2):
 
 ```r
-acca.res = acca(m, 2)
+acca.res <- acca(m, 2)
 acca.res
 # $cluster1
 # [1] "Sex"    "Income"
@@ -180,7 +180,7 @@ This highlights a substantial reduction in both memory usage and execution time,
 
 # Acknowledgements
 
-We acknowledge the contributions of the Meantrix team (https://github.com/meantrix) and thank Srikanth Komala Sheshachala (https://github.com/talegari) for the initial inspiration from the cor2 function.
+We acknowledge the contributions of the Meantrix team (https://github.com/meantrix) and thank Srikanth Komala Sheshachala (https://github.com/talegari) for the initial inspiration from the `cor2` function [REF].
 
 # References
 
