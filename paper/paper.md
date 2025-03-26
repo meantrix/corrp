@@ -34,17 +34,17 @@ In this package, the ACCA algorithm has been extended to work directly with corr
 
 The `corrp` package is an R package that provides a flexible and efficient way of performing correlation-like analysis on mixed-type data frames. These datasets can contain different variable types, such as continuous (numeric), ordinal (ordered categorical), and nominal (unordered categorical) variables, which frequently arise in practical scenarios.
 
-Moreover, most traditional correlation methods in R are applicable only to specific data types or small datasets. In this sense, `corrp` extends this capability by handling mixed data types, integrating various association methods, and offering clustering directly from the resulting correlation matrix.
+Moreover, most traditional correlation methods in R apply only to specific data types or small datasets. In this sense, `corrp` extends this capability by handling mixed data types, integrating various association methods, and offering clustering directly from the resulting correlation matrix.
 
-The `corrp` package automatically detects the variable types present in the dataset. However, manual intervention is needed to select the appropriate correlation measure for each detected variable pair (numeric pairs, categorical pairs, and numeric-categorical pairs) from the available options, as explained in more detail above.
+The `corrp` package automatically detects the variable types present in the dataset. However, manual intervention is needed to select the appropriate correlation measure for each detected variable pair (numeric pairs, categorical pairs, and numeric-categorical pairs) from the available options, as explained in more detail below.
 
 The package is particularly useful for researchers and data scientists working with complex datasets who require robust and scalable tools for both association analysis and clustering.
 
 # Implementation
 
-The `corrp` package integrates R and C++ to combine the flexibility of R with the speed of C++, optimizing key operations. Its core functionalities include the selection of correlation-like methods based on pairs of variable types (numeric pairs, numeric and categorical pairs, etc.). Users can create correlation matrices, remove variables based on significance, and cluster the correlation matrix using the ACCA clustering algorithm. This approach has been modified to support mixed data types and various correlation methods. Also, the package supports parallel processing through the `foreach` package, significantly improving performance on large datasets.
+The `corrp` package integrates R and C++ to combine the flexibility of R with the speed of C++, optimizing key operations. Its core functionalities include the selection of correlation-like methods based on pairs of variable types (numeric pairs, numeric and categorical pairs, etc.). Users can create correlation matrices, remove variables based on significance, and cluster the correlation matrix using the ACCA clustering algorithm. This algorithm has been modified to support mixed data types and various correlation methods. Also, the package supports parallel processing through the `foreach` package, significantly improving performance on large datasets.
 
-As mentioned before, one can choose between the following options based on the type pair:
+As mentioned before, one can choose between the following options based on the type of variable pair:
 
 - **Numeric pairs (integer/numeric):**
   - Pearson correlation coefficient [@pearson:1895], a widely used measure of the strength and direction of linear relationships.
@@ -54,24 +54,24 @@ As mentioned before, one can choose between the following options based on the t
 
 - **Numeric and categorical pairs (integer/numeric - factor/categorical):**
   - Square root of the R² coefficient from linear regression [@cohen:1983].
-  - Predictive Power Score (PPS) [@pps:2020].
+  - PPS [@pps:2020].
 
 - **Categorical pairs (factor/categorical):**
   - Cramér's V [@cramer:1946], a measure of association between nominal variables.
   - Uncertainty Coefficient [@theil:1972], a measure of nominal association between two variables.
-  - Predictive Power Score (PPS) [@pps:2020].
+  - PPS [@pps:2020].
 
 In R, various statistical functions are available to measure these correlations. Below follows a list of correlation techniques and their corresponding R functions:  
 
-- **Linear Model (lm)** → `stats::lm`  
+- **Linear Model** → `stats::lm`  
 - **Pearson Correlation** → `stats::cor.test`  
 - **Distance Correlation** → `corrp::dcorT_test`  
-- **Maximal Information Coefficient (MIC)** → `minerva::mine`  
-- **Predictive Power Score (PPS)** → `ppsr::score`  
+- **MIC** → `minerva::mine`  
+- **PPS** → `ppsr::score`  
 - **Uncertainty Coefficient** → `DescTools::UncertCoef`  
 - **Cramer's V** → `lsr::cramersV`
 
-An important point to note is that some methods, such as the square root of R², Predictive Power Score (PPS), and the Uncertainty Coefficient, are asymmetric. In other words, the correlation value between two variables, A and B, may not be the same as the correlation between B and A in the correlation matrix.
+An important point to note is that some methods, such as the square root of R², PPS, and the Uncertainty Coefficient, are asymmetric. In other words, the correlation value between two variables, A and B, may not be the same as the correlation between B and A in the correlation matrix.
 
 # Usage
 
@@ -84,7 +84,7 @@ The `corrp` package provides seven main functions for correlation calculations, 
 - **sil_acca**: A C++ implementation of the Silhouette method for interpreting and validating the consistency of clusters within ACCA clusters of data.
 - **best_acca**: Determining the optimal number of clusters in ACCA clustering using the average silhouette approach.
 
-We calculate correlations for the *eusilc* dataset using the Maximal Information Coefficient for numeric pairs, Predictive Power Score for numeric/categorical pairs, and Uncertainty Coefficient for categorical pairs. This synthetic dataset represents Austrian EU-SILC data on income, demographics, and household characteristics.
+We calculate correlations for the *eusilc* dataset using the MIC for numeric pairs, PPS for numeric/categorical pairs, and Uncertainty Coefficient for categorical pairs. This synthetic dataset represents Austrian EU-SILC data on income, demographics, and household characteristics [REF?].
 
 ```r
 set.seed(2024)
@@ -92,10 +92,10 @@ library("laeken")
 library("corrp")
 data(eusilc)
 
-eusilc = eusilc[, c("eqSS", "eqIncome", "db040", "rb090")]
-colnames(eusilc) = c("House_Size", "Income", "State", "Sex")
+eusilc <- eusilc[, c("eqSS", "eqIncome", "db040", "rb090")]
+colnames(eusilc) <- c("House_Size", "Income", "State", "Sex")
 
-results = corrp(
+results <- corrp(
   eusilc, 
   cor.nn = 'dcor', cor.nc = 'lm', cor.cc = 'pps',
   verbose = FALSE
@@ -124,14 +124,14 @@ head(results$data)
 
 
 
-When choosing correlation methods, it's important to think about their performance for different pair types. For **numeric pairs**, **Pearson** is the quickest and most efficient option, while the **Maximal Information Coefficient (mic)** is significantly slower, making it less suitable for large datasets. **Distance correlation (dcor)** is a better performer than mic but still not the fastest choice, and **Predictive Power Score (pps)** is efficient but may take longer than Pearson. For **numeric-categorical pairs**, the **linear model (lm)** typically outperforms pps. In **categorical pairs**, **Cramér's V**, **Uncertainty Coefficient (uncoef)**, and **pps** are options, with **uncoef** being the slowest of the three.
+When choosing correlation methods, it's important to think about their performance for different pair types. For **numeric pairs**, **Pearson** (`?`) is the quickest and most efficient option, while the **Maximal Information Coefficient** (`mic`) is significantly slower, making it less suitable for large datasets. **Distance correlation** (`dcor`) is a better performer than MIC but still not the fastest choice, while **Predictive Power Score** (`pps`) is efficient but may take longer than Pearson. For **numeric-categorical pairs**, the **linear model** (`lm`) typically outperforms `pps`. In **categorical pairs**, **Cramér's V** (`?`), **Uncertainty Coefficient** (`uncoef`), and `pps` are options, with `uncoef` being the slowest of the three.
 
-As you increase the number of columns, runtime will grow significantly due to the `N * N` scaling, so choose your methods wisely to ensure efficient performance.
+As the number of columns in the data increases, the runtime will also increase due to the `N * N` scaling. Therefore, the user should choose the methods wisely to ensure efficient performance.
 
 Using the previous result, we can create a correlation matrix as follows:
 
 ```r
-m = corr_matrix(results, col = 'infer.value', isig = TRUE)
+m <- corr_matrix(results, col = 'infer.value', isig = TRUE)
 m
 ```
 
@@ -152,7 +152,7 @@ m
 Finally, we can cluster the dataset variables using the ACCA algorithm and the correlation matrix. For example, consider clustering into 2 groups (k = 2):
 
 ```r
-acca.res = acca(m, 2)
+acca.res <- acca(m, 2)
 acca.res
 # $cluster1
 # [1] "Sex"    "Income"
@@ -180,7 +180,7 @@ This highlights a substantial reduction in both memory usage and execution time,
 
 # Acknowledgements
 
-We acknowledge the contributions of the Meantrix team (https://github.com/meantrix) and thank Srikanth Komala Sheshachala (https://github.com/talegari) for the initial inspiration from the cor2 function.
+We acknowledge the contributions of the Meantrix team (https://github.com/meantrix) and thank Srikanth Komala Sheshachala (https://github.com/talegari) for the initial inspiration from the `cor2` function [REF].
 
 # References
 
