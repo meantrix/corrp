@@ -105,14 +105,14 @@ head(results$data)
 ```
 
 <div style="font-size: 9px;">
-| # | infer               | infer.value | stat    | stat.value | isig | msg | varx       | vary       |
-|---|---------------------|--------------|---------|------------|------|-----|------------|------------|
-| 1 | Distance Correlation| 1.000        | P-value | 0.000      | TRUE |     | House_Size | House_Size |
-| 2 | Distance Correlation| 0.008        | P-value | 0.000      | TRUE |     | House_Size | Income     |
-| 3 | Linear Model        | 0.146        | P-value | 3.57e-64   | TRUE |     | House_Size | State      |
-| 4 | Linear Model        | 0.071        | P-value | 4.79e-18   | TRUE |     | House_Size | Sex        |
-| 5 | Distance Correlation| 0.008        | P-value | 0.000      | TRUE |     | Income     | House_Size |
-| 6 | Distance Correlation| 1.000        | P-value | 0.000      | TRUE |     | Income     | Income     |
+| infer               | infer.value | stat    | stat.value | isig | msg | varx       | vary       |
+| --------------------|--------------|---------|------------|------|-----|------------|------------|
+| Distance Correlation| 1.000        | P-value | 0.000      | TRUE |     | House_Size | House_Size |
+| Distance Correlation| 0.008        | P-value | 0.000      | TRUE |     | House_Size | Income     |
+| Linear Model        | 0.146        | P-value | 3.57e-64   | TRUE |     | House_Size | State      |
+| Linear Model        | 0.071        | P-value | 4.79e-18   | TRUE |     | House_Size | Sex        |
+| Distance Correlation| 0.008        | P-value | 0.000      | TRUE |     | Income     | House_Size |
+| Distance Correlation| 1.000        | P-value | 0.000      | TRUE |     | Income     | Income     |
 </div>
 
 
