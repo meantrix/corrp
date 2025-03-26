@@ -84,7 +84,7 @@ The `corrp` package provides seven main functions for correlation calculations, 
 - **sil_acca**: A C++ implementation of the Silhouette method for interpreting and validating the consistency of clusters within ACCA clusters of data.
 - **best_acca**: Determining the optimal number of clusters in ACCA clustering using the average silhouette approach.
 
-We calculate correlations for the *eusilc* dataset using the MIC for numeric pairs, PPS for numeric/categorical pairs, and Uncertainty Coefficient for categorical pairs. This synthetic dataset represents Austrian EU-SILC data on income, demographics, and household characteristics [REF?].
+We calculate correlations for the *eusilc* dataset using the MIC for numeric pairs, PPS for numeric/categorical pairs, and Uncertainty Coefficient for categorical pairs. This synthetic dataset represents Austrian EU-SILC data on income, demographics, and household characteristics [@laeken:2024].
 
 ```r
 set.seed(2024)
