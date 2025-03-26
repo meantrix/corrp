@@ -2,26 +2,28 @@
 <a href='http://meantrix.com'><img src='man/figures/logo.png' align="right" height="139" /></a>
 <!-- badges: start -->
 
-[![version](https://img.shields.io/badge/version-0.4.0-green.svg)](https://semver.org)
+[![version](https://img.shields.io/badge/version-0.6.0-green.svg)](https://semver.org)
 [![License: GPL3](https://img.shields.io/badge/License-GPL3-green.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 
 <!-- badges: end -->
 
-Compute multiple types of correlation analysis (Pearson correlation, R^2  coefficient of linear regression, Cramer's V measure of association, Distance Correlation, The Maximal Information Coefficient, Uncertainty coefficient and Predictive Power Score) in large dataframes with mixed columns classes(integer, numeric, factor and character) in parallel R backend.
-This package also has a C++ implementation of the Average correlation clustering algorithm [ACCA](https://www.sciencedirect.com/science/article/pii/S1532046410000158) 
-that works directly with the correlation matrix. In this sense, this implementation differs from the original,
-it works with mixed data and several correlation types methods.
+Correlation-like analysis provides an important statistical measure that describes the size and direction of an association between variables. However, there are few R packages that can efficiently perform this type of analysis on large datasets with mixed data types. The `corrp` package provides a full suite of solutions for computing various correlation-like measures, such as Pearson correlation, Distance Correlation, Maximal Information Coefficient (MIC), Predictive Power Score (PPS), Cramér's V, and the Uncertainty Coefficient. These methods support the analysis of data frames with mixed classes (integer, numeric, factor, and character).
+
+Additionally, it offers a C++ implementation of the Average Correlation Clustering Algorithm (ACCA) [ACCA](https://www.sciencedirect.com/science/article/pii/S1532046410000158), which was originally developed for genetic studies using Pearson correlation as a similarity measure. In general, ACCA is an unsupervised clustering method, as it identifies patterns in the data without requiring predefined labels. Moreover, it requires the K parameter to be defined, similar to k-means. One of its main differences compared to other clustering methods is that it operates based on correlations rather than traditional distance metrics, such as Euclidean or Mahalanobis distance.
+
+In this package, the ACCA algorithm has been extended to work directly with correlation matrices derived from different association methods, depending on the data types and user preferences. Furthermore, the package is designed for parallel processing in R, making it highly efficient for large datasets.
+
 
 ## Details
 
-The [corrp package](https://github.com/meantrix/corrP) under development by Meantrix team and original based on Srikanth KS (talegari) [cor2 function](https://github.com/talegari/sidekicks/) can provide to R users a way to work with correlation analysis among large data.frames, tibbles or data.tables through a R parallel backend and C++ functions.
+The [corrp package](https://github.com/meantrix/corrp) under development by Meantrix team and original based on Srikanth KS (talegari) [cor2 function](https://github.com/talegari/sidekicks/) can provide to R users a way to work with correlation analysis among large data.frames, tibbles or data.tables through a R parallel backend and C++ functions.
 
 The data.frame is allowed to have columns of these four classes: integer, numeric, factor and character. The character column is considered as categorical variable.
 
 In this new package the correlation is automatically computed according to the follow options: 
 
 #### integer/numeric pair:
-- [Pearson correlation test](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) ;
+- [Pearson correlation test](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient);
 - [Distance Correlation](https://en.wikipedia.org/wiki/Distance_correlation);
 - [Maximal Information Coefficient](https://en.wikipedia.org/wiki/Maximal_information_coefficient);
 - [Predictive Power Score](https://github.com/paulvanderlaken/ppsr).
@@ -36,11 +38,14 @@ In this new package the correlation is automatically computed according to the f
 - [Predictive Power Score](https://github.com/paulvanderlaken/ppsr).
 
 
-Also, all statistical tests are controlled by the sigficance of
-p.value param. If the statistical tests do not obtain a significance greater/less
-than p.value, by default the output of variable `isig` will be `FALSE`.
-There is no statistical significance test for the `pps` algorithm, `isig = TRUE` in this case.
-If any errors occur during operations by default the correlation will be `NA`.
+Also, All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable `isig` will be `FALSE`.
+
+If any errors occur during operations the association measure (`infer.value`) will be `NA`.
+#' The result `data` and `index` will have \eqn{N^2} rows, where N is the number of variables of the input data.
+
+By default, the statistical significance test for the PPS algorithm is not calculated, as it is prohibitively expensive for medium to large datasets. In this case `isig` is NA, you can enable it by setting `ptest = TRUE` in `pps.args`.
+
+All the `*.args` can modify the parameters (`p.value`, `comp`, `alternative`, `num.s`, `rk`, `ptest`) for the respective method on it's prefix.
 
 
 ### Installation
@@ -65,16 +70,29 @@ remotes::install_github("meantrix/corrp@main")
 `corrp` Next, we calculate the correlations for the data set iris using: Maximal Information Coefficient for numeric pair, the Power Predictive Score algorithm for numeric/categorical pair and Uncertainty coefficient for categorical pair.
 
 ```r
-results = corrp::corrp(iris, cor.nn = 'mic',cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2 , verbose = FALSE)
+# coorp with using iris using parallel processing
+results = corrp::corrp(iris, cor.nn = 'mic', cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2 , verbose = FALSE)
+# an sequential example with different correlation pair types
+results_2 = corrp::corrp(mtcars, cor.nn = 'pps', cor.nc = 'lm', cor.cc = 'cramersV', parallel = FALSE, verbose = FALSE)
 
 head(results$data)
 #                            infer infer.value        stat stat.value isig msg         varx         vary
-# Maximal Information Coefficient   0.9994870     P-value  0.0000000 TRUE     Sepal.Length Sepal.Length
-# Maximal Information Coefficient   0.2770503     P-value  0.0000000 TRUE     Sepal.Length  Sepal.Width
-# Maximal Information Coefficient   0.7682996     P-value  0.0000000 TRUE     Sepal.Length Petal.Length
-# Maximal Information Coefficient   0.6683281     P-value  0.0000000 TRUE     Sepal.Length  Petal.Width
-#          Predictive Power Score   0.5591864 F1_weighted  0.7028029 TRUE     Sepal.Length      Species
+# Maximal Information Coefficient   0.9994870     P-value  0.0000000 TRUE      Sepal.Length Sepal.Length
+# Maximal Information Coefficient   0.2770503     P-value  0.0000000 TRUE      Sepal.Length  Sepal.Width
+# Maximal Information Coefficient   0.7682996     P-value  0.0000000 TRUE      Sepal.Length Petal.Length
+# Maximal Information Coefficient   0.6683281     P-value  0.0000000 TRUE      Sepal.Length  Petal.Width
+#          Predictive Power Score   0.5591864 F1_weighted  0.7028029 NA        Sepal.Length      Species
 # Maximal Information Coefficient   0.2770503     P-value  0.0000000 TRUE      Sepal.Width Sepal.Length
+
+head(results_2$data)
+
+#                  infer infer.value stat stat.value isig msg varx vary
+# Predictive Power Score   1.0000000 <NA>         NA NA      mpg  mpg
+# Predictive Power Score   0.3861810  MAE  0.8899206 NA      mpg  cyl
+# Predictive Power Score   0.3141056  MAE 74.7816795 NA      mpg disp
+# Predictive Power Score   0.2311418  MAE 42.3961506 NA      mpg   hp
+# Predictive Power Score   0.1646116  MAE  0.3992651 NA      mpg drat
+# Predictive Power Score   0.2075760  MAE  0.5768637 NA      mpg   wt
 
 ```
 

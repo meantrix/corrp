@@ -6,41 +6,55 @@
 \alias{acca.matrix}
 \title{Average correlation clustering algorithm}
 \usage{
-acca(m, ...)
+acca(m, k, ...)
 
 \method{acca}{cmatrix}(m, k, maxrep = 2L, maxiter = 100L, ...)
 
 \method{acca}{matrix}(m, k, maxrep = 2L, maxiter = 100L, ...)
 }
 \arguments{
-\item{m}{\[\code{matrix(1)}]\cr correlation matrix from \code{\link{corr_matrix}} or a distance matrix.}
+\item{m}{[\code{matrix(1)}]\cr correlation matrix from
+\code{\link{corr_matrix}} or a distance matrix.}
 
-\item{...}{Additional arguments (TODO).}
+\item{k}{[\code{integer(1)}]\cr number of clusters considered.}
 
-\item{k}{\[\code{integer(1)}]\cr number of clusters considered.}
+\item{...}{Not used. Included for S3 method consistency.}
 
-\item{maxrep}{\[\code{integer(1)}]\cr maximum number of interactions without change in the clusters.}
+\item{maxrep}{[\code{integer(1)}]\cr maximum number of
+interactions without change in the clusters.}
 
-\item{maxiter}{\[\code{integer(1)}]\cr maximum number of interactions.}
+\item{maxiter}{[\code{integer(1)}]\cr maximum number of interactions.}
 }
 \value{
-\[\code{acca_list(k)}]\cr A list with the final result of the clustering method.
- That is, the name of the variables belonging to each cluster k.
+[\code{acca_list(k)}]\cr A list with the
+final result of the clustering method.
+That is, every element of the list group names of the variables belonging to each cluster k.
 }
 \description{
-A C++ implementation of the ACCA method
-that works directly with the correlation matrix derived from the \code{\link{corr_matrix}} function.
-In this sense, this implementation differs from the original,
-it works with mixed data and several correlation methods.
+A C++ implementation of the Average Correlation Clustering Algorithm (ACCA) \url{https://www.sciencedirect.com/science/article/pii/S1532046410000158}, originally developed for genetic studies using Pearson correlation as a similarity measure. Unlike traditional clustering methods that rely on distance metrics such as Euclidean or Mahalanobis distance, ACCA groups data based on correlation patterns.\cr
+This implementation works directly with the correlation matrix derived from the \code{\link{corr_matrix}} function and supports mixed data types along with various correlation methods.\cr
+ACCA is an unsupervised clustering method, meaning it identifies patterns without predefined labels. Similar to k-means, it requires defining the K parameter, which controls the number of clusters.
 }
 \examples{
-\dontrun{
 
-x = corrp::corrp(iris)
-m = corrp::corr_matrix(x)
-corrp::acca(m,2)
+# Clustering a correlation matrix with 3 clusters
+x <- corrp::corrp(iris)
+m <- corrp::corr_matrix(x)
+result <- corrp::acca(m, k = 3)
+print(result)
 
-}
+# Clustering with 5 clusters and increasing the maximum number of interactions
+x <- corrp::corrp(iris)
+m <- corrp::corr_matrix(x)
+result <- corrp::acca(m, k = 5, maxiter = 200)
+print(result)
+
+
+# Adjusting the maximum number of iterations without change in clusters
+x <- corrp::corrp(iris)
+m <- corrp::corr_matrix(x)
+result <- corrp::acca(m, k = 2, maxrep = 50)
+print(result)
 
 }
 \references{
@@ -50,8 +64,7 @@ genes with similar pattern of variation in their expression values."
 Journal of Biomedical Informatics 43.4 (2010): 560-568.
 }
 \author{
-Igor D.S. Siciliani
+Igor D.S. Siciliani, Paulo H. dos Santos
 }
-\keyword{,}
 \keyword{acca}
-\keyword{correlation}
+\keyword{correlation,}

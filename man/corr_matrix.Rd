@@ -4,7 +4,7 @@
 \alias{corr_matrix}
 \alias{corr_matrix.default}
 \alias{corr_matrix.clist}
-\title{Create Correlation Matrix from corrp inferences}
+\title{Create Correlation Matrix from corrp Inferences}
 \usage{
 corr_matrix(c, ...)
 
@@ -13,33 +13,30 @@ corr_matrix(c, ...)
 \method{corr_matrix}{clist}(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...)
 }
 \arguments{
-\item{c}{\[\code{corrp.list(1)}]\cr output from the \code{\link{corrp}} function.}
+\item{c}{[\code{clist(1)}]\cr Output from the \code{\link{corrp}} function.}
 
-\item{...}{Additional arguments (TODO).}
+\item{...}{Not used. Included for S3 method consistency.}
 
-\item{col}{\[\code{character(1)}]\cr choose the column to be used in the correlation matrix.}
+\item{col}{[\code{character(1)}]\cr Specifies the column to be used in the correlation matrix.}
 
-\item{isig}{\[\code{logical(1)}]\cr values that are not statistically significant will
-be represented by NA or FALSE in the correlation matrix.}
+\item{isig}{[\code{logical(1)}]\cr Determines whether values that are not statistically significant
+should be represented by NA or FALSE in the correlation matrix.}
 }
 \description{
-Through the results obtained from corrp function
-create a correlation matrix.
+Using the results obtained from the corrp function,
+this function creates a correlation matrix.
 }
 \examples{
-\dontrun{
 
-air_cor = corrp(airquality)
-air_m = corr_matrix(air_cor,isig = F)
-corrplot::corrplot(air_m)
-
+iris_cor <- corrp(iris)
+iris_m <- corr_matrix(iris_cor, isig = FALSE)
+if (require("corrplot")) {
+  corrplot(iris_m) # You can visualize the matrix using corrplot
 }
-
 }
 \author{
-Igor D.S. Siciliani
+Igor D.S. Siciliani, Paulo H. dos Santos
 }
-\keyword{,}
 \keyword{correlation}
 \keyword{corrp}
-\keyword{matrix}
+\keyword{matrix,}

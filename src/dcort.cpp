@@ -9,8 +9,8 @@ NumericMatrix Astar(NumericMatrix d) {
 
   // Calculate overall mean
   double M = mean(m);
-  
-  d = (1 - 1 / n) * d + M;
+
+  d = (1.0 - 1.0 / n) * d + M;
 
   for (int i = 0; i < n; ++i) {
     d(i, _) = d(i, _) - m[i];

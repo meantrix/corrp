@@ -10,4 +10,6 @@
 ^LICENSE\.md$
 ^_pkgdown\.yml$
 ^.renvignore$
-^CHANGELOG\.md$
+^CHANGELOG.md$
+^paper$
+^\.github$

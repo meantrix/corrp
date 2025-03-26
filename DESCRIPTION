@@ -1,35 +1,45 @@
 Package: corrp
 Type: Package
-Title: corrp (Compute correlations type analysis in parallel)
-Version: 0.4.0
-Author: Igor Dornelles Schoeller Siciliani <igor@meantrix.com>
-Maintainer: Meantrix <dev@meantrix.com>
-Description: Compute multiple types of correlations analysis (Pearson correlation, R^2 
-  coefficient of linear regression, Cramer's V measure of association, 
-  Distance Correlation,The Maximal Information Coefficient,
-  Uncertainty coefficient and Predictive Power Score) in large dataframes
-  with mixed columns classes(integer, numeric, factor and character)
-  in parallel backend.
-  This package also has a C++ implementation of the Average correlation clustering algorithm and distance correlation t-test.
-Depends: 
-    R (>= 3.6.0),
+Title: Compute Correlations Type Analysis in Parallel
+Version: 0.6.0
+Authors@R: 
+    c(
+        person("Igor", "Dornelles Schoeller Siciliani", email = "igor@meantrix.com", role = c("aut", "cre")),
+        person("Paulo", "Henrique dos Santos", email = "paulo.santos@meantrix.com", role = "aut")
+    )
+Description: Compute multiple types of correlation analyses, including 
+    Pearson correlation, R^2 coefficient of linear regression, Cramer's 
+    V measure of association, distance correlation, the Maximal 
+    Information Coefficient, uncertainty coefficient, and Predictive 
+    Power Score in large data frames with mixed column classes 
+    (integer, numeric, factor, and character) using a parallel 
+    backend. This package also includes a C++ implementation of 
+    the average correlation clustering algorithm and distance 
+    correlation t-test.
 Imports: 
-    Rcpp (>= 1.0.4.6),
-    RcppArmadillo,
-    lsr (>= 0.5),
-    parallel,
-    stats,
-    caret (>= 6.0-85),
-    minerva (>= 1.5.8),    
-    checkmate (>= 2.0.0),
+    Rcpp (>= 1.0.13),
+    RcppArmadillo (>= 14.2.2-1),
+    corrplot (>= 0.95),
+    lsr (>= 0.5.2),
+    parallel (>= 4.4.1),
+    stats (>= 4.4.1),
+    caret (>= 7.0-1),
+    minerva (>= 1.5.10),
+    checkmate (>= 2.3.2),
     ppsr (>= 0.0.2),
-    DescTools(>= 0.99.40)
+    DescTools (>= 0.99.40)
 Suggests: 
-    corrplot,
     energy,
+    knitr,
+    rmarkdown,
     testthat
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-LinkingTo: Rcpp,  RcppArmadillo
-RoxygenNote: 7.2.3
+LinkingTo: Rcpp, RcppArmadillo
+RoxygenNote: 7.3.2
+Roxygen: list(markdown = TRUE)
+URL: https://github.com/meantrix/corrp,
+    https://meantrix.github.io/corrp/
+BugReports: https://github.com/meantrix/corrp/issues
+VignetteBuilder: knitr
