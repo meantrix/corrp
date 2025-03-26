@@ -34,7 +34,7 @@ In this package, the ACCA algorithm has been extended to work directly with corr
 
 The `corrp` package is an R package that provides a flexible and efficient way of performing correlation-like analysis on mixed-type data frames. These datasets can contain different variable types, such as continuous (numeric), ordinal (ordered categorical), and nominal (unordered categorical) variables, which frequently arise in practical scenarios.
 
-Moreover, most traditional correlation methods in R apply only to specific data types or small datasets. In this sense, `corrp` extends this capability by handling mixed data types, integrating various association methods, and offering clustering directly from the resulting correlation matrix.
+Moreover, most traditional correlation methods in R — such as `cor()` from the [stats package][@stats:2024], which computes Pearson, Spearman, or Kendall correlations between vectors, matrices, or data frames; and `rcorr()` from the [Hmisc package][@Hmisc:2025], which efficiently computes Pearson or Spearman correlation matrices — are primarily designed for specific data types and may not generalize well to mixed data or large-scale applications. In this sense, `corrp` extends these capabilities by handling mixed data types, integrating various association methods, and offering clustering directly from the resulting correlation matrix..
 
 The `corrp` package automatically detects the variable types present in the dataset. However, manual intervention is needed to select the appropriate correlation measure for each detected variable pair (numeric pairs, categorical pairs, and numeric-categorical pairs) from the available options, as explained in more detail below.
 
