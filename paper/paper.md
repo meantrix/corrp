@@ -104,24 +104,16 @@ results <- corrp(
 head(results$data)
 ```
 
-|      | infer               | infer.value | stat    | stat.value |
-|------|---------------------|-------------|---------|------------|
-| 1    | Distance Correlation| 1.000       | P-value | 0.000      |
-| 2    | Distance Correlation| 0.008       | P-value | 0.000      |
-| 3    | Linear Model        | 0.146       | P-value | 3.57e-64   |
-| 4    | Linear Model        | 0.071       | P-value | 4.79e-18   |
-| 5    | Distance Correlation| 0.008       | P-value | 0.000      |
-| 6    | Distance Correlation| 1.000       | P-value | 0.000      |
-
-|      | isig | msg | varx       | vary       |
-|------|------|-----|------------|------------|
-| 1    | TRUE |     | House_Size | House_Size |
-| 2    | TRUE |     | House_Size | Income     |
-| 3    | TRUE |     | House_Size | State      |
-| 4    | TRUE |     | House_Size | Sex        |
-| 5    | TRUE |     | Income     | House_Size |
-| 6    | TRUE |     | Income     | Income     |
-
+<div style="font-size: 9px;">
+| # | infer               | infer.value | stat    | stat.value | isig | msg | varx       | vary       |
+|---|---------------------|--------------|---------|------------|------|-----|------------|------------|
+| 1 | Distance Correlation| 1.000        | P-value | 0.000      | TRUE |     | House_Size | House_Size |
+| 2 | Distance Correlation| 0.008        | P-value | 0.000      | TRUE |     | House_Size | Income     |
+| 3 | Linear Model        | 0.146        | P-value | 3.57e-64   | TRUE |     | House_Size | State      |
+| 4 | Linear Model        | 0.071        | P-value | 4.79e-18   | TRUE |     | House_Size | Sex        |
+| 5 | Distance Correlation| 0.008        | P-value | 0.000      | TRUE |     | Income     | House_Size |
+| 6 | Distance Correlation| 1.000        | P-value | 0.000      | TRUE |     | Income     | Income     |
+</div>
 
 
 When choosing correlation methods, it's important to think about their performance for different pair types. For **numeric pairs**, **Pearson** (`?`) is the quickest and most efficient option, while the **Maximal Information Coefficient** (`mic`) is significantly slower, making it less suitable for large datasets. **Distance correlation** (`dcor`) is a better performer than MIC but still not the fastest choice, while **Predictive Power Score** (`pps`) is efficient but may take longer than Pearson. For **numeric-categorical pairs**, the **linear model** (`lm`) typically outperforms `pps`. In **categorical pairs**, **Cramér's V** (`?`), **Uncertainty Coefficient** (`uncoef`), and `pps` are options, with `uncoef` being the slowest of the three.
