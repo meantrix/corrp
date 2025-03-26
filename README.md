@@ -7,18 +7,18 @@
 
 <!-- badges: end -->
 
-Compute multiple types of correlation analysis (Pearson correlation, R^2  coefficient of linear regression, Cramer's V measure of association, Distance Correlation, The Maximal Information Coefficient, Uncertainty coefficient and Predictive Power Score) in large dataframes with mixed columns classes(integer, numeric, factor and character) in parallel R backend.
+Compute multiple types of correlation analysis (Pearson correlation, R^2  coefficient of linear regression, Cramer's V measure of association, Distance Correlation, The Maximal Information Coefficient, Uncertainty coefficient and Predictive Power Score) in large dataframes with mixed columns classes (integer, numeric, factor and character) in parallel R backend.
+
 This package also has a C++ implementation of the Average correlation clustering algorithm [ACCA](https://www.sciencedirect.com/science/article/pii/S1532046410000158) 
-that works directly with the correlation matrix. In this sense, this implementation differs from the original,
-it works with mixed data and several correlation types methods.
+that is adapted to work directly with the correlation matrix. In this sense, this implementation works with mixed data and several correlation methods.
 
 ## Details
 
-The [corrp package](https://github.com/meantrix/corrP) under development by Meantrix team and original based on Srikanth KS (talegari) [cor2 function](https://github.com/talegari/sidekicks/) can provide to R users a way to work with correlation analysis among large data.frames, tibbles or data.tables through a R parallel backend and C++ functions.
+The [corrp package](https://github.com/meantrix/corrP) is under development by Meantrix team and based on Srikanth KS (`@talegari`) [cor2 function](https://github.com/talegari/sidekicks/). The package enables R users to perform a correlation analysis on large data frames (`data.frame`, `tibble`, or `data.tables`) through a R parallel backend and C++ functions.
 
-The data.frame is allowed to have columns of these four classes: integer, numeric, factor and character. The character column is considered as categorical variable.
+The input data frame is allowed to have columns of these four classes: integer, numeric, factor, and character. The character column is considered as a categorical variable.
 
-In this new package the correlation is automatically computed according to the follow options: 
+`{corr}` can compute correlation on the following pairs: 
 
 #### integer/numeric pair:
 - [Pearson correlation test](https://en.wikipedia.org/wiki/Pearson_correlation_coefficient) ;
@@ -36,10 +36,11 @@ In this new package the correlation is automatically computed according to the f
 - [Predictive Power Score](https://github.com/paulvanderlaken/ppsr).
 
 
-Also, all statistical tests are controlled by the sigficance of
-p.value param. If the statistical tests do not obtain a significance greater/less
-than p.value, by default the output of variable `isig` will be `FALSE`.
+Also, all statistical tests are performed and the results can then be assessed for their sigficance, when setting the
+`p.value` parameter. If the statistical tests do not obtain a significance greater/less
+than `p.value`, by default the output of variable `isig` will be `FALSE`.
 There is no statistical significance test for the `pps` algorithm, `isig = TRUE` in this case.
+
 If any errors occur during operations by default the correlation will be `NA`.
 
 
@@ -62,10 +63,10 @@ remotes::install_github("meantrix/corrp@main")
 `corrp package` provides seven main functions for correlation calculations, clustering and basic data manipulation: `corrp`,
 `corr_fun`, `corr_matrix`, `corr_rm`, `acca` , `sil_acca` and `best_acca`.
 
-`corrp` Next, we calculate the correlations for the data set iris using: Maximal Information Coefficient for numeric pair, the Power Predictive Score algorithm for numeric/categorical pair and Uncertainty coefficient for categorical pair.
+`corrp` We can calculate the correlations for the data set iris using: Maximal Information Coefficient for numeric pair, the Power Predictive Score algorithm for numeric/categorical pair and Uncertainty coefficient for categorical pair.
 
 ```r
-results = corrp::corrp(iris, cor.nn = 'mic',cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2 , verbose = FALSE)
+results <- corrp::corrp(iris, cor.nn = 'mic',cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2 , verbose = FALSE)
 
 head(results$data)
 #                            infer infer.value        stat stat.value isig msg         varx         vary
@@ -81,7 +82,7 @@ head(results$data)
 `corr_matrix` Using the previous result we can create a correlation matrix as follows:
 
 ```r
-m = corr_matrix(results,col = 'infer.value',isig = TRUE)
+m <- corr_matrix(results,col = 'infer.value',isig = TRUE)
 m
 #              Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
 # Sepal.Length    0.9994870   0.2770503    0.7682996   0.6683281 0.4075487
@@ -92,11 +93,11 @@ m
 # attr(,"class")
 # [1] "cmatrix" "matrix" 
 ```
-Now, we can clustering the data set variables through ACCA and the correlation matrix.
-By way of example, consider 2 clusters `k = 2`:
+Now, we can cluster the dataset variables through ACCA and the correlation matrix.
+For example, consider 2 clusters (`k = 2`):
 
 ```r
-acca.res = acca(m,2)
+acca.res <- acca(m,2)
 acca.res
 # $cluster1
 # [1] "Species"      "Sepal.Length" "Petal.Width" 
@@ -108,10 +109,10 @@ acca.res
 # [1] "acca_list" "list"     
 ```
 
-Also,we can calculate The average silhouette width to the cluster `acca.res`:
+Also, we can calculate the average silhouette width for the clusters in `acca.res`:
 
 ```r
-sil_acca(acca.res,m)
+sil_acca(acca.res, m)
 # [1] -0.02831006
 # attr(,"class")
 # [1] "corrpstat"
@@ -131,7 +132,7 @@ To contribute to `corrp`, follow these steps:
 4. Push to the original branch: `git push origin corrp/<location>`
 5. Create the pull request.
 
-Alternatively see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
+Alternatively, see the GitHub documentation on [creating a pull request](https://help.github.com/en/github/collaborating-with-issues-and-pull-requests/creating-a-pull-request).
 
 ### Bug Reports
 
