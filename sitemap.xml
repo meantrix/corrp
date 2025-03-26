@@ -1,48 +1,23 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://meantrix.github.io/corrp/404.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/index.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/news/index.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/reference/acca.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/reference/best_acca.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/reference/corr_fun.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/reference/corr_matrix.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/reference/corr_rm.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/reference/corrp.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/reference/dcorT_test.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/reference/ptest.html</loc>
-  </url>
-  <url>
-    <loc>https://meantrix.github.io/corrp/reference/sil_acca.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://meantrix.github.io/corrp/404.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/CONTRIBUTING.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/LICENSE.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/articles/index.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/articles/usage-corrp.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/authors.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/index.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/news/index.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/acca.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/assert_required_argument.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/best_acca.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/corr_fun.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/corr_matrix.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/corr_rm.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/corrp.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/dcorT_test.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/index.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/ptest.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/set_arguments.html</loc></url>
+<url><loc>https://meantrix.github.io/corrp/reference/sil_acca.html</loc></url>
 </urlset>
+
