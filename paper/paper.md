@@ -116,7 +116,7 @@ head(results$data)
 </div>
 
 
-When choosing correlation methods, it's important to think about their performance for different pair types. For **numeric pairs**, **Pearson** (`?`) is the quickest and most efficient option, while the **Maximal Information Coefficient** (`mic`) is significantly slower, making it less suitable for large datasets. **Distance correlation** (`dcor`) is a better performer than MIC but still not the fastest choice, while **Predictive Power Score** (`pps`) is efficient but may take longer than Pearson. For **numeric-categorical pairs**, the **linear model** (`lm`) typically outperforms `pps`. In **categorical pairs**, **Cramér's V** (`?`), **Uncertainty Coefficient** (`uncoef`), and `pps` are options, with `uncoef` being the slowest of the three.
+When choosing correlation methods, it's important to think about their performance for different pair types. For **numeric pairs**, **Pearson** (`pearson`) is the quickest and most efficient option, while the **Maximal Information Coefficient** (`mic`) is significantly slower, making it less suitable for large datasets. **Distance correlation** (`dcor`) is a better performer than MIC but still not the fastest choice, while **Predictive Power Score** (`pps`) is efficient but may take longer than Pearson. For **numeric-categorical pairs**, the **linear model** (`lm`) typically outperforms `pps`. In **categorical pairs**, **Cramér's V** (`cramersV`), **Uncertainty Coefficient** (`uncoef`), and `pps` are options, with `uncoef` being the slowest of the three.
 
 As the number of columns in the data increases, the runtime will also increase due to the `N * N` scaling. Therefore, the user should choose the methods wisely to ensure efficient performance.
 
