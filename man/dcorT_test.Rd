@@ -7,9 +7,9 @@
 dcorT_test(x, y)
 }
 \arguments{
-\item{x}{[\code{data.frame(1) | matrix(1)}]\cr A data of the first sample.}
+\item{x}{[\code{data.frame(1) | matrix(1)}]\cr Data of the first sample.}
 
-\item{y}{[\code{data.frame(1) | matrix(1)}]\cr A data of the second sample.}
+\item{y}{[\code{data.frame(1) | matrix(1)}]\cr Data of the second sample.}
 }
 \value{
 returns a list containing

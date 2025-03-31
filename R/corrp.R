@@ -178,10 +178,21 @@ corrp <- function(df,
 
   # Parallel corr_fun
   if (parallel) {
+
+    is_loaded = "corrp" %in% loadedNamespaces()
+    package_path = system.file(package = "corrp") %>% stringr::str_remove("/inst$")
+    
     cluster <- parallel::makeCluster(n.cores)
+    parallel::clusterExport(cl = cluster, c("is_loaded", "package_path"), envir = environment())
+    
     parallel::clusterEvalQ(cluster, {
-      library(corrp)
+      if (is_loaded) {
+        devtools::load_all(package_path)
+      } else {
+        library("corrp")
+      }
     })
+
     corr <- parallel::clusterApply(
       cluster, seq_len(NROW(index.grid)),
       function(k) {

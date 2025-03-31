@@ -75,8 +75,8 @@ ptest <- function(x, y,
 #'
 #' @description Distance correlation t-test of multivariate independence for high dimension. C++ version of energy::dcorT.test.
 #'
-#' @param x \[\code{data.frame(1) | matrix(1)}]\cr A data of the first sample.
-#' @param y \[\code{data.frame(1) | matrix(1)}]\cr A data of the second sample.
+#' @param x \[\code{data.frame(1) | matrix(1)}]\cr Data of the first sample.
+#' @param y \[\code{data.frame(1) | matrix(1)}]\cr Data of the second sample.
 #'
 #' @return returns a list containing
 #'   \item{method}{description of test}

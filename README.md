@@ -99,7 +99,7 @@ head(results_2$data)
 `corr_matrix` Using the previous result we can create a correlation matrix as follows:
 
 ```r
-m = corr_matrix(results,col = 'infer.value',isig = TRUE)
+m = corrp::corr_matrix(results,col = 'infer.value',isig = TRUE)
 m
 #              Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
 # Sepal.Length    0.9994870   0.2770503    0.7682996   0.6683281 0.4075487
@@ -114,7 +114,7 @@ Now, we can clustering the data set variables through ACCA and the correlation m
 By way of example, consider 2 clusters `k = 2`:
 
 ```r
-acca.res = acca(m,2)
+acca.res = corrp::acca(m,2)
 acca.res
 # $cluster1
 # [1] "Species"      "Sepal.Length" "Petal.Width" 
@@ -129,7 +129,7 @@ acca.res
 Also,we can calculate The average silhouette width to the cluster `acca.res`:
 
 ```r
-sil_acca(acca.res,m)
+corrp::sil_acca(acca.res,m)
 # [1] -0.02831006
 # attr(,"class")
 # [1] "corrpstat"
