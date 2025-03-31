@@ -70,7 +70,7 @@ The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient
 
 \item{pearson.args}{[\code{list(1)}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.}
 
-\item{dcor.args}{[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcorT_test}}.}
+\item{dcor.args}{[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcor_t_test}}.}
 
 \item{mic.args}{[\code{list(1)}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.}
 

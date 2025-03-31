@@ -86,7 +86,7 @@ ptest <- function(x, y,
 #'   \item{p.value}{p-value of the t-test}
 #'   \item{data.name}{description of data}
 #' @export
-dcorT_test <- function(x, y) {
+dcor_t_test <- function(x, y) {
   if (!inherits(x, "matrix")) {
     x <- as.matrix(x)
   }

@@ -80,7 +80,7 @@
 #' `pps: Predictive Power Score`. Default is `Cramer's V`.
 #' @param lm.args \[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.
 #' @param pearson.args \[\code{list(1)}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.
-#' @param dcor.args \[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcorT_test}}.
+#' @param dcor.args \[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcor_t_test}}.
 #' @param mic.args \[\code{list(1)}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.
 #' @param pps.args \[\code{list(1)}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.
 #' @param uncoef.args \[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.

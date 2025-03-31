@@ -120,7 +120,7 @@
   args <- c(list(x), list(y), dcor.args)
 
 
-  dc <- do.call(dcorT_test, args)
+  dc <- do.call(dcor_t_test, args)
 
   pv <- dc$p.value
   r <- as.numeric(dc$estimate)

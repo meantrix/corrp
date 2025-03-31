@@ -6,7 +6,7 @@ test_data_a = data.frame(a = runif(1e4))
 test_data_b = data.frame(b = runif(1e4))
 
 benchmark_cpp = calculate_memory_runtime({
-  dcorT_test(test_data_a, test_data_b)
+  dcor_t_test(test_data_a, test_data_b)
 })
 # MEMORY PEAK(mb): 4701.44140625
 # TIME (S): 6.022
@@ -21,7 +21,7 @@ test_data_a = data.frame(a = runif(2e4))
 test_data_b = data.frame(b = runif(2e4))
 
 benchmark_cpp = calculate_memory_runtime({
-  dcorT_test(test_data_a, test_data_b)
+  dcor_t_test(test_data_a, test_data_b)
 })
 # MEMORY PEAK(mb): 18440.53515625
 # TIME (S): 25.977

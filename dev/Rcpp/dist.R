@@ -34,7 +34,7 @@ cpp_astar = Astar(cpp_dist)
 
 all(r_astar == cpp_astar)
 
-res_cpp = dcorT_test(as.matrix(data.frame(a = c(3, 2, 4, 4))), as.matrix(data.frame(b = c(5, 3, 3, 7))))
+res_cpp = dcor_t_test(as.matrix(data.frame(a = c(3, 2, 4, 4))), as.matrix(data.frame(b = c(5, 3, 3, 7))))
 
 res_energy = energy::dcorT.test(as.matrix(data.frame(a = c(3, 2, 4, 4))), as.matrix(data.frame(b = c(5, 3, 3, 7))))
 

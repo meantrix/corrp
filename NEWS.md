@@ -45,7 +45,7 @@ Dedicated version for the publication of the corrp package in the JOSS.
 
 ### New methods
 
-- `dcorT_test`: Create Correlation Matrix from corrp inferences (C++ wraper).
+- `dcor_t_test`: Create Correlation Matrix from corrp inferences (C++ wraper).
 - `C++ methods`:
   - `Astar`: Derivate the modified distance covariance statistics.
   - `dist`: Calculate distance matrix.
