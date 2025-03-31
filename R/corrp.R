@@ -164,8 +164,6 @@ corrp <- function(df,
   checkmate::assert_list(cramersV.args)
   checkmate::assert_list(uncoef.args)
 
-  on.exit(if (parallel) parallel::stopCluster(cluster))
-
   stopifnot(
     all(
       vapply(df, class, character(1)) %in%
@@ -179,17 +177,19 @@ corrp <- function(df,
   # Parallel corr_fun
   if (parallel) {
 
-    is_loaded = "corrp" %in% loadedNamespaces()
-    package_path = system.file(package = "corrp") %>% stringr::str_remove("/inst$")
+    package_path = asNamespace("corrp")$`.__NAMESPACE__.`$path
+    is_install = is.null(asNamespace("corrp")$`.__DEVTOOLS__`)
     
     cluster <- parallel::makeCluster(n.cores)
-    parallel::clusterExport(cl = cluster, c("is_loaded", "package_path"), envir = environment())
+    on.exit(parallel::stopCluster(cluster))
+    
+    parallel::clusterExport(cl = cluster, c("is_install", "package_path"), envir = environment())    
     
     parallel::clusterEvalQ(cluster, {
-      if (is_loaded) {
-        devtools::load_all(package_path)
-      } else {
+      if (is_install) {
         library("corrp")
+      } else {
+        devtools::load_all(package_path)
       }
     })
 
