@@ -1,8 +1,7 @@
 test_that("Tests on corrp and cor_fun functions", {
   # data to tests
   df <- iris
-
-
+  
   # class test
   corr <- corrp(df, comp = "g", alternative = "t")
   expect_s3_class(corr, "clist")
