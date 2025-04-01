@@ -16,6 +16,8 @@
 #' x <- iris[[1]]
 #' y <- iris[[2]]
 #' ptest(x, y, FUN = function(x, y) cor(x, y), alternative = "t")
+#' 
+#' @return \[\code{numeric(1)}]\cr The p.value statistic.
 #'
 #' @export
 ptest <- function(x, y,
@@ -78,13 +80,13 @@ ptest <- function(x, y,
 #' @param x \[\code{data.frame(1) | matrix(1)}]\cr Data of the first sample.
 #' @param y \[\code{data.frame(1) | matrix(1)}]\cr Data of the second sample.
 #'
-#' @return returns a list containing
-#'   \item{method}{description of test}
-#'   \item{statistic}{observed value of the test statistic}
-#'   \item{parameter}{degrees of freedom}
-#'   \item{estimate}{(bias corrected) squared dCor(x,y)}
-#'   \item{p.value}{p-value of the t-test}
-#'   \item{data.name}{description of data}
+#' @return \[\code{list(6)}]\cr returns a list containing:
+#'   \item{method}{description of test.}
+#'   \item{statistic}{observed value of the test statistic.}
+#'   \item{parameter}{degrees of freedom.}
+#'   \item{estimate}{(bias corrected) squared dCor(x,y).}
+#'   \item{p.value}{p-value of the t-test.}
+#'   \item{data.name}{description of data.}
 #' @export
 dcor_t_test <- function(x, y) {
   if (!inherits(x, "matrix")) {

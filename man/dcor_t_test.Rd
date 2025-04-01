@@ -12,13 +12,13 @@ dcor_t_test(x, y)
 \item{y}{[\code{data.frame(1) | matrix(1)}]\cr Data of the second sample.}
 }
 \value{
-returns a list containing
-\item{method}{description of test}
-\item{statistic}{observed value of the test statistic}
-\item{parameter}{degrees of freedom}
-\item{estimate}{(bias corrected) squared dCor(x,y)}
-\item{p.value}{p-value of the t-test}
-\item{data.name}{description of data}
+[\code{list(6)}]\cr returns a list containing:
+\item{method}{description of test.}
+\item{statistic}{observed value of the test statistic.}
+\item{parameter}{degrees of freedom.}
+\item{estimate}{(bias corrected) squared dCor(x,y).}
+\item{p.value}{p-value of the t-test.}
+\item{data.name}{description of data.}
 }
 \description{
 Distance correlation t-test of multivariate independence for high dimension. C++ version of energy::dcorT.test.
