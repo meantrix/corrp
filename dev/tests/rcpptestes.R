@@ -1,30 +1,26 @@
 library(Rcpp)
 
 
-cppFunction('NumericVector diffs(NumericVector x, NumericVector y){
+cppFunction("NumericVector diffs(NumericVector x, NumericVector y){
 return setdiff(x,y);
 }
-')
+")
 
 evalCpp(
-'Vector<INTSXP> sample(int n, int size, bool replace = false, sugar::probs_t probs = R_NilValue, bool one_based = true);
-')
+  "Vector<INTSXP> sample(int n, int size, bool replace = false, sugar::probs_t probs = R_NilValue, bool one_based = true);
+"
+)
 
+diffs(c(1, 2, 3, 5), c(1, 2, 3, 4))
+which_in2(c(1, 2, 3), c(1, 2, 2))
 
-
-
-diffs(c(1,2,3,5),c(1,2,3,4))
-
-
-which_in2(c(1,2,3),c(1,2,2))
-
-evalCpp('(int)10 / 3 + (int)10 % 3')
-evalCpp('dentro d')
-evalCpp('NumericVector v = {1,2,3};
+evalCpp("(int)10 / 3 + (int)10 % 3")
+evalCpp("dentro d")
+evalCpp("NumericVector v = {1,2,3};
         NumericVector y = NumericVector::create(1,2,2,2)
         v + y;
-  ')
-evalCpp('
+  ")
+evalCpp("
   NumericVector x = NumericVector::create(1,2,3,4);
   NumericVector y = NumericVector::create(1,2,2,2,2);
   std::vector<int> y_sort(y.size());
@@ -41,7 +37,7 @@ evalCpp('
     }
   }
 
-  Rprintf(out);')
+  Rprintf(out);")
 
 
 cppFunction("
@@ -50,15 +46,15 @@ cppFunction("
     return z;
     }")
 
-basic_function(c('o','o','oi'),c('oa','oa','oi'))
+basic_function(c("o", "o", "oi"), c("oa", "oa", "oi"))
 
 cppFunction("void Test(){
   List L;
   List L1=List::create(12,45,22,44);
   SEXP x=Language('c',L,L1).eval();//update, add L1's elements on L's back.
-  Rf_PrintValue(x) ; Rprintf( "\n") ;
+  Rf_PrintValue(x) ; Rprintf( \"\n\") ;
 
   L = x;
-  Rf_PrintValue(L) ; Rprintf( "\n") ;
+  Rf_PrintValue(L) ; Rprintf( \"\n\") ;
 
-"))
+")

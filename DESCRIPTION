@@ -27,8 +27,7 @@ Imports:
     minerva (>= 1.5.10),
     checkmate (>= 2.3.2),
     ppsr (>= 0.0.2),
-    DescTools (>= 0.99.40),
-    palmerpenguins (>= 0.1.1)
+    DescTools (>= 0.99.40)
 Suggests: 
     energy,
     knitr,

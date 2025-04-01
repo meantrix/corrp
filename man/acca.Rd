@@ -44,7 +44,7 @@ result <- corrp::acca(m, k = 3)
 print(result)
 
 # Clustering with 5 clusters and increasing the maximum number of interactions
-x <- corrp::corrp(iris)
+x <- corrp::corrp(palmerpenguins::penguins)
 m <- corrp::corr_matrix(x)
 result <- corrp::acca(m, k = 5, maxiter = 200)
 print(result)

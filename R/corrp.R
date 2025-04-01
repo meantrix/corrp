@@ -176,15 +176,14 @@ corrp <- function(df,
 
   # Parallel corr_fun
   if (parallel) {
+    package_path <- asNamespace("corrp")$`.__NAMESPACE__.`$path
+    is_install <- is.null(asNamespace("corrp")$`.__DEVTOOLS__`)
 
-    package_path = asNamespace("corrp")$`.__NAMESPACE__.`$path
-    is_install = is.null(asNamespace("corrp")$`.__DEVTOOLS__`)
-    
     cluster <- parallel::makeCluster(n.cores)
     on.exit(parallel::stopCluster(cluster))
-    
-    parallel::clusterExport(cl = cluster, c("is_install", "package_path"), envir = environment())    
-    
+
+    parallel::clusterExport(cl = cluster, c("is_install", "package_path"), envir = environment())
+
     parallel::clusterEvalQ(cluster, {
       if (is_install) {
         library("corrp")

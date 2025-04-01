@@ -16,7 +16,7 @@
 #' x <- iris[[1]]
 #' y <- iris[[2]]
 #' ptest(x, y, FUN = function(x, y) cor(x, y), alternative = "t")
-#' 
+#'
 #' @return \[\code{numeric(1)}]\cr The p.value statistic.
 #'
 #' @export
