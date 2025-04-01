@@ -20,10 +20,11 @@ The `corrp` package provides an efficient way to compute correlations between va
 
 ## Usage Example
 
-We will use the built-in `iris` dataset, which includes 150 observations of 5 variables: 4 numerical variables and 1 categorical variable (the species of the flower).
+We will use the `penguins` dataset from the `palmerpenguins` package, which contains 344 observations of 8 variables, including numerical measurements (e.g., bill_length_mm, bill_depth_mm, flipper_length_mm, and body_mass_g), categorical variables (e.g., species, island, and sex), and year as an integer.
 
 ```{r}
-# Load the iris dataset
+# Load corpp and the penguins dataset
+library('corrp')
 library('palmerpenguins')
 data(penguins)
 penguins = na.omit(penguins)
@@ -116,7 +117,7 @@ results_custom <- corrp(penguins,
 results_custom$data
 ```
 
-Originally, Pearson, LM, and Cramér’s V were used to capture primarily linear and straightforward associations among variables. The updated configuration replaces these with MIC, PPS, and the Uncertainty Coefficient, which are designed to detect non-linear, complex relationships and provide directional insights into predictive strength.
+Originally, Pearson, LM, and Cramér's V were used to capture primarily linear and straightforward associations among variables. The updated configuration replaces these with MIC, PPS, and the Uncertainty Coefficient, which are designed to detect non-linear, complex relationships and provide directional insights into predictive strength.
 
 ## Advanced Usage
 
@@ -126,7 +127,7 @@ You can enable parallel processing to speed up the computation, especially when 
 
 ```{r}
 # Using 2 cores for parallel processing
-results_parallel <- corrp(iris,
+results_parallel <- corrp(penguins,
   cor.nn = "pearson",
   cor.nc = "pps",
   cor.cc = "cramer",
@@ -140,11 +141,11 @@ results_parallel <- corrp(iris,
 The `corr_fun` function can be used directly if you need finer control over the correlation calculation for specific pairs of variables. It allows you to specify the variables and methods for computing the correlation.
 
 ```{r}
-# Using corr_fun to compute Pearson correlation between Sepal.Length and Petal.Length
+# Using corr_fun to compute Pearson correlation between body_mass_g and flipper_length_mm
 corr_fun(
-  iris,
-  nx = "Sepal.Length",
-  ny = "Petal.Length",
+  penguins,
+  nx = "body_mass_g",
+  ny = "flipper_length_mm",
   cor.nn = "pearson",
   verbose = FALSE
 )
