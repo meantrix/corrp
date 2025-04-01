@@ -102,7 +102,7 @@ head(results_2$data)
 `corr_matrix` Using the previous result we can create a correlation matrix as follows:
 
 ```r
-m = corrp::corr_matrix(results,col = 'infer.value',isig = TRUE)
+m = corrp::corr_matrix(results,col = 'infer.value', isig = FALSE)
 m
 #              Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
 # Sepal.Length    0.9994870   0.2770503    0.7682996   0.6683281 0.4075487
@@ -113,6 +113,14 @@ m
 # attr(,"class")
 # [1] "cmatrix" "matrix" 
 ```
+
+We can use the `corrplot::corrplot` function to plot the correlation matrix.
+
+```r
+corrplot::corrplot(m)
+```
+![Correlation Matrix Plot](images/corrplot.svg)
+
 Now, we can clustering the data set variables through ACCA and the correlation matrix.
 By way of example, consider 2 clusters `k = 2`:
 
@@ -140,6 +148,9 @@ corrp::sil_acca(acca.res,m)
 # [1] "Silhouette"
 ```
 Observations with a large average silhouette width (almost 1) are very well clustered.
+
+
+
 
 
 ### Contributing to corrp
