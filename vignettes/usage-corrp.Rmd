@@ -85,7 +85,8 @@ significant_results
 You can modify the p-value threshold of 0.05 by using the argument `p.value` in `corrp` function.
 ```{r}
 # Set the p-value treshold to 0.3 
-results <- corrp(penguins,
+results <- corrp(
+  penguins,
   cor.nn = "pearson", # Correlation for numerical-numerical variables
   cor.nc = "lm", # Correlation for numerical-categorical variables
   cor.cc = "cramer", # Correlation for categorical-categorical variables
@@ -108,7 +109,8 @@ For example, let's compute the correlations using different methods for numerica
 
 ```{r}
 # Example of changing correlation methods
-results_custom <- corrp(penguins,
+results_custom <- corrp(
+  penguins,
   cor.nn = "mic",
   cor.nc = "pps",
   cor.cc = "uncoef",
@@ -123,18 +125,53 @@ Originally, Pearson, LM, and Cramér's V were used to capture primarily linear a
 
 ### 1. Parallel Processing
 
-You can enable parallel processing to speed up the computation, especially when working with large datasets. Set the `n.cores` argument to the number of cores you'd like to use.
+You can enable parallel processing to speed up the computation, especially when working with large datasets. Set the `n.cores` argument to the number of cores you'd like to use. To demonstrate the efficiency of the `corrp` package on larger datasets, we benchmark the performance of computing correlations on the `eusilc` dataset using parallel processing. The following code compares execution times using 8 cores versus 2 cores.
 
 ```{r}
-# Using 2 cores for parallel processing
-results_parallel <- corrp(penguins,
-  cor.nn = "pearson",
-  cor.nc = "pps",
-  cor.cc = "cramer",
-  n.cores = 2,
-  verbose = FALSE
+library(laeken)
+library(corrp)
+
+# Load and prepare the eusilc dataset
+data(eusilc)
+eusilc <- eusilc[, c("eqSS", "eqIncome", "db040", "rb090")]
+colnames(eusilc) <- c("House_Size", "Income", "State", "Sex")
+
+```
+#### 8 Cores
+```{r}
+# Use bench to measure the performance of parallel processing using 8 cores
+bench::mark(
+  corrp(eusilc,
+    cor.nn = "mic",
+    cor.nc = "pps", 
+    cor.cc = "uncoef",
+    n.cores = 8,         # Enable parallel processing with 8 cores
+    verbose = FALSE
+  ),
+  iterations = 10
 )
 ```
+
+
+#### 2 Cores
+```{r}
+# Use bench to measure the performance of parallel processing using 2 cores
+bench::mark(
+  corrp(eusilc,
+    cor.nn = "mic",  
+    cor.nc = "pps",      
+    cor.cc = "uncoef",   
+    n.cores = 2,         # Enable parallel processing with 2 cores
+    verbose = FALSE
+  ),
+  iterations = 10
+)
+```
+
+
+#### Performance Comparison
+
+Based on the benchmark results, the performance when using 8 cores shows a clear improvement over using 2 cores, reducing the execution time significantly.  This confirms that enabling parallel processing can greatly enhance the efficiency of computations with large datasets.
 
 ### 2. Custom Inferences with `corr_fun`
 
