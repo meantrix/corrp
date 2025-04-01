@@ -24,9 +24,9 @@ We will use the built-in `iris` dataset, which includes 150 observations of 5 va
 
 ```{r}
 # Load the iris dataset
-library(corrp)
-data(iris)
-head(iris)
+library('palmerpenguins')
+data(penguins)
+penguins = na.omit(penguins)
 ```
 
 ## Basic Usage of `corrp`
@@ -37,9 +37,9 @@ The `corrp` function can be used to compute correlations between variables, user
 
 ```{r}
 # Compute correlations for iris dataset
-results <- corrp(iris,
+results <- corrp(penguins,
   cor.nn = "pearson", # Correlation for numerical-numerical variables
-  cor.nc = "pps", # Correlation for numerical-categorical variables
+  cor.nc = "lm", # Correlation for numerical-categorical variables
   cor.cc = "cramer", # Correlation for categorical-categorical variables
   verbose = FALSE
 )
@@ -56,13 +56,42 @@ The result returned by `corrp` is an object of class `"clist"`, which contains t
 results$data
 ```
 
+The result of corrp is a list with two tables: `data` and `index`.
+
+- **data**: A table containing all the statistical results. The columns of this table are as follows:
+
+    - `infer`: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
+    - `infer.value`: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
+    - `stat`: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
+    - `stat.value: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
+    - `isig`: A logical value indicating whether the statistical result is significant (`TRUE`) or not, based on predefined criteria (e.g., threshold for P-value).
+    - `msg`: A message or error related to the inference process.
+    - `varx`: The name of the first variable in the analysis (independent variable or feature).
+    - `vary`: The name of the second variable in the analysis (dependent/target variable).
+
+- **index**: A table that contains the pairs of indices used in each inference of the `data` table.
+
 ### 3. Filtering Significant Correlations
 
 To focus on significant correlations, you can filter the results based on significance or another criterion. Here, we filter the results for all correlations that are significant according to the default p-value threshold of 0.05.
 
 ```{r}
 # Filter significant correlations (p-value < 0.05)
-significant_results <- subset(results$data, isTRUE(isig))
+significant_results <- subset(results$data, isig)
+significant_results
+```
+
+You can modify the p-value threshold of 0.05 by using the argument `p.value` in `corrp` function.
+```{r}
+# Set the p-value treshold to 0.3 
+results <- corrp(penguins,
+  cor.nn = "pearson", # Correlation for numerical-numerical variables
+  cor.nc = "lm", # Correlation for numerical-categorical variables
+  cor.cc = "cramer", # Correlation for categorical-categorical variables
+  verbose = FALSE,
+  p.value = 0.30
+)
+significant_results <- subset(results$data, isig)
 significant_results
 ```
 
@@ -70,15 +99,15 @@ significant_results
 
 The `corrp` function allows you to specify different correlation methods based on the types of variables being compared:
 
-- **Numerical-Numerical Correlations**: Options include Pearson, MIC, and Dcor.
+- **Numerical-Numerical Correlations**: Options include PPS, Pearson, MIC, and Dcor.
 - **Numerical-Categorical Correlations**: Options include PPS and MIC.
-- **Categorical-Categorical Correlations**: Options include Cramer's V and Uncertainty Coefficient.
+- **Categorical-Categorical Correlations**: Options include PPS, Cramer's V and Uncertainty Coefficient.
 
 For example, let's compute the correlations using different methods for numerical-numerical, numerical-categorical, and categorical-categorical data.
 
 ```{r}
 # Example of changing correlation methods
-results_custom <- corrp(iris,
+results_custom <- corrp(penguins,
   cor.nn = "mic",
   cor.nc = "pps",
   cor.cc = "uncoef",
@@ -86,6 +115,8 @@ results_custom <- corrp(iris,
 )
 results_custom$data
 ```
+
+Originally, Pearson, LM, and Cramér’s V were used to capture primarily linear and straightforward associations among variables. The updated configuration replaces these with MIC, PPS, and the Uncertainty Coefficient, which are designed to detect non-linear, complex relationships and provide directional insights into predictive strength.
 
 ## Advanced Usage
 
