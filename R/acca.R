@@ -2,7 +2,7 @@
 #' @importFrom Rcpp evalCpp
 #' @importFrom RcppArmadillo armadillo_version
 #' @importFrom corrplot corrplot
-
+#' @importFrom palmerpenguins path_to_file
 
 #' @title Average correlation clustering algorithm
 #'
