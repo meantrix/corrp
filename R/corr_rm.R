@@ -4,7 +4,7 @@
 #' correlation functions' outputs and the \code{\link[caret]{findCorrelation}} function from the caret package.
 #'
 #' @param df \[\code{data.frame(1)}\]\cr The input data frame.
-#' @param c \[\code{clist(1)} | \code{cmatrix(1)}\]\cr A correlation list output from the \code{\link[corrp]{corrp}} function (with class \code{clist}),
+#' @param c \[\code{clist(1)} | \code{cmatrix}\]\cr A correlation list output from the \code{\link[corrp]{corrp}} function (with class \code{clist}),
 #' or a correlation matrix output from the \code{\link[corrp]{corr_matrix}} function (with class \code{cmatrix}).
 #' @param cutoff \[\code{numeric(1)}\]\cr A numeric value for the pairwise absolute correlation cutoff.
 #' The default value is 0.75.

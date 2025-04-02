@@ -13,7 +13,7 @@ corr_matrix(c, ...)
 \method{corr_matrix}{clist}(c, col = c("infer.value", "stat.value", "isig"), isig = TRUE, ...)
 }
 \arguments{
-\item{c}{[\code{clist(1)}]\cr Output from the \code{\link{corrp}} function.}
+\item{c}{[\code{clist}]\cr Output from the \code{\link{corrp}} function.}
 
 \item{...}{Not used. Included for S3 method consistency.}
 

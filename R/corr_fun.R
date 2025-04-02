@@ -11,7 +11,7 @@
 #' @inheritSection corrp Pair Types
 #'
 #'
-#' @return \[\code{list(8)}\]\cr
+#' @return \[\code{list}\]\cr
 #' A list with all statistical results.\cr
 #' All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable `isig` will be `FALSE`.\cr
 #' If any errors occur during operations the association measure (`infer.value`) will be `NA`.\cr

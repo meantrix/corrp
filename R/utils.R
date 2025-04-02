@@ -447,10 +447,10 @@ assert_required_argument <- function(arg, description) {
 #' @title Set Argument
 #' @description Assigns provided arguments from the `args_list` to the parent environment. If an argument is inside the arguments of the methods that calculate statistics, it assigns it on the parent environment, and removes the argument from the list.
 #'
-#' @param args_list \[\code{list(N)}\]\cr
+#' @param args_list \[\code{list}\]\cr
 #' A named list of arguments to be assigned to the parent environment.
 #'
-#' @return \[\code{list(N)}\]\cr A modified \code{args_list} with the arguments that were assigned to the parent environment removed.
+#' @return \[\code{list}\]\cr A modified \code{args_list} with the arguments that were assigned to the parent environment removed.
 #'
 #' @export
 set_arguments <- function(args_list) {

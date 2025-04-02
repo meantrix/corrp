@@ -26,7 +26,7 @@
 #' - **Uncertainty Coefficient:** A measure of nominal association between two variables. Implemented using \code{\link[DescTools]{UncertCoef}}. For more details, see \url{https://doi.org/10.1016/j.jbi.2010.02.001}. The value lies between 0 and 1.\cr
 #' - **Predictive Power Score (PPS):** A metric used to assess predictive relations between categorical variables. Implemented using \code{\link[ppsr]{score}}. For more details, see \url{https://zenodo.org/record/4091345}. The value lies between 0 and 1.\cr
 #'
-#' @return \[\code{clist(2)}\]\cr
+#' @return \[\code{clist}\]\cr
 #' A `clist` which is a list that has two tables: `data` and `index`.
 #'
 #' - **data**: A table containing all the statistical results. The columns of this table are as follows:
@@ -78,13 +78,13 @@
 #' Choose correlation type to be used in factor/categorical pair inference.
 #' The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 #' `pps: Predictive Power Score`. Default is `Cramer's V`.
-#' @param lm.args \[\code{list(1)}\]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.
-#' @param pearson.args \[\code{list(1)}\]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.
-#' @param dcor.args \[\code{list(1)}\]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcor_t_test}}.
-#' @param mic.args \[\code{list(1)}\]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.
-#' @param pps.args \[\code{list(1)}\]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.
-#' @param uncoef.args \[\code{list(1)}\]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.
-#' @param cramersV.args \[\code{list(1)}\]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.
+#' @param lm.args \[\code{list}\]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.
+#' @param pearson.args \[\code{list}\]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.
+#' @param dcor.args \[\code{list}\]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcor_t_test}}.
+#' @param mic.args \[\code{list}\]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.
+#' @param pps.args \[\code{list}\]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.
+#' @param uncoef.args \[\code{list}\]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.
+#' @param cramersV.args \[\code{list}\]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
@@ -176,29 +176,22 @@ corrp <- function(df,
 
   # Parallel corr_fun
   if (parallel) {
-    package_path <- asNamespace("corrp")$`.__NAMESPACE__.`$path
-    is_install <- is.null(asNamespace("corrp")$`.__DEVTOOLS__`)
-
     cluster <- parallel::makeCluster(n.cores)
     on.exit(parallel::stopCluster(cluster))
 
     parallel::clusterExport(
       cl = cluster,
       c(
-        "is_install", "package_path", "df", "p.value", "verbose",
-        "alternative", "comp", "cor.nn", "cor.nc", "cor.cc",
-        "num.s", "rk", "lm.args", "pearson.args", "cramersV.args",
-        "dcor.args", "pps.args", "mic.args", "uncoef.args"
+        "df", "p.value", "verbose", "alternative", "comp",
+        "cor.nn", "cor.nc", "cor.cc", "num.s", "rk", "lm.args",
+        "pearson.args", "cramersV.args", "dcor.args",
+        "pps.args", "mic.args", "uncoef.args"
       ),
       envir = environment()
     )
 
     parallel::clusterEvalQ(cluster, {
-      if (is_install) {
-        library("corrp")
-      } else {
-        devtools::load_all(package_path)
-      }
+      library("corrp")
     })
 
     corr <- parallel::parLapplyLB(

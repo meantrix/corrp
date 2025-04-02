@@ -4,7 +4,7 @@
 #' cluster in the ACCA clustering using the
 #' average silhouette approach.
 #'
-#' @param m  \[\code{matrix(1)}\]\cr correlation matrix
+#' @param m  \[\code{matrix}\]\cr correlation matrix
 #' from \code{\link{corr_matrix}}.
 #' @param mink \[\code{integer(1)}\]\cr minimum number of clusters considered.
 #' @param maxk \[\code{integer(1)}\]\cr maximum number of clusters considered.
@@ -14,7 +14,8 @@
 #' of interactions in the ACCA method.
 #' @param ... Not used. Included for S3 method consistency.
 #'
-#' @return \[\code{list(3)}\]\cr A list with:
+#' @return \[\code{list}\]\cr
+#' A list with:
 #' silhouette average with per k `$silhouette.ave`;
 #' the sequence of clusters tested `$k` and
 #' the optimal number of clusters `$best.k`.

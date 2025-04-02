@@ -7,12 +7,12 @@
 dcor_t_test(x, y)
 }
 \arguments{
-\item{x}{[\code{data.frame(1) | matrix(1)}]\cr Data of the first sample.}
+\item{x}{[\code{data.frame | matrix}]\cr Data of the first sample.}
 
-\item{y}{[\code{data.frame(1) | matrix(1)}]\cr Data of the second sample.}
+\item{y}{[\code{data.frame | matrix}]\cr Data of the second sample.}
 }
 \value{
-[\code{list(6)}]\cr returns a list containing:
+[\code{list}]\cr returns a list containing:
 \item{method}{description of test.}
 \item{statistic}{observed value of the test statistic.}
 \item{parameter}{degrees of freedom.}

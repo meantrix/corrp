@@ -7,11 +7,11 @@
 set_arguments(args_list)
 }
 \arguments{
-\item{args_list}{[\code{list(N)}]\cr
+\item{args_list}{[\code{list}]\cr
 A named list of arguments to be assigned to the parent environment.}
 }
 \value{
-[\code{list(N)}]\cr A modified \code{args_list} with the arguments that were assigned to the parent environment removed.
+[\code{list}]\cr A modified \code{args_list} with the arguments that were assigned to the parent environment removed.
 }
 \description{
 Assigns provided arguments from the \code{args_list} to the parent environment. If an argument is inside the arguments of the methods that calculate statistics, it assigns it on the parent environment, and removes the argument from the list.

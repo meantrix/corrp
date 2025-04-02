@@ -35,7 +35,7 @@ corr_rm(df, c, ...)
 \arguments{
 \item{df}{[\code{data.frame(1)}]\cr The input data frame.}
 
-\item{c}{[\code{clist(1)} | \code{cmatrix(1)}]\cr A correlation list output from the \code{\link[corrp]{corrp}} function (with class \code{clist}),
+\item{c}{[\code{clist(1)} | \code{cmatrix}]\cr A correlation list output from the \code{\link[corrp]{corrp}} function (with class \code{clist}),
 or a correlation matrix output from the \code{\link[corrp]{corr_matrix}} function (with class \code{cmatrix}).}
 
 \item{...}{Additional arguments.}

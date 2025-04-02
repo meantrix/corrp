@@ -3,7 +3,7 @@
 #' @description Using the results obtained from the corrp function,
 #' this function creates a correlation matrix.
 #'
-#' @param c \[\code{clist(1)}\]\cr Output from the \code{\link{corrp}} function.
+#' @param c \[\code{clist}\]\cr Output from the \code{\link{corrp}} function.
 #' @param col \[\code{character(1)}\]\cr Specifies the column to be used in the correlation matrix.
 #' @param isig \[\code{logical(1)}\]\cr Determines whether values that are not statistically significant
 #' should be represented by NA or FALSE in the correlation matrix.
