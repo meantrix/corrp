@@ -127,7 +127,7 @@ Originally, Pearson, LM, and Cramér's V were used to capture primarily linear a
 
 You can enable parallel processing to speed up the computation, especially when working with large datasets. Set the `n.cores` argument to the number of cores you'd like to use. To demonstrate the efficiency of the `corrp` package on larger datasets, we benchmark the performance of computing correlations on the `eusilc` dataset using parallel processing. The following code compares execution times using 8 cores versus 2 cores. In order to simulate a large dataset, we are going to sample with replacement 100,000 times so that our data consists of 28 columns and 100,000 rows, having 4 character variables and the rest as numeric.
 
-```{r}
+```r
 library(corrp)
 library(laeken)
 
@@ -137,7 +137,7 @@ eusilc <- na.omit(eusilc)
 eusilc <- eusilc[sample(NROW(eusilc), 100000, replace = TRUE), ]
 ```
 #### 8 Cores
-```{r}
+```r
 # Use bench to measure the performance of parallel processing using 8 cores
 bench::mark(
   corrp(eusilc,
@@ -150,10 +150,14 @@ bench::mark(
   iterations = 10
 )
 ```
-
+- Minimum execution time: 20.8s
+- Median execution time: 21.8s
+- Iterations per second: 0.0458
+- Total time: 2.55 minutes
 
 #### 2 Cores
-```{r}
+
+```r
 # Use bench to measure the performance of parallel processing using 2 cores
 r = bench::mark(
   corrp(eusilc,
@@ -166,23 +170,14 @@ r = bench::mark(
   iterations = 1
 )
 ```
-
-
-#### Performance Comparison
-
-Based on your benchmark results, there's a very significant improvement in performance when increasing from 2 cores to 8 cores for the `corrp` function on the `eusilc` dataset. Here's a summary of the results:
-
-With 8 cores:
-- Minimum execution time: 20.8s
-- Median execution time: 21.8s
-- Iterations per second: 0.0458
-- Total time: 2.55 minutes
-
-With 2 cores:
 - Minimum execution time: 49s
 - Median execution time: 49.2s
 - Iterations per second: 0.0203
 - Total time: 4.92 minutes
+
+#### Performance Comparison
+
+Based on your benchmark results, there's a very significant improvement in performance when increasing from 2 cores to 8 cores for the `corrp` function on the `eusilc` dataset. 
 
 Using 8 cores instead of 2 cores gave us more than double the speed. Each run took about 22 seconds with 8 cores compared to 49 seconds with just 2 cores. This clearly shows how adding more processing power can dramatically cut down computation time for large datasets.
 
