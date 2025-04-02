@@ -42,7 +42,8 @@ results <- corrp(penguins,
   cor.nn = "pearson", # Correlation for numerical-numerical variables
   cor.nc = "lm", # Correlation for numerical-categorical variables
   cor.cc = "cramer", # Correlation for categorical-categorical variables
-  verbose = FALSE
+  verbose = FALSE,
+  parallel = FALSE
 )
 
 results
@@ -91,7 +92,8 @@ results <- corrp(
   cor.nc = "lm", # Correlation for numerical-categorical variables
   cor.cc = "cramer", # Correlation for categorical-categorical variables
   verbose = FALSE,
-  p.value = 0.30
+  p.value = 0.30,
+  parallel = FALSE
 )
 significant_results <- subset(results$data, isig)
 significant_results
@@ -114,7 +116,8 @@ results_custom <- corrp(
   cor.nn = "mic",
   cor.nc = "pps",
   cor.cc = "uncoef",
-  verbose = FALSE
+  verbose = FALSE,
+  parallel = FALSE
 )
 results_custom$data
 ```

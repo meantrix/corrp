@@ -190,10 +190,6 @@ corrp <- function(df,
       envir = environment()
     )
 
-    parallel::clusterEvalQ(cluster, {
-      library("corrp")
-    })
-
     corr <- parallel::parLapplyLB(
       cluster, seq_len(NROW(index.grid)),
       function(k) {
