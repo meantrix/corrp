@@ -81,7 +81,8 @@ The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient
 \item{uncoef.args}{[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
 }
 \value{
-list with all statistical results.\cr
+[\code{list(8)}]\cr
+A list with all statistical results.\cr
 All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
 If any errors occur during operations the association measure (\code{infer.value}) will be \code{NA}.\cr
 The result \code{data} and \code{index} will have \eqn{N^2} rows, where N is the number of variables of the input data.

@@ -11,7 +11,8 @@
 #' @inheritSection corrp Pair Types
 #'
 #'
-#' @return list with all statistical results.\cr
+#' @return \[\code{list(8)}\]\cr
+#' A list with all statistical results.\cr
 #' All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable `isig` will be `FALSE`.\cr
 #' If any errors occur during operations the association measure (`infer.value`) will be `NA`.\cr
 #' The result `data` and `index` will have \eqn{N^2} rows, where N is the number of variables of the input data.
@@ -20,8 +21,8 @@
 #'
 #'
 #' @inheritParams corrp
-#' @param nx \[\code{character(1)}]\cr first variable column name: independent/predictor variable.
-#' @param ny \[\code{character(1)}]\cr second variable column name: dependent/target variable.
+#' @param nx \[\code{character(1)}\]\cr first variable column name: independent/predictor variable.
+#' @param ny \[\code{character(1)}\]\cr second variable column name: dependent/target variable.
 #'
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos

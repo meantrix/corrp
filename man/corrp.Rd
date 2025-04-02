@@ -81,7 +81,8 @@ The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient
 \item{uncoef.args}{[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
 }
 \value{
-A list with two tables: \code{data} and \code{index}.
+[\code{clist(2)}]\cr
+A \code{clist} which is a list that has two tables: \code{data} and \code{index}.
 \itemize{
 \item \strong{data}: A table containing all the statistical results. The columns of this table are as follows:
 \itemize{
