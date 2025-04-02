@@ -195,7 +195,7 @@ corrp <- function(df,
       function(k) {
         ny <- cnames[index.grid[["i"]][k]]
         nx <- cnames[index.grid[["j"]][k]]
-        corr_fun(df,
+        corrp::corr_fun(df,
           ny = ny,
           nx = nx,
           p.value = p.value,
