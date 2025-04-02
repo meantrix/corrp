@@ -185,14 +185,10 @@ corrp <- function(df,
         "df", "p.value", "verbose", "alternative", "comp",
         "cor.nn", "cor.nc", "cor.cc", "num.s", "rk", "lm.args",
         "pearson.args", "cramersV.args", "dcor.args",
-        "pps.args", "mic.args", "uncoef.args"
+        "pps.args", "mic.args", "uncoef.args", "corr_fun"
       ),
       envir = environment()
     )
-
-    parallel::clusterEvalQ(cluster, {
-      library("corrp")
-    })
 
     corr <- parallel::parLapplyLB(
       cluster, seq_len(NROW(index.grid)),
