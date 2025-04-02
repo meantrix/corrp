@@ -26,8 +26,8 @@
 #' - **Uncertainty Coefficient:** A measure of nominal association between two variables. Implemented using \code{\link[DescTools]{UncertCoef}}. For more details, see \url{https://doi.org/10.1016/j.jbi.2010.02.001}. The value lies between 0 and 1.\cr
 #' - **Predictive Power Score (PPS):** A metric used to assess predictive relations between categorical variables. Implemented using \code{\link[ppsr]{score}}. For more details, see \url{https://zenodo.org/record/4091345}. The value lies between 0 and 1.\cr
 #'
-#' @return
-#' A list with two tables: `data` and `index`.
+#' @return \[\code{clist}\]\cr
+#' A `clist` which is a list that has two tables: `data` and `index`.
 #'
 #' - **data**: A table containing all the statistical results. The columns of this table are as follows:
 #'
@@ -51,40 +51,40 @@
 #' By default there is no statistical significance test for the PPS algorithm. In this case `isig` is NA, you can enable it by setting `ptest = TRUE` in `pps.args`.\cr
 #' All the `*.args` can modify the parameters (`p.value`, `comp`, `alternative`, `num.s`, `rk`, `ptest`) for the respective method on it's prefix.
 #'
-#' @param df \[\code{data.frame(1)}]\cr input data frame.
-#' @param parallel \[\code{logical(1)}]\cr If it's TRUE run the operations in parallel backend.
-#' @param n.cores \[\code{numeric(1)}]\cr The number of cores to use for parallel execution.
-#' @param p.value \[\code{logical(1)}]\cr
+#' @param df \[\code{data.frame(1)}\]\cr input data frame.
+#' @param parallel \[\code{logical(1)}\]\cr If it's TRUE run the operations in parallel backend.
+#' @param n.cores \[\code{numeric(1)}\]\cr The number of cores to use for parallel execution.
+#' @param p.value \[\code{logical(1)}\]\cr
 #' P-value probability of obtaining the observed results of a test,
 #' assuming that the null hypothesis is correct. By default p.value=0.05 (Cutoff value for p-value.).
-#' @param comp \[\code{character(1)}]\cr The parameter \code{p.value} must be greater
+#' @param comp \[\code{character(1)}\]\cr The parameter \code{p.value} must be greater
 #'  or less than those estimated in tests and correlations.
-#' @param alternative \[\code{character(1)}]\cr a character string specifying the alternative hypothesis for
+#' @param alternative \[\code{character(1)}\]\cr a character string specifying the alternative hypothesis for
 #' the correlation inference. It must be one of "two.sided" (default), "greater" or "less".
 #' You can specify just the initial letter.
-#' @param verbose \[\code{logical(1)}]\cr Activate verbose mode.
-#' @param num.s \[\code{numeric(1)}]\cr Used in permutation test. The number of samples with
+#' @param verbose \[\code{logical(1)}\]\cr Activate verbose mode.
+#' @param num.s \[\code{numeric(1)}\]\cr Used in permutation test. The number of samples with
 #' replacement created with y numeric vector.
-#' @param rk \[\code{logical(1)}]\cr Used in permutation test.
+#' @param rk \[\code{logical(1)}\]\cr Used in permutation test.
 #' if its TRUE transform x, y numeric vectors with samples ranks.
-#' @param cor.nn \[\code{character(1)}]\cr
+#' @param cor.nn \[\code{character(1)}\]\cr
 #' Choose correlation type to be used in integer/numeric pair inference.
 #' The options are `pearson: Pearson Correlation`,`mic: Maximal Information Coefficient`,
 #' `dcor: Distance Correlation`,`pps: Predictive Power Score`.Default is `Pearson Correlation`.
-#' @param cor.nc \[\code{character(1)}]\cr
+#' @param cor.nc \[\code{character(1)}\]\cr
 #' Choose correlation type to be used in integer/numeric - factor/categorical pair inference.
 #' The option are `lm: Linear Model`,`pps: Predictive Power Score`. Default is `Linear Model`.
-#' @param cor.cc  \[\code{character(1)}]\cr
+#' @param cor.cc  \[\code{character(1)}\]\cr
 #' Choose correlation type to be used in factor/categorical pair inference.
 #' The option are `cramersV: Cramer's V`,`uncoef: Uncertainty coefficient`,
 #' `pps: Predictive Power Score`. Default is `Cramer's V`.
-#' @param lm.args \[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.
-#' @param pearson.args \[\code{list(1)}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.
-#' @param dcor.args \[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcorT_test}}.
-#' @param mic.args \[\code{list(1)}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.
-#' @param pps.args \[\code{list(1)}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.
-#' @param uncoef.args \[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.
-#' @param cramersV.args \[\code{list(1)}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.
+#' @param lm.args \[\code{list}\]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.
+#' @param pearson.args \[\code{list}\]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.
+#' @param dcor.args \[\code{list}\]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcor_t_test}}.
+#' @param mic.args \[\code{list}\]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.
+#' @param pps.args \[\code{list}\]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.
+#' @param uncoef.args \[\code{list}\]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.
+#' @param cramersV.args \[\code{list}\]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
@@ -164,8 +164,6 @@ corrp <- function(df,
   checkmate::assert_list(cramersV.args)
   checkmate::assert_list(uncoef.args)
 
-  on.exit(if (parallel) parallel::stopCluster(cluster))
-
   stopifnot(
     all(
       vapply(df, class, character(1)) %in%
@@ -179,10 +177,24 @@ corrp <- function(df,
   # Parallel corr_fun
   if (parallel) {
     cluster <- parallel::makeCluster(n.cores)
+    on.exit(parallel::stopCluster(cluster))
+
+    parallel::clusterExport(
+      cl = cluster,
+      c(
+        "df", "p.value", "verbose", "alternative", "comp",
+        "cor.nn", "cor.nc", "cor.cc", "num.s", "rk", "lm.args",
+        "pearson.args", "cramersV.args", "dcor.args",
+        "pps.args", "mic.args", "uncoef.args"
+      ),
+      envir = environment()
+    )
+
     parallel::clusterEvalQ(cluster, {
-      library(corrp)
+      library("corrp")
     })
-    corr <- parallel::clusterApply(
+
+    corr <- parallel::parLapplyLB(
       cluster, seq_len(NROW(index.grid)),
       function(k) {
         ny <- cnames[index.grid[["i"]][k]]

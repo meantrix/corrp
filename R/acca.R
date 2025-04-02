@@ -2,7 +2,7 @@
 #' @importFrom Rcpp evalCpp
 #' @importFrom RcppArmadillo armadillo_version
 #' @importFrom corrplot corrplot
-
+#' @importFrom palmerpenguins path_to_file
 
 #' @title Average correlation clustering algorithm
 #'
@@ -10,16 +10,16 @@
 #' This implementation works directly with the correlation matrix derived from the \code{\link{corr_matrix}} function and supports mixed data types along with various correlation methods.\cr
 #' ACCA is an unsupervised clustering method, meaning it identifies patterns without predefined labels. Similar to k-means, it requires defining the K parameter, which controls the number of clusters.
 #'
-#' @param m  \[\code{matrix(1)}]\cr correlation matrix from
+#' @param m  \[\code{matrix}\]\cr correlation matrix from
 #' \code{\link{corr_matrix}} or a distance matrix.
-#' @param k \[\code{integer(1)}]\cr number of clusters considered.
-#' @param maxrep \[\code{integer(1)}]\cr maximum number of
+#' @param k \[\code{integer(1)}\]\cr number of clusters considered.
+#' @param maxrep \[\code{integer(1)}\]\cr maximum number of
 #' interactions without change in the clusters.
-#' @param maxiter \[\code{integer(1)}]\cr maximum number of interactions.
+#' @param maxiter \[\code{integer(3)}\]\cr maximum number of interactions.
 #' @param ... Not used. Included for S3 method consistency.
 #'
-#' @return \[\code{acca_list(k)}]\cr A list with the
-#' final result of the clustering method.
+#' @return \[\code{acca_list}\]\cr
+#' A list with the final result of the clustering method.
 #'  That is, every element of the list group names of the variables belonging to each cluster k.
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos

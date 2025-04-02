@@ -120,7 +120,7 @@
   args <- c(list(x), list(y), dcor.args)
 
 
-  dc <- do.call(dcorT_test, args)
+  dc <- do.call(dcor_t_test, args)
 
   pv <- dc$p.value
   r <- as.numeric(dc$estimate)
@@ -422,13 +422,13 @@
 #' @title Assert Required Argument
 #' @description Ensures that a required argument is provided. If the argument is missing, it throws an error with a clear message.
 #'
-#' @param arg \[\code{any}]\cr
+#' @param arg \[\code{any}\]\cr
 #' The argument to check.
 #'
-#' @param description \[\code{character(1)}]\cr
+#' @param description \[\code{character(1)}\]\cr
 #' A description of the argument's purpose and requirements.
 #'
-#' @return Throws an error if the argument is missing; otherwise, returns \code{NULL}.
+#' @return \[\code{NULL}\]
 #'
 #'
 #' @export
@@ -447,10 +447,10 @@ assert_required_argument <- function(arg, description) {
 #' @title Set Argument
 #' @description Assigns provided arguments from the `args_list` to the parent environment. If an argument is inside the arguments of the methods that calculate statistics, it assigns it on the parent environment, and removes the argument from the list.
 #'
-#' @param args_list \[\code{list}]\cr
+#' @param args_list \[\code{list}\]\cr
 #' A named list of arguments to be assigned to the parent environment.
 #'
-#' @return A modified \code{args_list} with the arguments that were assigned to the parent environment removed.
+#' @return \[\code{list}\]\cr A modified \code{args_list} with the arguments that were assigned to the parent environment removed.
 #'
 #' @export
 set_arguments <- function(args_list) {

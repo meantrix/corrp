@@ -71,9 +71,9 @@ remotes::install_github("meantrix/corrp@main")
 
 ```r
 # coorp with using iris using parallel processing
-results = corrp::corrp(iris, cor.nn = 'mic', cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2 , verbose = FALSE)
+results <- corrp::corrp(iris, cor.nn = 'mic', cor.nc = 'pps',cor.cc = 'uncoef', n.cores = 2, verbose = FALSE)
 # an sequential example with different correlation pair types
-results_2 = corrp::corrp(mtcars, cor.nn = 'pps', cor.nc = 'lm', cor.cc = 'cramersV', parallel = FALSE, verbose = FALSE)
+results_2 <- corrp::corrp(palmerpenguins::penguins, cor.nn = 'pps', cor.nc = 'lm', cor.cc = 'cramersV', parallel = FALSE, verbose = FALSE)
 
 head(results$data)
 #                            infer infer.value        stat stat.value isig msg         varx         vary
@@ -86,20 +86,22 @@ head(results$data)
 
 head(results_2$data)
 
-#                  infer infer.value stat stat.value isig msg varx vary
-# Predictive Power Score   1.0000000 <NA>         NA NA      mpg  mpg
-# Predictive Power Score   0.3861810  MAE  0.8899206 NA      mpg  cyl
-# Predictive Power Score   0.3141056  MAE 74.7816795 NA      mpg disp
-# Predictive Power Score   0.2311418  MAE 42.3961506 NA      mpg   hp
-# Predictive Power Score   0.1646116  MAE  0.3992651 NA      mpg drat
-# Predictive Power Score   0.2075760  MAE  0.5768637 NA      mpg   wt
+#        infer infer.value    stat    stat.value isig msg    varx                 vary
+#   Cramer's V   1.0000000 P-value  4.997501e-04 TRUE     species              species
+#   Cramer's V   0.6598431 P-value  4.997501e-04 TRUE     species               island
+# Linear Model   0.8413139 P-value  2.694614e-91 TRUE     species       bill_length_mm
+# Linear Model   0.8244751 P-value  1.507658e-84 TRUE     species        bill_depth_mm
+# Linear Model   0.8821728 P-value 1.351710e-111 TRUE     species    flipper_length_mm
+# Linear Model   0.8183349 P-value  2.892368e-82 TRUE     species          body_mass_g
+  
+
 
 ```
 
 `corr_matrix` Using the previous result we can create a correlation matrix as follows:
 
 ```r
-m = corr_matrix(results,col = 'infer.value',isig = TRUE)
+m <- corrp::corr_matrix(results, col = 'infer.value', isig = FALSE)
 m
 #              Sepal.Length Sepal.Width Petal.Length Petal.Width   Species
 # Sepal.Length    0.9994870   0.2770503    0.7682996   0.6683281 0.4075487
@@ -110,11 +112,19 @@ m
 # attr(,"class")
 # [1] "cmatrix" "matrix" 
 ```
+
+We can use the `corrplot::corrplot` function to plot the correlation matrix.
+
+```r
+corrplot::corrplot(m)
+```
+![Correlation Matrix Plot](images/corrplot.svg)
+
 Now, we can clustering the data set variables through ACCA and the correlation matrix.
 By way of example, consider 2 clusters `k = 2`:
 
 ```r
-acca.res = acca(m,2)
+acca.res <- corrp::acca(m, 2)
 acca.res
 # $cluster1
 # [1] "Species"      "Sepal.Length" "Petal.Width" 
@@ -129,7 +139,7 @@ acca.res
 Also,we can calculate The average silhouette width to the cluster `acca.res`:
 
 ```r
-sil_acca(acca.res,m)
+corrp::sil_acca(acca.res, m)
 # [1] -0.02831006
 # attr(,"class")
 # [1] "corrpstat"
@@ -137,6 +147,9 @@ sil_acca(acca.res,m)
 # [1] "Silhouette"
 ```
 Observations with a large average silhouette width (almost 1) are very well clustered.
+
+
+
 
 
 ### Contributing to corrp

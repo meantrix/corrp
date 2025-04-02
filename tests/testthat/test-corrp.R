@@ -1,8 +1,6 @@
 test_that("Tests on corrp and cor_fun functions", {
   # data to tests
   df <- iris
-
-
   # class test
   corr <- corrp(df, comp = "g", alternative = "t")
   expect_s3_class(corr, "clist")
@@ -99,7 +97,7 @@ test_that("Tests on corrp and cor_fun functions", {
 
   # Dcor
   for (i in seq_len(NROW(data.num))) {
-    i.test <- dcorT_test(df[[as.character(data.num$varx[i])]], df[[as.character(data.num$vary[i])]])
+    i.test <- dcor_t_test(df[[as.character(data.num$varx[i])]], df[[as.character(data.num$vary[i])]])
 
     i.fun <- corr_fun(df,
       nx = as.character(data.num$varx[i]), ny = as.character(data.num$vary[i]), alternative = "t", cor.nn = "dcor",

@@ -66,22 +66,23 @@ Choose correlation type to be used in factor/categorical pair inference.
 The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient},
 \verb{pps: Predictive Power Score}. Default is \verb{Cramer's V}.}
 
-\item{lm.args}{[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.}
+\item{lm.args}{[\code{list}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.}
 
-\item{pearson.args}{[\code{list(1)}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.}
+\item{pearson.args}{[\code{list}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.}
 
-\item{dcor.args}{[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcorT_test}}.}
+\item{dcor.args}{[\code{list}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcor_t_test}}.}
 
-\item{mic.args}{[\code{list(1)}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.}
+\item{mic.args}{[\code{list}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.}
 
-\item{pps.args}{[\code{list(1)}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.}
+\item{pps.args}{[\code{list}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.}
 
-\item{cramersV.args}{[\code{list(1)}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.}
+\item{cramersV.args}{[\code{list}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.}
 
-\item{uncoef.args}{[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
+\item{uncoef.args}{[\code{list}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
 }
 \value{
-A list with two tables: \code{data} and \code{index}.
+[\code{clist}]\cr
+A \code{clist} which is a list that has two tables: \code{data} and \code{index}.
 \itemize{
 \item \strong{data}: A table containing all the statistical results. The columns of this table are as follows:
 \itemize{
