@@ -182,7 +182,16 @@ corrp <- function(df,
     cluster <- parallel::makeCluster(n.cores)
     on.exit(parallel::stopCluster(cluster))
 
-    parallel::clusterExport(cl = cluster, c("is_install", "package_path"), envir = environment())
+    parallel::clusterExport(
+      cl = cluster,
+      c(
+        "is_install", "package_path", "df", "p.value", "verbose",
+        "alternative", "comp", "cor.nn", "cor.nc", "cor.cc",
+        "num.s", "rk", "lm.args", "pearson.args", "cramersV.args",
+        "dcor.args", "pps.args", "mic.args", "uncoef.args"
+      ),
+      envir = environment()
+    )
 
     parallel::clusterEvalQ(cluster, {
       if (is_install) {
@@ -192,7 +201,7 @@ corrp <- function(df,
       }
     })
 
-    corr <- parallel::clusterApply(
+    corr <- parallel::parLapplyLB(
       cluster, seq_len(NROW(index.grid)),
       function(k) {
         ny <- cnames[index.grid[["i"]][k]]
