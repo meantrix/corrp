@@ -147,8 +147,7 @@ bench::mark(
     n.cores = 8, # Enable parallel processing with 8 cores
     verbose = FALSE
   ),
-  iterations = 10,
-  filter_gc = FALSE
+  iterations = 10
 )
 ```
 
@@ -164,8 +163,7 @@ r = bench::mark(
     n.cores = 2, # Enable parallel processing with 2 cores
     verbose = FALSE
   ),
-  iterations = 1,
-  filter_gc = FALSE
+  iterations = 1
 )
 ```
 
