@@ -185,7 +185,7 @@ corrp <- function(df,
         "df", "p.value", "verbose", "alternative", "comp",
         "cor.nn", "cor.nc", "cor.cc", "num.s", "rk", "lm.args",
         "pearson.args", "cramersV.args", "dcor.args",
-        "pps.args", "mic.args", "uncoef.args", "corr_fun"
+        "pps.args", "mic.args", "uncoef.args"
       ),
       envir = environment()
     )
@@ -195,7 +195,7 @@ corrp <- function(df,
       function(k) {
         ny <- cnames[index.grid[["i"]][k]]
         nx <- cnames[index.grid[["j"]][k]]
-        corrp::corr_fun(df,
+        corr_fun(df,
           ny = ny,
           nx = nx,
           p.value = p.value,
