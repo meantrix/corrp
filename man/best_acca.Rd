@@ -30,10 +30,12 @@ of interactions in the ACCA method.}
 }
 \value{
 [\code{list}]\cr
-A list with:
-silhouette average with per k \verb{$silhouette.ave};
-the sequence of clusters tested \verb{$k} and
-the optimal number of clusters \verb{$best.k}.
+A \code{list} which is a list that has three elements:
+\itemize{
+\item \strong{silhouette.ave}: The silhouettes average per k.
+\item \strong{k}: The sequence of clusters tested.
+\item \strong{best.k}: The optimal number of clusters.
+}
 }
 \description{
 Determining the optimal number of

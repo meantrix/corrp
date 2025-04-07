@@ -27,7 +27,7 @@ corrp(
 )
 }
 \arguments{
-\item{df}{[\code{data.frame(1)}]\cr input data frame.}
+\item{df}{[\code{data.frame}]\cr input data frame.}
 
 \item{parallel}{[\code{logical(1)}]\cr If it's TRUE run the operations in parallel backend.}
 
@@ -89,7 +89,7 @@ A \code{clist} which is a list that has two tables: \code{data} and \code{index}
 \item \code{infer}: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
 \item \code{infer.value}: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
 \item \code{stat}: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
-\item `stat.value: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
+\item \code{stat.value}: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
 \item \code{isig}: A logical value indicating whether the statistical result is significant (\code{TRUE}) or not, based on predefined criteria (e.g., threshold for P-value).
 \item \code{msg}: A message or error related to the inference process.
 \item \code{varx}: The name of the first variable in the analysis (independent variable or feature).

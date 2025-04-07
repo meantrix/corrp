@@ -20,16 +20,13 @@ lm.args <- lm.args <- pearson.args <- cramersV.args <- dcor.args <- pps.args <- 
 for (i in 1:NCOL(df)) {
   for (j in 1:NCOL(df)) {
     p <- corr_fun(df, ny = colnames(df)[i], nx = colnames(df)[j], cor.nn = cor.nn, cor.nc = cor.nc, cor.cc = cor.cc)
-    p2 <- ppsr::score(df, y = colnames(df)[i], x = colnames(df)[i])
+    p2 <- ppsr::score(df, y = colnames(df)[i], x = colnames(df)[j])
+    # browser()  # check outputs
   }
 }
 
-p1 <- corrp(df, cor.nn = cor.nn, cor.nc = cor.nc, cor.cc = cor.cc)
-p1 <- corr_matrix(p, cor.nn = cor.nn, cor.nc = cor.nc, cor.cc = cor.cc)
-
-pps.test <- corrp(df, cor.nn = cor.nn, cor.nc = cor.nc, cor.cc = cor.cc)
-
-
+p <- corrp(df, cor.nn = cor.nn, cor.nc = cor.nc, cor.cc = cor.cc)
+p <- corr_matrix(p, cor.nn = cor.nn, cor.nc = cor.nc, cor.cc = cor.cc)
 # ptest
 
 x <- iris[[1]]
