@@ -34,7 +34,7 @@
 #'     - `infer`: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
 #'     - `infer.value`: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
 #'     - `stat`: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
-#'     - `stat.value: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
+#'     - `stat.value`: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
 #'     - `isig`: A logical value indicating whether the statistical result is significant (`TRUE`) or not, based on predefined criteria (e.g., threshold for P-value).
 #'     - `msg`: A message or error related to the inference process.
 #'     - `varx`: The name of the first variable in the analysis (independent variable or feature).
@@ -51,7 +51,7 @@
 #' By default there is no statistical significance test for the PPS algorithm. In this case `isig` is NA, you can enable it by setting `ptest = TRUE` in `pps.args`.\cr
 #' All the `*.args` can modify the parameters (`p.value`, `comp`, `alternative`, `num.s`, `rk`, `ptest`) for the respective method on it's prefix.
 #'
-#' @param df \[\code{data.frame(1)}\]\cr input data frame.
+#' @param df \[\code{data.frame}\]\cr input data frame.
 #' @param parallel \[\code{logical(1)}\]\cr If it's TRUE run the operations in parallel backend.
 #' @param n.cores \[\code{numeric(1)}\]\cr The number of cores to use for parallel execution.
 #' @param p.value \[\code{logical(1)}\]\cr

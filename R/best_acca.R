@@ -14,11 +14,18 @@
 #' of interactions in the ACCA method.
 #' @param ... Not used. Included for S3 method consistency.
 #'
+#'
 #' @return \[\code{list}\]\cr
-#' A list with:
-#' silhouette average with per k `$silhouette.ave`;
-#' the sequence of clusters tested `$k` and
-#' the optimal number of clusters `$best.k`.
+#' A `list` which is a list that has three elements:
+#'
+#' - **silhouette.ave**: The silhouettes average per k.
+#'
+#' - **k**: The sequence of clusters tested.
+#' 
+#' - **best.k**: The optimal number of clusters.
+#'
+#'
+#'
 #' @seealso \code{\link{sil_acca}}
 #'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
