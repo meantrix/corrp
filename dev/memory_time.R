@@ -1,3 +1,7 @@
+# Need to install mallinfo and future package
+# devtools::install_github("Laurae2/mallinfo")
+# install.packages("future")
+
 future::plan(strategy = future::multicore)
 options(future.globals.maxSize = Inf)
 

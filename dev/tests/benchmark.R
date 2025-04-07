@@ -1,6 +1,9 @@
 library(corrp)
 library(laeken)
 data(eusilc)
+# Need to install mallinfo and future package
+# devtools::install_github("Laurae2/mallinfo")
+# install.packages("future")
 source("./dev/memory_time.R")
 
 
