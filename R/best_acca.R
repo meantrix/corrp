@@ -21,7 +21,7 @@
 #' - **silhouette.ave**: The silhouettes average per k.
 #'
 #' - **k**: The sequence of clusters tested.
-#' 
+#'
 #' - **best.k**: The optimal number of clusters.
 #'
 #'

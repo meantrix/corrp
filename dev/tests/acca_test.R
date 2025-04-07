@@ -23,7 +23,3 @@ tictoc::toc()
 tictoc::tic()
 m <- corrp::corr_matrix(x)
 tictoc::toc()
-
-
-
-

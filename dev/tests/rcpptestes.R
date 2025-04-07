@@ -10,20 +10,20 @@ diffs(c(1, 2, 3, 5), c(1, 2, 3, 4))
 
 evalCpp("(int)10 / 3 + (int)10 % 3")
 
-Rcpp::evalCpp('
+Rcpp::evalCpp("
   []() {
     NumericVector v = NumericVector::create(1, 2, 3);
-    NumericVector y = NumericVector::create(1, 2, 2, 2);  
+    NumericVector y = NumericVector::create(1, 2, 2, 2);
     return v + y;
   }()
-')
+")
 
-Rcpp::evalCpp('
+Rcpp::evalCpp("
   // directly return the sum of two created vectors
   NumericVector::create(1, 2, 3) + NumericVector::create(1, 2, 2, 2)
-')
+")
 #> [1] 2 4 5 5
-Rcpp::evalCpp('
+Rcpp::evalCpp("
   []() {
     NumericVector x = NumericVector::create(1, 2, 3, 4);
     NumericVector y = NumericVector::create(1, 2, 2, 2, 2);
@@ -42,7 +42,7 @@ Rcpp::evalCpp('
 
     return out;
   }()
-')
+")
 
 
 cppFunction("
@@ -52,4 +52,3 @@ cppFunction("
     }")
 
 basic_function(c("o", "o", "oi"), c("oa", "oa", "oi"))
-

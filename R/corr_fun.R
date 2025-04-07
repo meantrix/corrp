@@ -13,7 +13,7 @@
 #'
 #' @return \[\code{list}\]\cr
 #' A list containing statistical and basic information with 8 elements:
-#' 
+#'
 #'   - **infer**: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
 #'   - **infer.value**: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
 #'   - **stat**: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
@@ -22,7 +22,7 @@
 #'   - **msg**: A message or error related to the inference process.
 #'   - **varx**: The name of the first variable in the analysis (independent variable or feature).
 #'   - **vary**: The name of the second variable in the analysis (dependent/target variable).
-#' 
+#'
 #' All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable `isig` will be `FALSE`.\cr
 #' If any errors occur during operations the association measure (`infer.value`) will be `NA`.\cr
 #' The result `data` and `index` will have \eqn{N^2} rows, where N is the number of variables of the input data.
