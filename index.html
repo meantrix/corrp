@@ -59,8 +59,7 @@
 </h1>
 </div>
 <p><a href="http://meantrix.com" class="external-link"><img src="reference/figures/logo.png" align="right" height="139"></a> <!-- badges: start --></p>
-<p><a href="https://semver.org" class="external-link"><img src="https://img.shields.io/badge/version-0.6.0-green.svg" alt="version"></a> <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link"><img src="https://img.shields.io/badge/License-GPL3-green.svg" alt="License: GPL3"></a></p>
-<!-- badges: end -->
+<p><a href="https://semver.org" class="external-link"><img src="https://img.shields.io/badge/version-0.6.0-green.svg" alt="version"></a> <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" class="external-link"><img src="https://img.shields.io/badge/License-GPL3-green.svg" alt="License: GPL3"></a> <a href="https://github.com/meantrix/corrp/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/meantrix/corrp/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a> <!-- badges: end --></p>
 <p>Correlation-like analysis provides an important statistical measure that describes the size and direction of an association between variables. However, there are few R packages that can efficiently perform this type of analysis on large datasets with mixed data types. The <code>corrp</code> package provides a full suite of solutions for computing various correlation-like measures, such as Pearson correlation, Distance Correlation, Maximal Information Coefficient (MIC), Predictive Power Score (PPS), Cramér’s V, and the Uncertainty Coefficient. These methods support the analysis of data frames with mixed classes (integer, numeric, factor, and character).</p>
 <p>Additionally, it offers a C++ implementation of the Average Correlation Clustering Algorithm (ACCA) <a href="https://www.sciencedirect.com/science/article/pii/S1532046410000158" class="external-link">ACCA</a>, which was originally developed for genetic studies using Pearson correlation as a similarity measure. In general, ACCA is an unsupervised clustering method, as it identifies patterns in the data without requiring predefined labels. Moreover, it requires the K parameter to be defined, similar to k-means. One of its main differences compared to other clustering methods is that it operates based on correlations rather than traditional distance metrics, such as Euclidean or Mahalanobis distance.</p>
 <p>In this package, the ACCA algorithm has been extended to work directly with correlation matrices derived from different association methods, depending on the data types and user preferences. Furthermore, the package is designed for parallel processing in R, making it highly efficient for large datasets.</p>
@@ -129,9 +128,9 @@
 <p><code>corrp</code> Next, we calculate the correlations for the data set iris using: Maximal Information Coefficient for numeric pair, the Power Predictive Score algorithm for numeric/categorical pair and Uncertainty coefficient for categorical pair.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># coorp with using iris using parallel processing</span></span>
-<span><span class="va">results</span> <span class="op">=</span> <span class="fu">corrp</span><span class="fu">::</span><span class="fu"><a href="reference/corrp.html">corrp</a></span><span class="op">(</span><span class="va">iris</span>, cor.nn <span class="op">=</span> <span class="st">'mic'</span>, cor.nc <span class="op">=</span> <span class="st">'pps'</span>,cor.cc <span class="op">=</span> <span class="st">'uncoef'</span>, n.cores <span class="op">=</span> <span class="fl">2</span> , verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu">corrp</span><span class="fu">::</span><span class="fu"><a href="reference/corrp.html">corrp</a></span><span class="op">(</span><span class="va">iris</span>, cor.nn <span class="op">=</span> <span class="st">'mic'</span>, cor.nc <span class="op">=</span> <span class="st">'pps'</span>,cor.cc <span class="op">=</span> <span class="st">'uncoef'</span>, n.cores <span class="op">=</span> <span class="fl">2</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="co"># an sequential example with different correlation pair types</span></span>
-<span><span class="va">results_2</span> <span class="op">=</span> <span class="fu">corrp</span><span class="fu">::</span><span class="fu"><a href="reference/corrp.html">corrp</a></span><span class="op">(</span><span class="va">mtcars</span>, cor.nn <span class="op">=</span> <span class="st">'pps'</span>, cor.nc <span class="op">=</span> <span class="st">'lm'</span>, cor.cc <span class="op">=</span> <span class="st">'cramersV'</span>, parallel <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
+<span><span class="va">results_2</span> <span class="op">&lt;-</span> <span class="fu">corrp</span><span class="fu">::</span><span class="fu"><a href="reference/corrp.html">corrp</a></span><span class="op">(</span><span class="fu">palmerpenguins</span><span class="fu">::</span><span class="va"><a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html" class="external-link">penguins</a></span>, cor.nn <span class="op">=</span> <span class="st">'pps'</span>, cor.nc <span class="op">=</span> <span class="st">'lm'</span>, cor.cc <span class="op">=</span> <span class="st">'cramersV'</span>, parallel <span class="op">=</span> <span class="cn">FALSE</span>, verbose <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span>
 <span><span class="co">#                            infer infer.value        stat stat.value isig msg         varx         vary</span></span>
@@ -144,16 +143,17 @@
 <span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">results_2</span><span class="op">$</span><span class="va">data</span><span class="op">)</span></span>
 <span></span>
-<span><span class="co">#                  infer infer.value stat stat.value isig msg varx vary</span></span>
-<span><span class="co"># Predictive Power Score   1.0000000 &lt;NA&gt;         NA NA      mpg  mpg</span></span>
-<span><span class="co"># Predictive Power Score   0.3861810  MAE  0.8899206 NA      mpg  cyl</span></span>
-<span><span class="co"># Predictive Power Score   0.3141056  MAE 74.7816795 NA      mpg disp</span></span>
-<span><span class="co"># Predictive Power Score   0.2311418  MAE 42.3961506 NA      mpg   hp</span></span>
-<span><span class="co"># Predictive Power Score   0.1646116  MAE  0.3992651 NA      mpg drat</span></span>
-<span><span class="co"># Predictive Power Score   0.2075760  MAE  0.5768637 NA      mpg   wt</span></span></code></pre></div>
+<span><span class="co">#        infer infer.value    stat    stat.value isig msg    varx                 vary</span></span>
+<span><span class="co">#   Cramer's V   1.0000000 P-value  4.997501e-04 TRUE     species              species</span></span>
+<span><span class="co">#   Cramer's V   0.6598431 P-value  4.997501e-04 TRUE     species               island</span></span>
+<span><span class="co"># Linear Model   0.8413139 P-value  2.694614e-91 TRUE     species       bill_length_mm</span></span>
+<span><span class="co"># Linear Model   0.8244751 P-value  1.507658e-84 TRUE     species        bill_depth_mm</span></span>
+<span><span class="co"># Linear Model   0.8821728 P-value 1.351710e-111 TRUE     species    flipper_length_mm</span></span>
+<span><span class="co"># Linear Model   0.8183349 P-value  2.892368e-82 TRUE     species          body_mass_g</span></span>
+<span>  </span></code></pre></div>
 <p><code>corr_matrix</code> Using the previous result we can create a correlation matrix as follows:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">m</span> <span class="op">=</span> <span class="fu"><a href="reference/corr_matrix.html">corr_matrix</a></span><span class="op">(</span><span class="va">results</span>,col <span class="op">=</span> <span class="st">'infer.value'</span>,isig <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="va">m</span> <span class="op">&lt;-</span> <span class="fu">corrp</span><span class="fu">::</span><span class="fu"><a href="reference/corr_matrix.html">corr_matrix</a></span><span class="op">(</span><span class="va">results</span>, col <span class="op">=</span> <span class="st">'infer.value'</span>, isig <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span></span>
 <span><span class="va">m</span></span>
 <span><span class="co">#              Sepal.Length Sepal.Width Petal.Length Petal.Width   Species</span></span>
 <span><span class="co"># Sepal.Length    0.9994870   0.2770503    0.7682996   0.6683281 0.4075487</span></span>
@@ -163,9 +163,15 @@
 <span><span class="co"># Species         0.5591864   0.3134401    0.9167580   0.9398532 0.9999758</span></span>
 <span><span class="co"># attr(,"class")</span></span>
 <span><span class="co"># [1] "cmatrix" "matrix" </span></span></code></pre></div>
-<p>Now, we can clustering the data set variables through ACCA and the correlation matrix. By way of example, consider 2 clusters <code>k = 2</code>:</p>
+<p>We can use the <code><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html" class="external-link">corrplot::corrplot</a></code> function to plot the correlation matrix.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">acca.res</span> <span class="op">=</span> <span class="fu"><a href="reference/acca.html">acca</a></span><span class="op">(</span><span class="va">m</span>,<span class="fl">2</span><span class="op">)</span></span>
+<code class="sourceCode R"><span><span class="fu">corrplot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html" class="external-link">corrplot</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div>
+<div class="float">
+<img src="images/corrplot.svg" alt="Correlation Matrix Plot"><div class="figcaption">Correlation Matrix Plot</div>
+</div>
+<p>Now, we can clustering the data set variables through ACCA and the correlation matrix. By way of example, consider 2 clusters <code>k = 2</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">acca.res</span> <span class="op">&lt;-</span> <span class="fu">corrp</span><span class="fu">::</span><span class="fu"><a href="reference/acca.html">acca</a></span><span class="op">(</span><span class="va">m</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span><span class="va">acca.res</span></span>
 <span><span class="co"># $cluster1</span></span>
 <span><span class="co"># [1] "Species"      "Sepal.Length" "Petal.Width" </span></span>
@@ -176,8 +182,8 @@
 <span><span class="co"># attr(,"class")</span></span>
 <span><span class="co"># [1] "acca_list" "list"     </span></span></code></pre></div>
 <p>Also,we can calculate The average silhouette width to the cluster <code>acca.res</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="reference/sil_acca.html">sil_acca</a></span><span class="op">(</span><span class="va">acca.res</span>,<span class="va">m</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu">corrp</span><span class="fu">::</span><span class="fu"><a href="reference/sil_acca.html">sil_acca</a></span><span class="op">(</span><span class="va">acca.res</span>, <span class="va">m</span><span class="op">)</span></span>
 <span><span class="co"># [1] -0.02831006</span></span>
 <span><span class="co"># attr(,"class")</span></span>
 <span><span class="co"># [1] "corrpstat"</span></span>

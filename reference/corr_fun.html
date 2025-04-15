@@ -82,7 +82,7 @@ a categorical variable.</p>
 
 
 <dl><dt id="arg-df">df<a class="anchor" aria-label="anchor" href="#arg-df"></a></dt>
-<dd><p>[<code>data.frame(1)</code>]<br> input data frame.</p></dd>
+<dd><p>[<code>data.frame</code>]<br> input data frame.</p></dd>
 
 
 <dt id="arg-nx">nx<a class="anchor" aria-label="anchor" href="#arg-nx"></a></dt>
@@ -145,37 +145,45 @@ The option are <code>cramersV: Cramer's V</code>,<code>uncoef: Uncertainty coeff
 
 
 <dt id="arg-lm-args">lm.args<a class="anchor" aria-label="anchor" href="#arg-lm-args"></a></dt>
-<dd><p>[<code>list(1)</code>]<br> additional parameters for linear model to be passed to <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></code>.</p></dd>
+<dd><p>[<code>list</code>]<br> additional parameters for linear model to be passed to <code><a href="https://rdrr.io/r/stats/lm.html" class="external-link">lm</a></code>.</p></dd>
 
 
 <dt id="arg-pearson-args">pearson.args<a class="anchor" aria-label="anchor" href="#arg-pearson-args"></a></dt>
-<dd><p>[<code>list(1)</code>]<br> additional parameters for Pearson correlation to be passed to <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></code>.</p></dd>
+<dd><p>[<code>list</code>]<br> additional parameters for Pearson correlation to be passed to <code><a href="https://rdrr.io/r/stats/cor.test.html" class="external-link">cor.test</a></code>.</p></dd>
 
 
 <dt id="arg-dcor-args">dcor.args<a class="anchor" aria-label="anchor" href="#arg-dcor-args"></a></dt>
-<dd><p>[<code>list(1)</code>]<br> additional parameters for the distance correlation to be passed to <code><a href="dcorT_test.html">dcorT_test</a></code>.</p></dd>
+<dd><p>[<code>list</code>]<br> additional parameters for the distance correlation to be passed to <code><a href="dcor_t_test.html">dcor_t_test</a></code>.</p></dd>
 
 
 <dt id="arg-mic-args">mic.args<a class="anchor" aria-label="anchor" href="#arg-mic-args"></a></dt>
-<dd><p>[<code>list(1)</code>]<br> additional parameters for the maximal information coefficient to be passed to <code><a href="https://rdrr.io/pkg/minerva/man/mine.html" class="external-link">mine</a></code>.</p></dd>
+<dd><p>[<code>list</code>]<br> additional parameters for the maximal information coefficient to be passed to <code><a href="https://rdrr.io/pkg/minerva/man/mine.html" class="external-link">mine</a></code>.</p></dd>
 
 
 <dt id="arg-pps-args">pps.args<a class="anchor" aria-label="anchor" href="#arg-pps-args"></a></dt>
-<dd><p>[<code>list(1)</code>]<br> additional parameters for the predictive power score to be passed to <code><a href="https://rdrr.io/pkg/ppsr/man/score.html" class="external-link">score</a></code>.</p></dd>
+<dd><p>[<code>list</code>]<br> additional parameters for the predictive power score to be passed to <code><a href="https://rdrr.io/pkg/ppsr/man/score.html" class="external-link">score</a></code>.</p></dd>
 
 
 <dt id="arg-cramersv-args">cramersV.args<a class="anchor" aria-label="anchor" href="#arg-cramersv-args"></a></dt>
-<dd><p>[<code>list(1)</code>]<br> additional parameters for the Cramer's V to be passed to <code><a href="https://rdrr.io/pkg/lsr/man/cramersV.html" class="external-link">cramersV</a></code>.</p></dd>
+<dd><p>[<code>list</code>]<br> additional parameters for the Cramer's V to be passed to <code><a href="https://rdrr.io/pkg/lsr/man/cramersV.html" class="external-link">cramersV</a></code>.</p></dd>
 
 
 <dt id="arg-uncoef-args">uncoef.args<a class="anchor" aria-label="anchor" href="#arg-uncoef-args"></a></dt>
-<dd><p>[<code>list(1)</code>]<br> additional parameters for the uncertainty coefficient to be passed to <code><a href="https://andrisignorell.github.io/DescTools/reference/UncertCoef.html" class="external-link">UncertCoef</a></code>.</p></dd>
+<dd><p>[<code>list</code>]<br> additional parameters for the uncertainty coefficient to be passed to <code><a href="https://andrisignorell.github.io/DescTools/reference/UncertCoef.html" class="external-link">UncertCoef</a></code>.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>list with all statistical results.<br>
-All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable <code>isig</code> will be <code>FALSE</code>.<br>
+    <p>[<code>list</code>]<br>
+A list containing statistical and basic information with 8 elements:</p><ul><li><p><strong>infer</strong>: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).</p></li>
+<li><p><strong>infer.value</strong>: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.</p></li>
+<li><p><strong>stat</strong>: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).</p></li>
+<li><p><strong>stat.value</strong>: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).</p></li>
+<li><p><strong>isig</strong>: A logical value indicating whether the statistical result is significant (<code>TRUE</code>) or not, based on predefined criteria (e.g., threshold for P-value).</p></li>
+<li><p><strong>msg</strong>: A message or error related to the inference process.</p></li>
+<li><p><strong>varx</strong>: The name of the first variable in the analysis (independent variable or feature).</p></li>
+<li><p><strong>vary</strong>: The name of the second variable in the analysis (dependent/target variable).</p></li>
+</ul><p>All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable <code>isig</code> will be <code>FALSE</code>.<br>
 If any errors occur during operations the association measure (<code>infer.value</code>) will be <code>NA</code>.<br>
 The result <code>data</code> and <code>index</code> will have \(N^2\) rows, where N is the number of variables of the input data.
 By default there is no statistical significance test for the PPS algorithm. In this case <code>isig</code> is NA, you can enable it by setting <code>ptest = TRUE</code> in <code>pps.args</code>.<br>

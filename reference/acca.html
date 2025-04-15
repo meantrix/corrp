@@ -62,7 +62,7 @@ ACCA is an unsupervised clustering method, meaning it identifies patterns withou
 
 
 <dl><dt id="arg-m">m<a class="anchor" aria-label="anchor" href="#arg-m"></a></dt>
-<dd><p>[<code>matrix(1)</code>]<br> correlation matrix from
+<dd><p>[<code>matrix</code>]<br> correlation matrix from
 <code><a href="corr_matrix.html">corr_matrix</a></code> or a distance matrix.</p></dd>
 
 
@@ -80,13 +80,13 @@ interactions without change in the clusters.</p></dd>
 
 
 <dt id="arg-maxiter">maxiter<a class="anchor" aria-label="anchor" href="#arg-maxiter"></a></dt>
-<dd><p>[<code>integer(1)</code>]<br> maximum number of interactions.</p></dd>
+<dd><p>[<code>integer(3)</code>]<br> maximum number of interactions.</p></dd>
 
 </dl></div>
     <div class="section level2">
     <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
-    <p>[<code>acca_list(k)</code>]<br> A list with the
-final result of the clustering method.
+    <p>[<code>acca_list</code>]<br>
+A list with the final result of the clustering method.
 That is, every element of the list group names of the variables belonging to each cluster k.</p>
     </div>
     <div class="section level2">
