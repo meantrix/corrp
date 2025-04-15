@@ -14,7 +14,7 @@ The argument to check.}
 A description of the argument's purpose and requirements.}
 }
 \value{
-Throws an error if the argument is missing; otherwise, returns \code{NULL}.
+[\code{NULL}]
 }
 \description{
 Ensures that a required argument is provided. If the argument is missing, it throws an error with a clear message.

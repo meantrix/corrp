@@ -2,12 +2,12 @@
 #' @description Execute a one-sample permutation test on two numeric vectors.
 #' One vector is kept constant while the other is "shuffled" by resampling.
 #' This approximates the null hypothesis — that there is no dependency or difference between the variables.
-#' @param x \[\code{numeric(1)}]\cr A numeric vector.
-#' @param y \[\code{numeric(1)}]\cr A numeric vector.
-#' @param FUN \[\code{function(1)}]\cr The function to be applied.
-#' @param num.s \[\code{numeric(1)}]\cr The number of samples with replacement created from the y numeric vector.
-#' @param rk \[\code{logical(1)}]\cr If TRUE, transform x and y numeric vectors with sample ranks.
-#' @param alternative \[\code{character(1)}]\cr A character string specifying the alternative hypothesis.
+#' @param x \[\code{numeric(1)}\]\cr A numeric vector.
+#' @param y \[\code{numeric(1)}\]\cr A numeric vector.
+#' @param FUN \[\code{function(1)}\]\cr The function to be applied.
+#' @param num.s \[\code{numeric(1)}\]\cr The number of samples with replacement created from the y numeric vector.
+#' @param rk \[\code{logical(1)}\]\cr If TRUE, transform x and y numeric vectors with sample ranks.
+#' @param alternative \[\code{character(1)}\]\cr A character string specifying the alternative hypothesis.
 #' Must be one of "greater" (default), "less", or "two.sided". You can specify just the initial letter.
 #' @param ... Additional arguments.
 #'
@@ -16,6 +16,8 @@
 #' x <- iris[[1]]
 #' y <- iris[[2]]
 #' ptest(x, y, FUN = function(x, y) cor(x, y), alternative = "t")
+#'
+#' @return \[\code{numeric(1)}\]\cr The p.value statistic.
 #'
 #' @export
 ptest <- function(x, y,
@@ -75,18 +77,18 @@ ptest <- function(x, y,
 #'
 #' @description Distance correlation t-test of multivariate independence for high dimension. C++ version of energy::dcorT.test.
 #'
-#' @param x \[\code{data.frame(1) | matrix(1)}]\cr A data of the first sample.
-#' @param y \[\code{data.frame(1) | matrix(1)}]\cr A data of the second sample.
+#' @param x \[\code{data.frame | matrix}\]\cr Data of the first sample.
+#' @param y \[\code{data.frame | matrix}\]\cr Data of the second sample.
 #'
-#' @return returns a list containing
-#'   \item{method}{description of test}
-#'   \item{statistic}{observed value of the test statistic}
-#'   \item{parameter}{degrees of freedom}
-#'   \item{estimate}{(bias corrected) squared dCor(x,y)}
-#'   \item{p.value}{p-value of the t-test}
-#'   \item{data.name}{description of data}
+#' @return \[\code{list}\]\cr returns a list containing:
+#'   \item{method}{description of test.}
+#'   \item{statistic}{observed value of the test statistic.}
+#'   \item{parameter}{degrees of freedom.}
+#'   \item{estimate}{(bias corrected) squared dCor(x,y).}
+#'   \item{p.value}{p-value of the t-test.}
+#'   \item{data.name}{description of data.}
 #' @export
-dcorT_test <- function(x, y) {
+dcor_t_test <- function(x, y) {
   if (!inherits(x, "matrix")) {
     x <- as.matrix(x)
   }

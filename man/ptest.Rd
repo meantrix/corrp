@@ -30,6 +30,9 @@ Must be one of "greater" (default), "less", or "two.sided". You can specify just
 
 \item{...}{Additional arguments.}
 }
+\value{
+[\code{numeric(1)}]\cr The p.value statistic.
+}
 \description{
 Execute a one-sample permutation test on two numeric vectors.
 One vector is kept constant while the other is "shuffled" by resampling.

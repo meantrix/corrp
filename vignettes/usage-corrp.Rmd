@@ -20,13 +20,14 @@ The `corrp` package provides an efficient way to compute correlations between va
 
 ## Usage Example
 
-We will use the built-in `iris` dataset, which includes 150 observations of 5 variables: 4 numerical variables and 1 categorical variable (the species of the flower).
+We will use the `penguins` dataset from the `palmerpenguins` package, which contains 344 observations of 8 variables, including numerical measurements (e.g., bill_length_mm, bill_depth_mm, flipper_length_mm, and body_mass_g), categorical variables (e.g., species, island, and sex), and year as an integer.
 
 ```{r}
-# Load the iris dataset
-library(corrp)
-data(iris)
-head(iris)
+# Load corpp and the penguins dataset
+library("corrp")
+library("palmerpenguins")
+data(penguins)
+penguins <- na.omit(penguins)
 ```
 
 ## Basic Usage of `corrp`
@@ -37,11 +38,12 @@ The `corrp` function can be used to compute correlations between variables, user
 
 ```{r}
 # Compute correlations for iris dataset
-results <- corrp(iris,
+results <- corrp(penguins,
   cor.nn = "pearson", # Correlation for numerical-numerical variables
-  cor.nc = "pps", # Correlation for numerical-categorical variables
+  cor.nc = "lm", # Correlation for numerical-categorical variables
   cor.cc = "cramer", # Correlation for categorical-categorical variables
-  verbose = FALSE
+  verbose = FALSE,
+  parallel = FALSE
 )
 
 results
@@ -56,13 +58,44 @@ The result returned by `corrp` is an object of class `"clist"`, which contains t
 results$data
 ```
 
+The result of corrp is a list with two tables: `data` and `index`.
+
+- **data**: A table containing all the statistical results. The columns of this table are as follows:
+
+    - `infer`: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
+    - `infer.value`: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
+    - `stat`: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
+    - `stat.value: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
+    - `isig`: A logical value indicating whether the statistical result is significant (`TRUE`) or not, based on predefined criteria (e.g., threshold for P-value).
+    - `msg`: A message or error related to the inference process.
+    - `varx`: The name of the first variable in the analysis (independent variable or feature).
+    - `vary`: The name of the second variable in the analysis (dependent/target variable).
+
+- **index**: A table that contains the pairs of indices used in each inference of the `data` table.
+
 ### 3. Filtering Significant Correlations
 
 To focus on significant correlations, you can filter the results based on significance or another criterion. Here, we filter the results for all correlations that are significant according to the default p-value threshold of 0.05.
 
 ```{r}
 # Filter significant correlations (p-value < 0.05)
-significant_results <- subset(results$data, isTRUE(isig))
+significant_results <- subset(results$data, isig)
+significant_results
+```
+
+You can modify the p-value threshold of 0.05 by using the argument `p.value` in `corrp` function.
+```{r}
+# Set the p-value treshold to 0.3
+results <- corrp(
+  penguins,
+  cor.nn = "pearson", # Correlation for numerical-numerical variables
+  cor.nc = "lm", # Correlation for numerical-categorical variables
+  cor.cc = "cramer", # Correlation for categorical-categorical variables
+  verbose = FALSE,
+  p.value = 0.30,
+  parallel = FALSE
+)
+significant_results <- subset(results$data, isig)
 significant_results
 ```
 
@@ -70,50 +103,99 @@ significant_results
 
 The `corrp` function allows you to specify different correlation methods based on the types of variables being compared:
 
-- **Numerical-Numerical Correlations**: Options include Pearson, MIC, and Dcor.
-- **Numerical-Categorical Correlations**: Options include PPS and MIC.
-- **Categorical-Categorical Correlations**: Options include Cramer's V and Uncertainty Coefficient.
+- **Numerical-Numerical Correlations**: Options include PPS, Pearson, MIC, and Dcor.
+- **Numerical-Categorical Correlations**: Options include PPS and LM.
+- **Categorical-Categorical Correlations**: Options include PPS, Cramer's V and Uncertainty Coefficient.
 
 For example, let's compute the correlations using different methods for numerical-numerical, numerical-categorical, and categorical-categorical data.
 
 ```{r}
 # Example of changing correlation methods
-results_custom <- corrp(iris,
+results_custom <- corrp(
+  penguins,
   cor.nn = "mic",
   cor.nc = "pps",
   cor.cc = "uncoef",
-  verbose = FALSE
+  verbose = FALSE,
+  parallel = FALSE
 )
 results_custom$data
 ```
+
+Originally, Pearson, LM, and Cramér's V were used to capture primarily linear and straightforward associations among variables. The updated configuration replaces these with MIC, PPS, and the Uncertainty Coefficient, which are designed to detect non-linear, complex relationships and provide directional insights into predictive strength.
 
 ## Advanced Usage
 
 ### 1. Parallel Processing
 
-You can enable parallel processing to speed up the computation, especially when working with large datasets. Set the `n.cores` argument to the number of cores you'd like to use.
+You can enable parallel processing to speed up the computation, especially when working with large datasets. Set the `n.cores` argument to the number of cores you'd like to use. To demonstrate the efficiency of the `corrp` package on larger datasets, we benchmark the performance of computing correlations on the `eusilc` dataset using parallel processing. The following code compares execution times using 8 cores versus 2 cores. In order to simulate a large dataset, we are going to sample with replacement 100,000 times so that our data consists of 28 columns and 100,000 rows, having 4 character variables and the rest as numeric.
 
-```{r}
-# Using 2 cores for parallel processing
-results_parallel <- corrp(iris,
-  cor.nn = "pearson",
-  cor.nc = "pps",
-  cor.cc = "cramer",
-  n.cores = 2,
-  verbose = FALSE
+```r
+library(corrp)
+library(laeken)
+
+# Load and prepare the eusilc dataset
+data(eusilc)
+eusilc <- na.omit(eusilc)
+eusilc <- eusilc[sample(NROW(eusilc), 100000, replace = TRUE), ]
+```
+#### 8 Cores
+```r
+# Use bench to measure the performance of parallel processing using 8 cores
+bench::mark(
+  corrp(eusilc,
+    cor.nn = "pearson",
+    cor.nc = "lm",
+    cor.cc = "cramer",
+    n.cores = 8, # Enable parallel processing with 8 cores
+    verbose = FALSE
+  ),
+  iterations = 10
 )
 ```
+- Minimum execution time: 20.8s
+- Median execution time: 21.8s
+- Iterations per second: 0.0458
+- Total time: 2.55 minutes
+
+#### 2 Cores
+
+```r
+# Use bench to measure the performance of parallel processing using 2 cores
+r = bench::mark(
+  corrp(eusilc,
+    cor.nn = "pearson",
+    cor.nc = "lm",
+    cor.cc = "cramer",
+    n.cores = 2, # Enable parallel processing with 2 cores
+    verbose = FALSE
+  ),
+  iterations = 1
+)
+```
+- Minimum execution time: 49s
+- Median execution time: 49.2s
+- Iterations per second: 0.0203
+- Total time: 4.92 minutes
+
+#### Performance Comparison
+
+Based on your benchmark results, there's a very significant improvement in performance when increasing from 2 cores to 8 cores for the `corrp` function on the `eusilc` dataset. 
+
+Using 8 cores instead of 2 cores gave us more than double the speed. Each run took about 22 seconds with 8 cores compared to 49 seconds with just 2 cores. This clearly shows how adding more processing power can dramatically cut down computation time for large datasets.
+
+These results demonstrate that the `corrp` function benefits from additional cores, showing that parallel processing can enhance the efficiency of computations with large datasets like `eusilc`. While the scaling isn't near-linear (4x increase in cores yielded about a 2.3x speedup), the performance improvement is still substantial and worthwhile for correlation computations, which can be computationally intensive when working with large datasets.
 
 ### 2. Custom Inferences with `corr_fun`
 
 The `corr_fun` function can be used directly if you need finer control over the correlation calculation for specific pairs of variables. It allows you to specify the variables and methods for computing the correlation.
 
 ```{r}
-# Using corr_fun to compute Pearson correlation between Sepal.Length and Petal.Length
+# Using corr_fun to compute Pearson correlation between body_mass_g and flipper_length_mm
 corr_fun(
-  iris,
-  nx = "Sepal.Length",
-  ny = "Petal.Length",
+  penguins,
+  nx = "body_mass_g",
+  ny = "flipper_length_mm",
   cor.nn = "pearson",
   verbose = FALSE
 )

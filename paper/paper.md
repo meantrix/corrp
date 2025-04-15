@@ -65,7 +65,7 @@ In R, various statistical functions are available to measure these correlations.
 
 - **Linear Model** → `stats::lm`  
 - **Pearson Correlation** → `stats::cor.test`  
-- **Distance Correlation** → `corrp::dcorT_test`  
+- **Distance Correlation** → `corrp::dcor_t_test`  
 - **MIC** → `minerva::mine`  
 - **PPS** → `ppsr::score`  
 - **Uncertainty Coefficient** → `DescTools::UncertCoef`  
@@ -158,14 +158,14 @@ acca.res
 
 ## Performance Improvements
 
-When using the `corrp` function with the `dcor` method for numeric pairs (i.e., `cor.nn = "dcor"`), significant improvements in both memory usage and runtime are observed. This is because the `corrp` package uses a C++ implementation of distance correlation (`dcorT_test`), which is more efficient than the `energy::dcorT.test` function from the `energy` package.
+When using the `corrp` function with the `dcor` method for numeric pairs (i.e., `cor.nn = "dcor"`), significant improvements in both memory usage and runtime are observed. This is because the `corrp` package uses a C++ implementation of distance correlation (`dcor_t_test`), which is more efficient than the `energy::dcorT.test` function from the `energy` package.
 
 For example, using two vectors of length 10000 and 20000, the benchmarks show the following improvements:
 
 | Method                | 10,000       |                | 20,000           |                  |
 |-----------------------|--------------|----------------|------------------|------------------|
 |                       | Memory (MB)  | Time (sec)     | Memory (MB)      | Time (sec)       |
-| **dcorT_test (C++)**  | 4701.44      | 6.022          | 18440.54         | 25.977           |
+| **dcor_t_test (C++)**  | 4701.44      | 6.022          | 18440.54         | 25.977           |
 | **energy::dcorT.test**| 7000.65      | 13.846         | 27598.38         | 60.264           |
 
 This highlights a substantial reduction in both memory usage and execution time, making the `corrp` package more scalable for larger datasets when applying distance correlation methods. The memory reduction is particularly important because calculating distance correlation requires constructing a distance matrix of size $N^2$, where $N$ is the length of the input vector. As $N$ grows, the memory demands can quickly become prohibitive.

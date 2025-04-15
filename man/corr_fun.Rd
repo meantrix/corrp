@@ -27,7 +27,7 @@ corr_fun(
 )
 }
 \arguments{
-\item{df}{[\code{data.frame(1)}]\cr input data frame.}
+\item{df}{[\code{data.frame}]\cr input data frame.}
 
 \item{nx}{[\code{character(1)}]\cr first variable column name: independent/predictor variable.}
 
@@ -66,22 +66,34 @@ Choose correlation type to be used in factor/categorical pair inference.
 The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient},
 \verb{pps: Predictive Power Score}. Default is \verb{Cramer's V}.}
 
-\item{lm.args}{[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.}
+\item{lm.args}{[\code{list}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.}
 
-\item{pearson.args}{[\code{list(1)}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.}
+\item{pearson.args}{[\code{list}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.}
 
-\item{dcor.args}{[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcorT_test}}.}
+\item{dcor.args}{[\code{list}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcor_t_test}}.}
 
-\item{mic.args}{[\code{list(1)}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.}
+\item{mic.args}{[\code{list}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.}
 
-\item{pps.args}{[\code{list(1)}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.}
+\item{pps.args}{[\code{list}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.}
 
-\item{cramersV.args}{[\code{list(1)}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.}
+\item{cramersV.args}{[\code{list}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.}
 
-\item{uncoef.args}{[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
+\item{uncoef.args}{[\code{list}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
 }
 \value{
-list with all statistical results.\cr
+[\code{list}]\cr
+A list containing statistical and basic information with 8 elements:
+\itemize{
+\item \strong{infer}: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
+\item \strong{infer.value}: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
+\item \strong{stat}: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
+\item \strong{stat.value}: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
+\item \strong{isig}: A logical value indicating whether the statistical result is significant (\code{TRUE}) or not, based on predefined criteria (e.g., threshold for P-value).
+\item \strong{msg}: A message or error related to the inference process.
+\item \strong{varx}: The name of the first variable in the analysis (independent variable or feature).
+\item \strong{vary}: The name of the second variable in the analysis (dependent/target variable).
+}
+
 All statistical tests are controlled by the confidence interval of p.value parameter. If the statistical tests do not obtain a significance greater/less than p.value the value of variable \code{isig} will be \code{FALSE}.\cr
 If any errors occur during operations the association measure (\code{infer.value}) will be \code{NA}.\cr
 The result \code{data} and \code{index} will have \eqn{N^2} rows, where N is the number of variables of the input data.

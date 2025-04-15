@@ -13,7 +13,7 @@ best_acca(m, ...)
 \method{best_acca}{matrix}(m, mink, maxk, maxrep = 2L, maxiter = 100L, ...)
 }
 \arguments{
-\item{m}{[\code{matrix(1)}]\cr correlation matrix
+\item{m}{[\code{matrix}]\cr correlation matrix
 from \code{\link{corr_matrix}}.}
 
 \item{...}{Not used. Included for S3 method consistency.}
@@ -29,10 +29,13 @@ without change in the clusters in the ACCA method.}
 of interactions in the ACCA method.}
 }
 \value{
-[\code{list(3)}]\cr A list with:
-silhouette average with per k \verb{$silhouette.ave};
-the sequence of clusters tested \verb{$k} and
-the optimal number of clusters \verb{$best.k}.
+[\code{list}]\cr
+A \code{list} which is a list that has three elements:
+\itemize{
+\item \strong{silhouette.ave}: The silhouettes average per k.
+\item \strong{k}: The sequence of clusters tested.
+\item \strong{best.k}: The optimal number of clusters.
+}
 }
 \description{
 Determining the optimal number of

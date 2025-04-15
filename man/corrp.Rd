@@ -27,7 +27,7 @@ corrp(
 )
 }
 \arguments{
-\item{df}{[\code{data.frame(1)}]\cr input data frame.}
+\item{df}{[\code{data.frame}]\cr input data frame.}
 
 \item{parallel}{[\code{logical(1)}]\cr If it's TRUE run the operations in parallel backend.}
 
@@ -66,29 +66,30 @@ Choose correlation type to be used in factor/categorical pair inference.
 The option are \verb{cramersV: Cramer's V},\verb{uncoef: Uncertainty coefficient},
 \verb{pps: Predictive Power Score}. Default is \verb{Cramer's V}.}
 
-\item{lm.args}{[\code{list(1)}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.}
+\item{lm.args}{[\code{list}]\cr additional parameters for linear model to be passed to \code{\link[stats]{lm}}.}
 
-\item{pearson.args}{[\code{list(1)}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.}
+\item{pearson.args}{[\code{list}]\cr additional parameters for Pearson correlation to be passed to \code{\link[stats]{cor.test}}.}
 
-\item{dcor.args}{[\code{list(1)}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcorT_test}}.}
+\item{dcor.args}{[\code{list}]\cr additional parameters for the distance correlation to be passed to \code{\link[corrp]{dcor_t_test}}.}
 
-\item{mic.args}{[\code{list(1)}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.}
+\item{mic.args}{[\code{list}]\cr additional parameters for the maximal information coefficient to be passed to \code{\link[minerva]{mine}}.}
 
-\item{pps.args}{[\code{list(1)}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.}
+\item{pps.args}{[\code{list}]\cr additional parameters for the predictive power score to be passed to \code{\link[ppsr]{score}}.}
 
-\item{cramersV.args}{[\code{list(1)}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.}
+\item{cramersV.args}{[\code{list}]\cr additional parameters for the Cramer's V to be passed to \code{\link[lsr]{cramersV}}.}
 
-\item{uncoef.args}{[\code{list(1)}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
+\item{uncoef.args}{[\code{list}]\cr additional parameters for the uncertainty coefficient to be passed to \code{\link[DescTools]{UncertCoef}}.}
 }
 \value{
-A list with two tables: \code{data} and \code{index}.
+[\code{clist}]\cr
+A \code{clist} which is a list that has two tables: \code{data} and \code{index}.
 \itemize{
 \item \strong{data}: A table containing all the statistical results. The columns of this table are as follows:
 \itemize{
 \item \code{infer}: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).
 \item \code{infer.value}: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.
 \item \code{stat}: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).
-\item `stat.value: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
+\item \code{stat.value}: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).
 \item \code{isig}: A logical value indicating whether the statistical result is significant (\code{TRUE}) or not, based on predefined criteria (e.g., threshold for P-value).
 \item \code{msg}: A message or error related to the inference process.
 \item \code{varx}: The name of the first variable in the analysis (independent variable or feature).
@@ -145,7 +146,8 @@ iris_c1 <- corrp(iris, cor.nn = "pps", cor.nc = "pps")
 # Using Distance Correlation for numeric-numeric and Predictive Power Score for numeric-categorical
 iris_c2 <- corrp(iris, cor.nn = "dcor", cor.nc = "pps", dcor.args = list(method = "auto"))
 
-# Using Maximal Information Coefficient (MIC) for numeric-numeric and Uncertainty Coefficient for categorical-categorical
+# Using Maximal Information Coefficient (MIC) for numeric-numeric 
+# and Uncertainty Coefficient for categorical-categorical
 iris_c3 <- corrp(iris, cor.nn = "mic", cor.cc = "uncoef", mic.args = list(alpha = 0.6))
 
 # Using PPS for all pair types
