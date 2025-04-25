@@ -165,12 +165,9 @@ corrp <- function(df,
   checkmate::assert_list(cramersV.args)
   checkmate::assert_list(uncoef.args)
 
-  stopifnot(
-    all(
-      vapply(df, class, character(1)) %in%
-        c("integer", "numeric", "factor", "character")
-    )
-  )
+  if (!all(vapply(df, class, character(1)) %in% c("integer", "numeric", "factor", "character"))) {
+    stop("All columns must be of type integer, numeric, factor, or character.")
+  }
 
   cnames <- colnames(df)
   index.grid <- expand.grid("i" = seq(1, NCOL(df)), "j" = seq(1, NCOL(df)), stringsAsFactors = FALSE)
