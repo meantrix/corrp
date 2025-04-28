@@ -20,10 +20,15 @@ acca(m, k, ...)
 
 \item{...}{Not used. Included for S3 method consistency.}
 
-\item{maxrep}{[\code{integer(1)}]\cr maximum number of
-interactions without change in the clusters.}
+\item{maxrep}{[\code{integer(1)}]\cr
+Maximum number of consecutive iterations without changes in the cluster structure before stopping the algorithm.
+If the clusters remain identical for \code{maxrep} iterations in a row, the algorithm considers that it has converged and stops early, without reaching \code{maxiter}.
+It serves to speed up execution by detecting when the clustering has stabilized.}
 
-\item{maxiter}{[\code{integer(3)}]\cr maximum number of interactions.}
+\item{maxiter}{[\code{integer(1)}]\cr
+Maximum number of iterations allowed for the algorithm.
+Regardless of cluster stability, the algorithm will be forcibly stopped after \code{maxiter} iterations to prevent infinite loops or excessive computation.
+It acts as a hard upper limit on the runtime.}
 }
 \value{
 [\code{acca_list}]\cr
