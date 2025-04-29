@@ -2,13 +2,38 @@ test_that("Tests on corrp and cor_fun functions", {
   # data to tests
   df <- iris
   # class test
-  corr <- corrp(df, comp = "g", alternative = "t")
+  corr <- corrp(df, comp = "g", alternative = "t", verbose = T)
   expect_s3_class(corr, "clist")
 
   # parallel test
-  corr2 <- corrp(df, comp = "g", alternative = "t", parallel = F)
+  corr2 <- corrp(df, comp = "g", alternative = "t", parallel = F,  verbose = T)
+
   expect_s3_class(corr2, "clist")
   expect_equal(corr, corr2)
+
+  # correlation methods alternatives
+  corr3 <- corrp(df, comp = "l", alternative = "g", parallel = F,  verbose = T,
+                 pps.args = list(ptest = TRUE),
+                 cor.nn =  "mic",
+                 cor.nc =  "pps",
+                 cor.cc = "uncoef")
+
+  expect_s3_class(corr3, "clist")
+
+  corr4 <- corrp(df, comp = "l", alternative = "t", parallel = F,  verbose = T,
+                 cor.nn =  "pearson",
+                 cor.nc =  "lm",
+                 cor.cc = "cramersV")
+
+  expect_s3_class(corr4, "clist")
+
+  corr5 <- corrp(df, comp = "g", alternative = "l", parallel = F,  verbose = T,
+                 cor.nn =  "dcor",
+                 cor.nc =  "pps",
+                 cor.cc = "pps")
+
+  expect_s3_class(corr5, "clist")
+
 
   # P-Value test
   data <- corr$data
@@ -88,7 +113,7 @@ test_that("Tests on corrp and cor_fun functions", {
 
     i.fun <- corr_fun(df,
       nx = as.character(data.num$varx[i]), ny = as.character(data.num$vary[i]), alternative = "t", cor.nn = "mic",
-      verbose = F
+      verbose = T
     )
 
     expect_equal(i.test, i.fun$infer.value)
@@ -101,7 +126,7 @@ test_that("Tests on corrp and cor_fun functions", {
 
     i.fun <- corr_fun(df,
       nx = as.character(data.num$varx[i]), ny = as.character(data.num$vary[i]), alternative = "t", cor.nn = "dcor",
-      verbose = F
+      verbose = T
     )
 
     expect_equal(as.numeric(i.test$estimate), i.fun$infer.value)
@@ -114,7 +139,7 @@ test_that("Tests on corrp and cor_fun functions", {
 
     i.fun <- corr_fun(df,
       nx = as.character(data.num$varx[i]), ny = as.character(data.num$vary[i]), alternative = "t", cor.nn = "pps",
-      verbose = F
+      verbose = T
     )
 
 
@@ -132,7 +157,7 @@ test_that("Tests on corrp and cor_fun functions", {
 
     i.fun <- corr_fun(df,
       nx = as.character(data.cramer$varx[i]), ny = as.character(data.cramer$vary[i]), alternative = "t", cor.cc = "pps",
-      verbose = F
+      verbose = T
     )
 
 
@@ -151,10 +176,14 @@ test_that("Tests on corrp and cor_fun functions", {
 
     i.fun <- corr_fun(df,
       nx = as.character(data.cramer$varx[i]), ny = as.character(data.cramer$vary[i]), alternative = "t", cor.cc = "uncoef",
-      verbose = F
+      verbose = T
     )
 
     expect_equal(i.test, i.fun$infer.value)
     expect_equal(i.pv, i.fun$stat.value)
   }
 })
+
+
+
+
