@@ -5,6 +5,7 @@ test_that("ptest works", {
   x1 <- ptest(x, y, FUN = function(x, y) cor(x, y), num.s = 2000, alternative = "t")
   x2 <- ptest(x, y, FUN = function(x, y) cor(x, y), num.s = 2000, alternative = "g")
   x3 <- ptest(x, y, FUN = function(x, y) cor(x, y), num.s = 2000, alternative = "l")
+  expect_error(ptest(x, y, FUN = function(x, y, z) cor(x, y), num.s = 2000, alternative = "t"))
 
   y1 <- cor.test(x, y, alternative = "t")$p.value
   y2 <- cor.test(x, y, alternative = "g")$p.value
