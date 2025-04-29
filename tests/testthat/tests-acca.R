@@ -27,7 +27,7 @@ test_that("Tests on acca and sil_acca functions", {
   # check also when results is a normal list
   acca.res.list <- acca.res
   class(acca.res.list) <- "list"
-  expect_warning(s.list <- sil_acca(acca.res.list, m))
+  expect_warning(s.list <- sil_acca(acca.res.list, m2))
   expect_equal(s, s.list)
 })
 
