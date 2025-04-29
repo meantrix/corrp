@@ -12,24 +12,34 @@ test_that("Tests on corrp and cor_fun functions", {
   expect_equal(corr, corr2)
 
   # correlation methods alternatives
-  corr3 <- corrp(df, comp = "l", alternative = "g", parallel = F,  verbose = T,
-                 pps.args = list(ptest = TRUE),
+  corr3 <- corrp(df, comp = "l",
+                 alternative = "g",
+                 parallel = T,
+                 verbose = T,
+                 pps.args = list(ptest = TRUE, num.s = 10),
                  cor.nn =  "mic",
                  cor.nc =  "pps",
                  cor.cc = "uncoef")
 
   expect_s3_class(corr3, "clist")
 
-  corr4 <- corrp(df, comp = "l", alternative = "t", parallel = F,  verbose = T,
-                 cor.nn =  "pearson",
-                 cor.nc =  "lm",
+  corr4 <- corrp(df, comp = "g",
+                 alternative = "l",
+                 parallel = T,
+                 verbose = T,
+                 pps.args = list(ptest = TRUE, num.s = 10),
+                 cor.nn =  "dcor",
+                 cor.nc =  "pps",
                  cor.cc = "cramersV")
 
   expect_s3_class(corr4, "clist")
 
-  corr5 <- corrp(df, comp = "g", alternative = "l", parallel = F,  verbose = T,
+  corr5 <- corrp(df, comp = "g",
+                 alternative = "l",
+                 parallel = F,
+                 verbose = T,
                  cor.nn =  "dcor",
-                 cor.nc =  "pps",
+                 cor.nc =  "lm",
                  cor.cc = "pps")
 
   expect_s3_class(corr5, "clist")
@@ -184,6 +194,58 @@ test_that("Tests on corrp and cor_fun functions", {
   }
 })
 
+test_that("corrp and corr_fun handle messy data", {
+  df.bad <- data.frame(
+    A = c(1:2, rep(NA,13)),
+    B = rep("a", 15),
+    C = c(1:5, rep(NA, 10)),
+    D = rep(c("a", "b", "c"), 5),
+    A_dup = c(1:10, rep(NA, 5)),
+    E = 1:15
+  )
 
+  df.bad2 <- data.frame(
+    x = 1:5,
+    y = as.Date("2023-01-01") + 0:4,
+    z = c(TRUE, FALSE, TRUE, FALSE, TRUE)
+  )
+
+  set.seed(1)
+  df.bad3 <- data.frame(
+    num1 = runif(50),
+    num2 = rnorm(50),
+    cat1 = sample(c("A", "B", "C"), 50, replace = TRUE),
+    cat2 = sample(c("X", "Y"), 50, replace = TRUE)
+  )
+
+  expect_equal(corr_fun(df.bad, "A", "D", verbose = TRUE)$infer.value, NA)
+
+  expect_warning(corrp(df.bad,
+                     verbose = FALSE,
+                     cor.nn =  "mic",
+                     cor.nc =  "pps",
+                     cor.cc = "uncoef",
+                     parallel = F))
+
+  expect_error(corrp(df.bad2,verbose = FALSE))
+
+
+  corr <- corrp(df.bad3, comp = "l",
+                 alternative = "g",
+                 parallel = T,
+                 verbose = T,
+                 pps.args = list(ptest = TRUE, num.s = 10),
+                 cor.nn =  "dcor",
+                 cor.nc =  "pps",
+                 cor.cc = "cramersV")
+
+  corr2 <- corrp(df.bad3, comp = "g", alternative = "t", verbose = T)
+
+
+  expect_s3_class(corr, "clist")
+  expect_s3_class(corr2, "clist")
+
+
+})
 
 
