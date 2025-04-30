@@ -2,7 +2,7 @@ test_that("Tests on corr_matrix", {
   # data to tests
   df <- iris
 
-  corr <- corrp(df, comp = "g", alternative = "t", parallel = F,  verbose = T)
+  corr <- corrp(df, comp = "g", alternative = "t", parallel = F, verbose = T)
   corr2 <- corr
   class(corr2) <- "list"
 
@@ -10,8 +10,10 @@ test_that("Tests on corr_matrix", {
 
   m1 <- corr_matrix(corr, isig = T)
   m2 <- corr_matrix(corr, isig = F)
-  m3 <- corr_matrix(corr2, isig = T)
-  m4 <- corr_matrix(corr2, isig = T, col = "isig")
+  suppressWarnings({
+    m3 <- corr_matrix(corr2, isig = T)
+    m4 <- corr_matrix(corr2, isig = T, col = "isig")
+  })
 
   # class test
   expect_s3_class(m1, "cmatrix")
@@ -19,7 +21,7 @@ test_that("Tests on corr_matrix", {
   expect_s3_class(m3, "cmatrix")
   expect_s3_class(m4, "cmatrix")
 
-  expect_true(all(m4 %in% c(T,F)))
+  expect_true(all(m4 %in% c(T, F)))
   expect_false(all(m1 %in% m2))
   expect_true(all(m1 %in% m3))
 
@@ -28,7 +30,6 @@ test_that("Tests on corr_matrix", {
   inf <- corr$data[si, c("varx", "vary", "infer.value")]
 
   for (k in seq_len(NROW(inf))) {
-    expect_equal(m1[as.character(inf$vary[k]), as.character(inf$varx[k])], inf$infer.value[k])
+    expect_equal(m2[as.character(inf$vary[k]), as.character(inf$varx[k])], inf$infer.value[k])
   }
-
 })

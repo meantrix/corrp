@@ -1,4 +1,4 @@
-#' @title corrp compute correlations types analysis in parallel backend.
+#' @title Compute Correlations for Data Frame
 #'
 #' @description Computes correlation-type analysis on large data frames with mixed column types, including integer, numeric, factor, and character. Character columns are treated as categorical variables.\cr
 # This function supports parallel processing, allowing faster computations on large datasets. It ensures that different column types are handled appropriately without requiring manual adjustments.\cr
@@ -108,7 +108,7 @@
 #' # Using Distance Correlation for numeric-numeric and Predictive Power Score for numeric-categorical
 #' iris_c2 <- corrp(iris, cor.nn = "dcor", cor.nc = "pps", dcor.args = list(method = "auto"))
 #'
-#' # Using Maximal Information Coefficient (MIC) for numeric-numeric 
+#' # Using Maximal Information Coefficient (MIC) for numeric-numeric
 #' # and Uncertainty Coefficient for categorical-categorical
 #' iris_c3 <- corrp(iris, cor.nn = "mic", cor.cc = "uncoef", mic.args = list(alpha = 0.6))
 #'

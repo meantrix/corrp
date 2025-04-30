@@ -2,7 +2,7 @@ test_that("Tests on corr_rm", {
   # data to tests
   df <- iris
 
-  corr <- corrp(df, comp = "g", alternative = "t",  verbose = T, parallel = F)
+  corr <- corrp(df, comp = "g", alternative = "t", verbose = T, parallel = F)
   corr2 <- corr
   class(corr2) <- "list"
 
@@ -21,5 +21,4 @@ test_that("Tests on corr_rm", {
   expect_equal(df2, df3)
   expect_equal(df2, df4)
   expect_equal(df2, df5)
-
 })

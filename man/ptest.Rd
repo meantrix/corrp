@@ -10,8 +10,7 @@ ptest(
   FUN,
   rk = FALSE,
   alternative = c("greater", "less", "two.sided"),
-  num.s = 250,
-  ...
+  num.s = 250
 )
 }
 \arguments{
@@ -27,8 +26,6 @@ ptest(
 Must be one of "greater" (default), "less", or "two.sided". You can specify just the initial letter.}
 
 \item{num.s}{[\code{numeric(1)}]\cr The number of samples with replacement created from the y numeric vector.}
-
-\item{...}{Additional arguments.}
 }
 \value{
 [\code{numeric(1)}]\cr The p.value statistic.

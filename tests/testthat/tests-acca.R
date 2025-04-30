@@ -2,7 +2,7 @@ test_that("Tests on acca and sil_acca functions", {
   # data to tests
   df <- iris
   k <- 2
-  corr <- corrp(df, comp = "g", alternative = "t",  verbose = T)
+  corr <- corrp(df, comp = "g", alternative = "t", verbose = T)
 
   m <- corr_matrix(corr)
   m2 <- m
@@ -35,7 +35,7 @@ test_that("Tests on acca and sil_acca functions", {
 test_that("Checks if best_acca works", {
   # data to tests
   df <- iris
-  corr <- corrp(df, comp = "g", alternative = "t",  verbose = T)
+  corr <- corrp(df, comp = "g", alternative = "t", verbose = T)
 
   m <- corr_matrix(corr)
   expect_s3_class(m, "cmatrix")

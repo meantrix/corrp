@@ -48,9 +48,15 @@ be represented by \code{NA} or \code{FALSE} in the correlation matrix.}
 \item{cutoff}{[\code{numeric(1)}]\cr A numeric value for the pairwise absolute correlation cutoff.
 The default value is 0.75.}
 }
+\value{
+[\code{data.frame}]\cr
+A data frame with highly correlated variables removed based on the specified cutoff.
+}
 \description{
 Remove highly correlated variables from a data frame using the
-correlation functions' outputs and the \code{\link[caret]{findCorrelation}} function from the caret package.
+correlation functions' outputs and the \code{\link[caret]{findCorrelation}} function
+from the caret package in order to reduce pair-wise correlations. This function is
+suited for mitigating multicollinearity issues in statistical models.
 }
 \examples{
 
