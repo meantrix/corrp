@@ -6,6 +6,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Using the corrp package for correlation analysis • corrp</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="../apple-touch-icon.png">
+<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
+<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
+<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <script src="../deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="../deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="../deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="../deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -50,15 +56,12 @@
   </div>
 </nav><div class="container template-article">
 
-
-
-
 <div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>Using the corrp package for correlation analysis</h1>
             
       
-      <small class="dont-index">Source: <a href="https://github.com/meantrix/corrp/blob/main/vignettes/usage-corrp.Rmd" class="external-link"><code>vignettes/usage-corrp.Rmd</code></a></small>
+      <small class="dont-index">Source: <a href="https://github.com/meantrix/corrp/blob/HEAD/vignettes/usage-corrp.Rmd" class="external-link"><code>vignettes/usage-corrp.Rmd</code></a></small>
       <div class="d-none name"><code>usage-corrp.Rmd</code></div>
     </div>
 
@@ -67,30 +70,16 @@
 <div class="section level2">
 <h2 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
 </h2>
-<p>The <code>corrp</code> package provides an efficient way to compute
-correlations between variables in a dataset. It supports various
-correlation measures for numerical and categorical data, making it a
-powerful tool for general correlation analysis. In this vignette, we
-will explore how to use <code>corrp</code> for different types of
-correlations, both with numerical and categorical variables.</p>
+<p>The <code>corrp</code> package provides an efficient way to compute correlations between variables in a dataset. It supports various correlation measures for numerical and categorical data, making it a powerful tool for general correlation analysis. In this vignette, we will explore how to use <code>corrp</code> for different types of correlations, both with numerical and categorical variables.</p>
 </div>
 <div class="section level2">
 <h2 id="usage-example">Usage Example<a class="anchor" aria-label="anchor" href="#usage-example"></a>
 </h2>
-<p>We will use the <code>penguins</code> dataset from the
-<code>palmerpenguins</code> package, which contains 344 observations of
-8 variables, including numerical measurements (e.g., bill_length_mm,
-bill_depth_mm, flipper_length_mm, and body_mass_g), categorical
-variables (e.g., species, island, and sex), and year as an integer.</p>
+<p>We will use the <code>penguins</code> dataset from the <code>palmerpenguins</code> package, which contains 344 observations of 8 variables, including numerical measurements (e.g., bill_length_mm, bill_depth_mm, flipper_length_mm, and body_mass_g), categorical variables (e.g., species, island, and sex), and year as an integer.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Load corpp and the penguins dataset</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://github.com/meantrix/corrp" class="external-link">"corrp"</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://allisonhorst.github.io/palmerpenguins/" class="external-link">"palmerpenguins"</a></span><span class="op">)</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt; Attaching package: 'palmerpenguins'</span></span>
-<span><span class="co">#&gt; The following objects are masked from 'package:datasets':</span></span>
-<span><span class="co">#&gt; </span></span>
-<span><span class="co">#&gt;     penguins, penguins_raw</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span>
 <span><span class="va">penguins</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/na.fail.html" class="external-link">na.omit</a></span><span class="op">(</span><span class="va">penguins</span><span class="op">)</span></span></code></pre></div>
 </div>
@@ -100,9 +89,7 @@ variables (e.g., species, island, and sex), and year as an integer.</p>
 <div class="section level3">
 <h3 id="computing-correlations-with-corrp">1. Computing Correlations with <code>corrp</code><a class="anchor" aria-label="anchor" href="#computing-correlations-with-corrp"></a>
 </h3>
-<p>The <code>corrp</code> function can be used to compute correlations
-between variables, user can select pair correlation type based on the
-pair data types.</p>
+<p>The <code>corrp</code> function can be used to compute correlations between variables, user can select pair correlation type based on the pair data types.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Compute correlations for iris dataset</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/corrp.html">corrp</a></span><span class="op">(</span><span class="va">penguins</span>,</span>
@@ -319,9 +306,7 @@ pair data types.</p>
 <div class="section level3">
 <h3 id="exploring-the-results">2. Exploring the Results<a class="anchor" aria-label="anchor" href="#exploring-the-results"></a>
 </h3>
-<p>The result returned by <code>corrp</code> is an object of class
-<code>"clist"</code>, which contains the correlation values and
-associated statistical information.</p>
+<p>The result returned by <code>corrp</code> is an object of class <code>"clist"</code>, which contains the correlation values and associated statistical information.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Access the correlation data</span></span>
 <span><span class="va">results</span><span class="op">$</span><span class="va">data</span></span>
@@ -455,53 +440,35 @@ associated statistical information.</p>
 <span><span class="co">#&gt; 62              year       body_mass_g</span></span>
 <span><span class="co">#&gt; 63              year               sex</span></span>
 <span><span class="co">#&gt; 64              year              year</span></span></code></pre></div>
-<p>The result of corrp is a list with two tables: <code>data</code> and
-<code>index</code>.</p>
+<p>The result of corrp is a list with two tables: <code>data</code> and <code>index</code>.</p>
 <ul>
 <li>
-<p><strong>data</strong>: A table containing all the statistical
-results. The columns of this table are as follows:</p>
+<p><strong>data</strong>: A table containing all the statistical results. The columns of this table are as follows:</p>
 <ul>
 <li>
-<code>infer</code>: The method or metric used to assess the
-relationship between the variables (e.g., Maximal Information
-Coefficient or Predictive Power Score).</li>
+<code>infer</code>: The method or metric used to assess the relationship between the variables (e.g., Maximal Information Coefficient or Predictive Power Score).</li>
 <li>
-<code>infer.value</code>: The value or score obtained from the
-specified inference method, representing the strength or quality of the
-relationship between the variables.</li>
+<code>infer.value</code>: The value or score obtained from the specified inference method, representing the strength or quality of the relationship between the variables.</li>
 <li>
-<code>stat</code>: The statistical test or measure associated with
-the inference method (e.g., P-value or F1_weighted).</li>
-<li>`stat.value: The numerical value corresponding to the statistical
-test or measure, providing additional context about the inference (e.g.,
-significance or performance score).</li>
+<code>stat</code>: The statistical test or measure associated with the inference method (e.g., P-value or F1_weighted).</li>
+<li>`stat.value: The numerical value corresponding to the statistical test or measure, providing additional context about the inference (e.g., significance or performance score).</li>
 <li>
-<code>isig</code>: A logical value indicating whether the
-statistical result is significant (<code>TRUE</code>) or not, based on
-predefined criteria (e.g., threshold for P-value).</li>
+<code>isig</code>: A logical value indicating whether the statistical result is significant (<code>TRUE</code>) or not, based on predefined criteria (e.g., threshold for P-value).</li>
 <li>
-<code>msg</code>: A message or error related to the inference
-process.</li>
+<code>msg</code>: A message or error related to the inference process.</li>
 <li>
-<code>varx</code>: The name of the first variable in the analysis
-(independent variable or feature).</li>
+<code>varx</code>: The name of the first variable in the analysis (independent variable or feature).</li>
 <li>
-<code>vary</code>: The name of the second variable in the analysis
-(dependent/target variable).</li>
+<code>vary</code>: The name of the second variable in the analysis (dependent/target variable).</li>
 </ul>
 </li>
-<li><p><strong>index</strong>: A table that contains the pairs of
-indices used in each inference of the <code>data</code> table.</p></li>
+<li><p><strong>index</strong>: A table that contains the pairs of indices used in each inference of the <code>data</code> table.</p></li>
 </ul>
 </div>
 <div class="section level3">
 <h3 id="filtering-significant-correlations">3. Filtering Significant Correlations<a class="anchor" aria-label="anchor" href="#filtering-significant-correlations"></a>
 </h3>
-<p>To focus on significant correlations, you can filter the results
-based on significance or another criterion. Here, we filter the results
-for all correlations that are significant according to the default
-p-value threshold of 0.05.</p>
+<p>To focus on significant correlations, you can filter the results based on significance or another criterion. Here, we filter the results for all correlations that are significant according to the default p-value threshold of 0.05.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Filter significant correlations (p-value &lt; 0.05)</span></span>
 <span><span class="va">significant_results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/subset.html" class="external-link">subset</a></span><span class="op">(</span><span class="va">results</span><span class="op">$</span><span class="va">data</span>, <span class="va">isig</span><span class="op">)</span></span>
@@ -592,8 +559,7 @@ p-value threshold of 0.05.</p>
 <span><span class="co">#&gt; 55               sex               sex</span></span>
 <span><span class="co">#&gt; 61              year flipper_length_mm</span></span>
 <span><span class="co">#&gt; 64              year              year</span></span></code></pre></div>
-<p>You can modify the p-value threshold of 0.05 by using the argument
-<code>p.value</code> in <code>corrp</code> function.</p>
+<p>You can modify the p-value threshold of 0.05 by using the argument <code>p.value</code> in <code>corrp</code> function.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Set the p-value treshold to 0.3</span></span>
 <span><span class="va">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/corrp.html">corrp</a></span><span class="op">(</span></span>
@@ -701,22 +667,16 @@ p-value threshold of 0.05.</p>
 <div class="section level3">
 <h3 id="correlation-types">4. Correlation Types<a class="anchor" aria-label="anchor" href="#correlation-types"></a>
 </h3>
-<p>The <code>corrp</code> function allows you to specify different
-correlation methods based on the types of variables being compared:</p>
+<p>The <code>corrp</code> function allows you to specify different correlation methods based on the types of variables being compared:</p>
 <ul>
 <li>
-<strong>Numerical-Numerical Correlations</strong>: Options include
-PPS, Pearson, MIC, and Dcor.</li>
+<strong>Numerical-Numerical Correlations</strong>: Options include PPS, Pearson, MIC, and Dcor.</li>
 <li>
-<strong>Numerical-Categorical Correlations</strong>: Options include
-PPS and LM.</li>
+<strong>Numerical-Categorical Correlations</strong>: Options include PPS and LM.</li>
 <li>
-<strong>Categorical-Categorical Correlations</strong>: Options
-include PPS, Cramer’s V and Uncertainty Coefficient.</li>
+<strong>Categorical-Categorical Correlations</strong>: Options include PPS, Cramer’s V and Uncertainty Coefficient.</li>
 </ul>
-<p>For example, let’s compute the correlations using different methods
-for numerical-numerical, numerical-categorical, and
-categorical-categorical data.</p>
+<p>For example, let’s compute the correlations using different methods for numerical-numerical, numerical-categorical, and categorical-categorical data.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Example of changing correlation methods</span></span>
 <span><span class="va">results_custom</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/corrp.html">corrp</a></span><span class="op">(</span></span>
@@ -858,12 +818,7 @@ categorical-categorical data.</p>
 <span><span class="co">#&gt; 62                  year       body_mass_g</span></span>
 <span><span class="co">#&gt; 63                  year               sex</span></span>
 <span><span class="co">#&gt; 64                  year              year</span></span></code></pre></div>
-<p>Originally, Pearson, LM, and Cramér’s V were used to capture
-primarily linear and straightforward associations among variables. The
-updated configuration replaces these with MIC, PPS, and the Uncertainty
-Coefficient, which are designed to detect non-linear, complex
-relationships and provide directional insights into predictive
-strength.</p>
+<p>Originally, Pearson, LM, and Cramér’s V were used to capture primarily linear and straightforward associations among variables. The updated configuration replaces these with MIC, PPS, and the Uncertainty Coefficient, which are designed to detect non-linear, complex relationships and provide directional insights into predictive strength.</p>
 </div>
 </div>
 <div class="section level2">
@@ -872,16 +827,7 @@ strength.</p>
 <div class="section level3">
 <h3 id="parallel-processing">1. Parallel Processing<a class="anchor" aria-label="anchor" href="#parallel-processing"></a>
 </h3>
-<p>You can enable parallel processing to speed up the computation,
-especially when working with large datasets. Set the
-<code>n.cores</code> argument to the number of cores you’d like to use.
-To demonstrate the efficiency of the <code>corrp</code> package on
-larger datasets, we benchmark the performance of computing correlations
-on the <code>eusilc</code> dataset using parallel processing. The
-following code compares execution times using 8 cores versus 2 cores. In
-order to simulate a large dataset, we are going to sample with
-replacement 100,000 times so that our data consists of 28 columns and
-100,000 rows, having 4 character variables and the rest as numeric.</p>
+<p>You can enable parallel processing to speed up the computation, especially when working with large datasets. Set the <code>n.cores</code> argument to the number of cores you’d like to use. To demonstrate the efficiency of the <code>corrp</code> package on larger datasets, we benchmark the performance of computing correlations on the <code>eusilc</code> dataset using parallel processing. The following code compares execution times using 8 cores versus 2 cores. In order to simulate a large dataset, we are going to sample with replacement 100,000 times so that our data consists of 28 columns and 100,000 rows, having 4 character variables and the rest as numeric.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/meantrix/corrp" class="external-link">corrp</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">laeken</span><span class="op">)</span></span>
@@ -895,7 +841,7 @@ replacement 100,000 times so that our data consists of 28 columns and
 </h4>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Use bench to measure the performance of parallel processing using 8 cores</span></span>
-<span><span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span></span>
+<span><span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/corrp.html">corrp</a></span><span class="op">(</span><span class="va">eusilc</span>,</span>
 <span>    cor.nn <span class="op">=</span> <span class="st">"pearson"</span>,</span>
 <span>    cor.nc <span class="op">=</span> <span class="st">"lm"</span>,</span>
@@ -917,7 +863,7 @@ replacement 100,000 times so that our data consists of 28 columns and
 </h4>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Use bench to measure the performance of parallel processing using 2 cores</span></span>
-<span><span class="va">r</span> <span class="op">=</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu">mark</span><span class="op">(</span></span>
+<span><span class="va">r</span> <span class="op">=</span> <span class="fu">bench</span><span class="fu">::</span><span class="fu"><a href="https://bench.r-lib.org/reference/mark.html" class="external-link">mark</a></span><span class="op">(</span></span>
 <span>  <span class="fu"><a href="../reference/corrp.html">corrp</a></span><span class="op">(</span><span class="va">eusilc</span>,</span>
 <span>    cor.nn <span class="op">=</span> <span class="st">"pearson"</span>,</span>
 <span>    cor.nc <span class="op">=</span> <span class="st">"lm"</span>,</span>
@@ -937,29 +883,15 @@ replacement 100,000 times so that our data consists of 28 columns and
 <div class="section level4">
 <h4 id="performance-comparison">Performance Comparison<a class="anchor" aria-label="anchor" href="#performance-comparison"></a>
 </h4>
-<p>Based on your benchmark results, there’s a very significant
-improvement in performance when increasing from 2 cores to 8 cores for
-the <code>corrp</code> function on the <code>eusilc</code> dataset.</p>
-<p>Using 8 cores instead of 2 cores gave us more than double the speed.
-Each run took about 22 seconds with 8 cores compared to 49 seconds with
-just 2 cores. This clearly shows how adding more processing power can
-dramatically cut down computation time for large datasets.</p>
-<p>These results demonstrate that the <code>corrp</code> function
-benefits from additional cores, showing that parallel processing can
-enhance the efficiency of computations with large datasets like
-<code>eusilc</code>. While the scaling isn’t near-linear (4x increase in
-cores yielded about a 2.3x speedup), the performance improvement is
-still substantial and worthwhile for correlation computations, which can
-be computationally intensive when working with large datasets.</p>
+<p>Based on your benchmark results, there’s a very significant improvement in performance when increasing from 2 cores to 8 cores for the <code>corrp</code> function on the <code>eusilc</code> dataset.</p>
+<p>Using 8 cores instead of 2 cores gave us more than double the speed. Each run took about 22 seconds with 8 cores compared to 49 seconds with just 2 cores. This clearly shows how adding more processing power can dramatically cut down computation time for large datasets.</p>
+<p>These results demonstrate that the <code>corrp</code> function benefits from additional cores, showing that parallel processing can enhance the efficiency of computations with large datasets like <code>eusilc</code>. While the scaling isn’t near-linear (4x increase in cores yielded about a 2.3x speedup), the performance improvement is still substantial and worthwhile for correlation computations, which can be computationally intensive when working with large datasets.</p>
 </div>
 </div>
 <div class="section level3">
 <h3 id="custom-inferences-with-corr_fun">2. Custom Inferences with <code>corr_fun</code><a class="anchor" aria-label="anchor" href="#custom-inferences-with-corr_fun"></a>
 </h3>
-<p>The <code>corr_fun</code> function can be used directly if you need
-finer control over the correlation calculation for specific pairs of
-variables. It allows you to specify the variables and methods for
-computing the correlation.</p>
+<p>The <code>corr_fun</code> function can be used directly if you need finer control over the correlation calculation for specific pairs of variables. It allows you to specify the variables and methods for computing the correlation.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Using corr_fun to compute Pearson correlation between body_mass_g and flipper_length_mm</span></span>
 <span><span class="fu"><a href="../reference/corr_fun.html">corr_fun</a></span><span class="op">(</span></span>
@@ -997,12 +929,7 @@ computing the correlation.</p>
 <div class="section level2">
 <h2 id="conclusion">Conclusion<a class="anchor" aria-label="anchor" href="#conclusion"></a>
 </h2>
-<p>The <code>corrp</code> package provides a simple way to compute
-correlations across different types of variables. If you are working
-with mixed data, <code>corrp</code> offers a solution for your
-correlation analysis needs. By leveraging parallel processing and C++
-implementation, <code>corrp</code> can handle large datasets
-efficiently.</p>
+<p>The <code>corrp</code> package provides a simple way to compute correlations across different types of variables. If you are working with mixed data, <code>corrp</code> offers a solution for your correlation analysis needs. By leveraging parallel processing and C++ implementation, <code>corrp</code> can handle large datasets efficiently.</p>
 </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside>
