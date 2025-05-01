@@ -2,7 +2,7 @@ test_that("Tests on acca and sil_acca functions", {
   # data to tests
   df <- iris
   k <- 2
-  corr <- corrp(df, comp = "g", alternative = "t")
+  corr <- corrp(df, comp = "g", alternative = "t", verbose = T)
 
   m <- corr_matrix(corr)
   m2 <- m
@@ -20,12 +20,14 @@ test_that("Tests on acca and sil_acca functions", {
   # colnames
   expect_true(all(unlist(acca.res) %in% colnames(m)))
   s <- sil_acca(acca.res, m)
+  expect_warning(s2 <- sil_acca(acca.res2, m2))
   expect_true(inherits(s, "corrpstat"))
+  expect_true(inherits(s2, "corrpstat"))
 
   # check also when results is a normal list
   acca.res.list <- acca.res
   class(acca.res.list) <- "list"
-  expect_warning(s.list <- sil_acca(acca.res.list, m))
+  expect_warning(s.list <- sil_acca(acca.res.list, m2))
   expect_equal(s, s.list)
 })
 
@@ -33,7 +35,7 @@ test_that("Tests on acca and sil_acca functions", {
 test_that("Checks if best_acca works", {
   # data to tests
   df <- iris
-  corr <- corrp(df, comp = "g", alternative = "t")
+  corr <- corrp(df, comp = "g", alternative = "t", verbose = T)
 
   m <- corr_matrix(corr)
   expect_s3_class(m, "cmatrix")

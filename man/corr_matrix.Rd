@@ -22,6 +22,12 @@ corr_matrix(c, ...)
 \item{isig}{[\code{logical(1)}]\cr Determines whether values that are not statistically significant
 should be represented by NA or FALSE in the correlation matrix.}
 }
+\value{
+[\code{cmatrix}]\cr
+A square matrix with class "cmatrix" where each cell [i,j] contains the correlation value between variables i and j.
+The correlation values are taken from the specified column (infer.value, stat.value, or isig) of the input clist.
+When \code{isig=TRUE}, only statistically significant correlations are included, others are set to NA.
+}
 \description{
 Using the results obtained from the corrp function,
 this function creates a correlation matrix.

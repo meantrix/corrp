@@ -1,7 +1,9 @@
 #' @title Filter Data Frame by Correlation Values
 #'
 #' @description Remove highly correlated variables from a data frame using the
-#' correlation functions' outputs and the \code{\link[caret]{findCorrelation}} function from the caret package.
+#' correlation functions' outputs and the \code{\link[caret]{findCorrelation}} function
+#' from the caret package in order to reduce pair-wise correlations. This function is
+#' suited for mitigating multicollinearity issues in statistical models.
 #'
 #' @param df \[\code{data.frame(1)}\]\cr The input data frame.
 #' @param c \[\code{clist(1)} | \code{cmatrix}\]\cr A correlation list output from the \code{\link[corrp]{corrp}} function (with class \code{clist}),
@@ -12,6 +14,9 @@
 #' @param isig \[\code{logical(1)}\]\cr Whether values that are not statistically significant should
 #' be represented by \code{NA} or \code{FALSE} in the correlation matrix.
 #' @param ... Additional arguments.
+#'
+#' @return \[\code{data.frame}\]\cr
+#' A data frame with highly correlated variables removed based on the specified cutoff.
 #'
 #' @examples
 #'

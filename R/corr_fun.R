@@ -1,4 +1,4 @@
-#' @title Compute Correlation Type Analysis with Statistical Significance
+#' @title Compute Correlation for Specified Columns
 #'
 #' @description Performs correlation type analysis
 #' on two mixed-class columns of a given dataframe.

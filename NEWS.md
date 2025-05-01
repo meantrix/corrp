@@ -1,7 +1,4 @@
-# CHANGELOG
-
-
-## 0.6.0
+# corrp 0.6.0
 
 Dedicated version for the publication of the corrp package in the JOSS.
 
@@ -16,17 +13,17 @@ Dedicated version for the publication of the corrp package in the JOSS.
   - Provide a brief remark on the symmetry of the correlation matrix.
 - Update `README.md` according with changes in the paper and functions.
 
-### Methods Added
+## Methods Added
 
 -  Added method `set_arguments`: Assigns provided arguments from the `args_list` to the parent environment. If an argument is inside the arguments of the methods that calculate statistics, it assigns it on the parent environment, and removes the argument from the list.
 -  Added method `assert_required_argument`: Ensures that a required argument is provided. If the argument is missing, it throws an error with a clear message.
 
-### Methods Altered
+## Methods Altered
 
 - Altered messages and make *.args lists be able to alter arguments (`p.value`, `comp`, "alternative", "num.s", "rk") of methods: `.corlm`, `.cramersvp`, `.dcorp`, `.corperp`, `.micorp`, `.uncorp`, `.corpps`.
 - Update the `.corpps` method to support p-value testing (`p-test`), which is disabled by default due to its slow performance. When `p-test` is not performed, the `isig` value is set to `NA`. `p-test` can be run assigning an element `ptest = TRUE` to `pps.args` argument.
 
-### Documentation
+## Documentation
 
 - Enhanced the documentation for `corrp` and `corr_fun` by including examples, refining the pair type section with additional details and references, and providing a more comprehensive explanation of the output format and its interpretation.
 - Improved the documentation for `corr_rm` by adding examples and providing a clearer explanation of the `c` parameter.
@@ -35,15 +32,15 @@ Dedicated version for the publication of the corrp package in the JOSS.
 - Fix grammar and ensure package style cohesion.
 
 
-## 0.5.0
+# corrp 0.5.0
 
 - Creates the package website with the command: `usethis::use_pkgdown_github_page`;
 - Improves test coverage to: 84.34%;
 - Clarifies package's authors.
 
-## 0.4.0
+# corrp 0.4.0
 
-### New methods
+## New methods
 
 - `dcor_t_test`: Create Correlation Matrix from corrp inferences (C++ wraper).
 - `C++ methods`:
@@ -60,10 +57,10 @@ Dedicated version for the publication of the corrp package in the JOSS.
     -  p.value: p-value of the t-test.
     -  data.name: description of data.
 
-### Methods Altered
+## Methods Altered
 -  `corr_fun`: Now uses C++ while using distance correlation.
 
-## 0.3.0
+# corrp 0.3.0
 
 - Added C++ implementations of Average correlation clustering algorithm and the Average Silhouette width;
 - `acca` New function to clustering correlations;
@@ -71,7 +68,7 @@ Dedicated version for the publication of the corrp package in the JOSS.
 - `best_acca` Find the optimal number of ACCA clusters;
 - Checks ok.
 
-## 0.2.0
+# corrp 0.2.0
 
 - Changed package name `corrP` to `corrp` ;
 - Changelog file created ;

@@ -9,6 +9,11 @@
 #' should be represented by NA or FALSE in the correlation matrix.
 #' @param ... Not used. Included for S3 method consistency.
 #'
+#' @return \[\code{cmatrix}\]\cr
+#' A square matrix with class "cmatrix" where each cell \[i,j\] contains the correlation value between variables i and j.
+#' The correlation values are taken from the specified column (infer.value, stat.value, or isig) of the input clist.
+#' When \code{isig=TRUE}, only statistically significant correlations are included, others are set to NA.
+#'
 #' @author Igor D.S. Siciliani, Paulo H. dos Santos
 #'
 #' @keywords correlation matrix, corrp

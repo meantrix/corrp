@@ -8,3 +8,4 @@ renv.lock
 .Rprofile
 renv
 inst/doc
+pkgdown

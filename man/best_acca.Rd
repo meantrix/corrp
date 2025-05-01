@@ -22,11 +22,15 @@ from \code{\link{corr_matrix}}.}
 
 \item{maxk}{[\code{integer(1)}]\cr maximum number of clusters considered.}
 
-\item{maxrep}{[\code{integer(1)}]\cr maximum number of interactions
-without change in the clusters in the ACCA method.}
+\item{maxrep}{[\code{integer(1)}]\cr
+Maximum number of consecutive iterations without changes in the cluster structure before stopping the algorithm.
+If the clusters remain identical for \code{maxrep} iterations in a row, the algorithm considers that it has converged and stops early, without reaching \code{maxiter}.
+It serves to speed up execution by detecting when the clustering has stabilized.}
 
-\item{maxiter}{[\code{integer(1)}]\cr maximum number
-of interactions in the ACCA method.}
+\item{maxiter}{[\code{integer(1)}]\cr
+Maximum number of iterations allowed for the algorithm.
+Regardless of cluster stability, the algorithm will be forcibly stopped after \code{maxiter} iterations to prevent infinite loops or excessive computation.
+It acts as a hard upper limit on the runtime.}
 }
 \value{
 [\code{list}]\cr
