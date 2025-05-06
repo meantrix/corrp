@@ -2,3 +2,18 @@ url: https://meantrix.github.io/corrp/
 template:
   bootstrap: 5
 
+reference:
+  - title: "Correlation Analysis"
+    contents:
+      - corr_fun
+      - corrp
+      - corr_matrix
+      - corr_rm
+      - dcor_t_test
+      - ptest
+
+  - title: "Clustering Algorithms"
+    contents:
+      - acca
+      - best_acca
+      - sil_acca

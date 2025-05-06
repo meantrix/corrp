@@ -19,3 +19,4 @@ A description of the argument's purpose and requirements.}
 \description{
 Ensures that a required argument is provided. If the argument is missing, it throws an error with a clear message.
 }
+\keyword{internal}

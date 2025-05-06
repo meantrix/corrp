@@ -429,7 +429,8 @@
 #' A description of the argument's purpose and requirements.
 #'
 #' @return \[\code{NULL}\]
-#'
+#' 
+#' @keywords internal
 assert_required_argument <- function(arg, description) {
   arg_name <- deparse(substitute(arg))
   t <- try(arg, silent = TRUE)
@@ -450,6 +451,7 @@ assert_required_argument <- function(arg, description) {
 #'
 #' @return \[\code{list}\]\cr A modified \code{args_list} with the arguments that were assigned to the parent environment removed.
 #'
+#' @keywords internal
 set_arguments <- function(args_list) {
   checkmate::assert_list(args_list)
   list_name <- deparse(substitute(args_list))
