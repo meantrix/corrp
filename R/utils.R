@@ -32,11 +32,15 @@
 
     if (verbose) {
       msg <- if (isig) {
-        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
-                ny, nx, infer, pv)
+        sprintf(
+          "%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.",
+          ny, nx, infer, pv
+        )
       } else {
-        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
-                ny, nx, p.value, compare$str, pv)
+        sprintf(
+          "%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.",
+          ny, nx, p.value, compare$str, pv
+        )
       }
       message(msg)
     }
@@ -73,11 +77,15 @@
 
     if (verbose) {
       msg <- if (isig) {
-        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
-                ny, nx, infer, pv)
+        sprintf(
+          "%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.",
+          ny, nx, infer, pv
+        )
       } else {
-        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
-                ny, nx, p.value, compare$str, pv)
+        sprintf(
+          "%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.",
+          ny, nx, p.value, compare$str, pv
+        )
       }
       message(msg)
     }
@@ -113,11 +121,15 @@
 
     if (verbose) {
       msg <- if (isig) {
-        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
-                ny, nx, infer, pv)
+        sprintf(
+          "%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.",
+          ny, nx, infer, pv
+        )
       } else {
-        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
-                ny, nx, p.value, compare$str, pv)
+        sprintf(
+          "%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.",
+          ny, nx, p.value, compare$str, pv
+        )
       }
       message(msg)
     }
@@ -155,11 +167,15 @@
 
     if (verbose) {
       msg <- if (isig) {
-        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
-                ny, nx, infer, pv)
+        sprintf(
+          "%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.",
+          ny, nx, infer, pv
+        )
       } else {
-        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
-                ny, nx, p.value, compare$str, pv)
+        sprintf(
+          "%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.",
+          ny, nx, p.value, compare$str, pv
+        )
       }
       message(msg)
     }
@@ -206,11 +222,15 @@
 
     if (verbose) {
       msg <- if (isig) {
-        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
-                ny, nx, infer, pv)
+        sprintf(
+          "%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.",
+          ny, nx, infer, pv
+        )
       } else {
-        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
-                ny, nx, p.value, compare$str, pv)
+        sprintf(
+          "%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.",
+          ny, nx, p.value, compare$str, pv
+        )
       }
       message(msg)
     }
@@ -251,11 +271,15 @@
 
     if (verbose) {
       msg <- if (isig) {
-        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
-                ny, nx, infer, pv)
+        sprintf(
+          "%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.",
+          ny, nx, infer, pv
+        )
       } else {
-        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
-                ny, nx, p.value, compare$str, pv)
+        sprintf(
+          "%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.",
+          ny, nx, p.value, compare$str, pv
+        )
       }
       message(msg)
     }
@@ -296,7 +320,7 @@
   if (!isFALSE(ptest)) {
     stat <- "P-value"
     stat.value <- pv
-    msg <- "Could not calculate the hypothesis test. The p-value is not available."    
+    msg <- "Could not calculate the hypothesis test. The p-value is not available."
 
     if (!is.na(compare$comp)) {
       msg <- ""
@@ -304,11 +328,15 @@
 
       if (verbose) {
         msg <- if (isig) {
-          sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
-                  ny, nx, infer, pv)
+          sprintf(
+            "%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.",
+            ny, nx, infer, pv
+          )
         } else {
-          sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
-                  ny, nx, p.value, compare$str, pv)
+          sprintf(
+            "%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.",
+            ny, nx, p.value, compare$str, pv
+          )
         }
         message(msg)
       }
@@ -368,7 +396,7 @@
 #' A description of the argument's purpose and requirements.
 #'
 #' @return \[\code{NULL}\]
-#' 
+#'
 #' @keywords internal
 assert_required_argument <- function(arg, description) {
   arg_name <- deparse(substitute(arg))

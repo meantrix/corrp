@@ -145,7 +145,8 @@ corr_fun <- function(df,
     )
 
     r <- try(
-      eval(body(computeCorN), list(), enclos = environment()), silent = TRUE
+      eval(body(computeCorN), list(), enclos = environment()),
+      silent = TRUE
     )
   }
 
@@ -163,7 +164,8 @@ corr_fun <- function(df,
     )
 
     r <- try(
-      eval(body(computeCorN), list(), enclos = environment()), silent = TRUE
+      eval(body(computeCorN), list(), enclos = environment()),
+      silent = TRUE
     )
   }
 
@@ -186,7 +188,8 @@ corr_fun <- function(df,
 
 
     r <- try(
-      eval(body(computeCorN), list(), enclos = environment()), silent = TRUE
+      eval(body(computeCorN), list(), enclos = environment()),
+      silent = TRUE
     )
   }
 
