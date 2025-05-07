@@ -16,10 +16,10 @@
     do.call(stats::lm, args)
   )
 
-  pv <- stats::pf(sum.res$fstatistic[1], sum.res$fstatistic[2],
+  pv <- unname(stats::pf(sum.res$fstatistic[1], sum.res$fstatistic[2],
     sum.res$fstatistic[3],
     lower.tail = FALSE
-  ) %>% unname()
+  ))
 
   compare <- .comparepv(x = pv, pv = p.value, comp = comp)
   r <- sqrt(sum.res[["r.squared"]])
@@ -296,7 +296,7 @@
   ptest <- FALSE
   set_arguments(pps.args)
   args <- c(list(data.frame(x = unlist(x), y = unlist(y))), list("x", "y"), pps.args)
-  args <- modifyList(args, list(verbose = FALSE))
+  args <- utils::modifyList(args, list(verbose = FALSE))
 
   if (!isFALSE(ptest)) {
     pv <- ptest(y, x, FUN = function(x, y) {

@@ -100,8 +100,6 @@ test_that("Tests on corrp and cor_fun functions", {
       cly <- clz
     }
 
-
-
     i.test <- summary(stats::lm(y ~ as.factor(x)))
 
     expect_equal(as.numeric(stats::pf(i.test$fstatistic[1], i.test$fstatistic[2],
@@ -158,8 +156,6 @@ test_that("Tests on corrp and cor_fun functions", {
       verbose = T
     )
 
-
-
     expect_equal(i.test$pps, i.fun$infer.value)
     expect_equal(i.test$metric, i.fun$stat)
     expect_equal(i.test$model_score, i.fun$stat.value)
@@ -175,8 +171,6 @@ test_that("Tests on corrp and cor_fun functions", {
       nx = as.character(data.cramer$varx[i]), ny = as.character(data.cramer$vary[i]), alternative = "t", cor.cc = "pps",
       verbose = T
     )
-
-
 
     expect_equal(i.test$pps, i.fun$infer.value)
     expect_equal(i.test$metric, i.fun$stat)
