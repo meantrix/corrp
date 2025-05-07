@@ -19,39 +19,28 @@
   pv <- stats::pf(sum.res$fstatistic[1], sum.res$fstatistic[2],
     sum.res$fstatistic[3],
     lower.tail = FALSE
-  )
+  ) %>% unname()
 
   compare <- .comparepv(x = pv, pv = p.value, comp = comp)
   r <- sqrt(sum.res[["r.squared"]])
-  msg <- ""
+  msg <- "Could not calculate the hypothesis test. The p-value is not available."
+  isig <- NA
 
-
-  if (compare$comp) {
-    isig <- TRUE
-
-    if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
-        "P-value: ", pv, "."
-      )
-
-      message(msg)
-    }
-  } else {
-    isig <- FALSE
+  if (!is.na(compare$comp)) {
+    msg <- ""
+    isig <- compare$comp
 
     if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "There is no correlation at the confidence level p-value. ",
-        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
-      )
-
+      msg <- if (isig) {
+        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
+                ny, nx, infer, pv)
+      } else {
+        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
+                ny, nx, p.value, compare$str, pv)
+      }
       message(msg)
     }
   }
-
 
   return(list(
     infer = infer, infer.value = r, stat = stat, stat.value = pv,
@@ -75,31 +64,21 @@
   r <- do.call(lsr::cramersV, args)
 
   compare <- .comparepv(x = pv, pv = p.value, comp = comp)
-  msg <- ""
+  msg <- "Could not calculate the hypothesis test. The p-value is not available."
+  isig <- NA
 
-
-  if (compare$comp) {
-    isig <- TRUE
-
-    if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
-        "P-value: ", pv, "."
-      )
-
-      message(msg)
-    }
-  } else {
-    isig <- FALSE
+  if (!is.na(compare$comp)) {
+    msg <- ""
+    isig <- compare$comp
 
     if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "There is no correlation at the confidence level p-value. ",
-        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
-      )
-
+      msg <- if (isig) {
+        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
+                ny, nx, infer, pv)
+      } else {
+        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
+                ny, nx, p.value, compare$str, pv)
+      }
       message(msg)
     }
   }
@@ -125,30 +104,21 @@
   pv <- dc$p.value
   r <- as.numeric(dc$estimate)
   compare <- .comparepv(x = pv, pv = p.value, comp = comp)
-  msg <- ""
+  msg <- "Could not calculate the hypothesis test. The p-value is not available."
+  isig <- NA
 
-  if (compare$comp) {
-    isig <- TRUE
-
-    if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
-        "P-value: ", pv, "."
-      )
-
-      message(msg)
-    }
-  } else {
-    isig <- FALSE
+  if (!is.na(compare$comp)) {
+    msg <- ""
+    isig <- compare$comp
 
     if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "There is no correlation at the confidence level p-value. ",
-        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
-      )
-
+      msg <- if (isig) {
+        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
+                ny, nx, infer, pv)
+      } else {
+        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
+                ny, nx, p.value, compare$str, pv)
+      }
       message(msg)
     }
   }
@@ -176,31 +146,21 @@
   pv <- res[["p.value"]]
   r <- as.numeric(res[["estimate"]])
   compare <- .comparepv(x = pv, pv = p.value, comp = comp)
-  msg <- ""
+  msg <- "Could not calculate the hypothesis test. The p-value is not available."
+  isig <- NA
 
-
-  if (compare$comp) {
-    isig <- TRUE
-
-    if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
-        "P-value: ", pv, "."
-      )
-
-      message(msg)
-    }
-  } else {
-    isig <- FALSE
+  if (!is.na(compare$comp)) {
+    msg <- ""
+    isig <- compare$comp
 
     if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "There is no correlation at the confidence level p-value. ",
-        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
-      )
-
+      msg <- if (isig) {
+        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
+                ny, nx, infer, pv)
+      } else {
+        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
+                ny, nx, p.value, compare$str, pv)
+      }
       message(msg)
     }
   }
@@ -237,30 +197,21 @@
     z <- minerva::mine(...)
     return(z$MIC)
   }, args)
-  msg <- ""
+  msg <- "Could not calculate the hypothesis test. The p-value is not available."
+  isig <- NA
 
-  if (compare$comp) {
-    isig <- TRUE
-
-    if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
-        "P-value: ", pv, "."
-      )
-
-      message(msg)
-    }
-  } else {
-    isig <- FALSE
+  if (!is.na(compare$comp)) {
+    msg <- ""
+    isig <- compare$comp
 
     if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "There is no correlation at the confidence level p-value. ",
-        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
-      )
-
+      msg <- if (isig) {
+        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
+                ny, nx, infer, pv)
+      } else {
+        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
+                ny, nx, p.value, compare$str, pv)
+      }
       message(msg)
     }
   }
@@ -291,30 +242,21 @@
   stat <- "P-value"
   compare <- .comparepv(x = pv, pv = p.value, comp = comp)
   r <- do.call(DescTools::UncertCoef, args)
-  msg <- ""
+  msg <- "Could not calculate the hypothesis test. The p-value is not available."
+  isig <- NA
 
-  if (compare$comp) {
-    isig <- TRUE
-
-    if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "Alternative hypothesis: true ", infer, " is not equal to 0. ",
-        "P-value: ", pv, "."
-      )
-
-      message(msg)
-    }
-  } else {
-    isig <- FALSE
+  if (!is.na(compare$comp)) {
+    msg <- ""
+    isig <- compare$comp
 
     if (verbose) {
-      msg <- paste0(
-        ny, " vs. ", nx, ". ",
-        "There is no correlation at the confidence level p-value. ",
-        "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, "."
-      )
-
+      msg <- if (isig) {
+        sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
+                ny, nx, infer, pv)
+      } else {
+        sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
+                ny, nx, p.value, compare$str, pv)
+      }
       message(msg)
     }
   }
@@ -330,6 +272,7 @@
   ptest <- FALSE
   set_arguments(pps.args)
   args <- c(list(data.frame(x = unlist(x), y = unlist(y))), list("x", "y"), pps.args)
+  args <- modifyList(args, list(verbose = FALSE))
 
   if (!isFALSE(ptest)) {
     pv <- ptest(y, x, FUN = function(x, y) {
@@ -340,6 +283,7 @@
 
     compare <- .comparepv(x = pv, pv = p.value, comp = comp)
   }
+
   r <- do.call(ppsr::score, args)
 
   msg <- ""
@@ -352,26 +296,21 @@
   if (!isFALSE(ptest)) {
     stat <- "P-value"
     stat.value <- pv
+    msg <- "Could not calculate the hypothesis test. The p-value is not available."    
 
-    if (compare$comp) {
-      isig <- TRUE
-
-      if (verbose) {
-        msg <- paste0(
-          ny, " vs. ", nx, ". ",
-          "Alternative hypothesis: true ", infer, " is not equal to 0. ",
-          "P-value: ", pv, ".\n"
-        )
-      }
-    } else {
-      isig <- FALSE
+    if (!is.na(compare$comp)) {
+      msg <- ""
+      isig <- compare$comp
 
       if (verbose) {
-        msg <- paste0(
-          ny, " vs. ", nx, ". ",
-          "There is no correlation at the confidence level p-value. ",
-          "P-value:", p.value, " ", compare$str, " estimated p-value: ", pv, ".\n"
-        )
+        msg <- if (isig) {
+          sprintf("%s vs. %s. Alternative hypothesis: true %s is not equal to 0. P-value: %s.", 
+                  ny, nx, infer, pv)
+        } else {
+          sprintf("%s vs. %s. There is no correlation at the confidence level p-value. P-value:%s %s estimated p-value: %s.", 
+                  ny, nx, p.value, compare$str, pv)
+        }
+        message(msg)
       }
     }
   }

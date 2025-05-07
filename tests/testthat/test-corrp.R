@@ -224,9 +224,10 @@ test_that("corrp and corr_fun handle messy data", {
     cat2 = sample(c("X", "Y"), 50, replace = TRUE)
   )
 
-  expect_equal(corr_fun(df.bad, "A", "D", verbose = TRUE)$infer.value, NA)
+  expect_equal(corr_fun(df.bad, "A", "D", verbose = TRUE)$stat.value, NaN)
 
-  expect_warning(corrp(df.bad,
+  expect_warning(corrp(
+    df.bad,
     verbose = FALSE,
     cor.nn = "mic",
     cor.nc = "pps",
