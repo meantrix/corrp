@@ -6,12 +6,6 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Compute Correlations Type Analysis in Parallel • corrp</title>
-<!-- favicons --><link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-<link rel="apple-touch-icon" type="image/png" sizes="180x180" href="apple-touch-icon.png">
-<link rel="apple-touch-icon" type="image/png" sizes="120x120" href="apple-touch-icon-120x120.png">
-<link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
-<link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
 <script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
@@ -118,11 +112,13 @@
 <h3 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h3>
 <p>Before you begin, ensure you have met the following requirement(s):</p>
-<ul><li>You have <code>R &gt;= 3.6.2</code> installed.</li></ul>
+<ul>
+<li>You have <code>R &gt;= 3.6.2</code> installed.</li>
+</ul>
 <p>Install the development version from GitHub:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="st"><a href="https://remotes.r-lib.org" class="external-link">'remotes'</a></span><span class="op">)</span></span>
-<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html" class="external-link">install_github</a></span><span class="op">(</span><span class="st">"meantrix/corrp@main"</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">remotes</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"meantrix/corrp@main"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
 <div class="section level2">
@@ -170,8 +166,8 @@
 <p>We can use the <code><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html" class="external-link">corrplot::corrplot</a></code> function to plot the correlation matrix.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu">corrplot</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/corrplot/man/corrplot.html" class="external-link">corrplot</a></span><span class="op">(</span><span class="va">m</span><span class="op">)</span></span></code></pre></div>
-<div class="figure">
-<img src="images/corrplot.svg" alt="Correlation Matrix Plot"><p class="caption">Correlation Matrix Plot</p>
+<div class="float">
+<img src="images/corrplot.svg" alt="Correlation Matrix Plot"><div class="figcaption">Correlation Matrix Plot</div>
 </div>
 <p>Now, we can clustering the data set variables through ACCA and the correlation matrix. By way of example, consider 2 clusters <code>k = 2</code>:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
@@ -254,8 +250,8 @@
 <div class="developers">
 <h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li>Igor Dornelles Schoeller Siciliani <br><small class="roles"> Author, maintainer </small>  </li>
-<li>Paulo Henrique dos Santos <br><small class="roles"> Author </small>  </li>
+<li>Igor Dornelles Schoeller Siciliani <br><small class="roles"> Author, maintainer </small>   </li>
+<li>Paulo Henrique dos Santos <br><small class="roles"> Author </small>   </li>
 </ul>
 </div>
 
@@ -270,7 +266,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.1.2.</p>
 </div>
 
     </footer>
