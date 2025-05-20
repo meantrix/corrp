@@ -67,7 +67,7 @@ For example, in a genomic prediction study the authors removed highly correlated
 to avoid redundant information when working with thousands of markers, improving
 training efficiency and predictive performance (Wimmer et al. 2021).
 
-In the paper \emph{"A Proposed Data Analytics Workflow and Example Using the R Caret Package,"}
+In the paper \emph{"A Proposed Data Analytics Workflow and Example Using the R Caret Package"},
 this filtering step is applied before model training, demonstrating how the core function
 \code{caret::findCorrelation} can be used to identify and remove highly correlated variable pairs.
 
