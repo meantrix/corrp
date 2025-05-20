@@ -75,9 +75,9 @@ Note that while high correlation can bias algorithms like clustering algorithms 
 redundant variables, it is much less problematic for tree-based learners.
 }
 \examples{
-iris_clist   <- corrp(iris)
+iris_clist <- corrp(iris)
 iris_cmatrix <- corr_matrix(iris_clist)
-corr_rm(df = iris, c = iris_clist,   cutoff = 0.75, col = "infer.value", isig = FALSE)
+corr_rm(df = iris, c = iris_clist, cutoff = 0.75, col = "infer.value", isig = FALSE)
 corr_rm(df = iris, c = iris_cmatrix, cutoff = 0.75, col = "infer.value", isig = FALSE)
 
 }
