@@ -3,7 +3,7 @@ pkgdown: 2.1.2
 pkgdown_sha: ~
 articles:
   usage-corrp: usage-corrp.html
-last_built: 2025-05-21T13:51Z
+last_built: 2025-05-21T15:41Z
 urls:
   reference: https://meantrix.github.io/corrp/reference
   article: https://meantrix.github.io/corrp/articles
