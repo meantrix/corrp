@@ -5,6 +5,7 @@
 [![version](https://img.shields.io/badge/version-0.6.0-green.svg)](https://semver.org)
 [![License: GPL3](https://img.shields.io/badge/License-GPL3-green.svg)](https://www.gnu.org/licenses/gpl-3.0.en.html)
 [![R-CMD-check](https://github.com/meantrix/corrp/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/meantrix/corrp/actions/workflows/R-CMD-check.yaml)
+[![DOI](https://joss.theoj.org/papers/10.21105/joss.07319/status.svg)](https://doi.org/10.21105/joss.07319)
 <!-- badges: end -->
 
 Correlation-like analysis provides an important statistical measure that describes the size and direction of an association between variables. However, there are few R packages that can efficiently perform this type of analysis on large datasets with mixed data types. The `corrp` package provides a full suite of solutions for computing various correlation-like measures, such as Pearson correlation, Distance Correlation, Maximal Information Coefficient (MIC), Predictive Power Score (PPS), Cramér's V, and the Uncertainty Coefficient. These methods support the analysis of data frames with mixed classes (integer, numeric, factor, and character).
